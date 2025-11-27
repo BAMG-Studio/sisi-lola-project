@@ -1,0 +1,22 @@
+{
+  "injected_prompt": "Cinematic commercial video in 16:9: Sisi Lola stands in soft, golden morning light by a sunlit window, presenting a steaming cup of Coffee Brand Morning with confident poise. She wears a modern, fitted Yoruba iro and buba ensemble crafted from rich, vibrant Ankara fabric\u2014her buba tailored to flatter her voluptuous hourglass figure, the iro elegantly wrapped at the waist, and a matching gele completing her regal look[1][3][5]. Her dark, luminous skin glows with realistic texture, high cheekbones and almond eyes enhanced by impeccable, glamorous makeup. The camera begins with a smooth dolly-in from waist to close-up, capturing the rising steam and her captivating, confident expression as she gently lifts the cup, making direct eye contact with the viewer. The atmosphere is aspirational and inviting, with cinematic lighting and shallow depth of field focusing on Sisi Lola and the product, evoking the fresh promise of morning. Her luminous dark skin has realistic texture and gentle sheen under the light.",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "provider": "OpenAI-stub",
+  "perplexity_error": "Client error '404 Not Found' for url 'https://api.perplexity.ai/videos'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404",
+  "status": "success",
+  "fallback_reason": "KlingAI video generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/videos/text2video'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "result": {
+    "media_url": "C:\\Users\\POK28\\AppData\\Local\\Temp\\stub_video_zwfumtvk\\stub.mp4",
+    "local_path": "C:\\Users\\POK28\\AppData\\Local\\Temp\\stub_video_zwfumtvk\\stub.mp4",
+    "source_image": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-Nz10v7qQ4tJIcG3PzixW8OmO/user-4DLw32bjcn0DtdxKxktY8LRY/img-nYceHoQ6XzXYfVsBWsOehCLl.png?st=2025-11-24T15%3A57%3A10Z&se=2025-11-24T17%3A57%3A10Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=cc612491-d948-4d2e-9821-2683df3719f5&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-11-24T16%3A57%3A10Z&ske=2025-11-25T16%3A57%3A10Z&sks=b&skv=2024-08-04&sig=qUaiI96qcZaxZ03CofL7ls5GUiiPo30T2CeVPojjKNY%3D",
+    "note": "Stub video generated from still image due to provider unavailability."
+  },
+  "http_status": 200,
+  "asset_id": "MED-COM-0121",
+  "modality": "video",
+  "local_path": "C:\\Users\\POK28\\Dropbox\\Sisi_Lola\\assets\\generated\\MED-COM-0121_video.mp4"
+}

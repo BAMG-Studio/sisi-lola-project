@@ -1,0 +1,15 @@
+{
+  "injected_prompt": "Cinematic 16:9 video of Sisi Lola, a breathtakingly beautiful, mature Yoruba influencer with a voluptuous hourglass figure, luminous dark skin, and captivating almond eyes, confidently presenting Coffee Brand Morning in a sunlit, modern kitchen. She wears a fitted, contemporary iro and buba crafted from rich, vibrant Ankara fabric, the wrapper elegantly tied at the waist and the blouse tailored to accentuate her curves, paired with subtle gold jewelry. Morning light streams through the window, casting a soft, cinematic glow and highlighting the realistic texture of her glowing skin. The camera begins with a slow dolly-in from waist height, capturing steam rising sensuously from a branded coffee cup held gracefully in her slender, toned hands. As she smiles and lifts the cup, the camera pans upward to her confident, glamorous face, focusing on her impeccable makeup and high cheekbones, then gently circles to reveal the product logo. The atmosphere is warm, inviting, and aspirational, with every detail honoring her Yoruba heritage and premium style[1][3].",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "provider": "KlingAI",
+  "perplexity_error": "Client error '404 Not Found' for url 'https://api.perplexity.ai/videos/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404",
+  "status": "error",
+  "message": "KlingAI video generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/videos/text2video'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "http_status": 502,
+  "asset_id": "MED-COM-0121",
+  "modality": "video"
+}

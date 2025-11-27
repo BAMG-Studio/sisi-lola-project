@@ -1,0 +1,122 @@
+{
+  "summary": {
+    "overall_percentage": 52.545454545454554,
+    "overall_status": "BLOCKED - Critical issues must be resolved",
+    "total_checks": 11,
+    "ready": 5,
+    "warnings": 4,
+    "blocked": 2,
+    "not_started": 0,
+    "timestamp": "2025-11-25T15:54:41.032198"
+  },
+  "results": [
+    {
+      "category": "Account Management",
+      "check_name": "Database Existence",
+      "status": "\u274c BLOCKED",
+      "message": "Account database not found",
+      "score": 0,
+      "recommendations": [
+        "Run: python3 social_media_account_db.py"
+      ]
+    },
+    {
+      "category": "Content Management",
+      "check_name": "Content Volume",
+      "status": "\u26a0\ufe0f WARNING",
+      "message": "Insufficient content (4/14 items)",
+      "score": 28,
+      "recommendations": [
+        "Create 10 more content items"
+      ]
+    },
+    {
+      "category": "Content Management",
+      "check_name": "Content Scheduling",
+      "status": "\u2705 READY",
+      "message": "4/4 items scheduled",
+      "score": 100,
+      "recommendations": []
+    },
+    {
+      "category": "Content Management",
+      "check_name": "Content Mix Compliance",
+      "status": "\u26a0\ufe0f WARNING",
+      "message": "Mix: 50% edu, 25% ent, 25% com, 0% promo",
+      "score": 50,
+      "recommendations": [
+        "Adjust content mix to match targets:",
+        "Promotional: 0.0% (target 10%)"
+      ]
+    },
+    {
+      "category": "Brand Assets",
+      "check_name": "Profile Pictures",
+      "status": "\u274c BLOCKED",
+      "message": "No profile pictures found",
+      "score": 0,
+      "recommendations": [
+        "Create 800x800px master profile picture",
+        "Use profile_image_validator.py to resize for all platforms",
+        "Save to 05_BRANDING_ARTIFACTS/profile_pictures/"
+      ]
+    },
+    {
+      "category": "Brand Assets",
+      "check_name": "Banner Images",
+      "status": "\u26a0\ufe0f WARNING",
+      "message": "No banner images found",
+      "score": 0,
+      "recommendations": [
+        "Create platform-specific banners",
+        "YouTube: 2560x1440px",
+        "Facebook: 820x312px",
+        "Save to 05_BRANDING_ARTIFACTS/banners/"
+      ]
+    },
+    {
+      "category": "Brand Assets",
+      "check_name": "Bio Templates",
+      "status": "\u2705 READY",
+      "message": "Bio templates available",
+      "score": 100,
+      "recommendations": []
+    },
+    {
+      "category": "Analytics",
+      "check_name": "Analytics Database",
+      "status": "\u26a0\ufe0f WARNING",
+      "message": "Analytics database not initialized",
+      "score": 0,
+      "recommendations": [
+        "Run: python3 analytics_dashboard.py"
+      ]
+    },
+    {
+      "category": "Integrations",
+      "check_name": "Buffer Integration",
+      "status": "\u2705 READY",
+      "message": "Buffer import file available",
+      "score": 100,
+      "recommendations": [
+        "Import buffer_import.csv into Buffer dashboard"
+      ]
+    },
+    {
+      "category": "Integrations",
+      "check_name": "Automation Documentation",
+      "status": "\u2705 READY",
+      "message": "Automation guide available",
+      "score": 100,
+      "recommendations": []
+    },
+    {
+      "category": "Documentation",
+      "check_name": "Documentation Completeness",
+      "status": "\u2705 READY",
+      "message": "All documentation complete (4/4)",
+      "score": 100,
+      "recommendations": []
+    }
+  ]
+}

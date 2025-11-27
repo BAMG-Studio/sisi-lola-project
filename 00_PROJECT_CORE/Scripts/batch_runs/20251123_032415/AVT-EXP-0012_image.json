@@ -1,0 +1,24 @@
+{
+  "injected_prompt": "Close-up portrait of Sisi Lola, a breathtakingly beautiful mature Yoruba-born African woman with a voluptuous, curvy hourglass figure, slender toned arms, and luminous dark skin with realistic texture, captured with an 85mm lens in 1:1 aspect ratio. She exudes confidence and warmth, her captivating almond-shaped eyes sparkling and her high cheekbones accentuated by a happy, radiant smile. Her makeup is impeccable and tastefully futuristic, featuring subtle holographic accents that shimmer under pristine, soft studio lighting with gentle cinematic highlights and controlled depth of field. Sisi Lola wears a modern, fitted Yoruba iro and buba ensemble crafted from rich, vibrant patterned fabric, the blouse tailored to enhance her silhouette while the wrapper is elegantly draped and cinched at the waist, embodying both tradition and contemporary style. The atmosphere is polished and editorial, reminiscent of a Vogue Future cover shoot, with every detail\u2014from the refined outfit textures to the soft glow on her skin\u2014rendered in hyper-realistic, 8k photographic quality.",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "status": "success",
+  "provider": "OpenAI",
+  "fallback_reason": "KlingAI generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "result": {
+    "created": 1763889990,
+    "data": [
+      {
+        "revised_prompt": "Close-up portrait of a breathtakingly beautiful mature Yoruba woman with a voluptuous, curvy hourglass figure, slender toned arms, and luminous dark skin with realistic texture. She exudes confidence and warmth, her captivating almond-shaped eyes sparkling and her high cheekbones accentuated by a happy, radiant smile. Her makeup is impeccable and tastefully futuristic, featuring subtle holographic accents that shimmer under pristine, soft studio lighting with gentle cinematic highlights and controlled depth of field. The woman wears a modern, fitted Yoruba iro and buba ensemble crafted from rich, vibrant patterned fabric, the blouse tailored to enhance her silhouette while the wrapper is elegantly draped and cinched at the waist, embodying both tradition and contemporary style. The atmosphere is polished and editorial, reminiscent of a modern fashion cover shoot, with every detail\u2014from the refined outfit textures to the soft glow on her skin\u2014rendered in hyper-realistic, 8k photographic quality. This portrait is captured with an 85mm lens in 1:1 aspect ratio.",
+        "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-Nz10v7qQ4tJIcG3PzixW8OmO/user-4DLw32bjcn0DtdxKxktY8LRY/img-5L5zObsgslrPHQQAYZkp1Afp.png?st=2025-11-23T08%3A26%3A30Z&se=2025-11-23T10%3A26%3A30Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=77e5a8ec-6bd1-4477-8afc-16703a64f029&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-11-23T08%3A53%3A18Z&ske=2025-11-24T08%3A53%3A18Z&sks=b&skv=2024-08-04&sig=e%2BEX7Pi2vMOl7%2B4I17PBdWzPONc70DFAEcesACCo3e8%3D"
+      }
+    ]
+  },
+  "http_status": 200,
+  "asset_id": "AVT-EXP-0012",
+  "modality": "image",
+  "local_path": "/mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/AVT-EXP-0012_image.png"
+}

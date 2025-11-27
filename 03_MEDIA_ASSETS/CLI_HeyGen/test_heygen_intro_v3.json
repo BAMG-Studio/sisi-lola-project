@@ -1,0 +1,20 @@
+{
+  "injected_prompt": "Portrait video of Sisi Lola, a breathtakingly beautiful, mature Yoruba influencer host with a voluptuous hourglass figure, slender toned arms, and luminous dark skin with realistic texture and glow, confidently greeting the audience in a modern, fitted iro and buba crafted from rich, vibrant fabric with intricate patterns. She stands poised in cinematic 8k clarity under soft, directional Vogue Future lighting, which accentuates her captivating almond eyes, high cheekbones, and impeccable makeup. The camera begins with a gentle dolly-in movement from mid-shot to close-up, capturing her confident smile and expressive gesture as she gracefully adjusts her gele headwrap. The atmosphere is elegant and celebratory, with depth of field highlighting Sisi Lola against a subtly blurred, contemporary Nigerian backdrop. Her iro is expertly wrapped to showcase her snatched waist and curvy silhouette, while the buba blouse fits flawlessly, blending tradition and modern glamour.",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "provider": "OpenAI-stub",
+  "script": "Hey family, welcome back to the Tech Lounge. I'm Sisi Lola, and today we're diving into the latest Lagos tech drops. Stick around!",
+  "heygen_error": "HeyGen job failed: {'callback_id': None, 'caption_url': None, 'created_at': 1764101377, 'duration': None, 'error': {'code': 'RESOLUTION_NOT_ALLOWED', 'detail': 'Please subscribe to higher plan to generate higher resolution videos', 'message': 'Please subscribe to higher plan to generate higher resolution videos'}, 'gif_url': None, 'id': '65e21264e2844a17b15e75ba688622fe', 'status': 'failed', 'thumbnail_url': None, 'video_url': None, 'video_url_caption': None}",
+  "perplexity_error": "Client error '404 Not Found' for url 'https://api.perplexity.ai/videos'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404",
+  "status": "success",
+  "fallback_reason": "HeyGen job failed: {'callback_id': None, 'caption_url': None, 'created_at': 1764101377, 'duration': None, 'error': {'code': 'RESOLUTION_NOT_ALLOWED', 'detail': 'Please subscribe to higher plan to generate higher resolution videos', 'message': 'Please subscribe to higher plan to generate higher resolution videos'}, 'gif_url': None, 'id': '65e21264e2844a17b15e75ba688622fe', 'status': 'failed', 'thumbnail_url': None, 'video_url': None, 'video_url_caption': None}",
+  "result": {
+    "media_url": "C:\\Users\\POK28\\AppData\\Local\\Temp\\stub_video__sybei14\\stub.mp4",
+    "local_path": "C:\\Users\\POK28\\AppData\\Local\\Temp\\stub_video__sybei14\\stub.mp4",
+    "source_image": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-Nz10v7qQ4tJIcG3PzixW8OmO/user-4DLw32bjcn0DtdxKxktY8LRY/img-IYgOkmqNCpuVBtmQK2dYhTAz.png?st=2025-11-25T19%3A10%3A34Z&se=2025-11-25T21%3A10%3A34Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=7daae675-7b42-4e2e-ab4c-8d8419a28d99&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-11-25T20%3A10%3A34Z&ske=2025-11-26T20%3A10%3A34Z&sks=b&skv=2024-08-04&sig=30qculyNXq77Q1jVHjz16JnMGfca/J1/KlkZEmN5q6k%3D",
+    "note": "Stub video generated from still image due to provider unavailability."
+  }
+}

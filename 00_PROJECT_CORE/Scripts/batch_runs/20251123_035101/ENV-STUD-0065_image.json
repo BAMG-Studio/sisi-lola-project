@@ -1,0 +1,24 @@
+{
+  "injected_prompt": "Portrait of Sisi Lola seated confidently in a luxurious podcast studio floating high above futuristic Lagos, the space enclosed in a sleek glass pod with sweeping city views. The lounge area features plush African-print cushions and soft, ambient lighting, creating a warm, inviting atmosphere. Sisi Lola\u2019s luminous dark skin glows under cinematic 8k lighting, her captivating almond eyes and high cheekbones framed by impeccable makeup. She wears a modern, fitted Yoruba iro and buba crafted from rich, vibrant fabric\u2014an intricately patterned wrapper elegantly tied at the waist, and a tailored blouse that drapes over her voluptuous hourglass figure, accentuating her snatched waist and slender, toned arms. The camera is positioned at a dramatic corner angle, emphasizing both her regal presence and the studio\u2019s architectural depth, with a subtle depth of field capturing the interplay of light and luxurious textures. The mood is sophisticated and aspirational, perfect for a Vogue Future cover.",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "status": "success",
+  "provider": "OpenAI",
+  "fallback_reason": "KlingAI generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "result": {
+    "created": 1763891612,
+    "data": [
+      {
+        "revised_prompt": "An illustrative portrait of a confident woman set in a luxurious podcast studio located high above a futuristic African cityscape, specifically Lagos. Seated inside a sleek glass pod, the lounge teases sweeping city views, furnished with plush cushions adorned in African prints,under soft and welcoming ambient light. The woman's skin sparkles luminously under high-quality 8K cinematographic lighting, her almondlike eyes and prominent cheekbones featuring meticulous makeup. She's garbed in a contemporary adaptation of Yoruba traditional attire, the iro and buba, tailored from vibrant, intricately-patterned fabric. The attire accentuates her fit waist and sleek arms. To highlight her regal aura and the studio's impressive architecture, a corner camera gazes with a subtle depth of field effect capturing light interactions on varying lux textures. The overall scene has a sophisticated, aspirational mood fit for a future-focused fashion magazine cover.",
+        "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-Nz10v7qQ4tJIcG3PzixW8OmO/user-4DLw32bjcn0DtdxKxktY8LRY/img-cvGl8kf9MI351fxDIff6KN3R.png?st=2025-11-23T08%3A53%3A32Z&se=2025-11-23T10%3A53%3A32Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=7daae675-7b42-4e2e-ab4c-8d8419a28d99&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-11-23T09%3A53%3A32Z&ske=2025-11-24T09%3A53%3A32Z&sks=b&skv=2024-08-04&sig=ygOctf8SyQoij3mCQmhoSNwnVC/fmQKzgAm0G9wvWwQ%3D"
+      }
+    ]
+  },
+  "http_status": 200,
+  "asset_id": "ENV-STUD-0065",
+  "modality": "image",
+  "local_path": "/mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/ENV-STUD-0065_image.png"
+}

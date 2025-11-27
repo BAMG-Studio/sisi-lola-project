@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-11-23T20:52:49.772675",
+  "result": {
+    "injected_prompt": "Portrait of Sisi Lola, a breathtakingly beautiful, mature Yoruba-born African influencer with a voluptuous hourglass figure, slender toned arms, snatched waist, and luminous, dark skin with realistic texture and glow. She smiles confidently at the camera in a professional studio, exuding glamour and poise. Her captivating almond eyes, high cheekbones, and impeccable makeup are highlighted by cinematic 8k lighting and a shallow depth of field, creating a crisp, photorealistic Vogue Future look. She wears a modern, fitted Yoruba iro and buba crafted from rich, vibrant, multi-colored silk and chiffon, featuring intricate patterns and a tailored silhouette that accentuates her curves[1][2]. Accessories include elegant gold jewelry and a stylish gele headwrap, completing her sophisticated ensemble. The atmosphere is polished and contemporary, with soft, diffused studio lights casting a gentle glow, while the camera is positioned at eye level for a direct, engaging 1:1 portrait. Her luminous dark skin has realistic texture and gentle sheen under the light.",
+    "reference_images": [
+      "assets/dna/sisi_dna_v1.png",
+      "assets/dna/sisi_dna_v2.png"
+    ],
+    "dna_integrity": "100%",
+    "perplexity_error": "Client error '404 Not Found' for url 'https://api.perplexity.ai/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404",
+    "status": "success",
+    "provider": "OpenAI",
+    "fallback_reason": "KlingAI generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+    "result": {
+      "created": 1763952769,
+      "data": [
+        {
+          "revised_prompt": "A detailed visual depiction of a mature, Yoruba-born African female influencer with an hourglass figure and toned arms. She is characterised by her glowy dark skin and captivating almond eyes. Her makeup is flawless, highlighting her high cheekbones. She confidently smiles at the camera while being under professional 8k studio lighting, giving attention to her realistic and glossy skin texture. She is adorned in a modern, well-fitted Yoruba iro and buba made of vibrant, multi-colored silk and chiffon showing complex patterns. To complete her ensemble, she wears exquisite gold jewelries and a fashionable gele headwrap. The surrounded ambiance is modern and sophisticated with soft, diffused studio lights and the camera at eye-level for an engaging portrait.",
+          "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-Nz10v7qQ4tJIcG3PzixW8OmO/user-4DLw32bjcn0DtdxKxktY8LRY/img-J6MNbyUwQmKj9nW9GpriwwkT.png?st=2025-11-24T01%3A52%3A49Z&se=2025-11-24T03%3A52%3A49Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=f1dafa11-a0c2-4092-91d4-10981fbda051&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-11-24T01%3A55%3A31Z&ske=2025-11-25T01%3A55%3A31Z&sks=b&skv=2024-08-04&sig=HeoTITbcyLP%2B%2BZ1NibW/OF5ljvs5dW0PeRu37712xpQ%3D"
+        }
+      ]
+    }
+  },
+  "dna_keywords_found": [
+    "voluptuous",
+    "yoruba",
+    "mature",
+    "hourglass",
+    "luminous dark skin"
+  ],
+  "reference_images_count": 2
+}

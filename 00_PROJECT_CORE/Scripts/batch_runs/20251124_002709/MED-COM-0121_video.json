@@ -1,0 +1,15 @@
+{
+  "injected_prompt": "Cinematic commercial video, 16:9 aspect ratio: Sisi Lola, a breathtakingly beautiful, mature Yoruba-born African influencer with a voluptuous hourglass figure, luminous dark skin, and captivating almond eyes, stands confidently in soft, golden morning light streaming through a modern kitchen. She wears a modern, fitted iro and buba crafted from rich, vibrant Ankara fabric, the wrapper elegantly draped to accentuate her snatched waist and the blouse tailored to flatter her toned arms and curves, complemented by a chic gele headwrap[1][3][5]. The camera begins with a smooth dolly-in, capturing the photorealistic texture of her glowing skin and impeccable makeup, then dynamically pans to reveal a steaming cup of Morning Coffee brand on the countertop. Sisi Lola gracefully lifts the cup, steam rising in the crisp morning air, her confident expression and poised movements drawing focus to the product. Cinematic lighting and shallow depth of field create a Vogue Future atmosphere, with every detail\u2014fabric, steam, and skin\u2014rendered in 8k raw photography style, ensuring premium, professional product placement.",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "provider": "KlingAI",
+  "perplexity_error": "Client error '404 Not Found' for url 'https://api.perplexity.ai/videos/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404",
+  "status": "error",
+  "message": "KlingAI video generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/videos/text2video'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "http_status": 502,
+  "asset_id": "MED-COM-0121",
+  "modality": "video"
+}

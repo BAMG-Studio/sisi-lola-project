@@ -1,0 +1,14 @@
+{
+  "injected_prompt": "In a cinematic 16:9 commercial video, Sisi Lola stands as the epitome of Yoruba elegance, presenting Coffee Brand Morning with a confident, captivating expression. Her luminous dark skin with realistic texture glows in soft, golden morning light, highlighting her high cheekbones and impeccable makeup. She wears a modern, fitted iro and buba ensemble crafted from rich, vibrant Ankara and silk fabrics, the blouse tailored to accentuate her voluptuous hourglass figure, snatched waist, and slender, toned arms, while the wrapper is artfully tied at her hips, and a sleek gele crowns her head[1][3]. The atmosphere feels fresh and inviting, with gentle steam rising from a beautifully designed coffee cup placed prominently beside her for professional product placement. The camera begins with a wide dolly shot that slowly pans around Sisi Lola, then smoothly zooms in to capture the texture of her skin, the luxurious details of her outfit, and the rising steam. As she elegantly lifts the cup and smiles, her movement is fluid and poised, perfectly synchronized with the dynamic camera motion, creating a Vogue Future aesthetic that blends photorealistic depth of field and cinematic lighting for a truly premium, aspirational scene.",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "provider": "KlingAI",
+  "status": "error",
+  "message": "KlingAI video generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/videos/text2video'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "http_status": 502,
+  "asset_id": "MED-COM-0121",
+  "modality": "video"
+}

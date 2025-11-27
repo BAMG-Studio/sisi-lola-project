@@ -1,0 +1,15 @@
+{
+  "injected_prompt": "Portrait of Sisi Lola, a breathtakingly beautiful, mature Yoruba-born African influencer with luminous dark skin, captivating almond eyes, high cheekbones, and impeccable makeup, seated confidently in a luxurious, floating glass podcast pod suspended above a futuristic Lagos skyline. Warm, ambient lighting envelops the space, reflecting off sleek glass walls and illuminating a modern medium-sized desk equipped with a professional microphone setup and vibrant holographic displays. The atmosphere is cinematic and intimate, with depth of field focusing on Sisi Lola\u2019s voluptuous, hourglass figure clad in a modern, fitted iro and buba crafted from rich, vibrantly patterned fabric in deep jewel tones, the blouse tailored to accentuate her snatched waist and slender arms. Her look is completed with a stylish, contemporary gele. The camera is angled at medium desk height, capturing her poised posture and confident expression, with bokeh city lights shimmering in the background, evoking a premium, Vogue Future editorial aesthetic in 8k photorealistic detail.",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "status": "error",
+  "provider": "OpenAI",
+  "fallback_reason": "KlingAI generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "message": "OpenAI fallback failed: Client error '400 Bad Request' for url 'https://api.openai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+  "http_status": 502,
+  "asset_id": "ENV-STUD-0062",
+  "modality": "image"
+}

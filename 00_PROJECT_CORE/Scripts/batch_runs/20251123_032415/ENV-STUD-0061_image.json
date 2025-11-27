@@ -1,0 +1,15 @@
+{
+  "injected_prompt": "Wide establishing shot capturing Sisi Lola\u2014a breathtaking, mature Yoruba beauty with a voluptuous hourglass figure, radiant dark skin, and captivating almond-shaped eyes\u2014seated confidently inside a luxurious, floating glass podcast pod suspended high above a neon-lit, futuristic Lagos skyline. The floor-to-ceiling windows reveal the glowing cityscape, bathing the afro-futurist studio in cinematic, moody light with sharp highlights and deep shadows. She wears a modern, fitted iro and buba: the iro elegantly wrapped in sumptuous, vibrant Ankara fabric with intricate geometric patterns, paired with a tailored, off-shoulder buba blouse that accentuates her snatched waist and slender, toned arms. Her look is completed with a dramatic gele headwrap, perfectly styled, and bold, impeccable makeup. The scene features sleek, minimalist furniture with metallic and holographic accents, while the crisp 8k photorealistic detail and shallow depth of field focus attention on her poised, charismatic presence in this ultra-modern, Vogue Future-inspired setting[1][3].",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "status": "error",
+  "provider": "OpenAI",
+  "fallback_reason": "KlingAI generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "message": "OpenAI fallback failed: Client error '400 Bad Request' for url 'https://api.openai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+  "http_status": 502,
+  "asset_id": "ENV-STUD-0061",
+  "modality": "image"
+}

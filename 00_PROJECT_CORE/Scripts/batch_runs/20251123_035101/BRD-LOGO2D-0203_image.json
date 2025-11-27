@@ -1,0 +1,24 @@
+{
+  "injected_prompt": "Portrait of Sisi Lola, a breathtakingly beautiful, mature Yoruba-born African virtual influencer host with a voluptuous hourglass figure, slender toned arms, snatched waist, and luminous dark skin with realistic texture, captured in a striking 1:1 aspect ratio. She stands confidently against a deep black backdrop adorned with a clean, monochrome white, afro-futurist vector logo for 'SISI LOLA', featuring minimal, modern typography and geometric elements that evoke a futuristic yet distinctly African aesthetic. Her captivating almond eyes and high cheekbones are accentuated by impeccable, editorial makeup. She wears a modern, fitted Yoruba iro and buba crafted from rich, vibrant fabric that subtly reflects light, with structured tailoring enhancing her silhouette. The cinematic 8k lighting creates depth and dimension, casting soft highlights across her face and outfit, while a shallow depth of field keeps all focus on her poised, elegant presence. The overall atmosphere is sleek, premium, and avant-garde, reminiscent of a Vogue Future cover shoot.",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "status": "success",
+  "provider": "OpenAI",
+  "fallback_reason": "KlingAI generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "result": {
+    "created": 1763891689,
+    "data": [
+      {
+        "revised_prompt": "Present a portrait of a mature African woman of Yoruba descent, known for her hosting skills in the virtual realm. She boasts a voluptuous hourglass figure, slender toned arms, a snatched waist, and luminously dark skin with realistic texture. The woman is set against a deep black backdrop, adorned with a neat, monochrome white vector logo inscribed 'SISI LOLA'. The logo features a modern, geometric design suggesting a fusion of African aesthetics and futurism. Highlight her striking almond eyes and high cheekbones, which are enhanced by impeccable makeup. She is dressed elegantly in a modern, fitted Yoruba iro and buba stitched from rich, multi-coloured fabric that subtly reflects light. The tailoring of her attire should fit well with her curvy silhouette. Cinematic 8k lighting should create a depth and dimension, casting soft highlights across her face and outfit. The shallow depth of field puts the focus solely on her poised, elegant presence. The overall ambiance should be sleek, premium, and avant-garde, akin to a Vogue Future cover shoot.",
+        "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-Nz10v7qQ4tJIcG3PzixW8OmO/user-4DLw32bjcn0DtdxKxktY8LRY/img-Cx779sABXtIWdbSEPl2XRq0O.png?st=2025-11-23T08%3A54%3A49Z&se=2025-11-23T10%3A54%3A49Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=7daae675-7b42-4e2e-ab4c-8d8419a28d99&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-11-23T09%3A48%3A52Z&ske=2025-11-24T09%3A48%3A52Z&sks=b&skv=2024-08-04&sig=EE1wLY0TlM7Ed7SobUM4kOyDnoh%2BUdPiG4SNANMBdl8%3D"
+      }
+    ]
+  },
+  "http_status": 200,
+  "asset_id": "BRD-LOGO2D-0203",
+  "modality": "image",
+  "local_path": "/mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/BRD-LOGO2D-0203_image.png"
+}

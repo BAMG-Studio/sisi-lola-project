@@ -1,0 +1,14 @@
+{
+  "injected_prompt": "Sisi Lola stands confidently in a sunlit, modern kitchen, presenting Coffee Brand Morning as steam gently rises from a beautifully crafted ceramic cup on the counter. She wears a striking, fitted Yoruba iro and buba ensemble made of rich, vibrant Ankara fabric, the blouse tailored to accentuate her voluptuous hourglass figure, with slender arms, a snatched waist, and luminous, realistically textured dark skin. Her makeup is flawless, highlighting captivating almond eyes and high cheekbones, and her gele is artfully wrapped for a contemporary edge. Morning cinematic light streams through large windows, casting a warm, golden glow and soft shadows, while the camera begins with an elegant dolly-in from medium-wide, then smoothly pans around her as she lifts the steaming cup, her confident expression radiating professionalism and allure. As she describes the coffee, the camera briefly zooms on her expressive face and the product, capturing every detail in 8k photorealistic clarity with Vogue Future depth of field. She gestures gracefully, the vibrant folds of her iro and buba shifting with each movement, embodying the perfect fusion of tradition, modernity, and luxury.",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "provider": "KlingAI",
+  "status": "error",
+  "message": "KlingAI video generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/videos/text2video'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "http_status": 502,
+  "asset_id": "MED-COM-0121",
+  "modality": "video"
+}

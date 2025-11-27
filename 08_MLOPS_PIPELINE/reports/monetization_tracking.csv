@@ -1,0 +1,8 @@
+id,platform,date,metric_name,metric_value,target_value,percentage_complete
+8,TikTok,2025-11-25,followers,250.0,10000.0,2.5
+9,TikTok,2025-11-25,views_30_days,5000.0,100000.0,5.0
+10,YouTube,2025-11-25,subscribers,150.0,1000.0,15.0
+11,YouTube,2025-11-25,watch_hours,500.0,4000.0,12.5
+12,Instagram,2025-11-25,followers,200.0,10000.0,2.0
+13,Twitch,2025-11-25,followers,45.0,50.0,90.0
+14,Twitch,2025-11-25,stream_hours,6.0,8.0,75.0

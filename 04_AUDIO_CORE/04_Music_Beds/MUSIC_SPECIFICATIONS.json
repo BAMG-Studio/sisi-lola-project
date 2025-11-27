@@ -1,0 +1,52 @@
+{
+  "afrofuture_intro_1": {
+    "genre": "Afrobeat + Synthwave Fusion",
+    "tempo": "128 BPM",
+    "duration": "3 minutes (loopable)",
+    "mood": "Energetic, futuristic, optimistic",
+    "instruments": "Talking drums, synth bass, electric piano, electronic percussion",
+    "structure": "Intro (8 bars) \u2192 A section (16 bars) \u2192 B section (16 bars) \u2192 Bridge (8 bars) \u2192 Loop",
+    "prompt_for_ai": "Afrobeat instrumental fused with synthwave, 128 BPM, talking drums, warm synth bass, electric piano chords, electronic hi-hats, futuristic yet organic, podcast intro music, loopable, energetic and optimistic mood, no vocals",
+    "usage": "Podcast intros, transitions, background during segments"
+  },
+  "afrofuture_chill_2": {
+    "genre": "Afro-Electronic Downtempo",
+    "tempo": "95 BPM",
+    "duration": "4 minutes (loopable)",
+    "mood": "Relaxed, sophisticated, contemplative",
+    "instruments": "Kalimba, ambient pads, subtle percussion, soft bass",
+    "structure": "Ambient intro (16 bars) \u2192 Groove section (24 bars) \u2192 Breakdown (8 bars) \u2192 Loop",
+    "prompt_for_ai": "Downtempo afro-electronic music, 95 BPM, kalimba melody, warm ambient pads, soft bass, subtle African percussion, relaxed and sophisticated, perfect for background conversation, loopable, instrumental only",
+    "usage": "Interview backgrounds, thoughtful discussions, educational content"
+  },
+  "afrofuture_hype_3": {
+    "genre": "Afro-Trap / Hip-Hop",
+    "tempo": "140 BPM",
+    "duration": "2 minutes 30 seconds",
+    "mood": "Hype, confident, powerful",
+    "instruments": "808 bass, trap hi-hats, djembe, brass stabs, synth leads",
+    "structure": "Buildup (4 bars) \u2192 Drop (16 bars) \u2192 Break (8 bars) \u2192 Final drop (16 bars)",
+    "prompt_for_ai": "Afro-trap instrumental, 140 BPM, heavy 808 bass, rapid hi-hats, djembe accents, brass stabs, powerful and confident, hype energy, suitable for announcements and climactic moments, no vocals",
+    "usage": "Announcements, product reveals, high-energy segments"
+  },
+  "afrofuture_ambient_4": {
+    "genre": "Ambient Afro-Electronic",
+    "tempo": "70 BPM",
+    "duration": "5 minutes (loopable)",
+    "mood": "Ethereal, spacious, meditative",
+    "instruments": "Synth pads, distant vocals (wordless), soft percussion, nature sounds",
+    "structure": "Evolving ambient texture with subtle rhythmic elements",
+    "prompt_for_ai": "Ambient electronic music with African influence, 70 BPM, lush synth pads, distant wordless vocals, soft hand percussion, nature sounds, ethereal and meditative, spacious production, long evolving textures, loopable",
+    "usage": "Meditation content, calm intros, reflective segments"
+  },
+  "afrofuture_funk_5": {
+    "genre": "Afro-Funk / Nu-Disco",
+    "tempo": "118 BPM",
+    "duration": "3 minutes 30 seconds",
+    "mood": "Groovy, fun, danceable",
+    "instruments": "Funk guitar, slap bass, horns, congas, wah-wah effects",
+    "structure": "Intro (8 bars) \u2192 Groove A (16 bars) \u2192 Groove B (16 bars) \u2192 Solo section (8 bars) \u2192 Outro",
+    "prompt_for_ai": "Afro-funk instrumental, 118 BPM, groovy guitar riffs, slap bass, horn section, congas, wah-wah effects, danceable and fun, Nu-disco influence, retro-futuristic, no vocals",
+    "usage": "Upbeat segments, lifestyle content, fun product reviews"
+  }
+}

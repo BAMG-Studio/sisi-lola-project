@@ -1,0 +1,61 @@
+{
+  "studio_ambient_quiet": {
+    "duration": "5 minutes (seamless loop)",
+    "elements": [
+      "Subtle HVAC/air conditioning hum (20 Hz low pass)",
+      "Distant computer fans (very quiet)",
+      "Occasional holographic interface beeps (sparse)",
+      "Room tone (professional studio quality)"
+    ],
+    "mix": "All elements at -40dB to -30dB, very subtle",
+    "purpose": "Fill silence in studio recordings without distraction"
+  },
+  "lagos_street_morning": {
+    "duration": "3 minutes (seamless loop)",
+    "elements": [
+      "Distant traffic (cars, okadas/motorcycles)",
+      "Market vendor calls (unintelligible, atmospheric)",
+      "Birds chirping (African species)",
+      "Gentle breeze with fabric rustling",
+      "Occasional horn honks (far away)"
+    ],
+    "mix": "Natural outdoor ambience, -18dB to -12dB",
+    "purpose": "On-location content, cultural authenticity"
+  },
+  "tech_lab_hum": {
+    "duration": "4 minutes (seamless loop)",
+    "elements": [
+      "Server room white noise",
+      "Electrical hum (60Hz and harmonics)",
+      "Occasional hard drive clicks",
+      "LED indicator beeps (very sparse)",
+      "Cooling fan oscillation"
+    ],
+    "mix": "Technical, clean, modern, -30dB to -24dB",
+    "purpose": "Tech review segments, lab environments"
+  },
+  "luxury_lounge_subtle": {
+    "duration": "5 minutes (seamless loop)",
+    "elements": [
+      "Soft jazz in far distance (barely audible)",
+      "Quiet conversation murmur (unintelligible)",
+      "Glass clinks (very occasional)",
+      "Soft footsteps on carpet",
+      "Gentle ambient music (luxurious)"
+    ],
+    "mix": "Sophisticated, -28dB to -20dB",
+    "purpose": "Interview settings, conversation backgrounds"
+  },
+  "cyber_club_neon": {
+    "duration": "2 minutes (loop)",
+    "elements": [
+      "Distant electronic music (muffled bass)",
+      "Neon sign buzzing",
+      "Holographic ad sound effects",
+      "Crowd energy (distant)",
+      "Urban nightlife atmosphere"
+    ],
+    "mix": "Vibrant, energetic, -20dB to -15dB",
+    "purpose": "Nightlife content, urban culture segments"
+  }
+}

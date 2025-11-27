@@ -1,0 +1,24 @@
+{
+  "injected_prompt": "Close-up portrait of Sisi Lola, a hyper-realistic African woman with luminous dark skin, captivating almond eyes, and high cheekbones, her expression neutral and confident, exuding quiet elegance. She wears a modern, fitted Yoruba traditional outfit\u2014a tailored iro and buba crafted from rich, vibrant Ankara fabric with intricate patterns that catch the light, the buba draping softly over her shoulders and the iro wrapped snugly at her waist to accentuate her hourglass figure. Her head is adorned with a sculpted, fan-shaped gele in complementary hues, adding regal sophistication. Subtle holographic makeup glimmers on her lids and cheekbones, enhancing her features with a futuristic touch. The studio lighting is soft yet dramatic, casting gentle highlights and shadows that emphasize her facial structure and the texture of her skin and fabric. Shot with an 85mm lens for exquisite detail and shallow depth of field, the atmosphere is intimate and refined, capturing the essence of contemporary African luxury in a 1:1 aspect ratio.",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "status": "success",
+  "provider": "OpenAI",
+  "fallback_reason": "KlingAI generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "result": {
+    "created": 1763889955,
+    "data": [
+      {
+        "revised_prompt": "Close-up portrait of a hyper-realistic African woman with luminous dark skin, captivating almond eyes, and high cheekbones, her expression neutral and confident, full of quiet elegance. She dons a modern, fitted Yoruba traditional outfit\u2014a tailored iro and buba created out of vibrant, rich Ankara fabric sporting intricate patterns that radiate light, the buba draping softly over her shoulders and the iro wrapped snugly at her waist to emphasize her hourglass figure. Her head is accentuated with a sculpted, fan-shaped gele in complementary shades, adding a regal sophistication to her aura. A hint of holographic makeup glitters on her eyelids and cheekbones, enhancing her features with a touch of futurism. The studio lighting is soft yet dramatic, casting delicate highlights and shadows that underline her facial structure and the texture of her skin and fabric. Shot with an 85mm lens for exquisite detail and shallow depth of field, the atmosphere feels intimate, refined, encapsulating the quintessence of contemporary African luxury in a 1:1 aspect ratio.",
+        "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-Nz10v7qQ4tJIcG3PzixW8OmO/user-4DLw32bjcn0DtdxKxktY8LRY/img-3MV9SOn22rK63E8JpzzbVZPe.png?st=2025-11-23T08%3A25%3A55Z&se=2025-11-23T10%3A25%3A55Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=9346e9b9-5d29-4d37-a0a9-c6f95f09f79d&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-11-23T09%3A25%3A55Z&ske=2025-11-24T09%3A25%3A55Z&sks=b&skv=2024-08-04&sig=XjJYgCrHmoIXMMNnncd8ntNpOqFinYKTKEMGz9nQmqo%3D"
+      }
+    ]
+  },
+  "http_status": 200,
+  "asset_id": "AVT-EXP-0011",
+  "modality": "image",
+  "local_path": "/mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/AVT-EXP-0011_image.png"
+}

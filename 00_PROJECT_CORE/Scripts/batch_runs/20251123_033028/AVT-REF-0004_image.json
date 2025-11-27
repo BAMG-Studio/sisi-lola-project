@@ -1,0 +1,24 @@
+{
+  "injected_prompt": "8k photorealistic cinematic portrait of Sisi Lola, a stunningly beautiful mature Yoruba woman with luminous dark skin, captivating almond eyes, high cheekbones, and an air of confidence, captured in a character reference sheet displaying four sequential walking cycle poses across a 16:9 horizontal frame, each pose showing progressive stride dynamics and movement flow; she wears a modern, fitted Iro and Buba ensemble crafted from rich, vibrant African print fabric with intricate geometric patterns in deep jewel tones, the fitted Buba featuring a contemporary sweetheart neckline and tailored sleeves that accentuate her slender, toned arms and snatched waist, the Iro wrapped elegantly and secured with a coordinating satin bow, her posture tall and poised with natural shoulder movement, captured from full-body perspective showing leg extension, hip rotation, and weight distribution across each walking phase, cinematic lighting with warm golden accents illuminating her luminous skin and the fabric's rich textures, shallow depth of field softly blurring the neutral background to emphasize her dynamic movement, raw photography style with Vogue Future aesthetic, professional character sheet layout with clear pose progression demonstrating confident, graceful stride and authentic movement mechanics.",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "status": "success",
+  "provider": "OpenAI",
+  "fallback_reason": "KlingAI generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "result": {
+    "created": 1763890377,
+    "data": [
+      {
+        "revised_prompt": "8k photorealistic cinematic portrait of a stunningly beautiful mature Yoruba woman with luminous dark skin, captivating almond eyes, high cheekbones, and an air of confidence, captured in a character reference sheet displaying four sequential walking cycle poses across a 16:9 horizontal frame, each pose showing progressive stride dynamics and movement flow. She is clad in a modern, fitted Iro and Buba ensemble crafted from rich, vibrant African print fabric with intricate geometric patterns in deep jewel tones. Her fitted Buba features a contemporary sweetheart neckline and tailored sleeves that accentuate her slender, toned arms and snatched waist, the Iro is wrapped elegantly and secured with a coordinating satin bow. Her posture is tall and poised with natural shoulder movement, captured from a full-body perspective showing leg extension, hip rotation, and weight distribution across each walking phase. There is cinematic lighting with warm golden accents illuminating her luminous skin and the fabric's rich textures with a shallow depth of field softly blurring the neutral background to emphasize her dynamic movement. The style is a raw photography style with a Vogue Future aesthetic, within a professional character sheet layout that has clear pose progression demonstrating confident, graceful stride and authentic movement mechanics.",
+        "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-Nz10v7qQ4tJIcG3PzixW8OmO/user-4DLw32bjcn0DtdxKxktY8LRY/img-CAc655fRVKzvulDhz9m6Ecw2.png?st=2025-11-23T08%3A32%3A57Z&se=2025-11-23T10%3A32%3A57Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=7daae675-7b42-4e2e-ab4c-8d8419a28d99&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-11-23T09%3A14%3A48Z&ske=2025-11-24T09%3A14%3A48Z&sks=b&skv=2024-08-04&sig=0YUbJGY7Jf%2BG6lYzb/OHBFmQieBTRYSBhMXUO4W0ZH4%3D"
+      }
+    ]
+  },
+  "http_status": 200,
+  "asset_id": "AVT-REF-0004",
+  "modality": "image",
+  "local_path": "/mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/AVT-REF-0004_image.png"
+}

@@ -1,0 +1,24 @@
+{
+  "injected_prompt": "Portrait of Sisi Lola, a Yoruba-born influencer host, showcasing her mature, voluptuous hourglass figure with slender, toned arms and a snatched waist, luminous dark skin with realistic texture, captivating almond eyes, high cheekbones, and impeccable makeup. She stands confidently in a modern, fitted Yoruba iro and buba crafted from rich, vibrant fabric, the outfit tailored to accentuate her curves and elegance. The scene features 8k photorealistic detail with cinematic lighting, soft gold highlights, and deep purple undertones evoking an afro-futurist aesthetic. Set against a clean, minimal background, the composition is centered and square (1:1 aspect ratio), emphasizing a premium, main full-color professional logo design for 'SISI LOLA'\u2014the logo in sleek, modern vector style, with clean typography and a sophisticated gold and purple palette seamlessly integrated into the scene's atmosphere. The camera angle is at eye level, slightly zoomed for intimacy, with crisp depth of field and Vogue Future raw photography style.",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "status": "success",
+  "provider": "OpenAI",
+  "fallback_reason": "KlingAI generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "result": {
+    "created": 1763889922,
+    "data": [
+      {
+        "revised_prompt": "Portrait of an influential Yoruba-born hostess, celebrating her mature hourglass figure with slender, toned arms and defined waistline. Her radiant dark skin carries true-to-life texture, complimented by enchanting almond eyes, lofty cheekbones, and flawless makeup. She stands confidently wearing a modern, snug iro and buba of the Yoruba tradition, tailored from a rich, vibrantly colored fabric that highlights her elegance. A 8k photorealistic rendering includes cinematic lighting, soft golden highlights, and deep purple undertones, conjuring an afro-futurist ambiance. The minimalistic scene is centered and proportioned in a 1:1 aspect ratio, featuring a premium, vibrant colored professional logo design labeled 'SISI LOLA'. The contemporary logo, rendered in vector style, has clean typography and a sophisticated gold and purple scheme that blends harmoniously into the atmosphere. The photograph is taken at eye-level, slightly zoomed to foster closeness, offering a crisp depth of field in the style of Vogue Future raw photography.",
+        "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-Nz10v7qQ4tJIcG3PzixW8OmO/user-4DLw32bjcn0DtdxKxktY8LRY/img-SSPEoqGBWWIFZgoFkL0SNa0x.png?st=2025-11-23T08%3A25%3A21Z&se=2025-11-23T10%3A25%3A21Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=7daae675-7b42-4e2e-ab4c-8d8419a28d99&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-11-23T09%3A25%3A21Z&ske=2025-11-24T09%3A25%3A21Z&sks=b&skv=2024-08-04&sig=c5AP969HATw%2B5Cc/X/jQCHb3X9HegQJOLd6a5u2Y8R8%3D"
+      }
+    ]
+  },
+  "http_status": 200,
+  "asset_id": "BRD-LOGO2D-0201",
+  "modality": "image",
+  "local_path": "/mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/BRD-LOGO2D-0201_image.png"
+}

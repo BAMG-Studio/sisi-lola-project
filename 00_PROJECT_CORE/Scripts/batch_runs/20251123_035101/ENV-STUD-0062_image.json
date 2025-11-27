@@ -1,0 +1,24 @@
+{
+  "injected_prompt": "Portrait of Sisi Lola seated confidently in a luxurious, floating glass podcast pod high above a futuristic Lagos skyline, the city lights shimmering below and holographic displays illuminating the space with warm, ambient golden tones. She is captured from a medium desk view, framed by a sleek, modern desk with a professional microphone setup and subtle reflections on the glass panels. Sisi Lola wears a modern, fitted Yoruba iro and buba crafted from rich, vibrant Ankara fabric\u2014a tailored, curve-hugging wrapper elegantly tied at her snatched waist and a chic, close-fitted blouse with contemporary sleeves, both adorned with subtle metallic accents that catch the cinematic 8k lighting. Her luminous dark skin glows with realistic texture, enhanced by impeccable makeup, almond eyes, and high cheekbones, exuding self-assurance and allure. The atmosphere is intimate yet technologically advanced, with shallow depth of field focusing on her poised figure, as soft, directional lighting sculpts her features and the ambient cityscape glows in the background. Vogue Future, photorealistic, 16:9 aspect ratio.",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "status": "success",
+  "provider": "OpenAI",
+  "fallback_reason": "KlingAI generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "result": {
+    "created": 1763891499,
+    "data": [
+      {
+        "revised_prompt": "A portrait of a confident Black woman sitting in a luxurious, floating glass podcast studio hovering over a futuristic Lagos skyline, with the city lights twinkling below and holographic displays enveloping the room in warm, ambient golden hues. The woman is presented from a medium desk view, encircled by a sleek, modern desk that houses a professional microphone setup and soft reflections bouncing off the glass panels. She is dressed in a modern version of the traditional Yoruba iro and buba made from vibrant Ankara fabric, with both pieces subtly accentuated with metallic accents that ricochet off cinematic 8k lighting. Her glowing dark skin, almond shaped eyes, and high cheekbones, embellished with impeccable makeup, radiate self-assurance and appeal. The environment is cosy yet technologically sophisticated, and the focus is primarily on her composed figure through the use of a shallow depth of field, while soft, directional lighting moulds her features against the glowing, ambient cityscape in the background. The image should be in Vogue Future style, photorealistic, and in a 16:9 aspect ratio.",
+        "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-Nz10v7qQ4tJIcG3PzixW8OmO/user-4DLw32bjcn0DtdxKxktY8LRY/img-7PViUAUe5cUyobGgTK24FbbN.png?st=2025-11-23T08%3A51%3A38Z&se=2025-11-23T10%3A51%3A38Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=cc612491-d948-4d2e-9821-2683df3719f5&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-11-23T09%3A51%3A38Z&ske=2025-11-24T09%3A51%3A38Z&sks=b&skv=2024-08-04&sig=sX8%2BThVxgs5nX%2B9RTkXz4NEcg6LSiSpIw5Rxw4Xw%2BB4%3D"
+      }
+    ]
+  },
+  "http_status": 200,
+  "asset_id": "ENV-STUD-0062",
+  "modality": "image",
+  "local_path": "/mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/ENV-STUD-0062_image.png"
+}

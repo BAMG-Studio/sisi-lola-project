@@ -1,0 +1,15 @@
+{
+  "injected_prompt": "Close-up portrait of Sisi Lola, a stunning Yoruba-born African virtual influencer, showcasing exquisite facial details with luminous, realistic dark skin texture, subtle pores, and a radiant glow under soft, diffused cinematic lighting. Her captivating almond-shaped eyes are highlighted with bold, modern makeup variations\u2014smoky metallic lids, defined brows, and glossy lips\u2014accentuating her confident expression. The camera focuses tightly on her face, capturing the intricate details of her flawless foundation, subtle contouring, and shimmering highlighter that enhances her high cheekbones. Her hair is styled in a sleek, voluminous gele headwrap, intricately tied with elegant folds and vibrant patterns that echo the rich, colorful Ankara fabric of her modern, fitted iro and buba ensemble. The outfit features a tailored buba blouse with a plunging neckline and fitted silhouette, paired with a sleek iro wrapper tied in a sophisticated knot, both crafted from luxurious, high-contrast African print fabric. The background is softly blurred with depth of field, emphasizing her presence, while the 16:9 aspect ratio frames her perfectly in 8k photorealistic resolution, evoking a Vogue Future editorial aesthetic.",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "status": "error",
+  "provider": "OpenAI",
+  "fallback_reason": "KlingAI generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "message": "OpenAI fallback failed: Client error '400 Bad Request' for url 'https://api.openai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+  "http_status": 502,
+  "asset_id": "AVT-REF-0002",
+  "modality": "image"
+}

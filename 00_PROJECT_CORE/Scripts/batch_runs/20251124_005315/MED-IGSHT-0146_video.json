@@ -1,0 +1,22 @@
+{
+  "injected_prompt": "Portrait video in 9:16 for Instagram Reels: Sisi Lola stands confidently center-frame, facing the camera with captivating almond eyes and a poised, mature expression, her luminous dark skin glowing under cinematic, soft diffused lighting that accentuates her high cheekbones and hourglass figure. She wears a modern, fitted Yoruba iro and buba crafted from rich, vibrant patterned fabric\u2014think deep jewel tones with subtle gold accents\u2014styled to highlight her snatched waist and toned arms. The video opens with a strong hook, Sisi Lola engaging viewers directly, delivering energetic content in trending, fast-paced style. Quick cuts and dynamic transitions showcase her expressive gestures and subtle movements\u2014occasional hand motions, playful shifts in stance, and confident smiles\u2014while the camera gently dollies in and out for depth and intimacy. Impeccable makeup, bold accessories, and crisp audio complete the Vogue Future look, ensuring every frame is immersive, glamorous, and unmistakably Yoruba. She remains voluptuous with a confident, curvy hourglass silhouette.",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "provider": "OpenAI-stub",
+  "perplexity_error": "Client error '404 Not Found' for url 'https://api.perplexity.ai/videos'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404",
+  "status": "success",
+  "fallback_reason": "KlingAI video generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/videos/text2video'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "result": {
+    "media_url": "C:\\Users\\POK28\\AppData\\Local\\Temp\\stub_video_893d25e6\\stub.mp4",
+    "local_path": "C:\\Users\\POK28\\AppData\\Local\\Temp\\stub_video_893d25e6\\stub.mp4",
+    "source_image": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-Nz10v7qQ4tJIcG3PzixW8OmO/user-4DLw32bjcn0DtdxKxktY8LRY/img-Pv37SqDhH39DRO33YEsn62gG.png?st=2025-11-24T05%3A54%3A35Z&se=2025-11-24T07%3A54%3A35Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=f1dafa11-a0c2-4092-91d4-10981fbda051&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-11-24T06%3A54%3A35Z&ske=2025-11-25T06%3A54%3A35Z&sks=b&skv=2024-08-04&sig=gQUHJSjxiJhE8nlc5fRHCsqjzBJFNQWgXiLQQqXG1YM%3D",
+    "note": "Stub video generated from still image due to provider unavailability."
+  },
+  "http_status": 200,
+  "asset_id": "MED-IGSHT-0146",
+  "modality": "video",
+  "local_path": "C:\\Users\\POK28\\Dropbox\\Sisi_Lola\\assets\\generated\\MED-IGSHT-0146_video.mp4"
+}

@@ -1,0 +1,18 @@
+Asset Name,Asset Type,Description,Aspect Ratio,Duration,Outfit Override
+AVT-REF-0001,image,"Character reference sheet of Sisi Lola, African virtual host, view 1/10: front/side/back/3-4 view, full body, neutral expression, T-pose and dynamic pose. High resolution, photorealistic, 8k.",16:9,5,
+AVT-REF-0002,image,"Character reference sheet of Sisi Lola, African virtual host, view 2/10: Close up facial details, makeup variations, skin texture, eye color, hair style details. High resolution, photorealistic, 8k.",16:9,5,
+AVT-REF-0003,image,"Character reference sheet of Sisi Lola, African virtual host, view 3/10: Hand gestures, nail details, jewelry close-ups, arm poses. High resolution, photorealistic, 8k.",16:9,5,
+AVT-REF-0004,image,"Character reference sheet of Sisi Lola, African virtual host, view 4/10: Walking cycle poses, stride, posture, movement dynamics. High resolution, photorealistic, 8k.",16:9,5,
+AVT-REF-0005,image,"Character reference sheet of Sisi Lola, African virtual host, view 5/10: Seated poses, podcast hosting posture, relaxed vs formal seating. High resolution, photorealistic, 8k.",16:9,5,
+ENV-STUD-0061,image,"Luxury podcast studio interior, floating glass pod above futuristic Lagos, wide establishing shot, neon skyline visible through floor-to-ceiling windows, afro-futurist decor, sleek furniture.",16:9,5,
+ENV-STUD-0062,image,"Luxury podcast studio interior, floating glass pod above futuristic Lagos, medium desk view, professional microphone setup, holographic displays, warm ambient lighting.",16:9,5,
+ENV-STUD-0063,image,"Luxury podcast studio interior, floating glass pod above futuristic Lagos, close seating view, guest chair perspective, depth of field on microphone.",16:9,5,
+ENV-STUD-0064,image,"Luxury podcast studio interior, floating glass pod above futuristic Lagos, overhead bird's eye view, layout of the pod, geometric floor patterns.",16:9,5,
+ENV-STUD-0065,image,"Luxury podcast studio interior, floating glass pod above futuristic Lagos, corner angle, lounge area with plush african-print cushions.",16:9,5,
+BRD-LOGO2D-0202,image,"Professional logo design for 'SISI LOLA', Monochrome Black, afro-futurist aesthetic, clean modern typography, vector style, minimal on white background.",1:1,5,
+BRD-LOGO2D-0203,image,"Professional logo design for 'SISI LOLA', Monochrome White, afro-futurist aesthetic, clean modern typography, vector style, minimal on black background.",1:1,5,
+AVT-OUT-0026,image,"Full body shot of Sisi Lola wearing Afrofuturist Blazer Purple, hyper-realistic African virtual host, fashion photography style, runway pose, studio background.",9:16,5,"Afrofuturist Blazer Purple"
+MED-COM-0121,video,"Cinematic commercial video, Sisi Lola presenting Coffee Brand Morning, professional product placement, dynamic camera movement, morning light, steam rising from cup.",16:9,5,
+MED-IGSHT-0146,video,"Vertical video for Instagram Reels, Sisi Lola delivering engaging content, quick cuts, trending style, looking directly at camera, energetic vibe.",9:16,5,
+AUD-VOICE-0171,audio,"Hello darlings! This is Sisi Lola, your favorite virtual host, coming to you live from the heart of Lagos.",,,,,
+AUD-VOICE-0172,audio,"Welcome to the future of storytelling. Where tradition meets technology.",,,,,

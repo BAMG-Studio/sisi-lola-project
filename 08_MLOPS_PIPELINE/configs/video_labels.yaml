@@ -1,0 +1,37 @@
+activities:
+  - reading
+  - dancing
+  - counseling
+  - sleeping
+  - eating
+  - working_out
+  - running
+  - driving
+  - sky_diving
+  - podcasting
+  - reporting
+  - vlogging
+attitudes:
+  - confident
+  - empathetic
+  - energetic
+  - calm
+  - playful
+  - serious
+  - dramatic
+roles:
+  - influencer
+  - actress
+  - podcaster
+  - journalist
+emotions:
+  - happy
+  - sad
+  - angry
+  - surprised
+  - neutral
+cultural_markers:
+  - greeting
+  - slang
+  - fashion
+  - social_cue

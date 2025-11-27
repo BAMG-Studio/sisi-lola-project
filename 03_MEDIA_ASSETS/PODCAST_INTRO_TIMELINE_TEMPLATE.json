@@ -1,0 +1,111 @@
+{
+  "timeline_name": "Podcast_Intro_Template_v01",
+  "duration": "15 seconds",
+  "resolution": "3840x2160",
+  "framerate": 60,
+  "tracks": {
+    "video": [
+      {
+        "track_number": 1,
+        "clips": [
+          {
+            "in": "00:00:00:00",
+            "out": "00:00:03:00",
+            "type": "Background Gradient"
+          },
+          {
+            "in": "00:00:03:00",
+            "out": "00:00:15:00",
+            "type": "Studio Environment"
+          }
+        ]
+      },
+      {
+        "track_number": 2,
+        "clips": [
+          {
+            "in": "00:00:02:00",
+            "out": "00:00:15:00",
+            "type": "Sisi Lola Video",
+            "notes": "Green screen keyed"
+          }
+        ]
+      },
+      {
+        "track_number": 3,
+        "clips": [
+          {
+            "in": "00:00:00:00",
+            "out": "00:00:02:00",
+            "type": "Logo Animation"
+          },
+          {
+            "in": "00:00:07:00",
+            "out": "00:00:12:00",
+            "type": "Episode Title Graphic"
+          }
+        ]
+      },
+      {
+        "track_number": 4,
+        "clips": [
+          {
+            "in": "00:00:04:00",
+            "out": "00:00:15:00",
+            "type": "Holographic UI Overlay",
+            "opacity": 70
+          }
+        ]
+      }
+    ],
+    "audio": [
+      {
+        "track_number": 1,
+        "clips": [
+          {
+            "in": "00:00:00:00",
+            "out": "00:00:15:00",
+            "type": "Music Bed",
+            "volume": -18
+          }
+        ]
+      },
+      {
+        "track_number": 2,
+        "clips": [
+          {
+            "in": "00:00:02:00",
+            "out": "00:00:15:00",
+            "type": "Voiceover/Host",
+            "volume": -6
+          }
+        ]
+      },
+      {
+        "track_number": 3,
+        "clips": [
+          {
+            "in": "00:00:00:00",
+            "out": "00:00:02:00",
+            "type": "Whoosh SFX",
+            "volume": -12
+          },
+          {
+            "in": "00:00:07:00",
+            "out": "00:00:08:00",
+            "type": "Title Appear SFX",
+            "volume": -12
+          }
+        ]
+      }
+    ]
+  },
+  "effects": {
+    "color_grading": "LUT_AfroFuture_Warm.cube",
+    "transitions": [
+      "Dissolve (1s)",
+      "Holographic wipe (0.5s)"
+    ],
+    "motion_graphics": "Title animation with particle effects"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "injected_prompt": "Full body portrait of Sisi Lola, a breathtaking Yoruba-born virtual influencer host, standing confidently in a vivid Afrofuturist purple blazer with angular, sculptural shoulders and metallic accents, embodying a bold fusion of tradition and futuristic innovation. Her sexy, hourglass silhouette is showcased by the tailored blazer cinched at her snatched waist, paired with sleek, high-waisted trousers that elongate her toned legs. The studio is flooded with cinematic lighting that highlights her luminous, deep ebony skin and the rich textures of her outfit, with crisp shadows and a soft, diffused glow accentuating the contours of her voluptuous figure. Vogue Future fashion photography style, shot in 9:16 aspect ratio with a slightly low camera angle for runway drama and depth of field that blurs the minimalist studio background. Sisi Lola\u2019s makeup is impeccable, emphasizing her captivating almond eyes and high cheekbones; her confident, poised runway stance radiates authority and allure, while bold statement jewelry\u2014chrome cuffs and geometric earrings\u2014adds a tech-inspired edge.",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "status": "error",
+  "provider": "OpenAI",
+  "fallback_reason": "KlingAI generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "message": "OpenAI fallback failed: Client error '400 Bad Request' for url 'https://api.openai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+  "http_status": 502,
+  "asset_id": "AVT-OUT-0026",
+  "modality": "image"
+}

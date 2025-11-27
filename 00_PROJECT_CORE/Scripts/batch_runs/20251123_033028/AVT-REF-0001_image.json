@@ -1,0 +1,24 @@
+{
+  "injected_prompt": "Character reference sheet of Sisi Lola, a breathtakingly beautiful mature Yoruba-born African virtual host, featuring full-body front, side, back, and dynamic 3/4 views in 16:9 aspect ratio. She stands in both a neutral T-pose and a dynamic pose, showcasing her sexy, curvy hourglass figure, snatched waist, and luminous dark skin with photorealistic texture under cinematic, soft diffused lighting that highlights high cheekbones and almond eyes with impeccable makeup. Sisi Lola is dressed in a modern, fitted Yoruba iro and buba: a vibrant, richly patterned satin wrapper elegantly tied at the waist, paired with a tailored blouse featuring an off-shoulder neckline and fitted sleeves, finished with a matching gele headwrap styled artfully[1][3]. The camera is set at eye level for the neutral pose, and slightly angled for the dynamic pose to enhance depth and realism, with shallow depth of field and crisp 8k detail. The atmosphere is premium, fashion-forward, and editorial, evoking a Vogue Future aesthetic, with every fabric fold and skin texture rendered in ultra-high definition.",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "status": "success",
+  "provider": "OpenAI",
+  "fallback_reason": "KlingAI generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "result": {
+    "created": 1763890263,
+    "data": [
+      {
+        "revised_prompt": "Create a detailed character reference sheet of a mature Yoruba woman in an African virtual host concept, featuring full-body front, side, back, and dynamic 3/4 views in a 16:9 aspect ratio. The character stands in both a neutral T-pose and a dynamic pose. She boasts a curvy hourglass figure, a snatched waist, and luminous dark skin. Her look features high cheekbones and almond eyes accentuated with impeccable makeup. She's dressed in a modern, fitted Yoruba iro and buba: a vibrant, richly patterned satin wrapper tied elegantly at the waist, paired with a tailored blouse with an off-shoulder neckline and fitted sleeves, completed with a matching gele headwrap styled artfully. The lighting is cinematic and soft, highlighting the fine details of her photorealistic skin texture. The camera angle changes between the poses to enhance the depth and realism. The overall atmosphere is premium, fashion-forward, and editorial, with a futuristic Vogue-like aesthetic. The depth of field is shallow and the detail is crisp with 8k quality, capturing every fabric fold and skin texture in ultra-high definition.",
+        "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-Nz10v7qQ4tJIcG3PzixW8OmO/user-4DLw32bjcn0DtdxKxktY8LRY/img-qnOpkjI3JFVykSO8KhQwf92O.png?st=2025-11-23T08%3A31%3A03Z&se=2025-11-23T10%3A31%3A03Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=f1dafa11-a0c2-4092-91d4-10981fbda051&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-11-23T08%3A42%3A04Z&ske=2025-11-24T08%3A42%3A04Z&sks=b&skv=2024-08-04&sig=UdM7GPoSTjYF8L7XjHXOgSkkfX9Su2/mGsdte1l7SM4%3D"
+      }
+    ]
+  },
+  "http_status": 200,
+  "asset_id": "AVT-REF-0001",
+  "modality": "image",
+  "local_path": "/mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/AVT-REF-0001_image.png"
+}

@@ -1,0 +1,14 @@
+{
+  "injected_prompt": "Portrait of Sisi Lola, the stunning Yoruba-born virtual influencer, standing tall and confident in a modern, fitted iro and buba crafted from rich, vibrant Ankara fabric that hugs her voluptuous hourglass figure, accentuating her snatched waist and slender, toned arms; the buba features intricate embroidery and luminous jewel-toned patterns that pop against her radiant dark skin. Her captivating almond eyes are framed by flawless, impeccable makeup and high cheekbones, as she looks directly into the camera with a magnetic, energetic expression. The lighting is cinematic and soft, with a touch of natural daylight spilling from the side to enhance her skin\u2019s realistic texture and create a glamorous depth of field. The camera starts with a dynamic dolly-in toward Sisi Lola\u2019s face, then quickly cuts between close-ups and mid-shots as she gestures expressively, her earrings glinting and her gele styled in a contemporary, regal twist. The vertical 9:16 frame is filled with bold color and sharp focus, with swift, trendy transitions and seamless zooms amplifying her lively delivery and commanding presence, all set against a minimal, tastefully blurred backdrop to keep full attention on her as she engages her audience with infectious charisma.",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "provider": "KlingAI",
+  "status": "error",
+  "message": "KlingAI video generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/videos/text2video'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "http_status": 502,
+  "asset_id": "MED-IGSHT-0146",
+  "modality": "video"
+}

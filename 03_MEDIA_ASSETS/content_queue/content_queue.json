@@ -1,0 +1,124 @@
+[
+  {
+    "content_id": "EDU001",
+    "title": "African Language of the Week: Swahili",
+    "content_type": "educational",
+    "platforms": [
+      "Instagram",
+      "TikTok",
+      "Facebook"
+    ],
+    "caption": "Good morning! \ud83c\udf0d Today we're learning Swahili basics. Jambo means hello! What languages do you speak?",
+    "hashtags": [
+      "#SisiLola",
+      "#AfricanLanguages",
+      "#Swahili",
+      "#CulturalEducation"
+    ],
+    "media_file_path": null,
+    "thumbnail_path": null,
+    "scheduled_date": "2025-11-26T15:37:05.857147",
+    "scheduled_time": "09:00",
+    "status": "ready",
+    "created_date": "2025-11-25T15:37:05.857197",
+    "published_date": null,
+    "performance_notes": "",
+    "engagement_rate": 0.0,
+    "views": 0,
+    "likes": 0,
+    "comments": 0,
+    "shares": 0,
+    "notes": ""
+  },
+  {
+    "content_id": "ENT001",
+    "title": "Top 5 Afrobeats Tracks This Week",
+    "content_type": "entertainment",
+    "platforms": [
+      "Instagram",
+      "TikTok",
+      "YouTube"
+    ],
+    "caption": "\ud83c\udfb5 This week's Afrobeats hits are FIRE! Which one is your favorite?",
+    "hashtags": [
+      "#Afrobeats",
+      "#AfricanMusic",
+      "#SisiLola"
+    ],
+    "media_file_path": null,
+    "thumbnail_path": null,
+    "scheduled_date": "2025-11-27T15:37:05.857205",
+    "scheduled_time": "18:00",
+    "status": "planned",
+    "created_date": "2025-11-25T15:37:05.857214",
+    "published_date": null,
+    "performance_notes": "",
+    "engagement_rate": 0.0,
+    "views": 0,
+    "likes": 0,
+    "comments": 0,
+    "shares": 0,
+    "notes": ""
+  },
+  {
+    "content_id": "COM001",
+    "title": "Community Q&A: Where Are You From?",
+    "content_type": "community",
+    "platforms": [
+      "Instagram",
+      "Facebook",
+      "Reddit"
+    ],
+    "caption": "Let's get to know each other! \ud83d\udc9b Drop your city/country below!",
+    "hashtags": [
+      "#Community",
+      "#SisiLola",
+      "#AfricanCommunity"
+    ],
+    "media_file_path": null,
+    "thumbnail_path": null,
+    "scheduled_date": "2025-11-28T15:37:05.857219",
+    "scheduled_time": "12:00",
+    "status": "ready",
+    "created_date": "2025-11-25T15:37:05.857223",
+    "published_date": null,
+    "performance_notes": "",
+    "engagement_rate": 0.0,
+    "views": 0,
+    "likes": 0,
+    "comments": 0,
+    "shares": 0,
+    "notes": ""
+  },
+  {
+    "content_id": "EDU002",
+    "title": "African Innovation Spotlight: M-Pesa",
+    "content_type": "educational",
+    "platforms": [
+      "YouTube",
+      "Instagram",
+      "LinkedIn"
+    ],
+    "caption": "Did you know M-Pesa revolutionized mobile money? \ud83d\udcf1\ud83d\udcb0 Let's talk about African fintech innovation!",
+    "hashtags": [
+      "#AfricanInnovation",
+      "#Fintech",
+      "#MPesa",
+      "#SisiLola"
+    ],
+    "media_file_path": null,
+    "thumbnail_path": null,
+    "scheduled_date": "2025-11-29T15:37:05.857227",
+    "scheduled_time": "15:00",
+    "status": "in_production",
+    "created_date": "2025-11-25T15:37:05.857231",
+    "published_date": null,
+    "performance_notes": "",
+    "engagement_rate": 0.0,
+    "views": 0,
+    "likes": 0,
+    "comments": 0,
+    "shares": 0,
+    "notes": ""
+  }
+]

@@ -1,0 +1,25 @@
+# Casual Conversational
+
+**Context:** Casual chat, relatable content
+**Tone:** Friendly, energetic, approachable
+**Duration:** 20-30 seconds
+
+---
+
+## SCRIPT:
+
+Okay, so you know how everyone's been buzzing about AI lately? Like, 
+        it's everywhere! But here's the thing—most people don't actually know 
+        what's happening behind the scenes. So, let me break it down for you 
+        in a way that actually makes sense, because trust me, once you get it, 
+        you'll be hooked.
+
+---
+
+## DIRECTION NOTES:
+
+- Pace: Natural, conversational (not rushed)
+- Accent: Nigerian-British (Lagos to London)
+- Emphasis: Let emotion guide delivery
+- Breath: Natural pauses, don't over-edit
+- Energy: Match the tone specified above

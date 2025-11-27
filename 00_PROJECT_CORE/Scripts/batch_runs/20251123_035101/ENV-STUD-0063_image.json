@@ -1,0 +1,24 @@
+{
+  "injected_prompt": "Portrait of Sisi Lola, a breathtakingly beautiful, mature Yoruba-born influencer with a voluptuous hourglass figure, high cheekbones, and luminous dark skin, seated confidently in a luxury podcast studio floating in a glass pod above a futuristic Lagos skyline. The scene is viewed from the guest chair, with cinematic depth of field focusing sharply on the premium podcast microphone in the foreground, while Sisi Lola\u2019s captivating almond eyes and impeccable makeup are softly illuminated by diffused, cinematic lighting that glows against the dusk-lit cityscape. She wears a modern, fitted iro and buba crafted from rich, vibrant Ankara fabric, the wrapper elegantly draped and the blouse perfectly tailored to accentuate her slender, toned arms and snatched waist, paired with a contemporary gele styled into a regal, sculptural form. The atmosphere exudes exclusivity and innovation, with reflective glass surfaces and subtle neon accents, captured in photorealistic 8k quality, raw Vogue Future style, wide 16:9 aspect ratio.",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "status": "success",
+  "provider": "OpenAI",
+  "fallback_reason": "KlingAI generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "result": {
+    "created": 1763891540,
+    "data": [
+      {
+        "revised_prompt": "Visualize a compelling portrait of an attractive, mature, Yoruba-born female influencer with a pronounced hourglass shape. She has high cheekbones and radiant dark skin. She confidently sits in an opulent podcast studio that hovers in a glass pod above a speculative perspective of Lagos. The scene is framed from the point of view of the guest chair, bringing into sharp focus the high-grade podcast microphone in the foreground. The inviting almond eyes of our character, aligned with her flawless makeup, are softly highlighted by a combination of gently diffused and dramatic lighting that complements the sunset-tinted cityscape. She is dressed in a modern, fitted iro and buba ensemble cut from bold, colorful Ankara material. The wrap is exquisitely slung, and the blouse is precisely designed to accentuate her slender, sculpted arms and cinched waistline. A contemporary gele, formed into an elegant, striking shape, complements her outfit. The ambiance evokes a sense of privilege and advancement, reflected in glass surfaces and highlighted by subtle neon accents. The scene is captured in ultra-high-resolution, reproducing a forward-looking fashion photoshoot style, in a wide 16:9 aspect ratio.",
+        "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-Nz10v7qQ4tJIcG3PzixW8OmO/user-4DLw32bjcn0DtdxKxktY8LRY/img-K1cxdk5wmf2fvcY5R3rQUCbZ.png?st=2025-11-23T08%3A52%3A19Z&se=2025-11-23T10%3A52%3A19Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=7daae675-7b42-4e2e-ab4c-8d8419a28d99&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-11-23T09%3A52%3A19Z&ske=2025-11-24T09%3A52%3A19Z&sks=b&skv=2024-08-04&sig=5EUfpecD3VpUXH4Zucgly1kmUL3x/MJ4gglYAFQxMRY%3D"
+      }
+    ]
+  },
+  "http_status": 200,
+  "asset_id": "ENV-STUD-0063",
+  "modality": "image",
+  "local_path": "/mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/ENV-STUD-0063_image.png"
+}

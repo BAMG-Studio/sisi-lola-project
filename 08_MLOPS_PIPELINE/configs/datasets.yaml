@@ -1,0 +1,71 @@
+# Dataset Registry for Sisi Lola Multilingual Pipeline
+# Each entry declares source, access method, languages, and notes
+
+menyo20k:
+  type: text_parallel
+  source: github
+  url: https://github.com/dadelani/menyo-20k_MT
+  languages: [yo, en]
+  split: all
+  license: "CC BY-NC 4.0"
+  notes: Yoruba-English parallel corpus (TED/news). High quality.
+
+fleurs:
+  type: asr
+  source: huggingface
+  hf_id: google/fleurs
+  subsets:
+    - yo_ng
+    - sw_ke
+    - sw_tz
+    - fr_sn
+  languages: [yo, sw, fr]
+  license: "CC BY 4.0"
+  notes: Multilingual speech dataset; use for ASR/phonetics.
+
+masakhaner:
+  type: ner
+  source: huggingface
+  hf_id: masakhane/masakhaner
+  subsets:
+    - yor
+    - hau
+    - ibo
+  languages: [yo, ha, ig]
+  license: "Apache-2.0"
+  notes: NER; use for named entities and tokenization heuristics.
+
+alffa_swahili:
+  type: asr
+  source: manual
+  url: https://github.com/getalp/ALFFA_PUBLIC
+  languages: [sw]
+  notes: Manual download required; place in data/external/alffa_swahili
+
+lagos_nwu:
+  type: asr
+  source: manual
+  url: https://github.com/Speech-Lab-IITM/Lagos-NWU-conversational-speech-corpus
+  languages: [en_NG, yo]
+  notes: Request access; Nigerian accented English + Yoruba.
+
+jw300_yoruba:
+  type: text_parallel
+  source: huggingface
+  hf_id: jw300
+  subsets: [yo]
+  languages: [yo, en]
+  notes: Bible-domain; use cautiously and mix with modern text.
+
+common_voice_africa:
+  type: asr
+  source: huggingface
+  hf_id: mozilla-foundation/common_voice_17_0
+  subsets:
+    - yo
+    - ha
+    - ig
+    - sw
+    - ak
+  languages: [yo, ha, ig, sw, ak]
+  notes: Community speech; verify quality and accents.

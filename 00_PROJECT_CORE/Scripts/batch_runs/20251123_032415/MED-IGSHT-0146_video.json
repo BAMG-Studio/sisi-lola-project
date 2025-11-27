@@ -1,0 +1,14 @@
+{
+  "injected_prompt": "Vertical 9:16 video of Sisi Lola, a breathtaking Yoruba-born, mature and voluptuous African influencer host with a sexy, curvy hourglass figure, slender toned arms, snatched waist, and luminous dark skin with realistic texture; she stands confidently and energetically addresses the camera, her captivating almond eyes and high cheekbones framed by impeccable makeup, delivering engaging, on-trend content with quick, dynamic cuts. She wears a modern, fitted iro and buba in rich, vibrant fabric\u2014emerald and magenta patterns catching the cinematic, soft diffused lighting that accentuates the depth and glow of her skin, with the look elevated by bold gold jewelry and a sleek gele. Camera begins with a slight dolly-in as she gestures expressively, lips syncing to trending audio, maintaining direct eye contact and switching poses with smooth transitions; rhythmic pans and subtle zooms keep the energy high, while shallow depth of field isolates her against a blurred, editorial-inspired backdrop, capturing every nuance in stunning 8k, photorealistic, raw Vogue Future style.",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "provider": "KlingAI",
+  "status": "error",
+  "message": "KlingAI video generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/videos/text2video'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "http_status": 502,
+  "asset_id": "MED-IGSHT-0146",
+  "modality": "video"
+}

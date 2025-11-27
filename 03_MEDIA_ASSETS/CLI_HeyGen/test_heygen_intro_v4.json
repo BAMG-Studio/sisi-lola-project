@@ -1,0 +1,38 @@
+{
+  "injected_prompt": "Portrait video of Sisi Lola, a breathtakingly beautiful, mature Yoruba influencer host with a sexy hourglass figure, luminous dark skin, captivating almond eyes, high cheekbones, and impeccable makeup, confidently greeting the audience. She stands in cinematic 8K clarity, bathed in soft, directional lighting that highlights her radiant skin texture and glamorous features. The camera begins with a gentle dolly-in from waist height, focusing on her poised stance in a modern, fitted iro and buba crafted from rich, vibrant African fabric\u2014think bold jewel tones with intricate embroidery and a stylish, tailored buba blouse, complemented by a perfectly tied gele. Sisi Lola smiles warmly and gestures gracefully, her slender, toned arms moving expressively as she welcomes viewers. The background is softly blurred for depth of field, evoking a Vogue Future editorial atmosphere. Her confident, mature presence and Yoruba heritage are unmistakable throughout the 16:9 frame, with every detail reinforcing her cultural authenticity and visual DNA[1][2][3]. She remains voluptuous with a confident, curvy hourglass silhouette.",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "provider": "HeyGen",
+  "script": "Hey family, welcome back to the Tech Lounge. I'm Sisi Lola, and today we're diving into the latest Lagos tech drops. Stick around!",
+  "status": "success",
+  "result": {
+    "video_id": "72f0106d3e5541018366b5118704bffb",
+    "media_url": "https://files2.heygen.ai/aws_pacific/avatar_tmp/afedd247f6ee4ae3aba0b8ae6edba770/72f0106d3e5541018366b5118704bffb.mp4?Expires=1764706504&Signature=OszsX1IC~KblELNhBq3WV5TGMnuXyUYzZTdOh9soMnx1UglsDXmQuoleLOdZVwxD-3n87bHlEJmEIfO5JGTl5dvhaUH4KgNBKFvIj2zzcR6dzZDFjq681qoXfenH9YzuOpMbesTcb4fflgSq1iyZ1I9w6NFA4w60aY9wOwpOLFGSrAzSSTJAul6rPyhlurF4DUnwYyZWPgyJiXF8Fu0OKTNOAfzP7ZX4Oai0g4nu0tcBSr6ANhP58tJ5TD60fJPVQbiKfYAf0CoKZCvVzXtoUZj5VlxexOJ7KxtyzRHNMtM9cx2gVj1izBqIune3DxmDVFtOHbpKz-UDoB788QE0xA__&Key-Pair-Id=K38HBHX5LX3X2H",
+    "start_response": {
+      "error": null,
+      "data": {
+        "video_id": "72f0106d3e5541018366b5118704bffb"
+      }
+    },
+    "status_response": {
+      "code": 100,
+      "data": {
+        "callback_id": null,
+        "caption_url": "https://resource2.heygen.ai/movio/video/72f0106d3e5541018366b5118704bffb/caption.ass",
+        "created_at": 1764101678,
+        "duration": 9.057,
+        "error": null,
+        "gif_url": null,
+        "id": "72f0106d3e5541018366b5118704bffb",
+        "status": "completed",
+        "thumbnail_url": "https://files2.heygen.ai/aws_pacific/avatar_tmp/afedd247f6ee4ae3aba0b8ae6edba770/72f0106d3e5541018366b5118704bffb.jpeg?Expires=1764706504&Signature=Nyz305shz3g08dVQDDSYHKP7naHsmSCVzBP7Lk6zNyGiAuTBV2RTzvR39idQ3gxLYVYTfc7xKEUbKUwirfHH2klnbVg5LALHpmjg84E9cjqbKutYtMXVE6G6xw083KKqG~q5mCA0rtaNj9TEo0d5r9M4kJ6QS-jJ-SPWxFgRO0wk-A34hhcJuu5bJtAvBCZ2VwW3ZobL4nFqo6iAJonEySvqnFazu1V4WhafIAg2l~ZVNsfBD8dmX-Bw-z8cAEyfmxZvr1SVY9haE0zwa7Z9dsZWJfSxkUCtb-Wjj9KJv585Lp40UIvIGpMMfLUTZAD8qWYyuYugoCQO9hMu6hezkQ__&Key-Pair-Id=K38HBHX5LX3X2H",
+        "video_url": "https://files2.heygen.ai/aws_pacific/avatar_tmp/afedd247f6ee4ae3aba0b8ae6edba770/72f0106d3e5541018366b5118704bffb.mp4?Expires=1764706504&Signature=OszsX1IC~KblELNhBq3WV5TGMnuXyUYzZTdOh9soMnx1UglsDXmQuoleLOdZVwxD-3n87bHlEJmEIfO5JGTl5dvhaUH4KgNBKFvIj2zzcR6dzZDFjq681qoXfenH9YzuOpMbesTcb4fflgSq1iyZ1I9w6NFA4w60aY9wOwpOLFGSrAzSSTJAul6rPyhlurF4DUnwYyZWPgyJiXF8Fu0OKTNOAfzP7ZX4Oai0g4nu0tcBSr6ANhP58tJ5TD60fJPVQbiKfYAf0CoKZCvVzXtoUZj5VlxexOJ7KxtyzRHNMtM9cx2gVj1izBqIune3DxmDVFtOHbpKz-UDoB788QE0xA__&Key-Pair-Id=K38HBHX5LX3X2H",
+        "video_url_caption": "https://files2.heygen.ai/movio/video/72f0106d3e5541018366b5118704bffb/0234f2c537b145acb93ce6b0cd75313d/caption.mp4?Expires=1764706504&Signature=VhhxI5w3W7TkrDXESiWpya1ly-r438RgPbP3rQb-H44yyGnB3ozCuIOmZzPax8s-2WCcvLVieOG9SHb8p7Oq33JDGjeOK4RXK7NWzerj6zE9yTkgqkJJqAYUFlog6O44AaUUshlUm54KQlkbsqE~ltI5mBX8JxL6GcwXHlGDaBkiJ~sDmZXRcfD4e14DqYP7R9AHkEN3Fdn6gcaAsf7uhz0nC9y2bGFqPlHL4rLF2saux~MeD9OQsGQ~blYilwRnUMEnkYbuP2I60Kr4eR9cNi2e5hyhIUHImxhCkuBRr48Phb0ByY~w3xOnjMlxjYYAT4gR3-tPRAPG3jfezNlm9Q__&Key-Pair-Id=K38HBHX5LX3X2H"
+      },
+      "message": "Success"
+    }
+  }
+}

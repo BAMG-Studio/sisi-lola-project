@@ -1,0 +1,32 @@
+{
+  "hologram_appear": {
+    "description": "Holographic interface appearing",
+    "duration": "1.5 seconds",
+    "spatial": "Appears 2m in front, slightly above eye level",
+    "characteristics": "Crystalline shimmer, digital particles, ascending pitch"
+  },
+  "hologram_dismiss": {
+    "description": "Holographic interface closing",
+    "duration": "1 second",
+    "spatial": "Collapses to center point",
+    "characteristics": "Reverse shimmer, descending pitch, fade out"
+  },
+  "teleport_whoosh": {
+    "description": "VR teleportation sound",
+    "duration": "0.8 seconds",
+    "spatial": "Surrounds user, moves from back to front",
+    "characteristics": "Whoosh, spatial displacement, brief silence, arrival tone"
+  },
+  "button_press": {
+    "description": "UI button activation",
+    "duration": "0.2 seconds",
+    "spatial": "Localized to button position",
+    "characteristics": "Soft click, satisfying feedback, minimal reverb"
+  },
+  "notification_ping": {
+    "description": "Incoming message/notification",
+    "duration": "0.5 seconds",
+    "spatial": "Appears from right side, 45\u00b0 angle",
+    "characteristics": "Pleasant chime, not intrusive, clear pitch"
+  }
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "injected_prompt": "Sisi Lola, a stunningly mature and voluptuous Yoruba influencer with luminous dark skin, captivating almond eyes, and an hourglass silhouette, glides through a sun-drenched morning kitchen in a contemporary fitted iro and buba crafted from rich, jewel-toned Ankara fabric\u2014the wrapper hugging her snatched waist while the buba's tailored sleeves frame her toned arms with understated elegance[1][5]. Soft golden sunlight streams through floor-to-ceiling windows, casting warm cinematic highlights across her radiant skin and the delicate steam rising from a pristine Coffee Brand Morning cup positioned on a marble countertop before her; her confident, glamorous expression radiates morning sophistication as the camera executes a slow dolly movement from left to right, capturing her graceful hand reaching toward the steaming cup with deliberate, fluid motion, while shallow depth of field keeps her luminous face and the product in sharp focus against a softly blurred, minimalist background. The atmosphere is raw, photorealistic, and aspirational\u20148k resolution with Vogue Future cinematic lighting that emphasizes her Yoruba facial features, the intricate texture of the premium Ankara fabric, and the luxurious product placement, while maintaining her mature, confident presence as the ultimate African luxury lifestyle icon.",
+    "reference_images": [
+      "assets/dna/sisi_dna_v1.png",
+      "assets/dna/sisi_dna_v2.png"
+    ],
+    "dna_integrity": "100%",
+    "provider": "KlingAI",
+    "perplexity_error": "Client error '404 Not Found' for url 'https://api.perplexity.ai/videos'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404",
+    "status": "error",
+    "message": "KlingAI video generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/videos/text2video'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+    "http_status": 502,
+    "asset_id": "MED-COM-0121",
+    "modality": "video"
+  },
+  {
+    "injected_prompt": "Portrait video, 9:16 aspect ratio, of Sisi Lola\u2014a breathtakingly beautiful, mature Yoruba-born influencer with a voluptuous hourglass figure, slender toned arms, snatched waist, and luminous dark skin with realistic texture\u2014delivering energetic, engaging content directly to camera in quick, trendy cuts. She wears a modern, fitted iro and buba crafted from rich, vibrant Yoruba fabric, styled with impeccable makeup, high cheekbones, and captivating almond eyes. The video opens with a dynamic push-in dolly shot, then alternates between smooth pans and fast-paced jump cuts as Sisi Lola gestures confidently, her expression lively and inviting. Cinematic 8k photorealistic lighting with soft natural highlights enhances her skin\u2019s glow, while a shallow depth of field keeps her in sharp focus against a subtly blurred, elegant background. The atmosphere is vibrant and glamorous, matching her confident, charismatic presence and the contemporary Yoruba fashion.",
+    "reference_images": [
+      "assets/dna/sisi_dna_v1.png",
+      "assets/dna/sisi_dna_v2.png"
+    ],
+    "dna_integrity": "100%",
+    "provider": "KlingAI",
+    "perplexity_error": "Client error '404 Not Found' for url 'https://api.perplexity.ai/videos'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404",
+    "status": "error",
+    "message": "KlingAI video generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/videos/text2video'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+    "http_status": 502,
+    "asset_id": "MED-IGSHT-0146",
+    "modality": "video"
+  }
+]

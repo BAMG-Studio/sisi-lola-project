@@ -1,0 +1,24 @@
+{
+  "injected_prompt": "Premium character reference sheet, close-up of Sisi Lola\u2019s exquisite face in 8k photorealistic detail, showcasing luminous dark skin with realistic pores and subtle undertones, impeccably applied makeup in three variations\u2014from bold metallic eyeshadow with a sculpted highlight, to soft nude tones, and classic red lips\u2014captivating almond eyes with rich brown irises, long curled lashes, and perfectly arched brows. Her hair is styled in intricately braided cornrows gathered into a chic updo, with delicate baby hairs framing her high cheekbones. She wears a modern, fitted Yoruba iro and buba ensemble crafted from vibrant Ankara and silk blend fabric, featuring a tailored blouse with a structured neckline and dramatic sleeves, and a richly patterned wrapper tied with contemporary flair. Cinematic lighting with gentle rim light emphasizes facial contours and skin texture; camera angle is tight frontal, filling the 16:9 frame with her confident, poised expression. Atmosphere is elegant and editorial, echoing a Vogue Future aesthetic with subtle depth of field blurring the background, ensuring maximum focus on Sisi Lola\u2019s refined beauty and cultural sophistication[1][3].",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "status": "success",
+  "provider": "OpenAI",
+  "fallback_reason": "KlingAI generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "result": {
+    "created": 1763890301,
+    "data": [
+      {
+        "revised_prompt": "A highly detailed, 8k photorealistic premium character reference sheet portraying an exceptional close-up of a woman of African descent's visage, emphasizing her glowing dark skin with realistic pores and subtle undertones. The artwork reveals her flawlessly applied makeup in three variations: bold metallic eyeshadow with a sculpted highlight, soft nude tones, and classic red lips. The character's almond eyes possess rich brown irises, long curled lashes, and impeccably arched brows. Her hair styled into intricate cornrow braids drawn up into a stylish updo, with dainty baby hairs accentuating her high cheekbones. The character sports a contemporary, fitted Yoruba iro and buba ensemble, designed from a delightful Ankara and silk blend fabric. It consists of a fitted blouse with a solid neckline and dramatic sleeves, along with a vividly patterned wrapper knotted with a modern twist. Cinematic lighting with gentle rim light underlines her facial contours and skin texture. The camera angle is a close frontal view, filling the 16:9 frame with her self-assured, composed expression. An elegantly editorial atmosphere resonates a futuristic Vogue-like aesthetic with a subtle depth of field blurring the backdrop, focusing primarily on the character's refined beauty and rich cultural sophistication.",
+        "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-Nz10v7qQ4tJIcG3PzixW8OmO/user-4DLw32bjcn0DtdxKxktY8LRY/img-jQy0ZGuqatF8cnwIzYAOo9wr.png?st=2025-11-23T08%3A31%3A41Z&se=2025-11-23T10%3A31%3A41Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=8b33a531-2df9-46a3-bc02-d4b1430a422c&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-11-23T09%3A31%3A41Z&ske=2025-11-24T09%3A31%3A41Z&sks=b&skv=2024-08-04&sig=yDwwNNK2B40P4x2l1D%2BbnId8VdgW0S1qV1u8kTAtBFU%3D"
+      }
+    ]
+  },
+  "http_status": 200,
+  "asset_id": "AVT-REF-0002",
+  "modality": "image",
+  "local_path": "/mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/AVT-REF-0002_image.png"
+}

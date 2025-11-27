@@ -1,0 +1,24 @@
+{
+  "injected_prompt": "Wide establishing shot of Sisi Lola in a luxury podcast studio\u2014her breathtaking, mature Yoruba beauty and voluptuous hourglass silhouette are framed within a floating glass pod high above futuristic Lagos. Floor-to-ceiling windows reveal a dazzling neon skyline, casting cinematic, blue-magenta highlights across the sleek, afro-futurist decor and sculptural furniture. She stands confidently, luminous dark skin radiant under soft, diffused Vogue-style lighting, wearing a modern, fitted iro and buba crafted from rich, vibrant patterned fabric that hugs her curves and features a contemporary neckline and tailored sleeves. Her captivating almond eyes, high cheekbones, and impeccable makeup are complemented by an elegant gele headwrap, while the camera\u2019s wide angle emphasizes both her poised presence and the panoramic city beyond, evoking a sense of power, sophistication, and the future of African influence.",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "status": "success",
+  "provider": "OpenAI",
+  "fallback_reason": "KlingAI generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "result": {
+    "created": 1763891434,
+    "data": [
+      {
+        "revised_prompt": "The scene is set in a luxurious, high tech podcast studio, located in a glass pod towering over the futuristic neon skyline of Lagos. This wide establishing shot shows a mature, voluptuous Yoruba woman, radiant under soft, diffused lighting similar to a Vogue photoshoot. Her luminous dark skin contrasts beautifully with the sleek, afro-futurist decor of the studio and the sculptural furniture. She's wearing a modern, fitted iro and buba made of vibrantly patterned fabric that hugs her hourglass silhouette, flaunting a contemporary neckline and tailored sleeves. Her captivating almond eyes, high cheekbones, and flawless makeup harmonize with her elegant gele headwrap. The panoramic cityscape in the background accentuates her confident presence, symbolizing the power, sophistication and forthcoming impact of Africa.",
+        "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-Nz10v7qQ4tJIcG3PzixW8OmO/user-4DLw32bjcn0DtdxKxktY8LRY/img-DxGbA1wngFFiI1oCmbHVMtbY.png?st=2025-11-23T08%3A50%3A34Z&se=2025-11-23T10%3A50%3A34Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=7daae675-7b42-4e2e-ab4c-8d8419a28d99&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-11-23T09%3A50%3A34Z&ske=2025-11-24T09%3A50%3A34Z&sks=b&skv=2024-08-04&sig=DVXgSM9ZCUNJFMsx9SA6e72EVhxrF/kTtWBQPM0FMAs%3D"
+      }
+    ]
+  },
+  "http_status": 200,
+  "asset_id": "ENV-STUD-0061",
+  "modality": "image",
+  "local_path": "/mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/ENV-STUD-0061_image.png"
+}

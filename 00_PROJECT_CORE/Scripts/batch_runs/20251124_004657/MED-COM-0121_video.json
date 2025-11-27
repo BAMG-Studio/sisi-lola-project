@@ -1,0 +1,15 @@
+{
+  "injected_prompt": "Cinematic commercial video, 16:9 aspect ratio, featuring Sisi Lola, a mature and voluptuous Yoruba-born African influencer with luminous dark skin, captivating almond eyes, high cheekbones, and impeccable makeup, confidently presenting a premium coffee brand in a sun-drenched morning setting. She wears a modern, fitted iro and buba ensemble crafted from rich, vibrant Ankara fabric\u2014iro wrapped elegantly around her hourglass figure, buba blouse tailored to accentuate her silhouette, complemented by a stylish gele headwrap in coordinating tones. Soft, golden morning light streams through, casting warm highlights and gentle shadows, while delicate steam rises from a porcelain coffee cup in her hand. The camera glides in a slow dolly forward, then arcs around her in a graceful pan, capturing the fluid movement of the fabric and the subtle glow of her skin. She takes a sip, smiles with quiet confidence, and the scene radiates sophistication, heritage, and the invigorating energy of a new day.",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "provider": "KlingAI",
+  "perplexity_error": "Client error '404 Not Found' for url 'https://api.perplexity.ai/videos/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404",
+  "status": "error",
+  "message": "KlingAI video generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/videos/text2video'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "http_status": 502,
+  "asset_id": "MED-COM-0121",
+  "modality": "video"
+}

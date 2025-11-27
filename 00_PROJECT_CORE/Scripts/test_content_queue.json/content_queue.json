@@ -1,0 +1,26 @@
+[
+  {
+    "content_id": "TEST001",
+    "title": "Test Content",
+    "content_type": "educational",
+    "platforms": [
+      "Instagram"
+    ],
+    "caption": "Test caption",
+    "hashtags": [],
+    "media_file_path": null,
+    "thumbnail_path": null,
+    "scheduled_date": null,
+    "scheduled_time": null,
+    "status": "idea",
+    "created_date": "2025-11-25T16:24:45.052066",
+    "published_date": null,
+    "performance_notes": "",
+    "engagement_rate": 0.0,
+    "views": 0,
+    "likes": 0,
+    "comments": 0,
+    "shares": 0,
+    "notes": ""
+  }
+]

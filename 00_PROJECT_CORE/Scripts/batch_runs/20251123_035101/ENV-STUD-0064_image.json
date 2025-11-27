@@ -1,0 +1,24 @@
+{
+  "injected_prompt": "Portrait of Sisi Lola seated gracefully inside a luxury podcast studio, suspended in a floating glass pod high above a futuristic Lagos skyline, captured from an overhead bird's eye view that reveals the entire pod layout and dramatic geometric floor patterns below. The atmosphere radiates opulence and modern sophistication, with cinematic lighting casting luminous highlights across her radiant, deeply textured dark skin and impeccable makeup. Sisi Lola wears a modern, fitted Yoruba iro and buba ensemble tailored from sumptuous, vibrant fabric\u2014her iro elegantly wrapped at the waist and buba contoured to her voluptuous hourglass silhouette, accentuating her snatched waist and slender, toned arms. The glass walls curve around her, reflecting glints of city lights, while the confident sparkle in her almond eyes and high cheekbones command the scene. The camera angle from above emphasizes the circular pod\u2019s sleek design and the interplay of bold geometric floor motifs, all rendered in 8k photorealism with depth of field and a raw Vogue Future photography aesthetic.",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "status": "success",
+  "provider": "OpenAI",
+  "fallback_reason": "KlingAI generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "result": {
+    "created": 1763891576,
+    "data": [
+      {
+        "revised_prompt": "A detailed aerial view of a contemporary African woman, of Yoruba descent, seated inside an extravagant podcast studio in a floating glass pod suspended over a futuristic interpretation of Lagos skyline. Dressed in traditional Yoruba attire known as Iro (wrapped at the waist) and Buba (fitting blouse) made from vibrant, high-quality fabrics that accentuate her enviable hourglass silhouette, slender arms and defined waistline. Her dark, richly textured skin, immaculate makeup, almond eyes, and high cheekbones reflect the opulence of her surroundings. The curved glass walls mirror intense city lights, adding to her commanding presence. The overhead perspective accentuates the sleek design of the circular pod and bold geometric floor motifs. Depict the scene in highly detail-rich 8k photorealism, showcasing depth of field and an aesthetic reminiscent of avant-garde Future Vogue photography.",
+        "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-Nz10v7qQ4tJIcG3PzixW8OmO/user-4DLw32bjcn0DtdxKxktY8LRY/img-PHY1R9Zc4upINCJpTu1LdP67.png?st=2025-11-23T08%3A52%3A56Z&se=2025-11-23T10%3A52%3A56Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=7daae675-7b42-4e2e-ab4c-8d8419a28d99&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-11-23T09%3A47%3A51Z&ske=2025-11-24T09%3A47%3A51Z&sks=b&skv=2024-08-04&sig=lIvqWypl8%2Bn2AQycpjFiAowU79rE8JJOegO1DieHvIU%3D"
+      }
+    ]
+  },
+  "http_status": 200,
+  "asset_id": "ENV-STUD-0064",
+  "modality": "image",
+  "local_path": "/mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/ENV-STUD-0064_image.png"
+}

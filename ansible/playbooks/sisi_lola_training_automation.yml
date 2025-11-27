@@ -1,0 +1,29 @@
+---
+- name: Sisi Lola Self-Learning System
+  hosts: localhost
+  vars:
+    project_root: "c:/Users/POK28/Dropbox/Sisi_Lola"
+    training_interval: 60
+    batch_size: 10
+  
+  tasks:
+    - name: Install Python dependencies
+      pip:
+        name:
+          - transformers
+          - torch
+          - scipy
+          - google-api-python-client
+        state: present
+    
+    - name: Initialize training database
+      command: python youtube_data_ingestion.py
+      args:
+        chdir: "{{ project_root }}/00_PROJECT_CORE/Scripts"
+    
+    - name: Configure training cron
+      cron:
+        name: "Sisi Lola Training"
+        minute: "0"
+        hour: "*/2"
+        job: "cd {{ project_root }}/00_PROJECT_CORE/Scripts && python self_learning_engine.py"

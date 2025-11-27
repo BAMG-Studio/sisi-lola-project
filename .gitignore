@@ -1,0 +1,38 @@
+# Credentials and secrets
+sisi_lola_api/.env
+*.pickle
+*token*.json
+*credentials*.json
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+.venv_sisi/
+venv_new/
+*.egg-info/
+
+# Node
+node_modules/
+package-lock.json
+
+# Audio/Video (large files)
+*.wav
+*.mp3
+*.mp4
+
+# Databases
+*.db
+*.sqlite
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Training data
+07_RAW_WORKSPACE/
+trained_models/

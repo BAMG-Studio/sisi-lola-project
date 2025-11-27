@@ -1,0 +1,25 @@
+[
+  {
+    "injected_prompt": "Portrait of Sisi Lola, a breathtakingly beautiful Yoruba-born, mature and voluptuous African influencer host. She has a sexy, curvy hourglass figure with slender, toned arms, a snatched waist, and luminous dark skin with realistic texture. Captivating almond eyes, high cheekbones, impeccable makeup, confident expression. She is Sisi Lola drinking coffee in a cafe. She is wearing Modern, fitted Yoruba traditional outfit (iro and buba) made of rich, vibrant fabric.. 8k, photorealistic, cinematic lighting, depth of field, raw photography style, Vogue Future.",
+    "reference_images": [
+      "assets/dna/sisi_dna_v1.png",
+      "assets/dna/sisi_dna_v2.png"
+    ],
+    "dna_integrity": "100%",
+    "status": "success",
+    "provider": "OpenAI",
+    "fallback_reason": "KlingAI generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+    "result": {
+      "created": 1763885755,
+      "data": [
+        {
+          "revised_prompt": "Create a portrait of Yoruba-born African woman with breathtaking beauty and voluptuous figure. She has slender, toned arms, a snatched waist, and dark luminous skin. Her captivating almond eyes, high cheekbones, and well-done makeup exude confidence. This mature woman is immersed in the act of savoring a cup of coffee in a cafe setting. The charm of her modern, fitted Yoruba traditional outfit (iro and buba) comes into full view, beautifully crafted from rich, vibrant fabric. The scene should be depicted in 8k resolution, employing a photorealistic style with cinematic lighting, depth of field, resembling the texture of raw photography. Her portrayal on screen should reflect the modern aesthetic vibe, similar to the future edition of popular fashion magazines.",
+          "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-Nz10v7qQ4tJIcG3PzixW8OmO/user-4DLw32bjcn0DtdxKxktY8LRY/img-8W6ERorU9CocZGScuVF6NFCN.png?st=2025-11-23T07%3A15%3A55Z&se=2025-11-23T09%3A15%3A55Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=8b33a531-2df9-46a3-bc02-d4b1430a422c&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-11-23T08%3A15%3A55Z&ske=2025-11-24T08%3A15%3A55Z&sks=b&skv=2024-08-04&sig=JKdZA/hnA8zuFtWY4qTASJTbis1cATqdI0Za2V3Sbh0%3D"
+        }
+      ]
+    },
+    "http_status": 200,
+    "asset_id": "Test-Asset-001",
+    "modality": "image"
+  }
+]

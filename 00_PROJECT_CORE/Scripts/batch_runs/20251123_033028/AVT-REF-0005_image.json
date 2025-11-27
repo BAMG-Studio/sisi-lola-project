@@ -1,0 +1,24 @@
+{
+  "injected_prompt": "Portrait character reference sheet of Sisi Lola, a breathtakingly beautiful, mature Yoruba-born African virtual host, seated in a podcast studio in five distinct 8k photorealistic poses: some with a relaxed, open posture\u2014legs elegantly crossed, one arm draped over the chair, her confident almond eyes and luminous dark skin catching cinematic rim lighting\u2014others in formal, upright podcast hosting positions, hands poised on a sleek microphone, posture straight, capturing her snatched waist and sexy hourglass curves. She wears a modern fitted iro and buba crafted from rich, vibrant Ankara and lace, featuring a tailored blouse with intricate neckline details and stylish sleeves, the wrapper knotted fashionably around her hips. The outfit is accented by a bold gele headwrap, subtly shimmering under soft, diffused studio lights. Depth of field highlights her realistic skin texture and impeccable makeup. Camera angle is slightly above eye level, 16:9 aspect ratio, with crisp focus on Sisi Lola\u2019s expressive face and curvy form against a blurred, high-end podcast setup background, evoking the premium Vogue Future aesthetic.",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "status": "success",
+  "provider": "OpenAI",
+  "fallback_reason": "KlingAI generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "result": {
+    "created": 1763890420,
+    "data": [
+      {
+        "revised_prompt": "Character reference sheet image of a breathtakingly beautiful, mature African woman of Yoruba descent. She is a virtual host, sitting in a podcast studio in five distinctive, 8K photorealistic poses. In some, she adopts a relaxed, open posture\u2014legs elegantly crossed, one arm draped over the chair, her confident almond eyes and luminous dark skin capturing cinematic rim lighting. In others, she takes formal, upright podcast hosting positions, hands poised on a sleek microphone, posture straight, showcasing her slim waist and hourglass figure. She is dressed in a modern fitted iro and buba, woven from rich, vibrant Ankara and lace. The tailored blouse features intricate neckline detail and stylish sleeves, the wrapper fashionably knotted around her hips. Her attire is topped off with a bold gele headwrap, subtly shimmering under soft, diffused studio lights. The depth of field highlights her realistic skin texture and meticulous makeup. The camera angle is slightly above eye level, in a 16:9 aspect ratio, crisply focusing on her expressive face and curved form, in front of a blurred, high-end podcast setup, invoking a refined, Future Vogue vibe.",
+        "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-Nz10v7qQ4tJIcG3PzixW8OmO/user-4DLw32bjcn0DtdxKxktY8LRY/img-alnhkwcIULYnwaMCkIieamkm.png?st=2025-11-23T08%3A33%3A40Z&se=2025-11-23T10%3A33%3A40Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=b1a0ae1f-618f-4548-84fd-8b16cacd5485&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-11-22T19%3A35%3A04Z&ske=2025-11-23T19%3A35%3A04Z&sks=b&skv=2024-08-04&sig=QMZaXAcWsOCoaLvVNYyncsaSqLRlt4HpL6/KoczOrgA%3D"
+      }
+    ]
+  },
+  "http_status": 200,
+  "asset_id": "AVT-REF-0005",
+  "modality": "image",
+  "local_path": "/mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/AVT-REF-0005_image.png"
+}

@@ -1,0 +1,173 @@
+{
+  "summary": {
+    "overall_percentage": 42.375,
+    "overall_status": "BLOCKED - Critical issues must be resolved",
+    "total_checks": 16,
+    "ready": 6,
+    "warnings": 5,
+    "blocked": 2,
+    "not_started": 3,
+    "timestamp": "2025-11-25T16:05:00.317245"
+  },
+  "results": [
+    {
+      "category": "Account Management",
+      "check_name": "Account Creation",
+      "status": "\u23f8\ufe0f NOT STARTED",
+      "message": "No accounts created yet (0/9)",
+      "score": 0,
+      "recommendations": [
+        "Follow ACCOUNT_SETUP_STEP_BY_STEP.md",
+        "Start with Vumistream and Twiva for immediate monetization",
+        "Update database after each account creation"
+      ]
+    },
+    {
+      "category": "Account Management",
+      "check_name": "Email Verification",
+      "status": "\u274c BLOCKED",
+      "message": "0/1 accounts verified",
+      "score": 0,
+      "recommendations": [
+        "Verify email addresses for all created accounts"
+      ]
+    },
+    {
+      "category": "Account Management",
+      "check_name": "Two-Factor Authentication",
+      "status": "\u23f8\ufe0f NOT STARTED",
+      "message": "0/1 accounts secured",
+      "score": 0,
+      "recommendations": []
+    },
+    {
+      "category": "Account Management",
+      "check_name": "African Platforms Priority",
+      "status": "\u26a0\ufe0f WARNING",
+      "message": "0/3 African platforms set up",
+      "score": 0,
+      "recommendations": [
+        "PRIORITY: Create Vumistream account (immediate monetization)",
+        "PRIORITY: Create Twiva account (commission-based income)"
+      ]
+    },
+    {
+      "category": "Content Management",
+      "check_name": "Content Volume",
+      "status": "\u26a0\ufe0f WARNING",
+      "message": "Insufficient content (4/14 items)",
+      "score": 28,
+      "recommendations": [
+        "Create 10 more content items"
+      ]
+    },
+    {
+      "category": "Content Management",
+      "check_name": "Content Scheduling",
+      "status": "\u2705 READY",
+      "message": "4/4 items scheduled",
+      "score": 100,
+      "recommendations": []
+    },
+    {
+      "category": "Content Management",
+      "check_name": "Content Mix Compliance",
+      "status": "\u26a0\ufe0f WARNING",
+      "message": "Mix: 50% edu, 25% ent, 25% com, 0% promo",
+      "score": 50,
+      "recommendations": [
+        "Adjust content mix to match targets:",
+        "Promotional: 0.0% (target 10%)"
+      ]
+    },
+    {
+      "category": "Brand Assets",
+      "check_name": "Profile Pictures",
+      "status": "\u274c BLOCKED",
+      "message": "No profile pictures found",
+      "score": 0,
+      "recommendations": [
+        "Create 800x800px master profile picture",
+        "Use profile_image_validator.py to resize for all platforms",
+        "Save to 05_BRANDING_ARTIFACTS/profile_pictures/"
+      ]
+    },
+    {
+      "category": "Brand Assets",
+      "check_name": "Banner Images",
+      "status": "\u26a0\ufe0f WARNING",
+      "message": "No banner images found",
+      "score": 0,
+      "recommendations": [
+        "Create platform-specific banners",
+        "YouTube: 2560x1440px",
+        "Facebook: 820x312px",
+        "Save to 05_BRANDING_ARTIFACTS/banners/"
+      ]
+    },
+    {
+      "category": "Brand Assets",
+      "check_name": "Bio Templates",
+      "status": "\u2705 READY",
+      "message": "Bio templates available",
+      "score": 100,
+      "recommendations": []
+    },
+    {
+      "category": "Monetization",
+      "check_name": "Immediate Monetization",
+      "status": "\u26a0\ufe0f WARNING",
+      "message": "No immediate monetization platforms set up",
+      "score": 0,
+      "recommendations": [
+        "PRIORITY: Set up Vumistream (immediate tips & subscriptions)",
+        "PRIORITY: Set up Twiva (commission-based income)"
+      ]
+    },
+    {
+      "category": "Monetization",
+      "check_name": "Twitch Affiliate Progress",
+      "status": "\u23f8\ufe0f NOT STARTED",
+      "message": "Twitch early stage (0/50 followers)",
+      "score": 0,
+      "recommendations": [
+        "Start streaming 2-3x weekly",
+        "Engage with community"
+      ]
+    },
+    {
+      "category": "Analytics",
+      "check_name": "Analytics Database",
+      "status": "\u2705 READY",
+      "message": "Analytics system ready",
+      "score": 100,
+      "recommendations": []
+    },
+    {
+      "category": "Integrations",
+      "check_name": "Buffer Integration",
+      "status": "\u2705 READY",
+      "message": "Buffer import file available",
+      "score": 100,
+      "recommendations": [
+        "Import buffer_import.csv into Buffer dashboard"
+      ]
+    },
+    {
+      "category": "Integrations",
+      "check_name": "Automation Documentation",
+      "status": "\u2705 READY",
+      "message": "Automation guide available",
+      "score": 100,
+      "recommendations": []
+    },
+    {
+      "category": "Documentation",
+      "check_name": "Documentation Completeness",
+      "status": "\u2705 READY",
+      "message": "All documentation complete (4/4)",
+      "score": 100,
+      "recommendations": []
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "injected_prompt": "Portrait video in 16:9 of Sisi Lola, a breathtakingly beautiful, mature Yoruba-born African influencer, greeting her audience with a warm, confident smile. She stands poised in a modern, fitted Yoruba iro and buba crafted from rich, vibrant, patterned fabric\u2014her buba is tailored to flatter her voluptuous hourglass figure, with slender, toned arms visible through elegant cropped sleeves, and her iro is expertly wrapped to accentuate her snatched waist and curvy hips. Her luminous, dark skin glows with realistic texture under cinematic, soft key lighting, creating a radiant, photorealistic effect; subtle rim lighting highlights her high cheekbones and captivating almond eyes, all enhanced by impeccable, glamorous makeup. The camera begins with a gentle dolly-in from waist height, capturing the intricate fabric details and Sisi Lola\u2019s confident posture, then slowly pans upward to her expressive face as she raises a hand in a graceful Yoruba greeting. The background is softly blurred, evoking a premium editorial style, while she moves naturally\u2014her gele (headwrap) styled in a contemporary, sculptural fashion, and her confident, mature presence unmistakably Yoruba, sophisticated, and Vogue-ready[1][3][4]. Her luminous dark skin has realistic texture and gentle sheen under the light.",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "provider": "HeyGen",
+  "script": "Hey family, welcome back to the Tech Lounge. I'm Sisi Lola, and today we're diving into the latest Lagos tech drops. Stick around!",
+  "status": "success",
+  "result": {
+    "video_id": "23d5f32ba79f4c2b946779743f7d123e",
+    "media_url": "https://files2.heygen.ai/aws_pacific/avatar_tmp/afedd247f6ee4ae3aba0b8ae6edba770/23d5f32ba79f4c2b946779743f7d123e.mp4?Expires=1764710271&Signature=IVD00KSq8bIIlUyVR5rFtiXQBy2BPF5yWTJxwmTMGILw8DD4uNrDEQTfoJ35~9n0MNkJVlm73EMC7634yJQLypNEqm4sEFuZcnAlCbFLtzJOjZKMv5yxgbVomIaF4tLMW-1mfkEEMFKXs8Z1Yk3SZYfRASbTHj1n3~PZScLmIvE-PkKVx5u4SrjN3wJSyUqaDqtbENWKTkjlxvpKdEijaKngoOGuqxBXryjOibVeHzwSlH3MXGc9L0Nc3kQMEzTMCmfjOjCvcsxv6BmvyyVYgFTziRQ0D-7J23vRdNdTcOWXRRQGcDXPP7dOF0JxuO2OU5~ycwcj3WB7on5uzNiOZA__&Key-Pair-Id=K38HBHX5LX3X2H",
+    "start_response": {
+      "error": null,
+      "data": {
+        "video_id": "23d5f32ba79f4c2b946779743f7d123e"
+      }
+    },
+    "status_response": {
+      "code": 100,
+      "data": {
+        "callback_id": null,
+        "caption_url": "https://resource2.heygen.ai/movio/video/23d5f32ba79f4c2b946779743f7d123e/caption.ass",
+        "created_at": 1764105450,
+        "duration": 8.352,
+        "error": null,
+        "gif_url": "https://resource2.heygen.ai/video/23d5f32ba79f4c2b946779743f7d123e/gif.gif",
+        "id": "23d5f32ba79f4c2b946779743f7d123e",
+        "status": "completed",
+        "thumbnail_url": "https://files2.heygen.ai/aws_pacific/avatar_tmp/afedd247f6ee4ae3aba0b8ae6edba770/23d5f32ba79f4c2b946779743f7d123e.jpeg?Expires=1764710271&Signature=ijpHIFGlDqImvx3jUxRxmWfaU~lqvy~Vqrmslimp4gr3881uIlCgIvGmHxpyiBcFoRXTwXaIh9sW~jerb1qELsVdhdWfCnk54TKwPtsD8xrQnmdNVs8UWFQDyIQ4eOIeAlG4ubHPQOB1346Z83J0jId4D5RhBnP7BTGmxnerMiWJu3XxUM9ov-xYcoMhcaZ1Dk5bjSq~I4ngXIySsMCgLU~8SfUxOG2HOnE~DeGif6iXL8Tv~fF891ANSgBovCwQo8cBuALrMlaSQGf20M3FcjvZzm8V-vDwxqCQlkNxJvgwR49fmOZVTgDhZ1kS6hl0G7mO3N6klUdeMgUdjFrMyg__&Key-Pair-Id=K38HBHX5LX3X2H",
+        "video_url": "https://files2.heygen.ai/aws_pacific/avatar_tmp/afedd247f6ee4ae3aba0b8ae6edba770/23d5f32ba79f4c2b946779743f7d123e.mp4?Expires=1764710271&Signature=IVD00KSq8bIIlUyVR5rFtiXQBy2BPF5yWTJxwmTMGILw8DD4uNrDEQTfoJ35~9n0MNkJVlm73EMC7634yJQLypNEqm4sEFuZcnAlCbFLtzJOjZKMv5yxgbVomIaF4tLMW-1mfkEEMFKXs8Z1Yk3SZYfRASbTHj1n3~PZScLmIvE-PkKVx5u4SrjN3wJSyUqaDqtbENWKTkjlxvpKdEijaKngoOGuqxBXryjOibVeHzwSlH3MXGc9L0Nc3kQMEzTMCmfjOjCvcsxv6BmvyyVYgFTziRQ0D-7J23vRdNdTcOWXRRQGcDXPP7dOF0JxuO2OU5~ycwcj3WB7on5uzNiOZA__&Key-Pair-Id=K38HBHX5LX3X2H",
+        "video_url_caption": "https://files2.heygen.ai/movio/video/23d5f32ba79f4c2b946779743f7d123e/1dc6c1bee3524bc9b83d1c699a8ce41c/caption.mp4?Expires=1764710270&Signature=oq9~mqSroVDQiUGgCwH7WC5gl43IXanT5Y~p7e8d2GdLAEbo730E~Xuxm8JoHlAmnHe90os7g3-Ab0hv4s3a92cdGWnQIL3PW1Xyr-jKxYu9xW3buDKy5bM~p52vgA7G0EOwVa7o~nosM~EepfL-OUdYbZk~diNvhSpArj1tNLuUDGphEZ9olYE9F-5eNzFkWv7rjOvXwDzf4Xrzjo9hILRiy3GXSuBBeecxMfSCkdOhzIFGLmU57Xmbax2L2iWl1CQlTqWXoUdbDzIZ8-OByXNCEN~NPeMwogObMi9EEofYNGep0cMehZ1EQFrIGXYF2-5yhFUYHNp--mpzoamIjQ__&Key-Pair-Id=K38HBHX5LX3X2H"
+      },
+      "message": "Success"
+    }
+  }
+}

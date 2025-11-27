@@ -1,0 +1,15 @@
+{
+  "injected_prompt": "Portrait vertical video in 9:16 for Instagram Reels: Sisi Lola stands confidently, facing the camera with direct, captivating eye contact, delivering energetic, engaging content in quick-cut edits and trending transitions. She wears a modern, fitted Yoruba iro and buba crafted from rich, vibrant fabric\u2014deep jewel tones with subtle metallic threads\u2014accentuating her voluptuous hourglass figure, slender toned arms, and luminous dark skin with realistic texture and glow. Her impeccable makeup highlights her high cheekbones and almond eyes, framed by soft cinematic lighting from a large window, creating gentle shadows and depth. Camera begins with a smooth dolly-in movement, then alternates between tight portrait shots and dynamic pans to emphasize her gestures and confident posture. Sisi Lola gestures expressively, occasionally adjusting her buba or iro, radiating mature glamour and Yoruba pride. The background is minimalist, with subtle cultural motifs, ensuring full focus remains on her. Each cut maintains crisp audio, vibrant colors, and Vogue Future raw photography style, optimized for mobile viewing and instant visual impact[1][3][4][6].",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "provider": "KlingAI",
+  "perplexity_error": "Client error '404 Not Found' for url 'https://api.perplexity.ai/videos/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404",
+  "status": "error",
+  "message": "KlingAI video generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/videos/text2video'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "http_status": 502,
+  "asset_id": "MED-IGSHT-0146",
+  "modality": "video"
+}

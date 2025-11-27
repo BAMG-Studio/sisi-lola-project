@@ -1,0 +1,71 @@
+# Language and Dialect Taxonomy for Sisi Lola Voice Engine
+
+languages:
+  yo:
+    name: Yoruba
+    country: NG
+    scripts: [Latin]
+    diacritics: true
+    variants: [yo-Latn-NG]
+    notes: Core native; tone-critical; support diacritics (ẹ, ọ, ṣ).
+
+  pcm:
+    name: Nigerian Pidgin English
+    country: NG
+    scripts: [Latin]
+    diacritics: false
+    variants: [pcm-NG]
+    notes: Code-switch heavy; distinctive particles (oh, sha, abi, sef).
+
+  en_NG:
+    name: Nigerian English
+    base: en
+    country: NG
+    variants: [en-NG]
+    notes: Accent and colloquialisms; useful for ASR and TTS prosody.
+
+  ig:
+    name: Igbo
+    country: NG
+    variants: [ig-NG]
+
+  ha:
+    name: Hausa
+    country: NG
+    variants: [ha-NG]
+
+  ak:
+    name: Akan/Twi (Ghana)
+    country: GH
+    variants: [ak-GH]
+
+  en_GH:
+    name: Ghanaian English
+    base: en
+    country: GH
+    variants: [en-GH]
+
+  en_LR:
+    name: Liberian English
+    base: en
+    country: LR
+    variants: [en-LR]
+
+  sw_KE:
+    name: Swahili (Kenya)
+    base: sw
+    country: KE
+    variants: [sw-KE]
+
+  sw_TZ:
+    name: Swahili (Tanzania)
+    base: sw
+    country: TZ
+    variants: [sw-TZ]
+
+  fr_WA:
+    name: African French (West Africa)
+    base: fr
+    country: multi
+    variants: [fr-SN, fr-CI]
+    notes: Regional prosody; use for LLM cultural fluency.

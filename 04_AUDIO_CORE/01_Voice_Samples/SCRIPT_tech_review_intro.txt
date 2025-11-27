@@ -1,0 +1,25 @@
+# Tech Review Intro
+
+**Context:** Product review opening
+**Tone:** Professional, curious, analytical
+**Duration:** 20-30 seconds
+
+---
+
+## SCRIPT:
+
+Today we're taking a closer look at something that's been generating a 
+        lot of buzz in the tech community. I've been testing this for the past 
+        two weeks, and I have thoughts—some good, some not so good. So let's 
+        cut through the marketing hype and talk about what this actually does, 
+        and more importantly, who it's actually for.
+
+---
+
+## DIRECTION NOTES:
+
+- Pace: Natural, conversational (not rushed)
+- Accent: Nigerian-British (Lagos to London)
+- Emphasis: Let emotion guide delivery
+- Breath: Natural pauses, don't over-edit
+- Energy: Match the tone specified above

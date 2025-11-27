@@ -1,0 +1,15 @@
+{
+  "injected_prompt": "Character reference sheet of Sisi Lola, African virtual host, 16:9 aspect ratio, ultra high-resolution 8k photorealistic raw photography, cinematic lighting, depth of field. Full body views: front, side, back, and 3/4 angle, each with Sisi Lola in both a neutral T-pose and a dynamic, lively pose. Sisi Lola is a breathtakingly beautiful Yoruba-born, mature, voluptuous African woman with a sexy hourglass figure, slender toned arms, snatched waist, and luminous dark skin with realistic texture. She has captivating almond eyes, high cheekbones, flawless makeup, and a confident, poised expression. She wears a modern fitted Yoruba iro and buba: a tailored buba blouse with a contemporary neckline and elegant sleeves, and a rich, vibrant iro wrapper tied fashionably around her hips, made from luxurious, patterned Ankara and shimmering lace, with an intricately styled gele headwrap adding regal flair. The outfit\u2019s bold colors and textures catch the soft, directional cinematic lighting, while subtle shadows sculpt her silhouette. Camera angle is eye-level for clarity, with crisp, detailed focus and a gentle background blur to highlight Sisi Lola\u2019s striking presence and the exquisite details of her attire.",
+  "reference_images": [
+    "assets/dna/sisi_dna_v1.png",
+    "assets/dna/sisi_dna_v2.png"
+  ],
+  "dna_integrity": "100%",
+  "status": "error",
+  "provider": "OpenAI",
+  "fallback_reason": "KlingAI generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "message": "OpenAI fallback failed: Client error '400 Bad Request' for url 'https://api.openai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+  "http_status": 502,
+  "asset_id": "AVT-REF-0001",
+  "modality": "image"
+}

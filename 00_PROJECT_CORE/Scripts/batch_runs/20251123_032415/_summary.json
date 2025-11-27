@@ -1,0 +1,177 @@
+[
+  {
+    "injected_prompt": "Character reference sheet of Sisi Lola, African virtual host, 16:9 aspect ratio, ultra high-resolution 8k photorealistic raw photography, cinematic lighting, depth of field. Full body views: front, side, back, and 3/4 angle, each with Sisi Lola in both a neutral T-pose and a dynamic, lively pose. Sisi Lola is a breathtakingly beautiful Yoruba-born, mature, voluptuous African woman with a sexy hourglass figure, slender toned arms, snatched waist, and luminous dark skin with realistic texture. She has captivating almond eyes, high cheekbones, flawless makeup, and a confident, poised expression. She wears a modern fitted Yoruba iro and buba: a tailored buba blouse with a contemporary neckline and elegant sleeves, and a rich, vibrant iro wrapper tied fashionably around her hips, made from luxurious, patterned Ankara and shimmering lace, with an intricately styled gele headwrap adding regal flair. The outfit\u2019s bold colors and textures catch the soft, directional cinematic lighting, while subtle shadows sculpt her silhouette. Camera angle is eye-level for clarity, with crisp, detailed focus and a gentle background blur to highlight Sisi Lola\u2019s striking presence and the exquisite details of her attire.",
+    "reference_images": [
+      "assets/dna/sisi_dna_v1.png",
+      "assets/dna/sisi_dna_v2.png"
+    ],
+    "dna_integrity": "100%",
+    "status": "error",
+    "provider": "OpenAI",
+    "fallback_reason": "KlingAI generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+    "message": "OpenAI fallback failed: Client error '400 Bad Request' for url 'https://api.openai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+    "http_status": 502,
+    "asset_id": "AVT-REF-0001",
+    "modality": "image"
+  },
+  {
+    "injected_prompt": "Close-up portrait of Sisi Lola, a stunning Yoruba-born African virtual influencer, showcasing exquisite facial details with luminous, realistic dark skin texture, subtle pores, and a radiant glow under soft, diffused cinematic lighting. Her captivating almond-shaped eyes are highlighted with bold, modern makeup variations\u2014smoky metallic lids, defined brows, and glossy lips\u2014accentuating her confident expression. The camera focuses tightly on her face, capturing the intricate details of her flawless foundation, subtle contouring, and shimmering highlighter that enhances her high cheekbones. Her hair is styled in a sleek, voluminous gele headwrap, intricately tied with elegant folds and vibrant patterns that echo the rich, colorful Ankara fabric of her modern, fitted iro and buba ensemble. The outfit features a tailored buba blouse with a plunging neckline and fitted silhouette, paired with a sleek iro wrapper tied in a sophisticated knot, both crafted from luxurious, high-contrast African print fabric. The background is softly blurred with depth of field, emphasizing her presence, while the 16:9 aspect ratio frames her perfectly in 8k photorealistic resolution, evoking a Vogue Future editorial aesthetic.",
+    "reference_images": [
+      "assets/dna/sisi_dna_v1.png",
+      "assets/dna/sisi_dna_v2.png"
+    ],
+    "dna_integrity": "100%",
+    "status": "error",
+    "provider": "OpenAI",
+    "fallback_reason": "KlingAI generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+    "message": "OpenAI fallback failed: Client error '400 Bad Request' for url 'https://api.openai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+    "http_status": 502,
+    "asset_id": "AVT-REF-0002",
+    "modality": "image"
+  },
+  {
+    "injected_prompt": "Wide establishing shot capturing Sisi Lola\u2014a breathtaking, mature Yoruba beauty with a voluptuous hourglass figure, radiant dark skin, and captivating almond-shaped eyes\u2014seated confidently inside a luxurious, floating glass podcast pod suspended high above a neon-lit, futuristic Lagos skyline. The floor-to-ceiling windows reveal the glowing cityscape, bathing the afro-futurist studio in cinematic, moody light with sharp highlights and deep shadows. She wears a modern, fitted iro and buba: the iro elegantly wrapped in sumptuous, vibrant Ankara fabric with intricate geometric patterns, paired with a tailored, off-shoulder buba blouse that accentuates her snatched waist and slender, toned arms. Her look is completed with a dramatic gele headwrap, perfectly styled, and bold, impeccable makeup. The scene features sleek, minimalist furniture with metallic and holographic accents, while the crisp 8k photorealistic detail and shallow depth of field focus attention on her poised, charismatic presence in this ultra-modern, Vogue Future-inspired setting[1][3].",
+    "reference_images": [
+      "assets/dna/sisi_dna_v1.png",
+      "assets/dna/sisi_dna_v2.png"
+    ],
+    "dna_integrity": "100%",
+    "status": "error",
+    "provider": "OpenAI",
+    "fallback_reason": "KlingAI generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+    "message": "OpenAI fallback failed: Client error '400 Bad Request' for url 'https://api.openai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+    "http_status": 502,
+    "asset_id": "ENV-STUD-0061",
+    "modality": "image"
+  },
+  {
+    "injected_prompt": "Portrait of Sisi Lola, a breathtakingly beautiful, mature Yoruba-born African influencer with luminous dark skin, captivating almond eyes, high cheekbones, and impeccable makeup, seated confidently in a luxurious, floating glass podcast pod suspended above a futuristic Lagos skyline. Warm, ambient lighting envelops the space, reflecting off sleek glass walls and illuminating a modern medium-sized desk equipped with a professional microphone setup and vibrant holographic displays. The atmosphere is cinematic and intimate, with depth of field focusing on Sisi Lola\u2019s voluptuous, hourglass figure clad in a modern, fitted iro and buba crafted from rich, vibrantly patterned fabric in deep jewel tones, the blouse tailored to accentuate her snatched waist and slender arms. Her look is completed with a stylish, contemporary gele. The camera is angled at medium desk height, capturing her poised posture and confident expression, with bokeh city lights shimmering in the background, evoking a premium, Vogue Future editorial aesthetic in 8k photorealistic detail.",
+    "reference_images": [
+      "assets/dna/sisi_dna_v1.png",
+      "assets/dna/sisi_dna_v2.png"
+    ],
+    "dna_integrity": "100%",
+    "status": "error",
+    "provider": "OpenAI",
+    "fallback_reason": "KlingAI generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+    "message": "OpenAI fallback failed: Client error '400 Bad Request' for url 'https://api.openai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+    "http_status": 502,
+    "asset_id": "ENV-STUD-0062",
+    "modality": "image"
+  },
+  {
+    "injected_prompt": "Portrait of Sisi Lola, a Yoruba-born influencer host, showcasing her mature, voluptuous hourglass figure with slender, toned arms and a snatched waist, luminous dark skin with realistic texture, captivating almond eyes, high cheekbones, and impeccable makeup. She stands confidently in a modern, fitted Yoruba iro and buba crafted from rich, vibrant fabric, the outfit tailored to accentuate her curves and elegance. The scene features 8k photorealistic detail with cinematic lighting, soft gold highlights, and deep purple undertones evoking an afro-futurist aesthetic. Set against a clean, minimal background, the composition is centered and square (1:1 aspect ratio), emphasizing a premium, main full-color professional logo design for 'SISI LOLA'\u2014the logo in sleek, modern vector style, with clean typography and a sophisticated gold and purple palette seamlessly integrated into the scene's atmosphere. The camera angle is at eye level, slightly zoomed for intimacy, with crisp depth of field and Vogue Future raw photography style.",
+    "reference_images": [
+      "assets/dna/sisi_dna_v1.png",
+      "assets/dna/sisi_dna_v2.png"
+    ],
+    "dna_integrity": "100%",
+    "status": "success",
+    "provider": "OpenAI",
+    "fallback_reason": "KlingAI generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+    "result": {
+      "created": 1763889922,
+      "data": [
+        {
+          "revised_prompt": "Portrait of an influential Yoruba-born hostess, celebrating her mature hourglass figure with slender, toned arms and defined waistline. Her radiant dark skin carries true-to-life texture, complimented by enchanting almond eyes, lofty cheekbones, and flawless makeup. She stands confidently wearing a modern, snug iro and buba of the Yoruba tradition, tailored from a rich, vibrantly colored fabric that highlights her elegance. A 8k photorealistic rendering includes cinematic lighting, soft golden highlights, and deep purple undertones, conjuring an afro-futurist ambiance. The minimalistic scene is centered and proportioned in a 1:1 aspect ratio, featuring a premium, vibrant colored professional logo design labeled 'SISI LOLA'. The contemporary logo, rendered in vector style, has clean typography and a sophisticated gold and purple scheme that blends harmoniously into the atmosphere. The photograph is taken at eye-level, slightly zoomed to foster closeness, offering a crisp depth of field in the style of Vogue Future raw photography.",
+          "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-Nz10v7qQ4tJIcG3PzixW8OmO/user-4DLw32bjcn0DtdxKxktY8LRY/img-SSPEoqGBWWIFZgoFkL0SNa0x.png?st=2025-11-23T08%3A25%3A21Z&se=2025-11-23T10%3A25%3A21Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=7daae675-7b42-4e2e-ab4c-8d8419a28d99&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-11-23T09%3A25%3A21Z&ske=2025-11-24T09%3A25%3A21Z&sks=b&skv=2024-08-04&sig=c5AP969HATw%2B5Cc/X/jQCHb3X9HegQJOLd6a5u2Y8R8%3D"
+        }
+      ]
+    },
+    "http_status": 200,
+    "asset_id": "BRD-LOGO2D-0201",
+    "modality": "image",
+    "local_path": "/mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/BRD-LOGO2D-0201_image.png"
+  },
+  {
+    "injected_prompt": "Close-up portrait of Sisi Lola, a hyper-realistic African woman with luminous dark skin, captivating almond eyes, and high cheekbones, her expression neutral and confident, exuding quiet elegance. She wears a modern, fitted Yoruba traditional outfit\u2014a tailored iro and buba crafted from rich, vibrant Ankara fabric with intricate patterns that catch the light, the buba draping softly over her shoulders and the iro wrapped snugly at her waist to accentuate her hourglass figure. Her head is adorned with a sculpted, fan-shaped gele in complementary hues, adding regal sophistication. Subtle holographic makeup glimmers on her lids and cheekbones, enhancing her features with a futuristic touch. The studio lighting is soft yet dramatic, casting gentle highlights and shadows that emphasize her facial structure and the texture of her skin and fabric. Shot with an 85mm lens for exquisite detail and shallow depth of field, the atmosphere is intimate and refined, capturing the essence of contemporary African luxury in a 1:1 aspect ratio.",
+    "reference_images": [
+      "assets/dna/sisi_dna_v1.png",
+      "assets/dna/sisi_dna_v2.png"
+    ],
+    "dna_integrity": "100%",
+    "status": "success",
+    "provider": "OpenAI",
+    "fallback_reason": "KlingAI generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+    "result": {
+      "created": 1763889955,
+      "data": [
+        {
+          "revised_prompt": "Close-up portrait of a hyper-realistic African woman with luminous dark skin, captivating almond eyes, and high cheekbones, her expression neutral and confident, full of quiet elegance. She dons a modern, fitted Yoruba traditional outfit\u2014a tailored iro and buba created out of vibrant, rich Ankara fabric sporting intricate patterns that radiate light, the buba draping softly over her shoulders and the iro wrapped snugly at her waist to emphasize her hourglass figure. Her head is accentuated with a sculpted, fan-shaped gele in complementary shades, adding a regal sophistication to her aura. A hint of holographic makeup glitters on her eyelids and cheekbones, enhancing her features with a touch of futurism. The studio lighting is soft yet dramatic, casting delicate highlights and shadows that underline her facial structure and the texture of her skin and fabric. Shot with an 85mm lens for exquisite detail and shallow depth of field, the atmosphere feels intimate, refined, encapsulating the quintessence of contemporary African luxury in a 1:1 aspect ratio.",
+          "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-Nz10v7qQ4tJIcG3PzixW8OmO/user-4DLw32bjcn0DtdxKxktY8LRY/img-3MV9SOn22rK63E8JpzzbVZPe.png?st=2025-11-23T08%3A25%3A55Z&se=2025-11-23T10%3A25%3A55Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=9346e9b9-5d29-4d37-a0a9-c6f95f09f79d&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-11-23T09%3A25%3A55Z&ske=2025-11-24T09%3A25%3A55Z&sks=b&skv=2024-08-04&sig=XjJYgCrHmoIXMMNnncd8ntNpOqFinYKTKEMGz9nQmqo%3D"
+        }
+      ]
+    },
+    "http_status": 200,
+    "asset_id": "AVT-EXP-0011",
+    "modality": "image",
+    "local_path": "/mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/AVT-EXP-0011_image.png"
+  },
+  {
+    "injected_prompt": "Close-up portrait of Sisi Lola, a breathtakingly beautiful mature Yoruba-born African woman with a voluptuous, curvy hourglass figure, slender toned arms, and luminous dark skin with realistic texture, captured with an 85mm lens in 1:1 aspect ratio. She exudes confidence and warmth, her captivating almond-shaped eyes sparkling and her high cheekbones accentuated by a happy, radiant smile. Her makeup is impeccable and tastefully futuristic, featuring subtle holographic accents that shimmer under pristine, soft studio lighting with gentle cinematic highlights and controlled depth of field. Sisi Lola wears a modern, fitted Yoruba iro and buba ensemble crafted from rich, vibrant patterned fabric, the blouse tailored to enhance her silhouette while the wrapper is elegantly draped and cinched at the waist, embodying both tradition and contemporary style. The atmosphere is polished and editorial, reminiscent of a Vogue Future cover shoot, with every detail\u2014from the refined outfit textures to the soft glow on her skin\u2014rendered in hyper-realistic, 8k photographic quality.",
+    "reference_images": [
+      "assets/dna/sisi_dna_v1.png",
+      "assets/dna/sisi_dna_v2.png"
+    ],
+    "dna_integrity": "100%",
+    "status": "success",
+    "provider": "OpenAI",
+    "fallback_reason": "KlingAI generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+    "result": {
+      "created": 1763889990,
+      "data": [
+        {
+          "revised_prompt": "Close-up portrait of a breathtakingly beautiful mature Yoruba woman with a voluptuous, curvy hourglass figure, slender toned arms, and luminous dark skin with realistic texture. She exudes confidence and warmth, her captivating almond-shaped eyes sparkling and her high cheekbones accentuated by a happy, radiant smile. Her makeup is impeccable and tastefully futuristic, featuring subtle holographic accents that shimmer under pristine, soft studio lighting with gentle cinematic highlights and controlled depth of field. The woman wears a modern, fitted Yoruba iro and buba ensemble crafted from rich, vibrant patterned fabric, the blouse tailored to enhance her silhouette while the wrapper is elegantly draped and cinched at the waist, embodying both tradition and contemporary style. The atmosphere is polished and editorial, reminiscent of a modern fashion cover shoot, with every detail\u2014from the refined outfit textures to the soft glow on her skin\u2014rendered in hyper-realistic, 8k photographic quality. This portrait is captured with an 85mm lens in 1:1 aspect ratio.",
+          "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-Nz10v7qQ4tJIcG3PzixW8OmO/user-4DLw32bjcn0DtdxKxktY8LRY/img-5L5zObsgslrPHQQAYZkp1Afp.png?st=2025-11-23T08%3A26%3A30Z&se=2025-11-23T10%3A26%3A30Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=77e5a8ec-6bd1-4477-8afc-16703a64f029&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-11-23T08%3A53%3A18Z&ske=2025-11-24T08%3A53%3A18Z&sks=b&skv=2024-08-04&sig=e%2BEX7Pi2vMOl7%2B4I17PBdWzPONc70DFAEcesACCo3e8%3D"
+        }
+      ]
+    },
+    "http_status": 200,
+    "asset_id": "AVT-EXP-0012",
+    "modality": "image",
+    "local_path": "/mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/AVT-EXP-0012_image.png"
+  },
+  {
+    "injected_prompt": "Full body portrait of Sisi Lola, a breathtaking Yoruba-born virtual influencer host, standing confidently in a vivid Afrofuturist purple blazer with angular, sculptural shoulders and metallic accents, embodying a bold fusion of tradition and futuristic innovation. Her sexy, hourglass silhouette is showcased by the tailored blazer cinched at her snatched waist, paired with sleek, high-waisted trousers that elongate her toned legs. The studio is flooded with cinematic lighting that highlights her luminous, deep ebony skin and the rich textures of her outfit, with crisp shadows and a soft, diffused glow accentuating the contours of her voluptuous figure. Vogue Future fashion photography style, shot in 9:16 aspect ratio with a slightly low camera angle for runway drama and depth of field that blurs the minimalist studio background. Sisi Lola\u2019s makeup is impeccable, emphasizing her captivating almond eyes and high cheekbones; her confident, poised runway stance radiates authority and allure, while bold statement jewelry\u2014chrome cuffs and geometric earrings\u2014adds a tech-inspired edge.",
+    "reference_images": [
+      "assets/dna/sisi_dna_v1.png",
+      "assets/dna/sisi_dna_v2.png"
+    ],
+    "dna_integrity": "100%",
+    "status": "error",
+    "provider": "OpenAI",
+    "fallback_reason": "KlingAI generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+    "message": "OpenAI fallback failed: Client error '400 Bad Request' for url 'https://api.openai.com/v1/images/generations'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+    "http_status": 502,
+    "asset_id": "AVT-OUT-0026",
+    "modality": "image"
+  },
+  {
+    "injected_prompt": "In a cinematic 16:9 commercial video, Sisi Lola stands as the epitome of Yoruba elegance, presenting Coffee Brand Morning with a confident, captivating expression. Her luminous dark skin with realistic texture glows in soft, golden morning light, highlighting her high cheekbones and impeccable makeup. She wears a modern, fitted iro and buba ensemble crafted from rich, vibrant Ankara and silk fabrics, the blouse tailored to accentuate her voluptuous hourglass figure, snatched waist, and slender, toned arms, while the wrapper is artfully tied at her hips, and a sleek gele crowns her head[1][3]. The atmosphere feels fresh and inviting, with gentle steam rising from a beautifully designed coffee cup placed prominently beside her for professional product placement. The camera begins with a wide dolly shot that slowly pans around Sisi Lola, then smoothly zooms in to capture the texture of her skin, the luxurious details of her outfit, and the rising steam. As she elegantly lifts the cup and smiles, her movement is fluid and poised, perfectly synchronized with the dynamic camera motion, creating a Vogue Future aesthetic that blends photorealistic depth of field and cinematic lighting for a truly premium, aspirational scene.",
+    "reference_images": [
+      "assets/dna/sisi_dna_v1.png",
+      "assets/dna/sisi_dna_v2.png"
+    ],
+    "dna_integrity": "100%",
+    "provider": "KlingAI",
+    "status": "error",
+    "message": "KlingAI video generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/videos/text2video'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+    "http_status": 502,
+    "asset_id": "MED-COM-0121",
+    "modality": "video"
+  },
+  {
+    "injected_prompt": "Vertical 9:16 video of Sisi Lola, a breathtaking Yoruba-born, mature and voluptuous African influencer host with a sexy, curvy hourglass figure, slender toned arms, snatched waist, and luminous dark skin with realistic texture; she stands confidently and energetically addresses the camera, her captivating almond eyes and high cheekbones framed by impeccable makeup, delivering engaging, on-trend content with quick, dynamic cuts. She wears a modern, fitted iro and buba in rich, vibrant fabric\u2014emerald and magenta patterns catching the cinematic, soft diffused lighting that accentuates the depth and glow of her skin, with the look elevated by bold gold jewelry and a sleek gele. Camera begins with a slight dolly-in as she gestures expressively, lips syncing to trending audio, maintaining direct eye contact and switching poses with smooth transitions; rhythmic pans and subtle zooms keep the energy high, while shallow depth of field isolates her against a blurred, editorial-inspired backdrop, capturing every nuance in stunning 8k, photorealistic, raw Vogue Future style.",
+    "reference_images": [
+      "assets/dna/sisi_dna_v1.png",
+      "assets/dna/sisi_dna_v2.png"
+    ],
+    "dna_integrity": "100%",
+    "provider": "KlingAI",
+    "status": "error",
+    "message": "KlingAI video generation failed: Client error '429 Too Many Requests' for url 'https://api-singapore.klingai.com/v1/videos/text2video'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+    "http_status": 502,
+    "asset_id": "MED-IGSHT-0146",
+    "modality": "video"
+  }
+]
