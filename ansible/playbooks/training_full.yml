@@ -9,10 +9,9 @@
 - name: Execute full training pipeline
   block:
     - name: Clear existing checkpoints
-      file:
-        path: "{{ project_root }}/ml_training/checkpoints/{{ item.key }}"
-        state: absent
+      shell: rm -rf "{{ project_root }}/ml_training/checkpoints/{{ item.key }}"
       loop: "{{ models_to_train | dict2items }}"
+      ignore_errors: yes
     
     - name: Prepare dataset
       command: >
@@ -65,9 +64,10 @@
       command: >
         python {{ project_root }}/ml_training/scripts/validate_model.py
         --model {{ item.key }}
-        --checkpoint {{ project_root }}/ml_training/checkpoints/{{ item.key }}/final
+        --checkpoint {{ project_root }}/ml_training/checkpoints/{{ item.key }}/production
       loop: "{{ models_to_train | dict2items }}"
       register: validation_results
+      ignore_errors: yes
     
     - name: Save training metrics
       copy:

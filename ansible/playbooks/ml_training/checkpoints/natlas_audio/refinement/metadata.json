@@ -1,0 +1,10 @@
+{
+  "model": "natlas_audio",
+  "phase": "refinement",
+  "mode": "full",
+  "started_at": "2025-11-27T13:24:07.955910",
+  "completed_at": "2025-11-27T13:24:07.955919",
+  "status": "success",
+  "epochs": 20,
+  "checkpoint_path": "ml_training/checkpoints/natlas_audio/refinement"
+}

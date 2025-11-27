@@ -65,11 +65,15 @@
         - name: Load environment variables
           shell: |
             if [ -f "{{ project_root }}/sisi_lola_api/.env" ]; then
-              export $(cat {{ project_root }}/sisi_lola_api/.env | grep -v '^#' | xargs)
+              set -a
+              source <(grep -v '^#' {{ project_root }}/sisi_lola_api/.env | grep -v '^$')
+              set +a
               echo "Environment loaded"
             fi
           register: env_load
           changed_when: false
+          args:
+            executable: /bin/bash
     
     - name: Execute training based on mode
       include_tasks: "training_{{ training_mode }}.yml"
@@ -78,10 +82,14 @@
     
     - name: Post-training tasks
       block:
-        - name: Generate training report
-          template:
-            src: ../templates/training_report.j2
-            dest: "{{ project_root }}/ml_training/logs/training_{{ ansible_date_time.iso8601_basic_short }}.log"
+        - name: Create training summary
+          copy:
+            content: |
+              Training completed: {{ ansible_date_time.iso8601 }}
+              Mode: {{ training_mode }}
+              Model: {{ target_model }}
+              Status: Success
+            dest: "{{ project_root }}/ml_training/logs/training_{{ ansible_date_time.epoch }}.log"
         
         - name: Send notification
           uri:

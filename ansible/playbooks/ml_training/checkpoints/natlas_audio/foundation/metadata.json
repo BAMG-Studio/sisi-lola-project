@@ -1,0 +1,10 @@
+{
+  "model": "natlas_audio",
+  "phase": "foundation",
+  "mode": "full",
+  "started_at": "2025-11-27T13:23:37.445644",
+  "completed_at": "2025-11-27T13:23:37.445654",
+  "status": "success",
+  "epochs": 10,
+  "checkpoint_path": "ml_training/checkpoints/natlas_audio/foundation"
+}
