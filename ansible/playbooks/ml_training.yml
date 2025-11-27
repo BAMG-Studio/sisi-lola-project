@@ -1,0 +1,99 @@
+---
+# Ansible Playbook: ML Model Training Orchestration
+# Supports full, partial, and phasic training modes
+
+- name: ML Training Orchestration
+  hosts: localhost
+  gather_facts: yes
+  vars_files:
+    - ../vars/secrets.yml
+  
+  vars:
+    project_root: "{{ playbook_dir }}/../../"
+    training_config: "{{ project_root }}/ml_training/configs/training_config.yaml"
+    training_mode: "{{ mode | default('partial') }}"
+    target_model: "{{ model | default('all') }}"
+    target_phase: "{{ phase | default('foundation') }}"
+    
+  tasks:
+    - name: Display training configuration
+      debug:
+        msg:
+          - "Training Mode: {{ training_mode }}"
+          - "Target Model: {{ target_model }}"
+          - "Target Phase: {{ target_phase }}"
+    
+    - name: Load training configuration
+      include_vars:
+        file: "{{ training_config }}"
+        name: config
+    
+    - name: Validate environment
+      block:
+        - name: Check Python environment
+          command: python --version
+          register: python_version
+          changed_when: false
+        
+        - name: Check required packages
+          pip:
+            name:
+              - transformers
+              - torch
+              - huggingface_hub
+              - python-dotenv
+            state: present
+          check_mode: yes
+          register: pip_check
+        
+        - name: Display environment info
+          debug:
+            msg: "Python: {{ python_version.stdout }}"
+    
+    - name: Prepare training environment
+      block:
+        - name: Create training directories
+          file:
+            path: "{{ item }}"
+            state: directory
+            mode: '0755'
+          loop:
+            - "{{ project_root }}/ml_training/checkpoints"
+            - "{{ project_root }}/ml_training/logs"
+            - "{{ project_root }}/ml_training/outputs"
+        
+        - name: Load environment variables
+          shell: |
+            if [ -f "{{ project_root }}/sisi_lola_api/.env" ]; then
+              export $(cat {{ project_root }}/sisi_lola_api/.env | grep -v '^#' | xargs)
+              echo "Environment loaded"
+            fi
+          register: env_load
+          changed_when: false
+    
+    - name: Execute training based on mode
+      include_tasks: "training_{{ training_mode }}.yml"
+      vars:
+        models_to_train: "{{ config.models if target_model == 'all' else {target_model: config.models[target_model]} }}"
+    
+    - name: Post-training tasks
+      block:
+        - name: Generate training report
+          template:
+            src: ../templates/training_report.j2
+            dest: "{{ project_root }}/ml_training/logs/training_{{ ansible_date_time.iso8601_basic_short }}.log"
+        
+        - name: Send notification
+          uri:
+            url: "{{ config.notifications.slack_webhook }}"
+            method: POST
+            body_format: json
+            body:
+              text: "Training completed: {{ training_mode }} mode for {{ target_model }}"
+          when: config.notifications.slack_webhook is defined
+          ignore_errors: yes
+    
+    - name: Cleanup temporary files
+      file:
+        path: "{{ project_root }}/ml_training/temp"
+        state: absent

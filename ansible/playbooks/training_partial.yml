@@ -1,0 +1,69 @@
+---
+# Partial Training Mode: Fine-tune existing model with new data
+
+- name: Partial training mode
+  debug:
+    msg: "Starting PARTIAL training (fine-tuning) for {{ item.key }}"
+  loop: "{{ models_to_train | dict2items }}"
+
+- name: Execute partial training pipeline
+  block:
+    - name: Check for existing checkpoint
+      stat:
+        path: "{{ project_root }}/ml_training/checkpoints/{{ item.key }}/latest"
+      loop: "{{ models_to_train | dict2items }}"
+      register: checkpoint_check
+    
+    - name: Fail if no checkpoint exists
+      fail:
+        msg: "No existing checkpoint found for {{ item.item.key }}. Use 'full' mode first."
+      when: not item.stat.exists
+      loop: "{{ checkpoint_check.results }}"
+    
+    - name: Detect new training data
+      command: >
+        python {{ project_root }}/ml_training/scripts/detect_new_data.py
+        --model {{ item.key }}
+        --dataset-path {{ project_root }}/{{ item.value.dataset_path }}
+        --last-training {{ project_root }}/ml_training/checkpoints/{{ item.key }}/metadata.json
+      loop: "{{ models_to_train | dict2items }}"
+      register: new_data_check
+    
+    - name: Prepare incremental dataset
+      command: >
+        python {{ project_root }}/ml_training/scripts/prepare_dataset.py
+        --model {{ item.key }}
+        --dataset-path {{ project_root }}/{{ item.value.dataset_path }}
+        --output {{ project_root }}/ml_training/datasets/{{ item.key }}_incremental
+        --incremental
+      loop: "{{ models_to_train | dict2items }}"
+      when: new_data_check.results | selectattr('stdout', 'search', 'new_data_found') | list | length > 0
+      register: incremental_prep
+    
+    - name: Fine-tune model
+      command: >
+        python {{ project_root }}/ml_training/scripts/train_model.py
+        --model {{ item.key }}
+        --phase refinement
+        --mode partial
+        --checkpoint {{ project_root }}/ml_training/checkpoints/{{ item.key }}/latest
+        --config {{ training_config }}
+      loop: "{{ models_to_train | dict2items }}"
+      register: finetune_training
+      async: 3600
+      poll: 30
+    
+    - name: Validate fine-tuned model
+      command: >
+        python {{ project_root }}/ml_training/scripts/validate_model.py
+        --model {{ item.key }}
+        --checkpoint {{ project_root }}/ml_training/checkpoints/{{ item.key }}/latest
+        --compare-baseline
+      loop: "{{ models_to_train | dict2items }}"
+      register: validation_results
+    
+    - name: Save training metrics
+      copy:
+        content: "{{ validation_results | to_nice_json }}"
+        dest: "{{ project_root }}/ml_training/logs/partial_training_{{ item.key }}_{{ ansible_date_time.epoch }}.json"
+      loop: "{{ models_to_train | dict2items }}"

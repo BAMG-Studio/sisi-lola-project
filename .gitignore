@@ -1,38 +1,41 @@
-# Credentials and secrets
-sisi_lola_api/.env
-*.pickle
-*token*.json
-*credentials*.json
-
 # Python
 __pycache__/
 *.py[cod]
+*$py.class
+*.so
+.Python
 venv/
+venv_wsl/
 .venv/
-.venv_sisi/
-venv_new/
-*.egg-info/
+ENV/
+env/
 
-# Node
-node_modules/
-package-lock.json
+# ML Training
+ml_training/checkpoints/
+ml_training/datasets/
+ml_training/logs/
+ml_training/temp/
+*.pth
+*.ckpt
+*.safetensors
 
-# Audio/Video (large files)
-*.wav
-*.mp3
-*.mp4
+# Environment
+.env
+*.env.local
 
-# Databases
-*.db
-*.sqlite
-
-# Logs
-*.log
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
 
 # OS
 .DS_Store
 Thumbs.db
 
-# Training data
-07_RAW_WORKSPACE/
-trained_models/
+# Logs
+*.log
+
+# Ansible
+ansible/vars/secrets.yml
+*.retry

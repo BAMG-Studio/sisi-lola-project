@@ -1,0 +1,81 @@
+---
+# Phasic Training Mode: Train specific phase only
+
+- name: Phasic training mode
+  debug:
+    msg: "Starting PHASIC training ({{ target_phase }}) for {{ item.key }}"
+  loop: "{{ models_to_train | dict2items }}"
+
+- name: Execute phasic training pipeline
+  block:
+    - name: Validate phase exists
+      assert:
+        that:
+          - target_phase in (item.value.training_phases | map(attribute='phase') | list)
+        fail_msg: "Phase '{{ target_phase }}' not defined for model {{ item.key }}"
+      loop: "{{ models_to_train | dict2items }}"
+    
+    - name: Get phase configuration
+      set_fact:
+        phase_config: "{{ item.value.training_phases | selectattr('phase', 'equalto', target_phase) | first }}"
+      loop: "{{ models_to_train | dict2items }}"
+      register: phase_configs
+    
+    - name: Prepare phase-specific dataset
+      command: >
+        python {{ project_root }}/ml_training/scripts/prepare_dataset.py
+        --model {{ item.key }}
+        --dataset-path {{ project_root }}/{{ item.value.dataset_path }}
+        --output {{ project_root }}/ml_training/datasets/{{ item.key }}_{{ target_phase }}
+        --phase {{ target_phase }}
+      loop: "{{ models_to_train | dict2items }}"
+      register: phase_dataset_prep
+    
+    - name: Check for prerequisite phases
+      stat:
+        path: "{{ project_root }}/ml_training/checkpoints/{{ item.key }}/{{ target_phase }}_prerequisite"
+      loop: "{{ models_to_train | dict2items }}"
+      register: prerequisite_check
+      when: target_phase != 'foundation'
+    
+    - name: Train specific phase
+      command: >
+        python {{ project_root }}/ml_training/scripts/train_model.py
+        --model {{ item.key }}
+        --phase {{ target_phase }}
+        --mode phasic
+        --config {{ training_config }}
+        {% if target_phase != 'foundation' %}
+        --checkpoint {{ project_root }}/ml_training/checkpoints/{{ item.key }}/previous_phase
+        {% endif %}
+      loop: "{{ models_to_train | dict2items }}"
+      register: phase_training
+      async: 7200
+      poll: 30
+    
+    - name: Validate phase training
+      command: >
+        python {{ project_root }}/ml_training/scripts/validate_model.py
+        --model {{ item.key }}
+        --checkpoint {{ project_root }}/ml_training/checkpoints/{{ item.key }}/{{ target_phase }}
+        --phase {{ target_phase }}
+      loop: "{{ models_to_train | dict2items }}"
+      register: phase_validation
+    
+    - name: Save phase training metrics
+      copy:
+        content: "{{ phase_validation | to_nice_json }}"
+        dest: "{{ project_root }}/ml_training/logs/phasic_training_{{ item.key }}_{{ target_phase }}_{{ ansible_date_time.epoch }}.json"
+      loop: "{{ models_to_train | dict2items }}"
+    
+    - name: Mark phase as complete
+      copy:
+        content: |
+          {
+            "phase": "{{ target_phase }}",
+            "completed_at": "{{ ansible_date_time.iso8601 }}",
+            "model": "{{ item.key }}",
+            "status": "success"
+          }
+        dest: "{{ project_root }}/ml_training/checkpoints/{{ item.key }}/{{ target_phase }}_complete.json"
+      loop: "{{ models_to_train | dict2items }}"

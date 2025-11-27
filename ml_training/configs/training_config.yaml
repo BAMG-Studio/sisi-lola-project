@@ -1,0 +1,102 @@
+# ML Training Configuration
+# Defines all models, datasets, and training schedules
+
+models:
+  natlas_audio:
+    name: "N-ATLaS Audio Generation"
+    type: "audio"
+    model_id: "NCAIR1/N-ATLaS"
+    dataset_path: "04_AUDIO_CORE/01_Voice_Samples"
+    training_phases:
+      - phase: "foundation"
+        priority: 1
+        samples_required: 100
+        epochs: 10
+      - phase: "refinement"
+        priority: 2
+        samples_required: 500
+        epochs: 20
+      - phase: "production"
+        priority: 3
+        samples_required: 1000
+        epochs: 50
+    retrain_triggers:
+      - type: "schedule"
+        cron: "0 2 * * 0"  # Weekly Sunday 2 AM
+      - type: "data_threshold"
+        new_samples: 100
+      - type: "performance_drop"
+        metric: "accuracy"
+        threshold: 0.85
+
+  avatar_vision:
+    name: "Sisi Lola Avatar Recognition"
+    type: "vision"
+    model_id: "custom/sisi-lola-vision"
+    dataset_path: "01_AVATAR_DNA"
+    training_phases:
+      - phase: "foundation"
+        priority: 1
+        samples_required: 50
+        epochs: 15
+      - phase: "expansion"
+        priority: 2
+        samples_required: 200
+        epochs: 30
+    retrain_triggers:
+      - type: "schedule"
+        cron: "0 3 * * 0"  # Weekly Sunday 3 AM
+      - type: "data_threshold"
+        new_samples: 50
+
+  content_classifier:
+    name: "Content Classification Model"
+    type: "nlp"
+    model_id: "custom/content-classifier"
+    dataset_path: "03_MEDIA_ASSETS"
+    training_phases:
+      - phase: "foundation"
+        priority: 1
+        samples_required: 200
+        epochs: 20
+    retrain_triggers:
+      - type: "schedule"
+        cron: "0 4 * * 0"  # Weekly Sunday 4 AM
+      - type: "manual"
+
+training_modes:
+  full:
+    description: "Complete model retraining from scratch"
+    phases: ["foundation", "refinement", "production"]
+    compute_intensive: true
+    
+  partial:
+    description: "Fine-tune existing model with new data"
+    phases: ["refinement"]
+    compute_intensive: false
+    
+  phasic:
+    description: "Train specific phase only"
+    phases: ["custom"]
+    compute_intensive: "variable"
+
+compute_resources:
+  local:
+    enabled: true
+    gpu: false
+    max_concurrent: 1
+    
+  cloud:
+    enabled: false
+    provider: "aws"
+    instance_type: "g4dn.xlarge"
+    max_concurrent: 3
+
+notifications:
+  slack_webhook: "${SLACK_WEBHOOK_URL}"
+  email: "sisilolalive@gmail.com"
+  on_events:
+    - "training_start"
+    - "training_complete"
+    - "training_failed"
+    - "retrain_triggered"

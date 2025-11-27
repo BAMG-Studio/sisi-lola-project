@@ -1,0 +1,112 @@
+---
+- name: Cohere Model Training for Sisi Lola
+  hosts: localhost
+  gather_facts: yes
+  
+  vars:
+    project_root: "{{ lookup('env', 'PWD') | default('/workspace', true) }}"
+    env_file: "{{ project_root }}/sisi_lola_api/.env"
+    training_script: "{{ project_root }}/ml_training/scripts/cohere_training.py"
+    requirements_file: "{{ project_root }}/ml_training/requirements.txt"
+    
+  tasks:
+    - name: Verify environment file exists
+      stat:
+        path: "{{ env_file }}"
+      register: env_stat
+      
+    - name: Fail if .env not found
+      fail:
+        msg: "Environment file not found at {{ env_file }}"
+      when: not env_stat.stat.exists
+    
+    - name: Install Python dependencies
+      pip:
+        requirements: "{{ requirements_file }}"
+        state: present
+        extra_args: "--upgrade"
+      
+    - name: Install Cohere SDK
+      pip:
+        name:
+          - cohere
+          - python-dotenv
+        state: present
+    
+    - name: Verify Cohere API key
+      shell: |
+        python3 -c "
+        import os
+        from dotenv import load_dotenv
+        load_dotenv('{{ env_file }}')
+        key = os.getenv('COHERE_API_KEY')
+        if not key or key == 'your_cohere_key_here':
+            exit(1)
+        print('API key configured')
+        "
+      register: api_check
+      changed_when: false
+      
+    - name: Display API status
+      debug:
+        msg: "{{ api_check.stdout }}"
+    
+    - name: Run Cohere training
+      shell: |
+        export $(cat {{ env_file }} | xargs)
+        python3 {{ training_script }}
+      register: training_output
+      environment:
+        PYTHONUNBUFFERED: "1"
+      
+    - name: Display training results
+      debug:
+        msg: "{{ training_output.stdout_lines }}"
+    
+    - name: Trigger GitHub Actions workflow
+      uri:
+        url: "https://api.github.com/repos/{{ github_repo }}/actions/workflows/ml_training.yml/dispatches"
+        method: POST
+        headers:
+          Authorization: "Bearer {{ github_token }}"
+          Accept: "application/vnd.github.v3+json"
+        body_format: json
+        body:
+          ref: "main"
+          inputs:
+            training_mode: "full"
+            target_model: "all"
+            target_phase: "foundation"
+        status_code: 204
+      when: 
+        - github_token is defined
+        - github_repo is defined
+      register: workflow_trigger
+      
+    - name: Confirm workflow triggered
+      debug:
+        msg: "GitHub Actions workflow triggered successfully"
+      when: workflow_trigger is succeeded
+    
+    - name: Generate training report
+      copy:
+        content: |
+          # Cohere Training Report
+          Date: {{ ansible_date_time.iso8601 }}
+          Status: {{ 'Success' if training_output.rc == 0 else 'Failed' }}
+          
+          ## Training Output
+          {{ training_output.stdout }}
+          
+          ## Next Steps
+          - Monitor fine-tuning progress in Cohere dashboard
+          - Validate model performance
+          - Deploy to production when ready
+        dest: "{{ project_root }}/ml_training/logs/cohere_training_{{ ansible_date_time.epoch }}.md"
+      
+    - name: Display completion message
+      debug:
+        msg: |
+          ✅ Cohere training initiated successfully!
+          📊 Check logs at: ml_training/logs/
+          🔗 Monitor at: https://dashboard.cohere.com/

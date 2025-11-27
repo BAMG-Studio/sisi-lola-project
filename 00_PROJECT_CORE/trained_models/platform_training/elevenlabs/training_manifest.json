@@ -1,0 +1,442 @@
+[
+  {
+    "id": "elevenlabs_yoruba_pure_01",
+    "text": "Ẹ káàbọ̀! Mo ni Sisi Lola.",
+    "category": "yoruba_pure",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\yoruba_pure_01.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_yoruba_pure_02",
+    "text": "Báwo ni? Ṣé àlàáfíà ni?",
+    "category": "yoruba_pure",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\yoruba_pure_02.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_yoruba_pure_03",
+    "text": "Àwa ọmọ Yorùbá, a ní àṣà tó dára púpọ̀.",
+    "category": "yoruba_pure",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\yoruba_pure_03.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_yoruba_pure_04",
+    "text": "Ẹ gbọ́ ọ̀rọ̀ yìí dáadáa.",
+    "category": "yoruba_pure",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\yoruba_pure_04.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_yoruba_pure_05",
+    "text": "Àṣà wa ni! Ẹ jẹ́ ká ṣe àjọyọ̀ rẹ̀.",
+    "category": "yoruba_pure",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\yoruba_pure_05.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_yoruba_pure_06",
+    "text": "Ẹ ṣeun gan-an! Má ríi yín lọ́la.",
+    "category": "yoruba_pure",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\yoruba_pure_06.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_yoruba_pure_07",
+    "text": "Ó dára púpọ̀! Ẹ wò ó!",
+    "category": "yoruba_pure",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\yoruba_pure_07.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_yoruba_pure_08",
+    "text": "Àwa ló máa ṣe é! Áfríkà tó ń bọ̀ yìí máa dára.",
+    "category": "yoruba_pure",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\yoruba_pure_08.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_yoruba_pure_09",
+    "text": "Ẹ subscribe sí channel mi o!",
+    "category": "yoruba_pure",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\yoruba_pure_09.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_yoruba_pure_10",
+    "text": "Ẹ má gbàgbé láti like àti share.",
+    "category": "yoruba_pure",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\yoruba_pure_10.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_yorunglish_01",
+    "text": "Hello everybody! Ẹ káàbọ̀! Welcome to my channel!",
+    "category": "yorunglish",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\yorunglish_01.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_yorunglish_02",
+    "text": "I am Sisi Lola and I dey very happy say you come here today!",
+    "category": "yorunglish",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\yorunglish_02.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_yorunglish_03",
+    "text": "Make I tell you small story about our culture.",
+    "category": "yorunglish",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\yorunglish_03.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_yorunglish_04",
+    "text": "Àṣà wa, our culture, e get plenty things wey dey make am special.",
+    "category": "yorunglish",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\yorunglish_04.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_yorunglish_05",
+    "text": "E choke! This one sweet me die!",
+    "category": "yorunglish",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\yorunglish_05.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_yorunglish_06",
+    "text": "Ẹ gbọ́ ọ̀rọ̀ yìí: innovation tí ó wà ní Áfríkà kò lẹ́gbẹ́!",
+    "category": "yorunglish",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\yorunglish_06.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_yorunglish_07",
+    "text": "We go do am! Àwa ló máa ṣe é!",
+    "category": "yorunglish",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\yorunglish_07.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_yorunglish_08",
+    "text": "Subscribe and join the Sisi Lola family!",
+    "category": "yorunglish",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\yorunglish_08.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_yorunglish_09",
+    "text": "Thank you plenty! Ẹ ṣeun gan-an!",
+    "category": "yorunglish",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\yorunglish_09.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_yorunglish_10",
+    "text": "Let's celebrate Africa together! Ẹ jẹ́ ká ṣe àjọyọ̀!",
+    "category": "yorunglish",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\yorunglish_10.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_pidgin_heavy_01",
+    "text": "Wetin dey happen? How una dey?",
+    "category": "pidgin_heavy",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\pidgin_heavy_01.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_pidgin_heavy_02",
+    "text": "Make we talk about African innovation today.",
+    "category": "pidgin_heavy",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\pidgin_heavy_02.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_pidgin_heavy_03",
+    "text": "This thing sweet me die! E choke!",
+    "category": "pidgin_heavy",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\pidgin_heavy_03.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_pidgin_heavy_04",
+    "text": "You know say M-Pesa start from Africa?",
+    "category": "pidgin_heavy",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\pidgin_heavy_04.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_pidgin_heavy_05",
+    "text": "We dey here, we dey strong!",
+    "category": "pidgin_heavy",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\pidgin_heavy_05.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_pidgin_heavy_06",
+    "text": "No be small thing! African culture na something else!",
+    "category": "pidgin_heavy",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\pidgin_heavy_06.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_pidgin_heavy_07",
+    "text": "Make una subscribe o! E no cost anything!",
+    "category": "pidgin_heavy",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\pidgin_heavy_07.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_pidgin_heavy_08",
+    "text": "I swear, this one pass me!",
+    "category": "pidgin_heavy",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\pidgin_heavy_08.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_pidgin_heavy_09",
+    "text": "We go do am! Nothing fit stop us!",
+    "category": "pidgin_heavy",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\pidgin_heavy_09.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_pidgin_heavy_10",
+    "text": "One love! Ubuntu! We dey together!",
+    "category": "pidgin_heavy",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\pidgin_heavy_10.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_professional_01",
+    "text": "Welcome to Sisi Lola's channel, your guide to African culture and innovation.",
+    "category": "professional",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\professional_01.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_professional_02",
+    "text": "Today, we explore the rich tapestry of African heritage.",
+    "category": "professional",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\professional_02.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_professional_03",
+    "text": "African innovation is transforming the global landscape.",
+    "category": "professional",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\professional_03.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_professional_04",
+    "text": "From fintech to fashion, Africa is leading the way.",
+    "category": "professional",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\professional_04.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_professional_05",
+    "text": "Subscribe for weekly insights into African excellence.",
+    "category": "professional",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\professional_05.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_professional_06",
+    "text": "Join our community of cultural ambassadors.",
+    "category": "professional",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\professional_06.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_professional_07",
+    "text": "Let's celebrate the diversity and creativity of Africa.",
+    "category": "professional",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\professional_07.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_professional_08",
+    "text": "Thank you for being part of this journey.",
+    "category": "professional",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\professional_08.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_professional_09",
+    "text": "Together, we amplify African voices.",
+    "category": "professional",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\professional_09.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  },
+  {
+    "id": "elevenlabs_professional_10",
+    "text": "Stay connected for more inspiring content.",
+    "category": "professional",
+    "audio": "c:\\Users\\POK28\\Dropbox\\Sisi_Lola\\00_PROJECT_CORE\\trained_models\\platform_training\\elevenlabs\\professional_10.wav",
+    "platform_config": {
+      "format": "text",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "model": "eleven_multilingual_v2"
+    }
+  }
+]

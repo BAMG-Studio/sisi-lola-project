@@ -1,0 +1,76 @@
+---
+# Full Training Mode: Complete model retraining from scratch
+
+- name: Full training mode
+  debug:
+    msg: "Starting FULL training for {{ item.key }}"
+  loop: "{{ models_to_train | dict2items }}"
+
+- name: Execute full training pipeline
+  block:
+    - name: Clear existing checkpoints
+      file:
+        path: "{{ project_root }}/ml_training/checkpoints/{{ item.key }}"
+        state: absent
+      loop: "{{ models_to_train | dict2items }}"
+    
+    - name: Prepare dataset
+      command: >
+        python {{ project_root }}/ml_training/scripts/prepare_dataset.py
+        --model {{ item.key }}
+        --dataset-path {{ project_root }}/{{ item.value.dataset_path }}
+        --output {{ project_root }}/ml_training/datasets/{{ item.key }}
+      loop: "{{ models_to_train | dict2items }}"
+      register: dataset_prep
+    
+    - name: Train foundation phase
+      command: >
+        python {{ project_root }}/ml_training/scripts/train_model.py
+        --model {{ item.key }}
+        --phase foundation
+        --mode full
+        --config {{ training_config }}
+      loop: "{{ models_to_train | dict2items }}"
+      register: foundation_training
+      async: 7200
+      poll: 30
+    
+    - name: Train refinement phase
+      command: >
+        python {{ project_root }}/ml_training/scripts/train_model.py
+        --model {{ item.key }}
+        --phase refinement
+        --mode full
+        --config {{ training_config }}
+      loop: "{{ models_to_train | dict2items }}"
+      when: "'refinement' in item.value.training_phases | map(attribute='phase') | list"
+      register: refinement_training
+      async: 10800
+      poll: 30
+    
+    - name: Train production phase
+      command: >
+        python {{ project_root }}/ml_training/scripts/train_model.py
+        --model {{ item.key }}
+        --phase production
+        --mode full
+        --config {{ training_config }}
+      loop: "{{ models_to_train | dict2items }}"
+      when: "'production' in item.value.training_phases | map(attribute='phase') | list"
+      register: production_training
+      async: 14400
+      poll: 30
+    
+    - name: Validate trained model
+      command: >
+        python {{ project_root }}/ml_training/scripts/validate_model.py
+        --model {{ item.key }}
+        --checkpoint {{ project_root }}/ml_training/checkpoints/{{ item.key }}/final
+      loop: "{{ models_to_train | dict2items }}"
+      register: validation_results
+    
+    - name: Save training metrics
+      copy:
+        content: "{{ validation_results | to_nice_json }}"
+        dest: "{{ project_root }}/ml_training/logs/full_training_{{ item.key }}_{{ ansible_date_time.epoch }}.json"
+      loop: "{{ models_to_train | dict2items }}"
