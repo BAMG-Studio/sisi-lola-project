@@ -4,8 +4,11 @@ import os
 import cohere
 from typing import Optional, Dict, Any
 from dotenv import load_dotenv
+from pathlib import Path
 
-load_dotenv()
+# Load .env from project root
+env_path = Path(__file__).parent.parent.parent.parent / "sisi_lola_api" / ".env"
+load_dotenv(env_path)
 
 
 class CohereService:
@@ -76,7 +79,6 @@ class CohereService:
         
         return {
             "text": response.text,
-            "conversation_id": response.conversation_id,
             "generation_id": response.generation_id
         }
     

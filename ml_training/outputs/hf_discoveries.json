@@ -1,0 +1,58 @@
+{
+  "african_models": [
+    {
+      "id": "mradermacher/zephyr-7b-gemma-sft-african-ultrachat-100k-GGUF",
+      "downloads": 261
+    },
+    {
+      "id": "sartifyllc/African-Cross-Lingua-Embeddings-Model",
+      "downloads": 180
+    },
+    {
+      "id": "mradermacher/African-ultrachat-alpaca-GGUF",
+      "downloads": 140
+    }
+  ],
+  "yoruba_datasets": [
+    {
+      "id": "Abdullah804/yoruba-subset",
+      "downloads": 979
+    },
+    {
+      "id": "Abdullah804/yoruba-ljspeech",
+      "downloads": 767
+    },
+    {
+      "id": "bytel0rd/yoruba_audio_translated",
+      "downloads": 265
+    }
+  ],
+  "tts_models": [
+    {
+      "id": "Xenova/speecht5_tts",
+      "downloads": 682730
+    },
+    {
+      "id": "SWivid/F5-TTS",
+      "downloads": 663643
+    },
+    {
+      "id": "parler-tts/parler-tts-large-v1",
+      "downloads": 230800
+    }
+  ],
+  "conversation_datasets": [
+    {
+      "id": "Amod/mental_health_counseling_conversations",
+      "downloads": 10923
+    },
+    {
+      "id": "slaab/Coding-Conversational-Dataset-Indic",
+      "downloads": 5402
+    },
+    {
+      "id": "naver-clova-conversation/klue-tc-tsv",
+      "downloads": 4782
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+# Sisi Lola Nigerian/African Language Models Configuration
+
+brain_models:
+  primary:
+    name: "N-ATLaS-LLM"
+    model_id: "NCAIR1/N-ATLaS"
+    type: "llama3-based"
+    languages: ["yoruba", "hausa", "igbo", "nigerian_english", "pidgin"]
+    use_case: "primary_conversational"
+    
+  secondary:
+    name: "Aya-23"
+    model_id: "CohereForAI/aya-23-8B"
+    type: "multilingual-instruction"
+    languages: ["yoruba", "hausa", "igbo", "nigerian_english", "pidgin", "101_languages"]
+    use_case: "reasoning_fallback"
+    
+  specialist:
+    - name: "AfriBERTa"
+      model_id: "castorini/afriberta_large"
+      type: "classification"
+      languages: ["yoruba", "pidgin", "hausa", "igbo", "swahili"]
+      use_case: "intent_detection_sentiment"
+      
+    - name: "SabiYarn"
+      model_id: "uds-lsv/sabiyarn"
+      type: "multitask"
+      languages: ["9_nigerian_languages"]
+      use_case: "translation_code_switching"
+
+voice_models:
+  primary:
+    name: "XTTS-v2"
+    model_id: "coqui/XTTS-v2"
+    type: "voice_cloning_tts"
+    languages: ["multilingual"]
+    voice_reference: "04_AUDIO_CORE/voice_samples/"
+    
+  validation:
+    name: "Yoruba-TTS"
+    model_id: "yoruba-tts/yoruba-speech"
+    type: "native_yoruba_tts"
+    languages: ["yoruba"]
+    use_case: "tone_validation"
+
+datasets:
+  sentiment:
+    name: "NaijaSenti"
+    source: "HausaNLP/NaijaSenti"
+    languages: ["hausa", "igbo", "pidgin", "yoruba"]
+    size: "~120k_tweets"
+    
+  audio_yoruba:
+    name: "Yoruba-Speech-Corpus"
+    sources:
+      - "openslr/yoruba_speech"
+      - "lagos_nwu_corpus"
+    dialects: ["lagos", "ibadan", "oyo"]
+    
+  voice_samples:
+    name: "Sisi-Lola-Voice-DNA"
+    path: "04_AUDIO_CORE/voice_samples/"
+    target_hours: 2
+    current_samples: 12
+
+training:
+  brain:
+    adapter_type: "LoRA"
+    rank: 16
+    alpha: 32
+    target_modules: ["q_proj", "v_proj", "k_proj", "o_proj"]
+    
+  voice:
+    fine_tune_steps: 10000
+    batch_size: 8
+    learning_rate: 1e-5
+    speaker_embedding_dim: 512
+
+system_prompts:
+  sisi_lola_core: |
+    You are Sisi Lola, a hyper-realistic Nigerian virtual host from Lagos. 
+    You speak primarily in fluent Yoruba and 'Yorunglish' (code-mixing Yoruba and Nigerian English), 
+    and you also understand and speak Nigerian Pidgin and other Nigerian languages. 
+    Always sound like a witty, playful Lagos babe in her late 20s: street-smart, funny, and dramatic, but never rude. 
+    Use natural slang, proverbs, and expressions that real Nigerians use today. 
+    Prefer Yoruba or Yorunglish unless the user clearly wants another language. 
+    When answering, keep context accurate to Nigerian culture, entertainment, and everyday life.
+    
+  language_detector: |
+    You are the language-understanding module for Sisi Lola, a Nigerian virtual host. 
+    Detect the main language (Yoruba, Nigerian Pidgin, Nigerian English, or others), sentiment, and topic of each message. 
+    Output structured JSON with: language, is_code_switching, sentiment, and topic. 
+    Treat Yoruba–English and Pidgin–English mixtures as code-switching. 
+    Optimise for Nigerian social media and street conversation style.
+    
+  reasoning_engine: |
+    You are Sisi Lola's reasoning engine. When you respond, think and plan in English internally 
+    but always generate output in natural Yoruba or Yorunglish unless otherwise instructed. 
+    Respect Nigerian cultural norms, humour, and expressions. 
+    When you lack local context, say so instead of guessing.
+    
+  translation_specialist: |
+    You are the translation and pivot-language specialist for Sisi Lola. 
+    Translate between Yoruba, Nigerian Pidgin, Nigerian English, and other Nigerian languages 
+    while preserving slang, humour, and social hierarchy (respect forms vs casual speech). 
+    Prefer informal, Lagos-style street language unless 'formal' is explicitly requested.
+
+voice_style:
+  speaker: "Sisi Lola"
+  gender: "Female"
+  style: "High-energy Lagos Yoruba babe"
+  accent: "Native Lagos Yoruba, strong Nigerian English accent when speaking English, relaxed Naija Pidgin"
+  delivery: "fast, expressive, playful, with frequent laughter and dramatic emphasis"
+  pacing: "Mirror real Lagos conversation pacing and intonation, avoid robotic rhythm"

@@ -1,0 +1,225 @@
+name: Sisi Lola Nigerian Training Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      training_mode:
+        description: 'Training mode'
+        required: true
+        default: 'full'
+        type: choice
+        options:
+          - full
+          - brain
+          - voice
+      skip_existing:
+        description: 'Skip if models exist'
+        required: false
+        default: true
+        type: boolean
+  
+  schedule:
+    # Weekly retraining on Sundays at 2 AM UTC
+    - cron: '0 2 * * 0'
+  
+  push:
+    paths:
+      - 'ml_training/datasets/**'
+      - '04_AUDIO_CORE/voice_samples/**'
+      - 'api_customization/datasets/**'
+
+env:
+  PYTHON_VERSION: '3.10'
+  HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
+
+jobs:
+  check-prerequisites:
+    runs-on: ubuntu-latest
+    outputs:
+      should_train: ${{ steps.check.outputs.should_train }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Check training prerequisites
+        id: check
+        run: |
+          VOICE_COUNT=$(find 04_AUDIO_CORE/voice_samples -name "*.wav" | wc -l)
+          echo "Voice samples found: $VOICE_COUNT"
+          
+          if [ $VOICE_COUNT -ge 5 ]; then
+            echo "should_train=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_train=false" >> $GITHUB_OUTPUT
+            echo "⚠️ Need at least 5 voice samples, found $VOICE_COUNT"
+          fi
+
+  train-brain:
+    needs: check-prerequisites
+    if: needs.check-prerequisites.outputs.should_train == 'true' && (github.event.inputs.training_mode == 'full' || github.event.inputs.training_mode == 'brain')
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install torch transformers peft accelerate bitsandbytes datasets pyyaml
+      
+      - name: Login to Hugging Face
+        run: |
+          pip install huggingface_hub
+          huggingface-cli login --token ${{ secrets.HUGGINGFACE_TOKEN }}
+      
+      - name: Train N-ATLaS Brain
+        run: |
+          python ml_training/scripts/train_nigerian_brain.py
+      
+      - name: Upload brain adapter
+        uses: actions/upload-artifact@v4
+        with:
+          name: natlas-lora-adapter
+          path: ml_training/checkpoints/natlas_lora/
+          retention-days: 30
+
+  train-voice:
+    needs: check-prerequisites
+    if: needs.check-prerequisites.outputs.should_train == 'true' && (github.event.inputs.training_mode == 'full' || github.event.inputs.training_mode == 'voice')
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+      
+      - name: Install TTS dependencies
+        run: |
+          pip install --upgrade pip
+          pip install TTS torch torchaudio pyyaml
+      
+      - name: Train XTTS Voice
+        run: |
+          python ml_training/scripts/train_nigerian_voice.py
+      
+      - name: Upload voice model
+        uses: actions/upload-artifact@v4
+        with:
+          name: xtts-sisi-lola
+          path: ml_training/checkpoints/xtts_sisi_lola/
+          retention-days: 30
+
+  deploy-models:
+    needs: [train-brain, train-voice]
+    if: always() && (needs.train-brain.result == 'success' || needs.train-voice.result == 'success')
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Download brain adapter
+        if: needs.train-brain.result == 'success'
+        uses: actions/download-artifact@v4
+        with:
+          name: natlas-lora-adapter
+          path: ml_training/checkpoints/natlas_lora/
+      
+      - name: Download voice model
+        if: needs.train-voice.result == 'success'
+        uses: actions/download-artifact@v4
+        with:
+          name: xtts-sisi-lola
+          path: ml_training/checkpoints/xtts_sisi_lola/
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      
+      - name: Generate deployment config
+        run: |
+          pip install pyyaml
+          python ml_training/scripts/unified_training_orchestrator.py --mode full --skip-existing
+      
+      - name: Upload to Hugging Face Hub
+        env:
+          HF_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
+        run: |
+          pip install huggingface_hub
+          python << EOF
+          from huggingface_hub import HfApi
+          api = HfApi()
+          
+          # Upload brain adapter
+          if os.path.exists("ml_training/checkpoints/natlas_lora"):
+              api.upload_folder(
+                  folder_path="ml_training/checkpoints/natlas_lora",
+                  repo_id="sisilola/natlas-sisi-lola",
+                  repo_type="model",
+                  token="${{ secrets.HUGGINGFACE_TOKEN }}"
+              )
+          
+          # Upload voice model
+          if os.path.exists("ml_training/checkpoints/xtts_sisi_lola"):
+              api.upload_folder(
+                  folder_path="ml_training/checkpoints/xtts_sisi_lola",
+                  repo_id="sisilola/xtts-sisi-lola",
+                  repo_type="model",
+                  token="${{ secrets.HUGGINGFACE_TOKEN }}"
+              )
+          EOF
+      
+      - name: Create training report
+        run: |
+          cat << EOF > training_report.md
+          # Sisi Lola Training Report
+          
+          **Date**: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          **Mode**: ${{ github.event.inputs.training_mode || 'scheduled' }}
+          
+          ## Models Trained
+          - Brain (N-ATLaS): ${{ needs.train-brain.result }}
+          - Voice (XTTS): ${{ needs.train-voice.result }}
+          
+          ## Deployment
+          - HuggingFace Hub: ✅ Uploaded
+          - Production Config: ✅ Generated
+          
+          ## Next Steps
+          1. Test models with sample prompts
+          2. Validate Nigerian accent quality
+          3. Deploy to production API
+          EOF
+          
+          cat training_report.md
+      
+      - name: Upload training report
+        uses: actions/upload-artifact@v4
+        with:
+          name: training-report
+          path: training_report.md
+
+  notify:
+    needs: [deploy-models]
+    if: always()
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Send notification
+        run: |
+          echo "🎉 Sisi Lola training pipeline completed!"
+          echo "Status: ${{ needs.deploy-models.result }}"

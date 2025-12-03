@@ -231,9 +231,11 @@ class OAuthSetupWizard:
         
         if choice in platforms:
             name, setup_func = platforms[choice]
+            print(f"\n🔧 Setting up {name}...")
             setup_func()
         else:
-            print("Invalid choice!")
+            print(f"❌ Invalid choice '{choice}'. Please enter a number between 1-7.")
+            return self.run_interactive_setup()
     
     def setup_youtube(self):
         """Setup YouTube OAuth credentials"""
@@ -258,7 +260,11 @@ class OAuthSetupWizard:
         10. Exchange authorization code for tokens
         """)
         
-        client_id = input("\nEnter Client ID: ").strip()
+        client_id = input("\nEnter Client ID (or press Enter to skip): ").strip()
+        if not client_id:
+            print("⏩ Skipped YouTube setup")
+            return
+        
         client_secret = input("Enter Client Secret: ").strip()
         access_token = input("Enter Access Token: ").strip()
         refresh_token = input("Enter Refresh Token: ").strip()
@@ -298,7 +304,11 @@ class OAuthSetupWizard:
            GET /me/accounts → select page → GET /{page-id}?fields=instagram_business_account
         """)
         
-        access_token = input("\nEnter Access Token: ").strip()
+        access_token = input("\nEnter Access Token (or press Enter to skip): ").strip()
+        if not access_token:
+            print("⏩ Skipped Instagram setup")
+            return
+        
         business_account_id = input("Enter Business Account ID: ").strip()
         
         self.cred_manager.set(
@@ -331,7 +341,11 @@ class OAuthSetupWizard:
         9. Get your Open ID from the authorization response
         """)
         
-        access_token = input("\nEnter Access Token: ").strip()
+        access_token = input("\nEnter Access Token (or press Enter to skip): ").strip()
+        if not access_token:
+            print("⏩ Skipped TikTok setup")
+            return
+        
         open_id = input("Enter Open ID: ").strip()
         
         self.cred_manager.set(
@@ -364,7 +378,11 @@ class OAuthSetupWizard:
            Go to your Facebook Page → About → Page ID
         """)
         
-        access_token = input("\nEnter Access Token: ").strip()
+        access_token = input("\nEnter Access Token (or press Enter to skip): ").strip()
+        if not access_token:
+            print("⏩ Skipped Facebook setup")
+            return
+        
         page_id = input("Enter Page ID: ").strip()
         
         self.cred_manager.set(
@@ -396,7 +414,11 @@ class OAuthSetupWizard:
            https://api.twitch.tv/helix/users?login=YOUR_USERNAME
         """)
         
-        client_id = input("\nEnter Client ID: ").strip()
+        client_id = input("\nEnter Client ID (or press Enter to skip): ").strip()
+        if not client_id:
+            print("⏩ Skipped Twitch setup")
+            return
+        
         client_secret = input("Enter Client Secret: ").strip()
         access_token = input("Enter Access Token: ").strip()
         broadcaster_id = input("Enter Broadcaster ID: ").strip()
@@ -431,7 +453,11 @@ class OAuthSetupWizard:
         8. Use your Reddit username and password
         """)
         
-        client_id = input("\nEnter Client ID: ").strip()
+        client_id = input("\nEnter Client ID (or press Enter to skip): ").strip()
+        if not client_id:
+            print("⏩ Skipped Reddit setup")
+            return
+        
         client_secret = input("Enter Client Secret: ").strip()
         username = input("Enter Reddit Username: ").strip()
         password = input("Enter Reddit Password: ").strip()

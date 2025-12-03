@@ -1,0 +1,200 @@
+{
+  "platforms": [
+    {
+      "platform_name": "Facebook",
+      "handle": "Sisi Lola Live",
+      "profile_url": "https://www.facebook.com/profile.php?id=61584063400731",
+      "email": "sisilolalive@gmail.com",
+      "created_date": "2025-11-26",
+      "channel_id": "950684708116727",
+      "verification": {
+        "email": true,
+        "phone": false,
+        "two_fa": false
+      },
+      "assets": {
+        "profile_picture": true,
+        "banner": true,
+        "bio": true
+      },
+      "metrics": {
+        "followers": 13,
+        "posts": 5
+      },
+      "links": {
+        "website": "https://www.sisilola.io/",
+        "instagram": "@sisilolalive"
+      },
+      "api_credentials": {
+        "page_id": "950684708116727",
+        "business_account_id": "950684708116727"
+      }
+    },
+    {
+      "platform_name": "Instagram",
+      "handle": "@sisilolalive",
+      "profile_url": "https://www.instagram.com/sisilolalive/",
+      "email": "sisilolalive@gmail.com",
+      "created_date": "2025-11-26",
+      "channel_id": "IG-LINKED-950684708116727",
+      "verification": {
+        "email": true,
+        "phone": false,
+        "two_fa": false
+      },
+      "assets": {
+        "profile_picture": true,
+        "banner": false,
+        "bio": true
+      },
+      "metrics": {
+        "followers": 6,
+        "posts": 0
+      },
+      "links": {
+        "website": "sisilola.io",
+        "facebook": "Sisi Lola Live"
+      },
+      "api_credentials": {
+        "linked_page_id": "950684708116727"
+      }
+    },
+    {
+      "platform_name": "TikTok",
+      "handle": "@sisilolalive",
+      "profile_url": "https://www.tiktok.com/@sisilolalive",
+      "email": "sisilolalive@gmail.com",
+      "created_date": "2025-11-26",
+      "channel_id": "TIKTOK-PENDING",
+      "verification": {
+        "email": true,
+        "phone": false,
+        "two_fa": false
+      },
+      "assets": {
+        "profile_picture": true,
+        "banner": false,
+        "bio": true
+      },
+      "metrics": {
+        "followers": 0,
+        "posts": 0
+      },
+      "links": {
+        "website": "sisilola.io"
+      },
+      "api_credentials": {}
+    },
+    {
+      "platform_name": "YouTube",
+      "handle": "@sisilola",
+      "profile_url": "https://www.youtube.com/channel/UCjJk08Uzkn2MoJU3eGoAAew",
+      "email": "sisilolalive@gmail.com",
+      "created_date": "2022-01-01",
+      "channel_id": "UCjJk08Uzkn2MoJU3eGoAAew",
+      "verification": {
+        "email": true,
+        "phone": false,
+        "two_fa": false
+      },
+      "assets": {
+        "profile_picture": true,
+        "banner": false,
+        "bio": false
+      },
+      "metrics": {
+        "followers": 7,
+        "posts": 2
+      },
+      "links": {
+        "website": "sisilola.io"
+      },
+      "api_credentials": {
+        "project_id": "sisi-lola-youtube-api"
+      }
+    },
+    {
+      "platform_name": "Twitch",
+      "handle": "Sisi_Lola_Live",
+      "profile_url": "https://www.twitch.tv/sisi_lola_live",
+      "email": "sisilolalive@gmail.com",
+      "created_date": "2025-11-26",
+      "channel_id": "TWITCH-PENDING",
+      "verification": {
+        "email": true,
+        "phone": false,
+        "two_fa": false
+      },
+      "assets": {
+        "profile_picture": true,
+        "banner": true,
+        "bio": true
+      },
+      "metrics": {
+        "followers": 0,
+        "posts": 0
+      },
+      "links": {
+        "instagram": "@sisilolalive",
+        "tiktok": "@sisilolalive",
+        "youtube": "@sisilola",
+        "facebook": "Sisi Lola Live",
+        "reddit": "u/sisilola"
+      },
+      "api_credentials": {}
+    },
+    {
+      "platform_name": "Reddit",
+      "handle": "u/sisilola",
+      "profile_url": "https://www.reddit.com/user/sisilola/",
+      "email": "sisilolalive@gmail.com",
+      "created_date": "2022-01-01",
+      "channel_id": "REDDIT-PENDING",
+      "verification": {
+        "email": true,
+        "phone": false,
+        "two_fa": false
+      },
+      "assets": {
+        "profile_picture": false,
+        "banner": false,
+        "bio": false
+      },
+      "metrics": {
+        "followers": 0,
+        "posts": 0
+      },
+      "links": {},
+      "api_credentials": {
+        "username": "sisilola",
+        "user_agent": "SisiLola Bot v1.0 by u/sisilola"
+      }
+    },
+    {
+      "platform_name": "Website",
+      "handle": "sisilola.io",
+      "profile_url": "https://sisilola.io/",
+      "email": "sisilolalive@gmail.com",
+      "created_date": "2025-01-01",
+      "channel_id": "WEB-MAIN",
+      "verification": {
+        "email": true,
+        "phone": true,
+        "two_fa": true
+      },
+      "assets": {
+        "profile_picture": true,
+        "banner": true,
+        "bio": true
+      },
+      "metrics": {
+        "followers": 0,
+        "posts": 0
+      },
+      "links": {
+        "all_socials": "linked"
+      },
+      "api_credentials": {}
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+# API Customization Dependencies
+
+# Core
+python-dotenv>=1.0.0
+requests>=2.31.0
+
+# OpenAI
+openai>=1.0.0
+
+# Cohere
+cohere>=5.0.0
+
+# Audio processing (for voice cloning)
+pydub>=0.25.1
+soundfile>=0.12.1
+
+# Video processing (for avatar creation)
+opencv-python>=4.8.0
+
+# Utilities
+tqdm>=4.66.0

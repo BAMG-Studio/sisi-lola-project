@@ -8,7 +8,7 @@ load_dotenv()
 import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import agent, images, videos, audio, auth
+from app.routers import agent, images, videos, audio, auth, nigerian_models, cohere
 # from app.routers import chat
 from app.config import SisiLolaDNA
 from app.services import auth_store
@@ -26,6 +26,8 @@ app.include_router(images.router, prefix="/images", tags=["Image Generation"])
 app.include_router(videos.router, prefix="/videos", tags=["Video Production"])
 app.include_router(audio.router, prefix="/audio", tags=["Audio & Voice"])
 app.include_router(auth.router, tags=["Auth"])
+app.include_router(nigerian_models.router)
+app.include_router(cohere.router)
 
 
 @app.on_event("startup")

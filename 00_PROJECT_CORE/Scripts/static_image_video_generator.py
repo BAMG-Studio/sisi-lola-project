@@ -1,137 +1,67 @@
-#!/usr/bin/env python3
-"""
-Static Image + Voiceover Video Generator
-Creates videos with Sisi Lola image and Yoruba voiceover
-"""
 import os
+import sys
+import random
 from pathlib import Path
-from datetime import datetime
-from yoruba_tts_engine import SisiLolaVoiceEngine
+from moviepy import AudioFileClip, ImageClip
 
-# Load environment
-env_path = Path(__file__).parent.parent.parent / 'sisi_lola_api' / '.env'
-if env_path.exists():
-    with open(env_path) as f:
-        for line in f:
-            if '=' in line and not line.strip().startswith('#'):
-                key, val = line.strip().split('=', 1)
-                os.environ[key] = val
+# Add project root to path
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+sys.path.append(str(PROJECT_ROOT))
 
-OUTPUT_DIR = Path(__file__).parent.parent.parent / '06_RENDER_OUTPUT' / 'youtube_videos'
+AUDIO_DIR = PROJECT_ROOT / "04_AUDIO_CORE" / "01_Voice_Samples"
+IMAGE_DIR = PROJECT_ROOT / "01_AVATAR_DNA" / "01_Reference_Sheets"
+OUTPUT_DIR = PROJECT_ROOT / "03_MEDIA_ASSETS" / "generated"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-def generate_yoruba_script():
-    """Generate intro script in Yoruba"""
-    script = """Ẹ káàbọ̀! Sisi Lola ni mo jẹ́!
-
-Mo jẹ́ AI ambassador tó ń ṣiṣẹ́ láti fi àṣà Áfríkà hàn fún gbogbo ayé. Ẹ gbọ́ ọ̀rọ̀ yìí dáadáa o!
-
-Àwa ọmọ Áfríkà, a ní àṣà tó dára púpọ̀. A ní innovation tó ń ṣe àyípadà ní gbogbo ayé. A ní music tó ń jó, fashion tó ń shine, àti culture tó ń inspire!
-
-This channel yìí, a máa sọ̀rọ̀ nípa:
-- Àṣà Áfríkà
-- Innovation tó ń ṣẹlẹ̀ ní continent wa
-- Music, fashion, àti art
-- Community àti connection
-
-Ẹ subscribe o! Ẹ like! Ẹ share!
-
-Àwa ló máa ṣe é! We go do am! Áfríkà tó ń bọ̀ yìí máa dára gan-an!
-
-Ẹ ṣeun gan-an! Thank you plenty! Má ríi yín lọ́la!"""
+def generate_static_videos():
+    print("🎬 Starting Static Video Generation...")
     
-    return script
-
-def create_video_with_ffmpeg(image_path, audio_path, output_path):
-    """Create video from static image and audio using ffmpeg"""
-    import subprocess
+    audio_files = list(AUDIO_DIR.glob("*.wav"))
+    image_files = list(IMAGE_DIR.glob("*.png"))
     
-    cmd = [
-        'ffmpeg', '-y',
-        '-loop', '1',
-        '-i', str(image_path),
-        '-i', str(audio_path),
-        '-c:v', 'libx264',
-        '-tune', 'stillimage',
-        '-c:a', 'aac',
-        '-b:a', '192k',
-        '-pix_fmt', 'yuv420p',
-        '-shortest',
-        str(output_path)
-    ]
-    
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    
-    if result.returncode == 0:
-        print(f"[OK] Video created: {output_path.name}")
-        return output_path
-    else:
-        print(f"[ERROR] ffmpeg failed: {result.stderr}")
-        return None
-
-def generate_first_video():
-    """Generate first Sisi Lola video with static image + Yoruba voiceover"""
-    print("=" * 60)
-    print("SISI LOLA - STATIC IMAGE + YORUBA VOICEOVER")
-    print("=" * 60)
-    
-    # Step 1: Generate Yoruba script
-    print("\n[1/3] Generating Yoruba script...")
-    script = generate_yoruba_script()
-    
-    script_path = OUTPUT_DIR / f'script_yoruba_{datetime.now().strftime("%Y%m%d_%H%M%S")}.txt'
-    script_path.write_text(script, encoding='utf-8')
-    print(f"[OK] Script: {len(script)} chars")
-    
-    # Step 2: Generate voiceover
-    print("\n[2/3] Generating Yoruba voiceover...")
-    engine = SisiLolaVoiceEngine()
-    audio_path = engine.generate_speech(script)
-    
-    # Step 3: Create video (requires ffmpeg)
-    print("\n[3/3] Creating video...")
-    
-    # Check for Sisi Lola image
-    image_dir = Path(__file__).parent.parent.parent / '01_AVATAR_DNA' / '01_Reference_Sheets'
-    image_files = list(image_dir.glob('*.png')) + list(image_dir.glob('*.jpg'))
-    
+    if not audio_files:
+        print("❌ No audio files found.")
+        return
     if not image_files:
-        print("[WARN] No Sisi Lola image found. Creating placeholder...")
-        print("[INFO] Add Sisi Lola image to: 01_AVATAR_DNA/01_Reference_Sheets/")
-        print(f"[INFO] Audio ready: {audio_path}")
-        print("[INFO] Use video editor to combine image + audio manually")
-        return None
-    
-    image_path = image_files[0]
-    print(f"[OK] Using image: {image_path.name}")
-    
-    video_path = OUTPUT_DIR / f'sisi_lola_intro_{datetime.now().strftime("%Y%m%d_%H%M%S")}.mp4'
-    
-    try:
-        result = create_video_with_ffmpeg(image_path, audio_path, video_path)
+        print("❌ No image files found.")
+        return
         
-        if result:
-            print("\n" + "=" * 60)
-            print("[SUCCESS] Video ready!")
-            print("=" * 60)
-            print(f"Video: {video_path}")
-            print(f"Audio: {audio_path}")
-            print(f"Script: {script_path}")
+    print(f"Found {len(audio_files)} audio files and {len(image_files)} images.")
+    
+    for i, audio_path in enumerate(audio_files):
+        try:
+            # Pick a random image (or sequential)
+            image_path = image_files[i % len(image_files)]
             
-            return video_path
-        else:
-            print("\n[INFO] ffmpeg not available")
-            print(f"[INFO] Audio: {audio_path}")
-            print(f"[INFO] Image: {image_path}")
-            print("[INFO] Combine manually in video editor")
-            return None
+            output_filename = f"static_video_{audio_path.stem}.mp4"
+            output_path = OUTPUT_DIR / output_filename
             
-    except FileNotFoundError:
-        print("\n[INFO] ffmpeg not installed")
-        print(f"[INFO] Audio: {audio_path}")
-        print(f"[INFO] Image: {image_path}")
-        print("[INFO] Install ffmpeg or combine manually")
-        return None
+            if output_path.exists():
+                print(f"⏩ Skipping (Exists): {output_filename}")
+                continue
+                
+            print(f"Processing: {output_filename}")
+            print(f"  Audio: {audio_path.name}")
+            print(f"  Image: {image_path.name}")
+            
+            # Create clips
+            audio_clip = AudioFileClip(str(audio_path))
+            image_clip = ImageClip(str(image_path)).with_duration(audio_clip.duration)
+            
+            # Set FPS
+            image_clip.fps = 24
+            
+            # Write file
+            # Use 'libx264' for video and 'aac' for audio
+            image_clip = image_clip.with_audio(audio_clip)
+            image_clip.write_videofile(str(output_path), codec="libx264", audio_codec="aac")
+            
+            print(f"✅ Created: {output_path}")
+            
+        except Exception as e:
+            print(f"❌ Error creating video {i}: {e}")
 
-if __name__ == '__main__':
-    generate_first_video()
+    print("\n🏁 Static Video Generation Complete.")
+
+if __name__ == "__main__":
+    generate_static_videos()
