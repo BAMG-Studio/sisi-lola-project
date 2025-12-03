@@ -23,7 +23,7 @@ user_roles = Table('user_roles', Base.metadata,
 )
 
 # Models
-class UserModel(Base):
+class User(Base):
     __tablename__ = "users"
     
     id = Column(Integer, primary_key=True, index=True)
@@ -34,20 +34,22 @@ class UserModel(Base):
     last_login = Column(DateTime, nullable=True)
     ip_whitelist = Column(JSON, nullable=True)  # Optional IP restrictions
     
-    roles = relationship("RoleModel", secondary=user_roles, back_populates="users")
-    sessions = relationship("SessionModel", back_populates="user")
-    audit_logs = relationship("AuditLogModel", back_populates="user")
+    roles = relationship("Role", secondary=user_roles, back_populates="users",
+                        foreign_keys=[user_roles.c.user_id, user_roles.c.role_name])
+    sessions = relationship("Session", back_populates="user")
+    audit_logs = relationship("AuditLog", back_populates="user")
 
-class RoleModel(Base):
+class Role(Base):
     __tablename__ = "roles"
     
     name = Column(String, primary_key=True)
     description = Column(String)
     permissions = Column(JSON)  # List of permissions
     
-    users = relationship("UserModel", secondary=user_roles, back_populates="roles")
+    users = relationship("User", secondary=user_roles, back_populates="roles",
+                        foreign_keys=[user_roles.c.user_id, user_roles.c.role_name])
 
-class SessionModel(Base):
+class Session(Base):
     __tablename__ = "sessions"
     
     id = Column(Integer, primary_key=True, index=True)
@@ -58,9 +60,9 @@ class SessionModel(Base):
     user_agent = Column(String, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     
-    user = relationship("UserModel", back_populates="sessions")
+    user = relationship("User", back_populates="sessions")
 
-class AssetModel(Base):
+class Asset(Base):
     __tablename__ = "assets"
     
     id = Column(Integer, primary_key=True, index=True)
@@ -68,13 +70,13 @@ class AssetModel(Base):
     subcategory = Column(String, index=True)
     filename = Column(String)
     url = Column(String)
-    metadata = Column(JSON)
+    metadata_ = Column("metadata", JSON)
     status = Column(String, default="pending")  # pending, generated, approved, published
     created_by = Column(Integer, ForeignKey("users.id"))
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-class ContentQueueModel(Base):
+class ContentQueue(Base):
     __tablename__ = "content_queue"
     
     id = Column(Integer, primary_key=True, index=True)
@@ -86,10 +88,10 @@ class ContentQueueModel(Base):
     published_at = Column(DateTime, nullable=True)
     created_by = Column(Integer, ForeignKey("users.id"))
     approved_by = Column(Integer, ForeignKey("users.id"), nullable=True)
-    metadata = Column(JSON)
+    metadata_ = Column("metadata", JSON)
     created_at = Column(DateTime, default=datetime.utcnow)
 
-class PlatformAccountModel(Base):
+class PlatformAccount(Base):
     __tablename__ = "platform_accounts"
     
     id = Column(Integer, primary_key=True, index=True)
@@ -98,9 +100,9 @@ class PlatformAccountModel(Base):
     credentials_encrypted = Column(String)  # Encrypted JSON
     status = Column(String, default="active")
     last_sync = Column(DateTime, nullable=True)
-    metadata = Column(JSON)
+    metadata_ = Column("metadata", JSON)
 
-class TrainingJobModel(Base):
+class TrainingJob(Base):
     __tablename__ = "training_jobs"
     
     id = Column(Integer, primary_key=True, index=True)
@@ -112,7 +114,7 @@ class TrainingJobModel(Base):
     triggered_by = Column(Integer, ForeignKey("users.id"))
     created_at = Column(DateTime, default=datetime.utcnow)
 
-class AuditLogModel(Base):
+class AuditLog(Base):
     __tablename__ = "audit_logs"
     
     id = Column(Integer, primary_key=True, index=True)
@@ -123,7 +125,7 @@ class AuditLogModel(Base):
     ip_address = Column(String)
     timestamp = Column(DateTime, default=datetime.utcnow)
     
-    user = relationship("UserModel", back_populates="audit_logs")
+    user = relationship("User", back_populates="audit_logs")
 
 # Database initialization
 def init_db():
@@ -134,9 +136,9 @@ def init_db():
     from app.auth import ROLES
     
     for role_name, role_data in ROLES.items():
-        existing = db.query(RoleModel).filter(RoleModel.name == role_name).first()
+        existing = db.query(Role).filter(Role.name == role_name).first()
         if not existing:
-            role = RoleModel(
+            role = Role(
                 name=role_name,
                 description=role_data["description"],
                 permissions=role_data["permissions"]

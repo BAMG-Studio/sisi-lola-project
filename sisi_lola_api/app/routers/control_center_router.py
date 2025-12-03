@@ -2,18 +2,38 @@
 Control Center routes for Sisi Lola
 Asset management, content pipeline, ML operations
 """
-from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Body
 from sqlalchemy.orm import Session
 from typing import List, Optional
 from datetime import datetime
+from pydantic import BaseModel
 
 from app.auth import TokenData, get_current_user, require_permission
 from app.database import (
-    get_db, AssetModel, ContentQueueModel, TrainingJobModel, 
-    PlatformAccountModel, AuditLogModel
+    get_db, Asset, ContentQueue, TrainingJob, 
+    PlatformAccount, AuditLog, User
 )
 
 router = APIRouter(prefix="/control", tags=["Control Center"])
+
+# Pydantic models for request bodies
+class AssetCreate(BaseModel):
+    category: str
+    subcategory: str
+    filename: str
+    url: str
+    metadata: dict = {}
+
+class ContentCreate(BaseModel):
+    title: str
+    script: str
+    platform: str
+    scheduled_at: Optional[datetime] = None
+    metadata: dict = {}
+
+class TrainingJobCreate(BaseModel):
+    model_type: str
+    config: dict = {}
 
 # ============ ASSET MANAGEMENT ============
 
@@ -25,48 +45,43 @@ async def list_assets(
     db: Session = Depends(get_db)
 ):
     """List all assets with optional filters"""
-    query = db.query(AssetModel)
+    query = db.query(Asset)
     
     if category:
-        query = query.filter(AssetModel.category == category)
+        query = query.filter(Asset.category == category)
     if status:
-        query = query.filter(AssetModel.status == status)
+        query = query.filter(Asset.status == status)
     
     assets = query.all()
     return {"assets": assets, "count": len(assets)}
 
 @router.post("/assets")
 async def create_asset(
-    category: str,
-    subcategory: str,
-    filename: str,
-    url: str,
-    metadata: dict = {},
+    asset_data: AssetCreate,
     current_user: TokenData = Depends(require_permission("assets:write")),
     db: Session = Depends(get_db)
 ):
     """Create new asset entry"""
     
     # Get user ID
-    from app.database import UserModel
-    user = db.query(UserModel).filter(UserModel.email == current_user.email).first()
+    user = db.query(User).filter(User.email == current_user.email).first()
     
-    asset = AssetModel(
-        category=category,
-        subcategory=subcategory,
-        filename=filename,
-        url=url,
-        metadata=metadata,
+    asset = Asset(
+        category=asset_data.category,
+        subcategory=asset_data.subcategory,
+        filename=asset_data.filename,
+        url=asset_data.url,
+        metadata_=asset_data.metadata,
         created_by=user.id
     )
     db.add(asset)
     
     # Audit log
-    audit = AuditLogModel(
+    audit = AuditLog(
         user_id=user.id,
         action="create_asset",
         resource=f"asset:{asset.id}",
-        details={"category": category, "filename": filename}
+        details={"category": asset_data.category, "filename": asset_data.filename}
     )
     db.add(audit)
     
@@ -83,7 +98,7 @@ async def update_asset_status(
     db: Session = Depends(get_db)
 ):
     """Update asset status (pending, generated, approved, published)"""
-    asset = db.query(AssetModel).filter(AssetModel.id == asset_id).first()
+    asset = db.query(Asset).filter(Asset.id == asset_id).first()
     if not asset:
         raise HTTPException(status_code=404, detail="Asset not found")
     
@@ -103,36 +118,31 @@ async def get_content_queue(
     db: Session = Depends(get_db)
 ):
     """Get content queue with filters"""
-    query = db.query(ContentQueueModel)
+    query = db.query(ContentQueue)
     
     if status:
-        query = query.filter(ContentQueueModel.status == status)
+        query = query.filter(ContentQueue.status == status)
     if platform:
-        query = query.filter(ContentQueueModel.platform == platform)
+        query = query.filter(ContentQueue.platform == platform)
     
-    content = query.order_by(ContentQueueModel.scheduled_at).all()
+    content = query.order_by(ContentQueue.scheduled_at).all()
     return {"queue": content, "count": len(content)}
 
 @router.post("/content/queue")
 async def add_to_queue(
-    title: str,
-    script: str,
-    platform: str,
-    scheduled_at: Optional[datetime] = None,
-    metadata: dict = {},
+    content_data: ContentCreate,
     current_user: TokenData = Depends(require_permission("content:write")),
     db: Session = Depends(get_db)
 ):
     """Add content to queue"""
-    from app.database import UserModel
-    user = db.query(UserModel).filter(UserModel.email == current_user.email).first()
+    user = db.query(User).filter(User.email == current_user.email).first()
     
-    content = ContentQueueModel(
-        title=title,
-        script=script,
-        platform=platform,
-        scheduled_at=scheduled_at,
-        metadata=metadata,
+    content = ContentQueue(
+        title=content_data.title,
+        script=content_data.script,
+        platform=content_data.platform,
+        scheduled_at=content_data.scheduled_at,
+        metadata_=content_data.metadata,
         created_by=user.id
     )
     db.add(content)
@@ -148,10 +158,9 @@ async def approve_content(
     db: Session = Depends(get_db)
 ):
     """Approve content for publishing"""
-    from app.database import UserModel
-    user = db.query(UserModel).filter(UserModel.email == current_user.email).first()
+    user = db.query(User).filter(User.email == current_user.email).first()
     
-    content = db.query(ContentQueueModel).filter(ContentQueueModel.id == content_id).first()
+    content = db.query(ContentQueue).filter(ContentQueue.id == content_id).first()
     if not content:
         raise HTTPException(status_code=404, detail="Content not found")
     
@@ -168,7 +177,7 @@ async def publish_content(
     db: Session = Depends(get_db)
 ):
     """Publish content to platform (triggers actual posting)"""
-    content = db.query(ContentQueueModel).filter(ContentQueueModel.id == content_id).first()
+    content = db.query(ContentQueue).filter(ContentQueue.id == content_id).first()
     if not content:
         raise HTTPException(status_code=404, detail="Content not found")
     
@@ -192,27 +201,25 @@ async def list_training_jobs(
     db: Session = Depends(get_db)
 ):
     """List ML training jobs"""
-    query = db.query(TrainingJobModel)
+    query = db.query(TrainingJob)
     
     if status:
-        query = query.filter(TrainingJobModel.status == status)
+        query = query.filter(TrainingJob.status == status)
     
-    jobs = query.order_by(TrainingJobModel.created_at.desc()).all()
+    jobs = query.order_by(TrainingJob.created_at.desc()).all()
     return {"jobs": jobs, "count": len(jobs)}
 
 @router.post("/ml/train")
 async def trigger_training(
-    model_type: str,
-    config: dict = {},
+    job_data: TrainingJobCreate,
     current_user: TokenData = Depends(require_permission("ml:execute")),
     db: Session = Depends(get_db)
 ):
     """Trigger ML training job"""
-    from app.database import UserModel
-    user = db.query(UserModel).filter(UserModel.email == current_user.email).first()
+    user = db.query(User).filter(User.email == current_user.email).first()
     
-    job = TrainingJobModel(
-        model_type=model_type,
+    job = TrainingJob(
+        model_type=job_data.model_type,
         status="pending",
         triggered_by=user.id
     )
@@ -233,7 +240,7 @@ async def list_platforms(
     db: Session = Depends(get_db)
 ):
     """List connected platform accounts"""
-    accounts = db.query(PlatformAccountModel).all()
+    accounts = db.query(PlatformAccount).all()
     
     # Don't expose credentials
     return {
@@ -256,7 +263,7 @@ async def sync_platform(
     db: Session = Depends(get_db)
 ):
     """Sync platform data (followers, posts, analytics)"""
-    account = db.query(PlatformAccountModel).filter(PlatformAccountModel.id == platform_id).first()
+    account = db.query(PlatformAccount).filter(PlatformAccount.id == platform_id).first()
     if not account:
         raise HTTPException(status_code=404, detail="Platform not found")
     
@@ -276,15 +283,15 @@ async def get_dashboard_metrics(
     """Get dashboard metrics"""
     
     # Asset counts
-    total_assets = db.query(AssetModel).count()
-    pending_assets = db.query(AssetModel).filter(AssetModel.status == "pending").count()
+    total_assets = db.query(Asset).count()
+    pending_assets = db.query(Asset).filter(Asset.status == "pending").count()
     
     # Content queue
-    queue_size = db.query(ContentQueueModel).filter(ContentQueueModel.status.in_(["draft", "pending_approval"])).count()
-    scheduled_content = db.query(ContentQueueModel).filter(ContentQueueModel.status == "scheduled").count()
+    queue_size = db.query(ContentQueue).filter(ContentQueue.status.in_(["draft", "pending_approval"])).count()
+    scheduled_content = db.query(ContentQueue).filter(ContentQueue.status == "scheduled").count()
     
     # ML jobs
-    active_jobs = db.query(TrainingJobModel).filter(TrainingJobModel.status.in_(["pending", "running"])).count()
+    active_jobs = db.query(TrainingJob).filter(TrainingJob.status.in_(["pending", "running"])).count()
     
     return {
         "assets": {
