@@ -12,14 +12,14 @@ def client():
 
 @pytest.fixture
 def test_user(client):
-    from app.database import UserModel, RoleModel
+    from app.database import User, Role
     db = SessionLocal()
     
-    role = RoleModel(name="VIEWER", description="Test", permissions=["content:read"])
+    role = Role(name="VIEWER", description="Test", permissions=["content:read"])
     db.add(role)
     db.commit()
     
-    user = UserModel(email="test@test.com", password_hash=get_password_hash("test123"))
+    user = User(email="test@test.com", password_hash=get_password_hash("test123"))
     db.add(user)
     db.commit()
     db.refresh(user)

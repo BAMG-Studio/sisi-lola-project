@@ -12,14 +12,14 @@ def client():
 
 @pytest.fixture
 def admin_token():
-    from app.database import UserModel, RoleModel
+    from app.database import User, Role
     db = SessionLocal()
     
-    role = RoleModel(name="SUPER_ADMIN", description="Admin", permissions=["*"])
+    role = Role(name="SUPER_ADMIN", description="Admin", permissions=["*"])
     db.add(role)
     db.commit()
     
-    user = UserModel(email="admin@test.com", password_hash=get_password_hash("admin123"))
+    user = User(email="admin@test.com", password_hash=get_password_hash("admin123"))
     db.add(user)
     db.commit()
     db.refresh(user)
