@@ -3,14 +3,16 @@ SISI LOLA VOICE ENGINES
 =======================
 Multiple voice synthesis options:
 1. ElevenLabs (Premium - Female YettySlay style)
-2. Coqui XTTS (Free - Male Nigerian voice)
-3. Facebook MMS-TTS Yoruba (Free - Basic)
+2. EdgeTTS (Free - Microsoft Neural Voices including Nigerian)
+3. Coqui XTTS (Free - Male Nigerian voice) [Requires Python <3.12]
+4. Facebook MMS-TTS Yoruba (Free - Basic)
 """
 
 import os
 import sys
 import requests
 import tempfile
+import asyncio
 from pathlib import Path
 from datetime import datetime
 from typing import Optional, Literal
@@ -205,6 +207,134 @@ class ElevenLabsVoice(VoiceEngine):
         return text.strip()
 
 
+class EdgeTTSVoice(VoiceEngine):
+    """
+    Microsoft Edge TTS Voice Engine - FREE and HIGH QUALITY
+    Uses Azure Neural Voices via edge-tts library
+    
+    Features:
+    - FREE - No API key required
+    - 400+ voices including Nigerian English
+    - Neural voice synthesis (high quality)
+    - Async/sync generation support
+    """
+    
+    # Nigerian and African English voices
+    VOICE_OPTIONS = {
+        "nigerian_female": "en-NG-EzinneNeural",    # Nigerian Female
+        "nigerian_male": "en-NG-AbeoNeural",        # Nigerian Male  
+        "kenyan_female": "en-KE-AsiliaNeural",      # Kenyan Female
+        "kenyan_male": "en-KE-ChilembaNeural",      # Kenyan Male
+        "south_african_female": "en-ZA-LeahNeural", # South African Female
+        "south_african_male": "en-ZA-LukeNeural",   # South African Male
+        "british_female": "en-GB-SoniaNeural",      # British Female
+        "us_female": "en-US-JennyNeural",           # US Female
+    }
+    
+    def __init__(self, voice_id: Optional[str] = None):
+        """
+        Initialize EdgeTTS voice engine.
+        
+        Args:
+            voice_id: Voice ID to use (default: Nigerian Female)
+        """
+        self.voice_id = voice_id or self.VOICE_OPTIONS["nigerian_female"]
+        self._edge_tts = None
+        self._check_available()
+    
+    def _check_available(self):
+        """Check if edge-tts is installed"""
+        try:
+            import edge_tts
+            self._edge_tts = edge_tts
+        except ImportError:
+            self._edge_tts = None
+            print("[!] edge-tts not installed. Install with: pip install edge-tts")
+    
+    @property
+    def name(self) -> str:
+        return "Microsoft Edge TTS"
+    
+    @property
+    def voice_type(self) -> str:
+        # Extract voice name from ID
+        if "NG" in self.voice_id:
+            return "Nigerian (Neural)"
+        elif "KE" in self.voice_id:
+            return "Kenyan (Neural)"
+        elif "ZA" in self.voice_id:
+            return "South African (Neural)"
+        return "Neural Voice"
+    
+    async def _generate_async(self, text: str, output_path: str) -> Optional[str]:
+        """Async speech generation"""
+        try:
+            communicate = self._edge_tts.Communicate(text, self.voice_id)
+            await communicate.save(output_path)
+            return output_path
+        except Exception as e:
+            print(f"[!] EdgeTTS async generation failed: {e}")
+            return None
+    
+    def generate_speech(self, text: str, output_path: str) -> Optional[str]:
+        """Generate speech using Microsoft Edge TTS (sync wrapper)"""
+        if not self._edge_tts:
+            print("[!] edge-tts not available")
+            return None
+        
+        try:
+            # Clean text
+            clean_text = self._clean_text(text)
+            
+            # Run async in sync context
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            try:
+                result = loop.run_until_complete(self._generate_async(clean_text, output_path))
+            finally:
+                loop.close()
+            
+            return result
+            
+        except Exception as e:
+            print(f"[!] EdgeTTS generation failed: {e}")
+            return None
+    
+    async def list_voices_async(self) -> list:
+        """List available voices asynchronously"""
+        if not self._edge_tts:
+            return []
+        try:
+            voices = await self._edge_tts.list_voices()
+            return voices
+        except Exception:
+            return []
+    
+    def list_voices(self) -> list:
+        """List available voices (sync wrapper)"""
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        try:
+            return loop.run_until_complete(self.list_voices_async())
+        finally:
+            loop.close()
+    
+    def _clean_text(self, text: str) -> str:
+        """Clean text for TTS output"""
+        import re
+        # Remove emojis
+        emoji_pattern = re.compile("["
+            u"\U0001F600-\U0001F64F"
+            u"\U0001F300-\U0001F5FF"
+            u"\U0001F680-\U0001F6FF"
+            u"\U0001F1E0-\U0001F1FF"
+            u"\U00002702-\U000027B0"
+            u"\U000024C2-\U0001F251"
+            "]+", flags=re.UNICODE)
+        
+        return emoji_pattern.sub('', text).strip()
+
+
 class CoquiXTTSVoice(VoiceEngine):
     """
     Coqui XTTS Voice Engine - Free, open-source
@@ -374,13 +504,15 @@ class VoiceEngineFactory:
     
     @staticmethod
     def create(
-        engine_type: Literal["elevenlabs", "coqui", "mms"] = "elevenlabs",
+        engine_type: Literal["elevenlabs", "edge", "coqui", "mms"] = "elevenlabs",
         **kwargs
     ) -> VoiceEngine:
         """Create a voice engine instance"""
         
         if engine_type == "elevenlabs":
             return ElevenLabsVoice(**kwargs)
+        elif engine_type == "edge":
+            return EdgeTTSVoice(**kwargs)
         elif engine_type == "coqui":
             return CoquiXTTSVoice(**kwargs)
         elif engine_type == "mms":
@@ -396,6 +528,13 @@ class VoiceEngineFactory:
         # Check ElevenLabs (just needs API key and requests)
         if os.getenv("ELEVENLABS_API_KEY"):
             available.append("elevenlabs")
+        
+        # Check EdgeTTS (free, recommended)
+        try:
+            import edge_tts
+            available.append("edge")
+        except ImportError:
+            pass
         
         # Check Coqui TTS
         try:

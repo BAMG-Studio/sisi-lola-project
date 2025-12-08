@@ -51,3 +51,4 @@ ansible/vars/secrets.yml
 # Credentials
 *.json.credentials
 .credentials.json
+.venv_coqui/
