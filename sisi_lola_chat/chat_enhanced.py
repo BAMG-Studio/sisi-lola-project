@@ -101,9 +101,9 @@ class LLMBackend:
                 api_key = os.getenv("COHERE_API_KEY")
                 if not api_key:
                     raise ValueError("COHERE_API_KEY not found")
-                self.client = cohere.Client(api_key)
-                self.model_name = "command-r-plus"  # Aya-based model
-                safe_print(f"[OK] Cohere Aya (Command R+) initialized")
+                self.client = cohere.ClientV2(api_key=api_key)
+                self.model_name = "command-a-03-2025"  # Latest Cohere model with Aya multilingual
+                safe_print(f"[OK] Cohere Command-A initialized")
             except ImportError:
                 safe_print("[!] Cohere not installed. Run: pip install cohere")
                 raise
@@ -164,27 +164,25 @@ class LLMBackend:
             return f"Omo! OpenAI wahala: {e}"
     
     def _chat_cohere(self, messages: list, system_prompt: str) -> str:
-        """Chat using Cohere Aya"""
+        """Chat using Cohere Command-A (with Aya multilingual)"""
         try:
-            # Convert messages to Cohere format
-            chat_history = []
-            for msg in messages[:-1]:  # All except last
-                role = "USER" if msg["role"] == "user" else "CHATBOT"
-                chat_history.append({"role": role, "message": msg["content"]})
+            # Convert messages to Cohere V2 format
+            cohere_messages = [
+                {"role": "system", "content": system_prompt}
+            ]
             
-            # Get the last user message
-            last_message = messages[-1]["content"] if messages else ""
+            for msg in messages:
+                role = "user" if msg["role"] == "user" else "assistant"
+                cohere_messages.append({"role": role, "content": msg["content"]})
             
             response = self.client.chat(
-                message=last_message,
                 model=self.model_name,
-                preamble=system_prompt,
-                chat_history=chat_history,
+                messages=cohere_messages,
                 temperature=0.85,
                 max_tokens=600
             )
             
-            return response.text
+            return response.message.content[0].text
             
         except Exception as e:
             return f"Omo! Cohere wahala: {e}"
@@ -252,16 +250,26 @@ class SisiLolaEnhancedChat:
                     safe_print("[!] ELEVENLABS_API_KEY not found - voice disabled")
                     return
                 self.voice_engine = ElevenLabsVoice(api_key=api_key)
-                safe_print(f"[OK] ElevenLabs voice initialized ({self.voice_engine.voice_type})")
+                safe_print(f"[OK] ElevenLabs voice ready ({self.voice_engine.voice_type})")
                 
             elif voice_type == "coqui":
                 speaker_wav = self._find_voice_sample()
                 self.voice_engine = CoquiXTTSVoice(speaker_wav=speaker_wav)
-                safe_print(f"[OK] Coqui XTTS voice initialized ({self.voice_engine.voice_type})")
+                # Check if model actually loaded
+                if self.voice_engine.model is None:
+                    safe_print("[!] Coqui XTTS failed to load - voice disabled")
+                    safe_print("    Run: pip install TTS")
+                    self.voice_engine = None
+                    return
+                safe_print(f"[OK] Coqui XTTS voice ready ({self.voice_engine.voice_type})")
                 
             elif voice_type == "mms":
                 self.voice_engine = FacebookMMSVoice()
-                safe_print(f"[OK] Facebook MMS voice initialized ({self.voice_engine.voice_type})")
+                if self.voice_engine.model is None:
+                    safe_print("[!] Facebook MMS failed to load - voice disabled")
+                    self.voice_engine = None
+                    return
+                safe_print(f"[OK] Facebook MMS voice ready ({self.voice_engine.voice_type})")
                 
         except Exception as e:
             safe_print(f"[!] Voice initialization failed: {e}")

@@ -231,13 +231,10 @@ class CoquiXTTSVoice(VoiceEngine):
             
             # Use XTTS v2 for best quality
             self.model = TTS("tts_models/multilingual/multi-dataset/xtts_v2")
-            print("[OK] Coqui XTTS v2 loaded")
             
         except ImportError:
-            print("[!] Coqui TTS not installed. Run: pip install TTS")
             self.model = None
         except Exception as e:
-            print(f"[!] Failed to load Coqui XTTS: {e}")
             self.model = None
     
     @property
