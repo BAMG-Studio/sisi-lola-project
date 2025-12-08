@@ -40,14 +40,15 @@ on:
     # Weekly Sunday at 2 AM UTC
     - cron: '0 2 * * 0'
   
-  # Trigger on new data
-  push:
-    paths:
-      - '04_AUDIO_CORE/**'
-      - '01_AVATAR_DNA/**'
-      - '03_MEDIA_ASSETS/**'
-    branches:
-      - main
+  # NOTE: Push trigger disabled to prevent failures on every commit
+  # Use workflow_dispatch for manual training or wait for scheduled run
+  # push:
+  #   paths:
+  #     - '04_AUDIO_CORE/**'
+  #     - '01_AVATAR_DNA/**'
+  #     - '03_MEDIA_ASSETS/**'
+  #   branches:
+  #     - main
 
 env:
   PYTHON_VERSION: '3.12'

@@ -136,6 +136,7 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install "transformers<4.40.0" torch torchaudio pyyaml
+          pip install soundfile torchcodec
           pip install TTS
       
       - name: Train XTTS Voice
