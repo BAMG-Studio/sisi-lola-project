@@ -49,4 +49,4 @@ def test_get_current_user(client, test_user):
 
 def test_unauthorized_access(client):
     response = client.get("/api/v2/auth/me")
-    assert response.status_code == 403
+    assert response.status_code == 401  # No credentials provided

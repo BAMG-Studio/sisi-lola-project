@@ -94,6 +94,16 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - name: Free disk space
+        run: |
+          # Remove unnecessary pre-installed software to free ~10GB
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          sudo docker image prune --all --force
+          df -h
+      
       - name: Checkout code
         uses: actions/checkout@v4
       
@@ -146,7 +156,7 @@ jobs:
           retention-days: 90
       
       - name: Notify on completion
-        if: always()
+        if: always() && secrets.SLACK_WEBHOOK_URL != ''
         uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
@@ -154,7 +164,6 @@ jobs:
             ML Training ${{ job.status }}
             Mode: ${{ github.event.inputs.training_mode || 'auto' }}
             Model: ${{ github.event.inputs.target_model || 'auto-detected' }}
-          webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 

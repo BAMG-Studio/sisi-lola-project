@@ -74,4 +74,4 @@ def test_dashboard_metrics(client, admin_token):
 
 def test_unauthorized_asset_creation(client):
     response = client.post("/api/v2/control/assets", json={"category": "TEST"})
-    assert response.status_code == 403
+    assert response.status_code == 401  # No credentials provided

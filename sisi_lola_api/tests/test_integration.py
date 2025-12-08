@@ -1,11 +1,18 @@
 import pytest
 from fastapi.testclient import TestClient
 from app.main_updated import app
-from app.database import Base, engine
+from app.database import Base, engine, SessionLocal, Role
 
 @pytest.fixture
 def client():
     Base.metadata.create_all(bind=engine)
+    # Create default roles needed for tests
+    db = SessionLocal()
+    if not db.query(Role).filter(Role.name == "SUPER_ADMIN").first():
+        role = Role(name="SUPER_ADMIN", description="Full system control", permissions=["*"])
+        db.add(role)
+        db.commit()
+    db.close()
     yield TestClient(app)
     Base.metadata.drop_all(bind=engine)
 
