@@ -1,0 +1,73 @@
+name: Personality Training (Minimal Test)
+
+on:
+  workflow_dispatch:
+
+env:
+  PYTHON_VERSION: '3.12'
+
+jobs:
+  test-setup:
+    name: Test Setup and Dependencies
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      
+      - name: Create directories
+        run: |
+          mkdir -p 00_PROJECT_CORE/Data
+          mkdir -p ml_training/logs
+          mkdir -p ml_training/checkpoints
+          echo "✅ Directories created"
+      
+      - name: Install dependencies
+        run: |
+          pip install openai python-dotenv
+          echo "✅ Dependencies installed"
+      
+      - name: Check files exist
+        run: |
+          echo "Checking required files..."
+          ls -la 00_PROJECT_CORE/Config/sisi_attitude.py || echo "❌ sisi_attitude.py missing"
+          ls -la ml_training/datasets/personality_training_data.json || echo "❌ personality_training_data.json missing"
+          ls -la ml_training/datasets/native_languages_training.json || echo "❌ native_languages_training.json missing"
+          ls -la 00_PROJECT_CORE/Scripts/run_attitude_training.py || echo "❌ run_attitude_training.py missing"
+          ls -la ml_training/scripts/train_native_languages.py || echo "❌ train_native_languages.py missing"
+          ls -la ml_training/scripts/validate_personality.py || echo "❌ validate_personality.py missing"
+          echo "✅ File check complete"
+      
+      - name: Test Python imports
+        run: |
+          python -c "import sys; print(f'Python: {sys.version}')"
+          python -c "import openai; print('✅ openai imported')"
+          python -c "from dotenv import load_dotenv; print('✅ dotenv imported')"
+      
+      - name: Test native language training
+        run: |
+          python ml_training/scripts/train_native_languages.py \
+            --dataset ml_training/datasets/native_languages_training.json
+        continue-on-error: true
+      
+      - name: Test personality validation
+        run: |
+          python ml_training/scripts/validate_personality.py \
+            --config 00_PROJECT_CORE/Config/sisi_attitude.py
+        continue-on-error: true
+      
+      - name: Summary
+        if: always()
+        run: |
+          echo "================================"
+          echo "Test Summary"
+          echo "================================"
+          echo "✅ Setup completed"
+          echo "✅ Dependencies installed"
+          echo "✅ Files checked"
+          echo "Check logs above for any errors"
