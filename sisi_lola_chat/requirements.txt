@@ -1,11 +1,22 @@
-# Sisi Lola Chat Requirements
-# For interactive chat with voice
+# Sisi Lola Enhanced Chat Requirements
+# For interactive chat with multiple voice and model options
 
 # Core
 openai>=1.0.0
 python-dotenv>=1.0.0
+requests>=2.28.0
 
-# Voice Generation (optional - for --voice mode)
+# Multiple LLM Backends
+cohere>=5.0.0           # For Cohere Aya
+anthropic>=0.18.0       # For Claude (optional)
+
+# Voice Generation - ElevenLabs (Premium)
+# No extra deps needed - uses requests
+
+# Voice Generation - Coqui XTTS (Free)
+TTS>=0.22.0             # Coqui TTS with XTTS support
+
+# Voice Generation - Facebook MMS (Basic)
 torch>=2.0.0
 torchaudio>=2.0.0
 transformers>=4.30.0
