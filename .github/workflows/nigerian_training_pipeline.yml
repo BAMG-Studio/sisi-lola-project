@@ -90,7 +90,11 @@ jobs:
           HF_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
         run: |
           pip install huggingface_hub
-          huggingface-cli login --token "$HF_TOKEN"
+          if [ -n "$HF_TOKEN" ]; then
+            huggingface-cli login --token $HF_TOKEN
+          else
+            echo "Warning: HF_TOKEN not set, skipping HuggingFace login"
+          fi
       
       - name: Train N-ATLaS Brain
         run: |
