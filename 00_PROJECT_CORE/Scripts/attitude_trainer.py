@@ -18,7 +18,8 @@ load_dotenv()
 class AttitudeTrainer:
     def __init__(self):
         self.openai_key = os.getenv('OPENAI_API_KEY')
-        self.db_path = os.getenv('PROJECT_DB_PATH')
+        # Use relative path that works on both Windows and Linux
+        self.db_path = os.path.join(os.path.dirname(__file__), '..', '..', 'sisi_lola_production.db')
         self.target_channel = "@yettyslay"
         
         # Attitude analysis framework
@@ -155,6 +156,9 @@ class AttitudeTrainer:
     
     def save_training_data(self, profile: Dict, scenarios: List[Dict]):
         """Save training data to database"""
+        
+        # Create database directory if it doesn't exist
+        os.makedirs(os.path.dirname(self.db_path), exist_ok=True)
         
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()

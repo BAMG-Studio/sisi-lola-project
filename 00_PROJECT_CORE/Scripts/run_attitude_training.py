@@ -36,8 +36,9 @@ def main():
     # Step 4: Save all training data
     print("\nStep 4: Saving training data...")
     
-    # Create Data directory if it doesn't exist
-    data_dir = "c:/Users/POK28/Dropbox/Sisi_Lola/00_PROJECT_CORE/Data"
+    # Create Data directory if it doesn't exist (use relative path)
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    data_dir = os.path.join(script_dir, '..', 'Data')
     os.makedirs(data_dir, exist_ok=True)
     
     # Save comprehensive training package
@@ -67,7 +68,8 @@ def main():
     
     print(f"\nTRAINING COMPLETE!")
     print(f"Training package: {package_path}")
-    print(f"Attitude config: c:/Users/POK28/Dropbox/Sisi_Lola/00_PROJECT_CORE/Config/sisi_attitude.py")
+    config_path = os.path.join(script_dir, '..', 'Config', 'sisi_attitude.py')
+    print(f"Attitude config: {config_path}")
     print(f"Database updated with training data")
     
     print("\nNEXT STEPS:")
