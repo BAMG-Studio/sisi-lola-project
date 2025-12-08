@@ -86,9 +86,11 @@ jobs:
           pip install torch transformers peft accelerate bitsandbytes datasets pyyaml
       
       - name: Login to Hugging Face
+        env:
+          HF_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
         run: |
           pip install huggingface_hub
-          huggingface-cli login --token ${{ secrets.HUGGINGFACE_TOKEN }}
+          huggingface-cli login --token "$HF_TOKEN"
       
       - name: Train N-ATLaS Brain
         run: |
@@ -129,7 +131,8 @@ jobs:
       - name: Install TTS dependencies
         run: |
           pip install --upgrade pip
-          pip install TTS torch torchaudio pyyaml
+          pip install "transformers<4.40.0" torch torchaudio pyyaml
+          pip install TTS
       
       - name: Train XTTS Voice
         run: |
