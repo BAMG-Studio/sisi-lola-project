@@ -68,5 +68,5 @@ if __name__ == "__main__":
     print(f"Generating Sisi Lola voice samples with seed {voice_lock.voice_seed}...")
     
     results = voice_lock.batch_generate(SISI_LOLA_PHRASES, output_dir)
-    print(f"✓ Generated {len(results)} voice samples")
-    print(f"✓ Saved to: {output_dir}")
+    print(f"[OK] Generated {len(results)} voice samples")
+    print(f"[OK] Saved to: {output_dir}")
