@@ -18,6 +18,17 @@ from datetime import datetime
 from typing import Optional
 import argparse
 
+# Fix Windows console encoding for emojis
+if sys.platform == 'win32':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+        sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+    except AttributeError:
+        # Python < 3.7 fallback
+        import io
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+        sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
+
 # Add project paths
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root / "sisi_lola_api"))
@@ -41,7 +52,7 @@ try:
     VOICE_AVAILABLE = True
 except ImportError:
     VOICE_AVAILABLE = False
-    print("⚠️  Voice generation not available (transformers/torch not installed)")
+    print("[!] Voice generation not available (transformers/torch not installed)")
 
 # Import personality
 try:
@@ -53,6 +64,15 @@ try:
 except ImportError:
     PERSONALITY_AVAILABLE = False
     SISI_LOLA_ESSENCE = "You are Sisi Lola, a confident Nigerian virtual host."
+
+
+def safe_print(text):
+    """Print text safely, handling encoding issues on Windows"""
+    try:
+        print(text)
+    except UnicodeEncodeError:
+        # Replace problematic characters
+        print(text.encode('ascii', 'replace').decode('ascii'))
 
 
 class SisiLolaChat:
@@ -69,20 +89,20 @@ class SisiLolaChat:
         # Initialize OpenAI client
         self.openai_key = os.getenv("OPENAI_API_KEY")
         if not self.openai_key:
-            print("❌ OPENAI_API_KEY not found in environment!")
-            print("   Add it to sisi_lola_api/.env or 00_PROJECT_CORE/.env")
+            safe_print("[X] OPENAI_API_KEY not found in environment!")
+            safe_print("   Add it to sisi_lola_api/.env or 00_PROJECT_CORE/.env")
             sys.exit(1)
         
         self.client = OpenAI(api_key=self.openai_key)
         
         # Initialize voice if enabled
         if enable_voice and VOICE_AVAILABLE:
-            print("🎤 Initializing Sisi Lola voice engine...")
+            safe_print("[*] Initializing Sisi Lola voice engine...")
             try:
                 self.voice_engine = SisiLolaVoiceLock()
-                print(f"✅ Voice ready (model: {self.voice_engine.model_id})")
+                safe_print(f"[OK] Voice ready (model: {self.voice_engine.model_id})")
             except Exception as e:
-                print(f"⚠️  Voice init failed: {e}")
+                safe_print(f"[!] Voice init failed: {e}")
                 self.enable_voice = False
         
         # Build system prompt
@@ -194,7 +214,7 @@ Always respond as Sisi Lola with humor and charisma!
             return output_path
             
         except Exception as e:
-            print(f"⚠️  Voice generation failed: {e}")
+            safe_print(f"[!] Voice generation failed: {e}")
             return None
     
     def play_audio(self, audio_path: Path):
@@ -210,7 +230,7 @@ Always respond as Sisi Lola with humor and charisma!
             else:  # Linux
                 os.system(f'aplay "{audio_path}" 2>/dev/null || paplay "{audio_path}" 2>/dev/null')
         except Exception as e:
-            print(f"⚠️  Could not play audio: {e}")
+            safe_print(f"[!] Could not play audio: {e}")
     
     def run_interactive(self):
         """Run interactive chat session"""
@@ -219,19 +239,19 @@ Always respond as Sisi Lola with humor and charisma!
         while True:
             try:
                 # Get user input
-                user_input = input("\n🧑 You: ").strip()
+                user_input = input("\nYou: ").strip()
                 
                 if not user_input:
                     continue
                 
                 # Handle special commands
                 if user_input.lower() in ['exit', 'quit', 'bye', 'goodbye']:
-                    print("\n👋 Sisi Lola: Bye bye o! Las las, we go dey alright! 💕\n")
+                    safe_print("\nSisi Lola: Bye bye o! Las las, we go dey alright!\n")
                     break
                 
                 if user_input.lower() == '/clear':
                     self.conversation_history.clear()
-                    print("🗑️  Conversation cleared!")
+                    safe_print("[OK] Conversation cleared!")
                     continue
                 
                 if user_input.lower() == '/save':
@@ -243,46 +263,46 @@ Always respond as Sisi Lola with humor and charisma!
                     continue
                 
                 # Get response from Sisi Lola
-                print("\n💭 Sisi Lola is typing...")
+                safe_print("\nSisi Lola is typing...")
                 response = self.chat(user_input)
                 
                 # Display response
-                print(f"\n🌟 Sisi Lola: {response}")
+                safe_print(f"\nSisi Lola: {response}")
                 
                 # Generate and play voice if enabled
                 if self.enable_voice:
-                    print("🔊 Generating voice...")
+                    safe_print("[*] Generating voice...")
                     audio_path = self.generate_voice(response)
                     if audio_path:
-                        print(f"   Audio saved: {audio_path.name}")
+                        safe_print(f"   Audio saved: {audio_path.name}")
                         self.play_audio(audio_path)
                 
             except KeyboardInterrupt:
-                print("\n\n👋 Bye bye! Na later we go yarn again! 💕")
+                safe_print("\n\nBye bye! Na later we go yarn again!")
                 break
             except Exception as e:
-                print(f"\n❌ Error: {e}")
+                safe_print(f"\n[X] Error: {e}")
     
     def _print_welcome(self):
         """Print welcome message"""
-        print("\n" + "="*60)
-        print("🌟 SISI LOLA INTERACTIVE CHAT 🌟")
-        print("="*60)
-        print("""
-Omo! You don reach the right place o! 🎉
+        safe_print("\n" + "="*60)
+        safe_print("*** SISI LOLA INTERACTIVE CHAT ***")
+        safe_print("="*60)
+        safe_print("""
+Omo! You don reach the right place o!
 
 I be Sisi Lola - your AI bestie from Naija!
 Make we yarn, ask me anything, or just vibe together!
         """)
         
         if self.enable_voice:
-            print("🔊 Voice mode: ON - I go talk to you!")
+            safe_print("Voice mode: ON - I go talk to you!")
         else:
-            print("📝 Text mode: Type /help for commands")
+            safe_print("Text mode: Type /help for commands")
         
-        print("-"*60)
-        print("Commands: /clear, /save, /help, exit")
-        print("-"*60)
+        safe_print("-"*60)
+        safe_print("Commands: /clear, /save, /help, exit")
+        safe_print("-"*60)
     
     def _print_help(self):
         """Print help message"""
@@ -308,7 +328,7 @@ Make we yarn, ask me anything, or just vibe together!
                 "messages": self.conversation_history
             }, f, indent=2)
         
-        print(f"💾 Conversation saved to: {save_path.name}")
+        safe_print(f"[OK] Conversation saved to: {save_path.name}")
 
 
 def main():
