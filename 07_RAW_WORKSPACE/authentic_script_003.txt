@@ -1,0 +1,29 @@
+TOPIC: African fashion designers using 3D printing and AI
+
+VALIDATION: {'yoruba': 71.1, 'pidgin': 0.2, 'english': 28.8, 'passes': False, 'yoruba_count': 462, 'pidgin_count': 1, 'total_words': 650}
+
+[**Opening - 1 min**]
+
+Ẹ káàbọ̀ o! Báwo ni ẹ ṣe wà? Mo dúpẹ́ pé ẹ wà níbí lónìí fún ìfọ̀rọ̀wá pẹlu mi, Sisi Lola, AI influencer tí ó wà ní orí ilẹ̀ Àfríkà. Ó dára púpọ̀ pé ẹ bá mi wá sọ̀rọ̀ lónìí. Ọjọ́ òní, a fẹ́ sọ̀rọ̀ nípa àwọn oníṣòwò àṣọ àti bí wọn ṣe ń lò 3D printing àti AI láti ṣe ìgbélárugẹ irú àwọn àṣà àtẹ́lẹwọ̀ wá. Ẹ tún ní ká gbé àwọn ẹ̀wẹ̀ wọn síwájú pẹ̀lú ẹ̀dá ayé tuntun. Ṣé ẹ gbọ́? Jẹ́ ká bèrè!
+
+[**Introduction - 2 min**]
+
+Ẹ jọ̀wọ́, ṣé ẹ ti rí àwọn àṣọ Àfríkà náà bí wọ́n ṣe ń rẹwà ju, kí wọn tó fara han ní àwọn ikànná lórí Instagram àti TikTok? Àwọn òṣèré àṣọ wa ń kó àwọn èrò tuntun wọ inú iṣẹ́ wọn. Wọn ti yàtọ̀ ju àtijọ́ lọ, wọ́n ń lò àwọn ìmọ̀ ayé tuntun gẹ́gẹ́ bí 3D printing àti AI láti dá àwọn àṣọ tí kò wà ní bẹ̀bẹ̀ lọ́rùn. Ó dára púpọ̀! Àwọn oníṣòwò àṣọ bíi Tiffany Amber àti Lisa Folawiyo ti kó àwọn ẹ̀dá wọn sórí ìtẹ́ ayé gíga.
+
+Kí ni àwọn ẹ̀dá tuntun wọ̀nyí pẹ̀lú 3D printing àti AI? Àwọ̀n akẹkọ̀ tí wọ́n ń gbé àwọn 3D printers lọdọ̀ wọn, wọ́n ti mọ bí wọn ṣe lè dá aṣọ tí kò lẹ́ẹ̀kan ní gbogbo ilẹ̀ Àfríkà. Kò burú! Ìpèsè àwọn ohun tí a ní lónìí, o dájú pé ibi kan náà wọ́n ti lọ láti lọ ki wọn lọ lè dára pọ̀ mọ́ ayé tuntun láti sàáyé fún àwọn oníṣòwò àṣọ.
+
+[**Main Content - 3 min**]
+
+Jẹ́ ká sọ̀rọ̀ nípa àwọn oníṣòwò àṣọ Àfríkà tó ń lò 3D printing àti AI. Ẹ jọ̀wọ́, ṣé ẹ ti gbọ́ bí Tiffany Amber ṣe ń gbé aṣọ abèfẹ́ han ní agbègbè gbogbo? Wọ́n kó àwọn ohun tó kún fún ìmọ̀ tuntun àti ẹ̀dá ayé tuntun sílé. Ó dára púpọ̀! Ṣe o mọ̀ pé bí wọ́n ṣe ń lò 3D printers, wọ́n lè dá àwọn àṣọ tí ó dà bí ẹ̀sìn kàn ní ìkẹyìn àwọn aṣọ tí wọ́n ti dá àtijọ́? Wọ́n ti ń sàánú àwọn àṣà wa pẹ̀lú àtinúdá tuntun.
+
+Ọmọde Lisa Folawiyo náà kò dá àwọn àṣọ tí ò wà ní bẹ̀bẹ̀ lọ́rùn, ó tún ń lò AI láti gbé àwọn ẹ̀wẹ̀ wọn jáde pẹ̀lú àwọn aláyè tó dára púpọ̀. Wọ́n lè sàtúnṣe àwọn aṣọ bíi gbogbo irinsẹ̀ ni, díẹ̀ díẹ̀, wọ́n ń sàáyé fún àwọn oníṣòwò àṣọ tó ń wá àwọn ohun tí kò wà ní bẹ̀bẹ̀ lọ́rùn. Àwọn ẹ̀dá tuntun yìí kò ní wahala fún ẹnikan tó bá fẹ dání láfi ọwọ́ iṣẹ́ ọwọ́ ti wọ́n lò.
+
+Láti máa ròjọ pẹ̀lú àwọn òdàlọ́dà, awọn akẹkọ̀ àti àwọn oníṣòwò ṣèdáìlè ti se ìgbàgbé àwọn ohun tó wà ní àwọn àṣà wọn. Ṣùgbọ́n, pẹ̀lú àwọn ohun àtúnṣe tuntun, wọ́n ti gbàgbo pé àwọn irọ́yin yìí yóò dára púpọ̀. Wọn ti rò pé àwọn ohun tó kún fún àṣà tó wà nílè yìí lè ṣiṣẹ̀ lori àwọn ohun tí àwön akẹkọ̀ fẹràn púpọ̀.
+
+Níkẹyìn, àwọn oníṣòwò àṣọ tó ń lò 3D printing àti AI kò dà bí àwọn oníṣòwò àṣò àtijọ́ tí a ti mọ̀. Wọ́n ti papọ̀ àwọn irú àṣà wọn pẹ̀lú àwọn ìmọ̀ tuntun, kí wọ́n lè ràn àwọn òdàlọ́dà lọ́wọ́ láti fẹ́ àwọn ohun àṣà wa.
+
+[**Conclusion - 1 min**]
+
+Ẹ ṣeun púpọ̀ fún gbígbé ìgbà yìí pẹ̀lú mi, Sisi Lola. Ó dára púpọ̀! Àwọn oníṣòwò àṣọ Àfríkà ti ń lò 3D printing àti AI ní ọna tuntun láti dárí àwọn ohun tó wáyé sílẹ̀. Ẹ jọ̀wọ́, jẹ́ ká bá wọn dúró ní ibi tí wọ́n wà, kí wọ́n lè tẹ̀síwájú láti ràn wá lọ́wọ́ pẹ̀lú àwọn àṣà tuntun.
+
+Báwo ni ẹ ṣe wà? Mo dúpẹ́ pé ẹ wà níbẹ̀ láti gbọ́ mi. Ẹ tún mọ̀ pé a ti jẹ́ ká mọ̀ bí a ṣe lè lo àwọn ìmọ̀ tuntun yìí láti sàáyé fún àwọn oníṣòwò àṣọ. Ó dára púpọ̀! Ẹ dúpẹ́ o!

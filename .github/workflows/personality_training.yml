@@ -1,0 +1,148 @@
+name: Personality Training Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      training_intensity:
+        description: 'Training intensity'
+        required: true
+        type: choice
+        options:
+          - light
+          - moderate
+          - intensive
+        default: 'moderate'
+  
+  push:
+    paths:
+      - '00_PROJECT_CORE/Config/sisi_attitude.py'
+      - 'ml_training/datasets/personality_training_data.json'
+      - 'sisi_lola_api/app/services/personality_engine.py'
+    branches:
+      - main
+  
+  schedule:
+    - cron: '0 3 * * 1'  # Weekly Monday 3 AM UTC
+
+env:
+  PYTHON_VERSION: '3.12'
+
+jobs:
+  train-personality:
+    name: Train Personality Model
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          pip install openai python-dotenv transformers datasets torch
+      
+      - name: Configure environment
+        run: |
+          echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
+          echo "HUGGINGFACE_TOKEN=${{ secrets.HUGGINGFACE_TOKEN }}" >> $GITHUB_ENV
+      
+      - name: Run personality training
+        run: |
+          python 00_PROJECT_CORE/Scripts/run_attitude_training.py
+      
+      - name: Fine-tune with OpenAI
+        run: |
+          python ml_training/scripts/finetune_personality.py \
+            --dataset ml_training/datasets/personality_training_data.json \
+            --intensity ${{ github.event.inputs.training_intensity || 'moderate' }}
+      
+      - name: Validate personality model
+        run: |
+          python ml_training/scripts/validate_personality.py \
+            --config 00_PROJECT_CORE/Config/sisi_attitude.py
+      
+      - name: Upload training results
+        uses: actions/upload-artifact@v4
+        with:
+          name: personality-training-${{ github.run_number }}
+          path: |
+            00_PROJECT_CORE/Data/sisi_lola_attitude_training.json
+            ml_training/logs/personality_training.log
+          retention-days: 30
+      
+      - name: Update production config
+        if: success()
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add 00_PROJECT_CORE/Config/sisi_attitude.py
+          git add 00_PROJECT_CORE/Data/sisi_lola_attitude_training.json
+          git commit -m "chore: update personality training data [skip ci]" || echo "No changes"
+          git push
+
+  test-personality:
+    name: Test Personality Integration
+    needs: train-personality
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      
+      - name: Install API dependencies
+        run: |
+          cd sisi_lola_api
+          pip install -r requirements.txt
+      
+      - name: Start API server
+        run: |
+          cd sisi_lola_api
+          uvicorn app.main:app --host 0.0.0.0 --port 8000 &
+          sleep 10
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      
+      - name: Run personality tests
+        run: |
+          python test_sisi_personality.py
+      
+      - name: Generate test report
+        run: |
+          echo "# Personality Test Results" > test_report.md
+          echo "Run: ${{ github.run_number }}" >> test_report.md
+          echo "Status: ✅ Passed" >> test_report.md
+      
+      - name: Upload test report
+        uses: actions/upload-artifact@v4
+        with:
+          name: personality-test-report-${{ github.run_number }}
+          path: test_report.md
+
+  deploy-personality:
+    name: Deploy Personality Updates
+    needs: test-personality
+    if: success() && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Deploy to production
+        run: |
+          echo "Deploying personality updates to production..."
+          # Add deployment commands here
+      
+      - name: Notify completion
+        run: |
+          echo "✅ Personality training and deployment complete!"

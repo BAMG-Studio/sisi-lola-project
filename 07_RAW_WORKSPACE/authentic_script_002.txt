@@ -1,0 +1,27 @@
+TOPIC: Nigerian music industry meets AI production technology
+
+VALIDATION: {'yoruba': 55.1, 'pidgin': 0.2, 'english': 44.7, 'passes': True, 'yoruba_count': 338, 'pidgin_count': 1, 'total_words': 613}
+
+**[Opening - 1 min]**
+
+Ẹ káàbọ̀ o! Báwo ni ẹ ṣe wà? Mo dúpẹ́ púpọ̀ pé ẹ wà níbí fún ìjọ̀wọ́ yìí. Ó dára púpọ̀ láti rí gbogbo yin ní òní. Ṣé ẹ gbọ́? Ó ti di ayé títìnbẹ̀, èyí tí a fẹ́ sọ̀rọ̀ lori àṣà àti ìtàn wa láti orílíìròkọ tó nlò sí iwájú. Ọjọ́ òní, a fẹ́ sọ̀rọ̀ nípa bí orí ẹ̀dá àti àwọn ìgbàgbọ́ yè àwọn òbí àti atèjéjì nínú orin wa ti di gbogbo ayé nìkan ṣoṣo wáṣéré. Ẹ jọ̀wọ́, ẹ jẹ́ kí a máa ṣàlàyé ṣe bí àṣà àti orin orílẹ̀-èdè Nàìjíríà ṣe pàdé AI (artificial intelligence) àti àwọn Ìmúdàsíṣe tí ó máa ń wá ní òde òní.
+
+**[Introduction - 2 min]**
+
+Ní Nàìjíríà, àwọn ilé-iṣẹ́ orin wa ti ń gbé àwọn ohun èlò tuntun wọlé, kí èyí lè mú àwọn akòrí tuntun àti ìtàn tuntun wá sí ilẹ̀ṣẹ́ orin. Ìjọba ati àwùjọ kó mbá wa lò wí pé, "Nítorí náà, kí ni AI nínú ayé orin?" Ẹ gbéyàwòrán, ẹ wò, kí èyí lè ṣokùnfà àwọn ìgbóhùnsí afààará, nipasẹ dàgbàra kede. Ṣé ẹ gbọ́? Kò burú. AI pé a lè mọ̀ pé èyí tí a ń sọ́ nínú orin, èyí tí a ń gbó níbàbá, ní òtun àti ní ọ̀tun, kódà ní ayé àtìlè. Àwọn ènìyàn á fi ẹkúnrẹ́rẹ́ ájẹ ṣèyíín, ṣàlàyé bí àwọn tónìíṣe bàá ń gbé àwọn àgbé tèwé, àsìkò, àti àṣà tí wọn wá ní Nàìjíríà. A ò mọ̀ pé bí àwọn èèyàn ṣèbí àwọn apá wọn ní orí ẹ̀dá àti òye wọn, ó dára púpọ̀.
+
+**[Main Content - 3 min]**
+
+Ní ayé òní, AI (artificial intelligence) ti di ọ̀nà tí a gbà ń ṣe àwọn ohun tó ṣaṣeju, pàápàá nínú ilé-iṣẹ́ orin. Ẹ jọ̀wọ́, e jẹ́ kí a ṣàlàyé fún yín. AI máa ń bá wa ṣe àwọn iṣẹ́ tó nira, bíi kọ orin, ṣàtúnṣe orin, tàbí àfikún ohun amúṣeré pẹ̀lú orin. Ó dára púpọ̀ bí àwọn àpẹẹrẹ ti Nàìjíríà jẹ́ kó lè náà dé àyíká níbi tó yẹ kẹ ṣàṣeyàrí. 
+
+Àkọ́kọ́, a rẹ̀kọ́kọ́ bí AI ṣe ń ràn wá lọ́wọ́ nípa àfikún àwọn ohun amúṣeré. Fún àpẹẹrẹ, nígbàtí a bá ń ko orin, AI lè ṣàṣeyọrí nípa kọ́kọ́ kọ àwọn ohun tó ṣètò, yàtọ̀ sí ṣàtúnṣe àti fẹ́gbọ́na àwọn ohun tó pọ́n níbàtà. Ohun tó dára ni pé yíí jẹ́ kí àwọn olórin wá lè fi àwọn ipòpọ́ tiwọn. Kò burú yíí. Ṣé ẹ gbọ́?
+
+Eyi ni àbánidárò nípa ṣiṣe AI bí àwọn òṣèré Nàìjíríà ṣe ń fi iṣẹ́ dídùn wá fún wa. Ẹ gbọ́, wọn ṣòro níbi tiṣé olùdárinṣẹ́ pẹ̀lú orin. Ẹ jọ̀wọ́, ẹ jẹ́ kí a sọ pé AI náà máa ń ṣe àwọn iṣẹ́ yíyọ́ nú wọ́n, tó máa ń bẹ̀rù àwọn olórin. Ògá mi pọ̀ ló nìyà fi amúṣeré.
+
+Nígbàtí a bá ní AI nínú orin Nàìjíríà, kò burú, ló ń sáyẹ́ sí àtúnṣe àwọn ohun. Ó ti ń mú àwọn òṣèré nígbàtí wọn ń kọ́ àwọn ohun tó sí lákààrí, nígbàtí wọn ń ṣàtúnṣe àwọn ohun tó ṣe kó sí àgbéjàadé wọn. Àwọn olórin wa ló ní àwọn ohun tó ń sọ. 
+
+**[Conclusion - 1 min]**
+
+Awọn òṣèré Nàìjíríà àti AI (artificial intelligence) ni ìbáramu kan ní ayé òní. Ẹ ṣeun púpọ̀, gbogbo yin ni mo róyìn pé yíí máa ń mú àwàdútè wá sí ìgbà ìkẹyìn ayé orin Nàìjíríà. Ẹ gbà pé àkókò wá yíí ṣe pàtàkì sáà láti rí i pé yíó fi idìí tó dára silẹ ní ilẹ̀ Ayé òní. Ẹ ṣeun púpọ̀ fún àkókò yín, àti pé kí ẹ máa ba ìgbádùn mú bí a ṣe ń lọ síwájú.
+
+Mo dúpẹ́ fún gbogbo yín! Ẹ máa bá mi ṣíṣe ní ìgbà àtìléyin ní ayé orin àti AI ní Nàìjíríà. Ẹ káàbọ̀, ẹ ṣeun púpọ̀!

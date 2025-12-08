@@ -263,6 +263,10 @@ class UnifiedAPIPoster:
             youtube = build('youtube', 'v3', credentials=creds)
             
             # Prepare video metadata
+            privacy_status = 'public'
+            if content.platform_overrides and 'youtube' in content.platform_overrides:
+                privacy_status = content.platform_overrides['youtube'].get('privacyStatus', 'public')
+
             body = {
                 'snippet': {
                     'title': content.title[:100],  # Max 100 chars
@@ -271,7 +275,7 @@ class UnifiedAPIPoster:
                     'categoryId': '22'  # People & Blogs
                 },
                 'status': {
-                    'privacyStatus': 'public',
+                    'privacyStatus': privacy_status,
                     'selfDeclaredMadeForKids': False
                 }
             }

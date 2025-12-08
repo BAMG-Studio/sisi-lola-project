@@ -1,56 +1,70 @@
-# app/routers/chat.py
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from app.config import SisiLolaDNA
+from app.services.personality_engine import personality_engine
+import openai
 import os
-from openai import AsyncOpenAI
 
 router = APIRouter()
 
-# Initialize OpenAI Client (Ensure OPENAI_API_KEY is in your .env file)
-# client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+class ChatRequest(BaseModel):
+    message: str
+    context: dict = None
 
-class ChatMessage(BaseModel):
-    user_input: str
+class ChatResponse(BaseModel):
+    response: str
+    personality_applied: bool
+    humor_level: float
+    charisma_level: float
 
-@router.post("/speak")
-async def chat_with_sisi(message: ChatMessage):
+@router.post("/chat", response_model=ChatResponse)
+async def chat_with_sisi(request: ChatRequest):
     """
-    Chat with Sisi Lola. Uses her system persona via ChatGPT API.
+    Chat with Sisi Lola - now with humor and charisma!
     """
-    client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    openai_key = os.getenv("OPENAI_API_KEY")
+    
+    if not openai_key:
+        raise HTTPException(status_code=500, detail="OpenAI API key not configured")
+    
+    openai.api_key = openai_key
+    
     try:
-        # 1. Construct the conversation history with the DNA Persona
-        messages = [
-            {"role": "system", "content": SisiLolaDNA.SYSTEM_PERSONA},
-            {"role": "user", "content": message.user_input}
-        ]
-
-        # 2. Call ChatGPT API (GPT-4o is recommended for personality)
-        # If no API key is set, this will fail, so we wrap in try/except or use mock for now if needed.
-        if not client.api_key:
-             return {
-                "speaker": "Sisi Lola",
-                "response": "[SYSTEM: OpenAI API Key missing. Please add it to .env file] Ah, darling, I seem to have lost my voice connection!",
-                "tone": "Error"
-            }
-
-        response = await client.chat.completions.create(
-            model=SisiLolaDNA.CHAT_MODEL,  # Using best model from config
-            messages=messages,
-            temperature=0.7,  # Slightly creative for personality
-            max_tokens=200,
-            presence_penalty=0.3,  # Encourage diverse responses
-            frequency_penalty=0.3  # Reduce repetition
+        # Get enhanced system prompt with personality
+        system_prompt = personality_engine.get_system_prompt()
+        
+        # Create chat completion with personality
+        response = openai.ChatCompletion.create(
+            model=SisiLolaDNA.CHAT_MODEL,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": request.message}
+            ],
+            temperature=0.8,  # Higher for more creative/funny responses
+            max_tokens=500
         )
-
-        sisi_reply = response.choices[0].message.content
-
-        return {
-            "speaker": "Sisi Lola",
-            "response": sisi_reply,
-            "tone": "Dynamic" # In a real app, we could ask GPT to analyze the tone too
-        }
-
+        
+        ai_response = response.choices[0].message.content
+        
+        # Add personality flair
+        enhanced_response = personality_engine.add_personality_flair(ai_response)
+        
+        return ChatResponse(
+            response=enhanced_response,
+            personality_applied=True,
+            humor_level=personality_engine.personality['humor'],
+            charisma_level=personality_engine.personality['charisma']
+        )
+        
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=f"Chat failed: {str(e)}")
+
+@router.get("/personality")
+async def get_personality_info():
+    """Get current personality configuration"""
+    return {
+        "personality_core": personality_engine.personality,
+        "communication_style": personality_engine.style,
+        "response_patterns": personality_engine.patterns,
+        "status": "Sisi Lola is FUNNY and CHARISMATIC!"
+    }
