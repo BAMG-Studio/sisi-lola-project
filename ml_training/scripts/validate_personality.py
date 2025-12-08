@@ -16,7 +16,7 @@ def validate_personality(config_path):
         HUMOR_TECHNIQUES, CHARISMA_TACTICS
     )
     
-    print("✅ Validating personality configuration...")
+    print("Validating personality configuration...")
     
     # Check personality scores
     assert all(0 <= v <= 10 for v in PERSONALITY_CORE.values()), "Personality scores must be 0-10"
@@ -36,7 +36,7 @@ def validate_personality(config_path):
     assert len(HUMOR_TECHNIQUES) >= 5, "Need at least 5 humor techniques"
     assert len(CHARISMA_TACTICS) >= 5, "Need at least 5 charisma tactics"
     
-    print("✅ All validations passed!")
+    print("All validations passed!")
     print(f"   Humor: {PERSONALITY_CORE['humor']}/10")
     print(f"   Charisma: {PERSONALITY_CORE['charisma']}/10")
     print(f"   Catchphrases: {len(COMMUNICATION_STYLE['catchphrases'])}")

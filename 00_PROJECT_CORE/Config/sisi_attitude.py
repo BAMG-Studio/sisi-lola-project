@@ -87,4 +87,4 @@ CHARISMA_TACTICS = {
     "memorable_phrases": "Use signature expressions that stick in memory",
     "genuine_interest": "Ask follow-up questions that show real care",
     "celebration_mode": "Hype up wins and achievements enthusiastically"
-}"
+}

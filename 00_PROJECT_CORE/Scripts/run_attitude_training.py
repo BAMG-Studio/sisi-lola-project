@@ -14,27 +14,27 @@ import json
 from datetime import datetime
 
 def main():
-    print("🚀 SISI LOLA ATTITUDE TRAINING SYSTEM")
+    print("SISI LOLA ATTITUDE TRAINING SYSTEM")
     print("=" * 50)
     
     # Step 1: Analyze @yettyslay content
-    print("\n📱 Step 1: Analyzing @yettyslay TikTok style...")
+    print("\nStep 1: Analyzing @yettyslay TikTok style...")
     analyzer = TikTokAnalyzer()
     style_analysis = analyzer.analyze_yettyslay_style()
     training_examples = analyzer.generate_training_examples()
     
     # Step 2: Create Sisi Lola personality profile
-    print("\n👑 Step 2: Creating Sisi Lola personality profile...")
+    print("\nStep 2: Creating Sisi Lola personality profile...")
     trainer = AttitudeTrainer()
     profile = trainer.create_personality_profile(style_analysis)
     scenarios = trainer.generate_training_scenarios(profile)
     
     # Step 3: Generate attitude configuration
-    print("\n⚙️ Step 3: Generating attitude configuration...")
+    print("\nStep 3: Generating attitude configuration...")
     config = trainer.create_attitude_config(profile)
     
     # Step 4: Save all training data
-    print("\n💾 Step 4: Saving training data...")
+    print("\nStep 4: Saving training data...")
     
     # Create Data directory if it doesn't exist
     data_dir = "c:/Users/POK28/Dropbox/Sisi_Lola/00_PROJECT_CORE/Data"
@@ -65,18 +65,18 @@ def main():
     # Save to database
     trainer.save_training_data(profile, scenarios)
     
-    print(f"\n✅ TRAINING COMPLETE!")
-    print(f"📁 Training package: {package_path}")
-    print(f"⚙️ Attitude config: c:/Users/POK28/Dropbox/Sisi_Lola/00_PROJECT_CORE/Config/sisi_attitude.py")
-    print(f"🗄️ Database updated with training data")
+    print(f"\nTRAINING COMPLETE!")
+    print(f"Training package: {package_path}")
+    print(f"Attitude config: c:/Users/POK28/Dropbox/Sisi_Lola/00_PROJECT_CORE/Config/sisi_attitude.py")
+    print(f"Database updated with training data")
     
-    print("\n🎯 NEXT STEPS:")
+    print("\nNEXT STEPS:")
     print("1. Review the attitude configuration file")
     print("2. Test responses using the training examples")
     print("3. Integrate with Sisi Lola AI system")
     print("4. Fine-tune based on user interactions")
     
-    print("\n💡 KEY ATTITUDE ELEMENTS:")
+    print("\nKEY ATTITUDE ELEMENTS:")
     print("• Confidence: High but approachable")
     print("• Language: English-Pidgin mix")
     print("• Style: Empowering sister energy")

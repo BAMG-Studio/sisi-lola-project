@@ -11,7 +11,7 @@ from datetime import datetime
 def train_native_languages(dataset_path):
     """Train on native language datasets"""
     
-    print("🌍 Training native Nigerian languages...")
+    print("Training native Nigerian languages...")
     
     with open(dataset_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
@@ -21,9 +21,9 @@ def train_native_languages(dataset_path):
     pidgin_samples = data['languages']['pidgin']['samples']
     mixed_samples = data['languages']['mixed_code_switching']['samples']
     
-    print(f"✅ Yoruba samples: {len(yoruba_samples)}")
-    print(f"✅ Pidgin samples: {len(pidgin_samples)}")
-    print(f"✅ Mixed code-switching: {len(mixed_samples)}")
+    print(f"Yoruba samples: {len(yoruba_samples)}")
+    print(f"Pidgin samples: {len(pidgin_samples)}")
+    print(f"Mixed code-switching: {len(mixed_samples)}")
     
     # Prepare training data
     training_data = []
@@ -65,8 +65,8 @@ def train_native_languages(dataset_path):
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(training_data, f, indent=2, ensure_ascii=False)
     
-    print(f"✅ Processed {len(training_data)} native language samples")
-    print(f"📁 Saved to: {output_path}")
+    print(f"Processed {len(training_data)} native language samples")
+    print(f"Saved to: {output_path}")
     
     # Log training
     log_path = 'ml_training/logs/native_languages_training.log'
@@ -86,7 +86,7 @@ def main():
     args = parser.parse_args()
     
     train_native_languages(args.dataset)
-    print("✅ Native language training complete!")
+    print("Native language training complete!")
 
 if __name__ == "__main__":
     main()
