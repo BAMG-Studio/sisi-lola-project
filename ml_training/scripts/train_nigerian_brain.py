@@ -112,12 +112,15 @@ class NigerianBrainTrainer:
         return concatenate_datasets(datasets) if datasets else None
     
     def format_prompt(self, example, tokenizer):
-        """Format with Sisi Lola system prompt"""
+        """Format with Sisi Lola system prompt and add labels for training"""
         system = self.config['system_prompts']['sisi_lola_core']
         text = example.get('text', '')
         
         prompt = f"<|system|>\n{system}\n<|user|>\n{text}\n<|assistant|>\n"
-        return tokenizer(prompt, truncation=True, max_length=512)
+        tokenized = tokenizer(prompt, truncation=True, max_length=512, padding="max_length")
+        # Set labels equal to input_ids for causal language modeling
+        tokenized["labels"] = tokenized["input_ids"].copy()
+        return tokenized
     
     def train(self, output_dir="ml_training/checkpoints/natlas_lora"):
         """Execute training with LoRA"""
