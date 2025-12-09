@@ -59,6 +59,7 @@ jobs:
     needs: check-prerequisites
     if: needs.check-prerequisites.outputs.should_train == 'true' && (github.event.inputs.training_mode == 'full' || github.event.inputs.training_mode == 'brain')
     runs-on: ubuntu-latest
+    continue-on-error: true  # Allow partial deploy if this fails
     
     steps:
       - name: Free disk space
@@ -103,7 +104,7 @@ jobs:
       - name: Upload brain adapter
         uses: actions/upload-artifact@v4
         with:
-          name: natlas-lora-adapter
+          name: natlas-lora-adapter-${{ github.run_number }}
           path: ml_training/checkpoints/natlas_lora/
           retention-days: 30
 
@@ -111,6 +112,7 @@ jobs:
     needs: check-prerequisites
     if: needs.check-prerequisites.outputs.should_train == 'true' && (github.event.inputs.training_mode == 'full' || github.event.inputs.training_mode == 'voice')
     runs-on: ubuntu-latest
+    continue-on-error: true  # Allow partial deploy if this fails
     
     steps:
       - name: Free disk space
@@ -146,7 +148,7 @@ jobs:
       - name: Upload voice model
         uses: actions/upload-artifact@v4
         with:
-          name: xtts-sisi-lola
+          name: xtts-sisi-lola-${{ github.run_number }}
           path: ml_training/checkpoints/xtts_sisi_lola/
           retention-days: 30
 
@@ -163,14 +165,14 @@ jobs:
         if: needs.train-brain.result == 'success'
         uses: actions/download-artifact@v4
         with:
-          name: natlas-lora-adapter
+          name: natlas-lora-adapter-${{ github.run_number }}
           path: ml_training/checkpoints/natlas_lora/
       
       - name: Download voice model
         if: needs.train-voice.result == 'success'
         uses: actions/download-artifact@v4
         with:
-          name: xtts-sisi-lola
+          name: xtts-sisi-lola-${{ github.run_number }}
           path: ml_training/checkpoints/xtts_sisi_lola/
       
       - name: Set up Python

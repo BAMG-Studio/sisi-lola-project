@@ -7,13 +7,8 @@ import os
 import yaml
 import torch
 import torchaudio
-# Try to use soundfile backend to avoid torchcodec dependency
-# Note: set_audio_backend was removed in torchaudio 2.1+
-try:
-    if hasattr(torchaudio, 'set_audio_backend'):
-        torchaudio.set_audio_backend("soundfile")
-except (RuntimeError, AttributeError):
-    pass  # Backend already set or not available in newer versions
+# Note: soundfile is the default backend in torchaudio 2.1+
+# No need to call set_audio_backend()
 from TTS.tts.configs.xtts_config import XttsConfig
 from TTS.tts.models.xtts import Xtts
 from trainer import Trainer, TrainerArgs

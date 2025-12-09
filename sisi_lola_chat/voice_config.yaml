@@ -1,0 +1,154 @@
+# ============================================================================
+# SISI LOLA VOICE CONFIGURATION
+# ============================================================================
+# Unified TTS configuration for Nigerian prosody and voice synthesis
+# All content types (educational/playful) use single XTTS fine-tuned model
+# ============================================================================
+
+# Primary Voice Engine - XTTS-v2 Fine-tuned for Nigerian Prosody
+voice_engine:
+  primary: "xtts_sisi_lola"
+  fallback: "edge_tts"  # Free fallback when XTTS unavailable
+  
+# XTTS-v2 Configuration
+xtts:
+  model_id: "coqui/XTTS-v2"
+  checkpoint_dir: "ml_training/checkpoints/xtts_sisi_lola"
+  speaker_embedding: "04_AUDIO_CORE/voice_samples/sisi_lola_reference.wav"
+  language: "en"  # XTTS uses "en" but we inject Nigerian prosody
+  
+  # Audio Format - Standardized for training pipeline
+  audio_format:
+    sample_rate: 16000  # 16kHz mono for training consistency
+    channels: 1
+    dtype: "float32"
+    export_format: "wav"
+  
+  # Generation Parameters
+  generation:
+    temperature: 0.7
+    length_penalty: 1.0
+    repetition_penalty: 2.0
+    top_k: 50
+    top_p: 0.85
+    
+  # Fine-tuning Configuration
+  finetuning:
+    enabled: true
+    epochs: 100
+    batch_size: 4
+    learning_rate: 0.00001
+    warmup_steps: 500
+    save_every_n_epochs: 10
+    max_audio_length_seconds: 30
+    
+  # Model Persistence
+  persistence:
+    auto_save: true
+    checkpoint_interval: 1000  # steps
+    keep_last_n: 3
+    export_on_complete: true
+    export_formats: ["onnx", "torchscript"]
+
+# EdgeTTS Fallback (free, no API key required)
+edge_tts:
+  voice_id: "en-NG-EzinneNeural"  # Nigerian English female
+  fallback_voice: "en-NG-AbeoNeural"  # Nigerian English male
+  rate: "+0%"
+  pitch: "+0Hz"
+  volume: "+0%"
+
+# ElevenLabs Configuration (premium, when available)
+elevenlabs:
+  voice_id: "sisi_lola_custom"  # Custom cloned voice
+  model_id: "eleven_multilingual_v2"
+  stability: 0.5
+  similarity_boost: 0.75
+  style: 0.5
+  use_speaker_boost: true
+
+# Nigerian Prosody Settings
+nigerian_prosody:
+  # Tone patterns for Nigerian English
+  tone_contours:
+    question: "+15%"      # Rising intonation
+    exclamation: "+10%"   # Emphatic
+    statement: "+0%"      # Neutral
+    greeting: "+5%"       # Warm/welcoming
+    
+  # Speech rate adjustments
+  rate_modifiers:
+    emphasis: "-10%"      # Slow down for emphasis
+    casual: "+5%"         # Slightly faster for casual
+    storytelling: "-5%"   # Slower for narrative
+    
+  # Nigerian particles and expressions
+  particles:
+    # Yoruba influence
+    - pattern: "^(Ah|Ehn|Ehen|Abi)"
+      prosody: "emphasis"
+    # Pidgin markers
+    - pattern: "(o!|sha|sef|abeg)"
+      prosody: "casual"
+    # Common exclamations
+    - pattern: "(Chai!|Wahala|Omo!)"
+      prosody: "exclamation"
+      
+  # SSML injection rules
+  ssml_rules:
+    - trigger: "\\?"
+      ssml: '<prosody pitch="+15%">{text}</prosody>'
+    - trigger: "!"
+      ssml: '<prosody rate="-5%" pitch="+10%">{text}</prosody>'
+    - trigger: "..."
+      ssml: '<break time="300ms"/>'
+
+# Training Data Configuration
+training:
+  # Voice sample requirements
+  samples:
+    min_count: 10
+    min_duration_seconds: 3
+    max_duration_seconds: 30
+    target_sample_rate: 16000
+    
+  # Data augmentation
+  augmentation:
+    enabled: true
+    noise_injection: false  # Keep clean for voice cloning
+    speed_perturbation: [0.9, 1.0, 1.1]
+    pitch_shift: false  # Preserve original pitch
+    
+  # Quality filters
+  quality_filters:
+    min_snr_db: 20
+    max_silence_ratio: 0.3
+    require_transcript: true
+
+# Export Configuration
+export:
+  # Model export paths
+  paths:
+    onnx: "models/exports/xtts_sisi_lola.onnx"
+    torchscript: "models/exports/xtts_sisi_lola.pt"
+    huggingface: "BAMG-Studio/sisi-lola-xtts"
+    
+  # Inference optimization
+  optimization:
+    quantize: true
+    quantization_type: "dynamic"  # dynamic, static, or none
+    optimize_for: "latency"  # latency or throughput
+
+# Monitoring and Logging
+monitoring:
+  log_generations: true
+  log_path: "logs/voice_generations.log"
+  track_latency: true
+  track_quality_scores: true
+  
+  # Quality metrics to track
+  metrics:
+    - rtf  # Real-time factor
+    - mos  # Mean Opinion Score (if available)
+    - naturalness
+    - accent_authenticity

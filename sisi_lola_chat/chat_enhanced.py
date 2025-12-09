@@ -60,6 +60,13 @@ from voice_engines import (
     FacebookMMSVoice
 )
 
+# Import chat data logger for training data collection
+try:
+    from chat_data_logger import ChatDataLogger
+    DATA_LOGGER_AVAILABLE = True
+except ImportError:
+    DATA_LOGGER_AVAILABLE = False
+
 
 def safe_print(text):
     """Print text safely on Windows"""
@@ -222,6 +229,21 @@ class SisiLolaEnhancedChat:
         self.audio_output_dir = project_root / "04_AUDIO_CORE" / "chat_responses"
         self.audio_output_dir.mkdir(parents=True, exist_ok=True)
         
+        # Initialize data logger for training data collection
+        self.data_logger = None
+        self.conversation_id = None
+        self.last_message_id = None
+        if DATA_LOGGER_AVAILABLE:
+            try:
+                self.data_logger = ChatDataLogger()
+                self.conversation_id = self.data_logger.start_conversation(
+                    model=model,
+                    voice_engine=voice if voice != "none" else None
+                )
+                safe_print(f"    Data logging: ON (ID: {self.conversation_id})")
+            except Exception as e:
+                safe_print(f"    Data logging: OFF (Error: {e})")
+        
         # Initialize LLM
         safe_print(f"\n[*] Initializing Sisi Lola Enhanced Chat...")
         safe_print(f"    Model: {model.upper()}")
@@ -287,6 +309,15 @@ class SisiLolaEnhancedChat:
     
     def chat(self, user_message: str) -> str:
         """Send message and get response"""
+        import time
+        
+        # Log user message
+        if self.data_logger and self.conversation_id:
+            self.data_logger.log_message(
+                self.conversation_id,
+                "user",
+                user_message
+            )
         
         # Add to history
         self.conversation_history.append({
@@ -294,8 +325,19 @@ class SisiLolaEnhancedChat:
             "content": user_message
         })
         
-        # Get response from LLM
+        # Get response from LLM (with timing)
+        start_time = time.time()
         response = self.llm.chat(self.conversation_history, self.system_prompt)
+        gen_time_ms = int((time.time() - start_time) * 1000)
+        
+        # Log assistant response
+        if self.data_logger and self.conversation_id:
+            self.last_message_id = self.data_logger.log_message(
+                self.conversation_id,
+                "assistant",
+                response,
+                gen_time_ms=gen_time_ms
+            )
         
         # Add response to history
         self.conversation_history.append({
@@ -304,6 +346,27 @@ class SisiLolaEnhancedChat:
         })
         
         return response
+    
+    def rate_last_response(self, rating: int = None, voice_natural: bool = None, 
+                           humor: int = None, cultural: int = None, nigerian: int = None):
+        """Rate the last response for training data quality"""
+        if not self.data_logger or not self.last_message_id:
+            safe_print("[!] No response to rate")
+            return
+        
+        self.data_logger.rate_response(
+            self.last_message_id,
+            response_rating=rating,
+            voice_naturalness=5 if voice_natural else 2 if voice_natural is False else None,
+            humor_rating=humor,
+            cultural_authenticity=cultural,
+            nigerian_language_quality=nigerian
+        )
+        
+        if rating:
+            safe_print(f"[OK] Rated {rating}/5")
+        if voice_natural is not None:
+            safe_print(f"[OK] Voice: {'Natural' if voice_natural else 'Robotic'}")
     
     def generate_voice(self, text: str) -> Optional[Path]:
         """Generate voice for text"""
@@ -410,6 +473,39 @@ class SisiLolaEnhancedChat:
         
         if cmd == '/help':
             self._print_help()
+        elif cmd.startswith('/rate '):
+            try:
+                rating = int(cmd.split()[1])
+                if 1 <= rating <= 5:
+                    self.rate_last_response(rating=rating)
+                else:
+                    safe_print("[!] Rating must be 1-5")
+            except (IndexError, ValueError):
+                safe_print("Usage: /rate 1-5")
+        elif cmd == '/voice good':
+            self.rate_last_response(voice_natural=True)
+        elif cmd == '/voice bad':
+            self.rate_last_response(voice_natural=False)
+        elif cmd == '/stats':
+            if self.data_logger:
+                stats = self.data_logger.get_stats()
+                safe_print(f"""
+📊 Training Data Stats:
+   Conversations: {stats['total_conversations']}
+   Messages: {stats['total_messages']}
+   Rated: {stats['rated_messages']}
+   Avg Rating: {stats['avg_rating'] or 'N/A'}/5
+   Avg Humor: {stats['avg_humor_rating'] or 'N/A'}/5
+   Voice Feedback: {stats['voice_feedback_count']}
+   Session ID: {self.conversation_id}""")
+            else:
+                safe_print("[!] Data logging not available")
+        elif cmd == '/export':
+            if self.data_logger:
+                path = self.data_logger.export_for_training()
+                safe_print(f"[OK] Exported to {path}")
+            else:
+                safe_print("[!] Data logging not available")
         elif cmd == '/clear':
             self.conversation_history.clear()
             safe_print("[OK] Conversation cleared!")
@@ -474,6 +570,13 @@ Make we yarn, ask me anything, or just vibe together!
 ║  /clear          - Clear conversation history                 ║
 ║  /save           - Save conversation to file                  ║
 ║  /status         - Show current model and voice settings      ║
+║                                                               ║
+║  RATING COMMANDS (for training data):                         ║
+║  /rate 1-5       - Rate last response quality                 ║
+║  /voice good     - Mark voice as natural                      ║
+║  /voice bad      - Mark voice as robotic                      ║
+║  /stats          - Show training data statistics              ║
+║  /export         - Export data for training                   ║
 ║                                                               ║
 ║  MODEL COMMANDS:                                              ║
 ║  /model          - Show current model                         ║
