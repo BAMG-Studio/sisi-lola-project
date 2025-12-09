@@ -1,0 +1,286 @@
+# ============================================================================
+# NIGERIAN LANGUAGE DATASETS CONFIGURATION
+# ============================================================================
+# Datasets for training Yoruba, Pidgin, and other Nigerian language TTS models
+# 
+# Sources:
+# - YorùLect: Multi-dialect Yoruba corpus (4 dialects, ~9 hours total)
+# - ÌròyìnSpeech: High-quality Yoruba TTS corpus (~42 hours)
+# - NaijaSynCor: Nigerian Pidgin syntactic corpus
+# - Nigerian Pidgin ASR: Pidgin speech recognition data
+# - Google Yoruba: Open Yoruba speech dataset
+# ============================================================================
+
+datasets:
+  # ==========================================================================
+  # YORUBA DATASETS
+  # ==========================================================================
+  
+  yorulect:
+    name: "YorùLect - Multi-Dialect Yoruba Corpus"
+    description: |
+      High-quality parallel text-speech corpus for four Yoruba dialects:
+      Standard Yoruba, Ifẹ̀, Ìlàjẹ, and one additional dialect.
+      ~1,506 sentences per dialect, ~3 hours audio per dialect (~9h total).
+    source: "https://github.com/Tolulope/YoruLect"
+    license: "CC-BY-4.0"
+    languages: ["yo-standard", "yo-ife", "yo-ilaje", "yo-other"]
+    total_hours: 9
+    speakers: "multi-speaker"
+    sample_rate: 22050
+    format: "wav"
+    use_cases:
+      - "Dialect-aware Yoruba TTS"
+      - "Yoruba ASR training"
+      - "Cross-dialect evaluation"
+    local_path: "datasets/yoruba/yorulect/"
+    download_script: "scripts/download_yorulect.py"
+    
+  iroyinspeech:
+    name: "ÌròyìnSpeech - Yoruba News TTS Corpus"
+    description: |
+      High-quality single-speaker Yoruba TTS corpus from news broadcasts.
+      ~42 hours of professional Yoruba speech with transcriptions.
+      Released with VITS, Tacotron2, and Glow-TTS pretrained models.
+    source: "https://github.com/Tolulope/IroyinSpeech"
+    paper: "https://arxiv.org/abs/2307.16071"
+    license: "CC-BY-4.0"
+    languages: ["yo"]
+    total_hours: 42
+    speakers: "single-speaker"
+    sample_rate: 22050
+    format: "wav"
+    pretrained_models:
+      vits: "https://huggingface.co/Tolulope/iroyinspeech-vits"
+      tacotron2: "https://huggingface.co/Tolulope/iroyinspeech-tacotron2"
+      glowtts: "https://huggingface.co/Tolulope/iroyinspeech-glowtts"
+    use_cases:
+      - "Production Yoruba TTS"
+      - "Fine-tuning XTTS for Yoruba"
+      - "Yoruba prosody modeling"
+    local_path: "datasets/yoruba/iroyinspeech/"
+    
+  google_yoruba:
+    name: "Google Open Yoruba Speech Corpus"
+    description: |
+      Open-source Yoruba speech dataset from Google's 
+      Crowdsourced high-quality Nigerian language data.
+    source: "https://www.openslr.org/86/"
+    license: "CC-BY-4.0"
+    languages: ["yo"]
+    total_hours: 4
+    speakers: "multi-speaker"
+    sample_rate: 48000
+    format: "wav"
+    use_cases:
+      - "Yoruba ASR"
+      - "Multi-speaker Yoruba TTS"
+    local_path: "datasets/yoruba/google_yoruba/"
+    
+  yoruba_bible_tts:
+    name: "Yoruba Bible TTS Voice"
+    description: |
+      Single-speaker male Yoruba voice trained on Bible readings.
+      VITS model available on HuggingFace.
+    source: "https://huggingface.co/Tolulope/yoruba-bible-vits"
+    license: "Apache-2.0"
+    languages: ["yo"]
+    speakers: "single-speaker (male)"
+    use_cases:
+      - "Reference Yoruba pronunciation"
+      - "Formal Yoruba style"
+    local_path: "models/yoruba/bible_vits/"
+
+  # ==========================================================================
+  # NIGERIAN PIDGIN DATASETS
+  # ==========================================================================
+  
+  naija_tts:
+    name: "NaijaTTS - Nigerian Pidgin TTS"
+    description: |
+      First dedicated TTS model for Nigerian Pidgin English.
+      Pitch-controllable synthesis with Pidgin prosody patterns.
+    source: "https://github.com/Niger-Volta-LTI/naija-tts"
+    paper: "NaijaTTS: Pitch-Controllable TTS for Nigerian Pidgin"
+    license: "MIT"
+    languages: ["pcm"]  # Nigerian Pidgin ISO code
+    speakers: "single-speaker"
+    use_cases:
+      - "Pidgin TTS production"
+      - "Pidgin prosody research"
+    local_path: "models/pidgin/naija_tts/"
+    
+  nigerian_pidgin_asr:
+    name: "Nigerian Pidgin ASR Dataset"
+    description: |
+      Large-scale Nigerian Pidgin speech recognition dataset.
+      Can be repurposed for TTS training with proper processing.
+    source: "https://github.com/Niger-Volta-LTI/NaijaSpeech"
+    license: "CC-BY-4.0"
+    languages: ["pcm"]
+    total_hours: 50  # Approximate
+    speakers: "multi-speaker"
+    sample_rate: 16000
+    format: "wav"
+    use_cases:
+      - "Pidgin ASR training"
+      - "Pidgin TTS data (with filtering)"
+      - "Pidgin language modeling"
+    local_path: "datasets/pidgin/nigerian_pidgin_asr/"
+    
+  naijasyncor:
+    name: "NaijaSynCor - Nigerian Pidgin Syntactic Corpus"
+    description: |
+      Rich syntactic annotation corpus for Nigerian Pidgin.
+      Includes intonosyntactic treebanks with prosodic annotation.
+      Valuable for understanding Pidgin sentence structure and intonation.
+    source: "https://github.com/UniversalDependencies/UD_Naija-NSC"
+    license: "CC-BY-SA-4.0"
+    languages: ["pcm"]
+    annotations:
+      - "Part-of-speech tags"
+      - "Dependency parsing"
+      - "Prosodic annotation"
+    use_cases:
+      - "Pidgin prosody modeling"
+      - "Text normalization"
+      - "Linguistic research"
+    local_path: "datasets/pidgin/naijasyncor/"
+
+  # ==========================================================================
+  # MULTI-NIGERIAN LANGUAGE RESOURCES
+  # ==========================================================================
+  
+  yarngpt_local:
+    name: "YarnGPT-Local"
+    description: |
+      Neural TTS for Nigerian languages: Yoruba, Igbo, Hausa, and 
+      Nigerian-accented English. Pure language model approach without
+      external adapters, designed for local deployment.
+    source: "https://huggingface.co/westai/yarngpt-local"
+    license: "Apache-2.0"
+    languages: ["yo", "ig", "ha", "en-NG"]
+    model_type: "language-model-tts"
+    use_cases:
+      - "Multi-language Nigerian TTS"
+      - "Code-switching support"
+      - "Local deployment"
+    local_path: "models/yarngpt/"
+    
+  # ==========================================================================
+  # REFERENCE / EVALUATION SYSTEMS
+  # ==========================================================================
+  
+  festival_yoruba:
+    name: "Festival Yoruba TTS"
+    description: |
+      Classic Festival-based Yoruba TTS with explicit tone modeling.
+      Concatenative/HMM synthesis - robotic but tone-accurate.
+      Use as reference for tone checking, not production voice.
+    source: "Academic implementations"
+    languages: ["yo"]
+    model_type: "concatenative/HMM"
+    tone_aware: true
+    use_cases:
+      - "Tone reference/evaluation"
+      - "Pronunciation baseline"
+      - "A/B testing with neural models"
+    local_path: "models/reference/festival_yoruba/"
+
+# ============================================================================
+# TRAINING CONFIGURATION
+# ============================================================================
+
+training:
+  # Yoruba voice training
+  yoruba_vits:
+    base_model: "espnet/kan-bayashi_ljspeech_vits"
+    training_data:
+      primary: "iroyinspeech"  # 42 hours high-quality
+      supplementary: ["yorulect", "google_yoruba"]
+    target_hours: 10  # For fine-tuning
+    epochs: 100
+    batch_size: 16
+    learning_rate: 0.0001
+    output_path: "ml_training/checkpoints/yoruba_vits/"
+    
+  # Pidgin voice training  
+  pidgin_vits:
+    base_model: "espnet/kan-bayashi_ljspeech_vits"
+    training_data:
+      primary: "nigerian_pidgin_asr"  # Filter for clean samples
+      prosody_reference: "naijasyncor"
+    target_hours: 5
+    epochs: 80
+    batch_size: 16
+    output_path: "ml_training/checkpoints/pidgin_vits/"
+    
+  # XTTS fine-tuning for Nigerian voices
+  xtts_nigerian:
+    base_model: "coqui/XTTS-v2"
+    training_data:
+      yoruba: ["iroyinspeech", "yorulect"]
+      pidgin: ["nigerian_pidgin_asr"]
+      english: ["04_AUDIO_CORE/voice_samples/"]
+    reference_voice: "04_AUDIO_CORE/voice_samples/sisi_lola_reference.wav"
+    epochs: 50
+    output_path: "ml_training/checkpoints/xtts_sisi_lola/"
+
+# ============================================================================
+# EVALUATION CONFIGURATION
+# ============================================================================
+
+evaluation:
+  test_sentences:
+    yoruba:
+      - "Ẹ kú àárọ̀, báwo ni ọ ṣe wà?"
+      - "Mo fẹ́ràn láti kọ́ èdè Yorùbá."
+      - "Ọ̀rọ̀ yi dára púpọ̀, ó dùn mí."
+      - "Ṣé o ti jẹun lónìí?"
+      - "Ọlọ́run yóò pèsè fún wa."
+      
+    pidgin:
+      - "How far, how body dey?"
+      - "Wetin dey happen for your side?"
+      - "I no go lie, the thing sweet die!"
+      - "Abeg make we reason together."
+      - "Na so life be, we go dey alright."
+      
+    mixed:
+      - "Good morning! Ẹ kú àárọ̀. How you dey today?"
+      - "I wan tell you say, ó dára púpọ̀, this thing na correct!"
+      - "Welcome to the show! Wetin you wan talk about?"
+      
+  metrics:
+    - mos  # Mean Opinion Score
+    - intelligibility
+    - naturalness
+    - accent_authenticity
+    - tone_accuracy  # For Yoruba
+    
+  reference_systems:
+    - festival_yoruba  # For tone checking
+    - google_tts  # Commercial baseline
+
+# ============================================================================
+# DOWNLOAD SCRIPTS
+# ============================================================================
+
+download:
+  yorulect:
+    command: |
+      git clone https://github.com/Tolulope/YoruLect datasets/yoruba/yorulect/
+      
+  iroyinspeech:
+    command: |
+      # Download from HuggingFace
+      huggingface-cli download Tolulope/IroyinSpeech --local-dir datasets/yoruba/iroyinspeech/
+      
+  google_yoruba:
+    command: |
+      wget https://www.openslr.org/resources/86/yo_ng_female.zip -O datasets/yoruba/google_yoruba.zip
+      unzip datasets/yoruba/google_yoruba.zip -d datasets/yoruba/google_yoruba/
+      
+  nigerian_pidgin:
+    command: |
+      git clone https://github.com/Niger-Volta-LTI/NaijaSpeech datasets/pidgin/nigerian_pidgin_asr/

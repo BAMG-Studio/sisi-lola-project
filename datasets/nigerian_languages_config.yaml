@@ -1,0 +1,177 @@
+# ============================================================================
+# SISI LOLA NIGERIAN LANGUAGE DATASETS
+# ============================================================================
+# Configuration for Nigerian language corpora and datasets for training/evaluation
+#
+# Sources:
+# - YorùLect: High-quality Yoruba parallel text-speech corpus (4 dialects)
+# - Nigerian Pidgin ASR dataset: Pidgin English corpus
+# - Google Yoruba Speech: Open-source Yoruba dataset
+# - ÌròyìnSpeech: Additional Yoruba speech data
+# ============================================================================
+
+datasets:
+  # YorùLect Corpus - Primary Yoruba resource
+  # https://github.com/other/yorulect (example - verify actual URL)
+  yorulect:
+    name: "YorùLect Corpus"
+    description: "High-quality parallel text-speech corpus covering 4 Yoruba dialects"
+    dialects:
+      - standard_yoruba
+      - ife
+      - ilaje
+      - ekiti  # Verify actual 4th dialect
+    stats:
+      sentences_per_dialect: 1506
+      hours_per_dialect: 3
+      total_hours: ~9
+    source_url: "https://github.com/other/yorulect"
+    license: "CC-BY-4.0"
+    local_path: "datasets/yoruba/yorulect/"
+    use_for:
+      - training
+      - evaluation
+      - tone_reference
+
+  # Nigerian Pidgin ASR Dataset
+  nigerian_pidgin_asr:
+    name: "Nigerian Pidgin ASR Corpus"
+    description: "Nigerian Pidgin English speech dataset (repurposed for TTS)"
+    language: "pcm"  # ISO 639-3 for Nigerian Pidgin
+    source_url: "https://huggingface.co/datasets/google/fleurs"
+    local_path: "datasets/pidgin/nigerian_pidgin_asr/"
+    use_for:
+      - training
+      - accent_reference
+
+  # Google Yoruba Speech Dataset
+  google_yoruba:
+    name: "Google Yoruba Speech"
+    description: "Open-source Yoruba speech dataset from Google"
+    language: "yo"
+    source_url: "https://www.openslr.org/86/"
+    local_path: "datasets/yoruba/google_yoruba/"
+    use_for:
+      - training
+      - evaluation
+
+  # ÌròyìnSpeech
+  iroyinspeech:
+    name: "ÌròyìnSpeech"
+    description: "Yoruba speech corpus"
+    language: "yo"
+    source_url: "https://github.com/other/iroyinspeech"
+    local_path: "datasets/yoruba/iroyinspeech/"
+    use_for:
+      - training
+      - supplementary
+
+  # Sisi Lola Reference Voice
+  sisi_lola_reference:
+    name: "Sisi Lola Voice Samples"
+    description: "Custom voice samples for Sisi Lola persona"
+    local_path: "04_AUDIO_CORE/voice_samples/"
+    use_for:
+      - voice_cloning
+      - xtts_finetuning
+    requirements:
+      min_samples: 10
+      min_duration_seconds: 3
+      max_duration_seconds: 30
+      sample_rate: 22050
+      format: "wav"
+
+# Evaluation Configuration
+evaluation:
+  # Fixed test sentences for consistent evaluation
+  test_sentences:
+    yoruba:
+      - text: "Ẹ káàbọ̀ sí ilé wa"
+        translation: "Welcome to our house"
+        tones: "mid-high-mid-low mid high mid"
+      - text: "Báwo ni o ṣe wà?"
+        translation: "How are you?"
+        tones: "mid-high mid mid mid mid"
+      - text: "Mo fẹ́ràn ọ púpọ̀"
+        translation: "I love you very much"
+        tones: "mid high-mid mid low-mid"
+    
+    pidgin:
+      - text: "How you dey? I dey fine o!"
+        translation: "How are you? I am fine!"
+      - text: "Wetin dey happen for your side?"
+        translation: "What is happening on your end?"
+      - text: "E no easy but we dey try"
+        translation: "It's not easy but we are trying"
+    
+    mixed:
+      - text: "Hello! [YO]Ẹ káàbọ̀![/YO] How you dey?"
+        translation: "Hello! Welcome! How are you?"
+      - text: "[EN]Welcome to the show![/EN] [YO]Ẹ ṣe púpọ̀[/YO] for coming!"
+        translation: "Welcome to the show! Thank you very much for coming!"
+
+  # Metrics to track
+  metrics:
+    - name: "tone_accuracy"
+      description: "Accuracy of Yoruba tone placement"
+      applies_to: ["yo"]
+    - name: "intelligibility"
+      description: "Human intelligibility score (1-5)"
+      applies_to: ["yo", "pcm", "en"]
+    - name: "accent_authenticity"
+      description: "Nigerian accent authenticity (1-5)"
+      applies_to: ["en", "pcm"]
+    - name: "prosody_naturalness"
+      description: "Overall prosody naturalness (1-5)"
+      applies_to: ["yo", "pcm", "en"]
+
+  # Festival reference for Yoruba evaluation
+  festival_reference:
+    enabled: true
+    use_for: "tone_evaluation"
+    description: "Use Festival Yoruba voice as tone reference (not production)"
+
+# Download Scripts
+download:
+  auto_download: false  # Set to true to auto-download on first use
+  cache_dir: "~/.cache/sisi_lola/datasets"
+  
+  scripts:
+    yorulect: |
+      # Clone YorùLect repository
+      git clone https://github.com/other/yorulect datasets/yoruba/yorulect
+      
+    google_yoruba: |
+      # Download from OpenSLR
+      wget https://www.openslr.org/resources/86/yo_ng_female.zip -P datasets/yoruba/
+      unzip datasets/yoruba/yo_ng_female.zip -d datasets/yoruba/google_yoruba/
+
+# Training Configuration for Nigerian Languages
+training:
+  yoruba:
+    model: "yarngpt"  # Or custom XTTS fine-tune
+    epochs: 100
+    batch_size: 8
+    learning_rate: 0.0001
+    warmup_steps: 1000
+    datasets:
+      - yorulect
+      - google_yoruba
+      - iroyinspeech
+    
+  pidgin:
+    model: "xtts"
+    epochs: 50
+    batch_size: 4
+    learning_rate: 0.00005
+    datasets:
+      - nigerian_pidgin_asr
+      - sisi_lola_reference
+    
+  mixed:
+    model: "xtts"
+    description: "Code-switching between English, Yoruba, and Pidgin"
+    epochs: 50
+    batch_size: 4
+    datasets:
+      - sisi_lola_reference

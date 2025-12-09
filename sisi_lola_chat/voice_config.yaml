@@ -1,9 +1,31 @@
 # ============================================================================
-# SISI LOLA VOICE CONFIGURATION
+# SISI LOLA HYBRID VOICE CONFIGURATION
 # ============================================================================
-# Unified TTS configuration for Nigerian prosody and voice synthesis
-# All content types (educational/playful) use single XTTS fine-tuned model
+# Multi-engine voice synthesis stack for Nigerian languages:
+# - XTTS-v2: Primary cloned voice for English + code-switching
+# - Yoruba VITS: YorùLect/ÌròyìnSpeech trained for Yoruba
+# - NaijaTTS: Nigerian Pidgin with pitch control
+# - YarnGPT-local: Multi-language fallback (Yoruba, Igbo, Hausa)
+# - EdgeTTS: Nigerian English fallback (free)
+# - Festival-Yoruba: Reference/evaluation baseline
 # ============================================================================
+
+# Hybrid Voice Stack Configuration
+voice_stack:
+  # Engine selection per language
+  language_routing:
+    english: ["xtts", "elevenlabs", "edge_tts"]
+    yoruba: ["yoruba_vits", "yarngpt", "xtts", "edge_tts"]
+    pidgin: ["naija_tts", "yarngpt", "xtts", "edge_tts"]
+    igbo: ["yarngpt", "xtts", "edge_tts"]
+    hausa: ["yarngpt", "xtts", "edge_tts"]
+    
+  # Language tag patterns (from N-ATLaS output)
+  language_tags:
+    yoruba: ["[YO]", "[/YO]"]
+    pidgin: ["[NP]", "[/NP]"]
+    igbo: ["[IG]", "[/IG]"]
+    hausa: ["[HA]", "[/HA]"]
 
 # Primary Voice Engine - XTTS-v2 Fine-tuned for Nigerian Prosody
 voice_engine:
