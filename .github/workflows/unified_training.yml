@@ -219,9 +219,9 @@ jobs:
           echo "✅ Modal training completed!"
           echo ""
           echo "📦 Models updated on HuggingFace Hub:"
-          echo "   🎭 Personality: https://huggingface.co/BAMG-Studio/sisi-lola-personality"
-          echo "   🧠 Brain (Mistral-7B): https://huggingface.co/BAMG-Studio/sisi-lola-brain-mistral"
-          echo "   🎤 Voice (XTTS-v2): https://huggingface.co/BAMG-Studio/sisi-lola-voice-xtts"
+          echo "   🎭 Personality: https://huggingface.co/sisilolalive/sisi-lola-personality"
+          echo "   🧠 Brain (Mistral-7B): https://huggingface.co/sisilolalive/sisi-lola-brain-mistral"
+          echo "   🎤 Voice (XTTS-v2): https://huggingface.co/sisilolalive/sisi-lola-voice-xtts"
 
   # =========================================================================
   # JOB 4: VALIDATE MODELS
@@ -255,9 +255,9 @@ jobs:
           api = HfApi(token=os.environ.get('HF_TOKEN'))
           
           repos = [
-              'BAMG-Studio/sisi-lola-personality',
-              'BAMG-Studio/sisi-lola-brain-mistral',
-              'BAMG-Studio/sisi-lola-voice-xtts',
+              'sisilolalive/sisi-lola-personality',
+              'sisilolalive/sisi-lola-brain-mistral',
+              'sisilolalive/sisi-lola-voice-xtts',
           ]
           
           for repo in repos:
@@ -301,9 +301,9 @@ jobs:
             "workflow_run": "${{ github.run_number }}",
             "stages_trained": "${{ github.event.inputs.stages || 'all' }}",
             "models": {
-              "personality": "BAMG-Studio/sisi-lola-personality",
-              "brain": "BAMG-Studio/sisi-lola-brain-mistral",
-              "voice": "BAMG-Studio/sisi-lola-voice-xtts"
+              "personality": "sisilolalive/sisi-lola-personality",
+              "brain": "sisilolalive/sisi-lola-brain-mistral",
+              "voice": "sisilolalive/sisi-lola-voice-xtts"
             },
             "status": "production_ready"
           }
@@ -343,8 +343,8 @@ jobs:
           echo "   Stages: ${{ github.event.inputs.stages || 'all' }}"
           echo ""
           echo "📦 HuggingFace Models:"
-          echo "   https://huggingface.co/BAMG-Studio/sisi-lola-personality"
-          echo "   https://huggingface.co/BAMG-Studio/sisi-lola-brain-mistral"
-          echo "   https://huggingface.co/BAMG-Studio/sisi-lola-voice-xtts"
+          echo "   https://huggingface.co/sisilolalive/sisi-lola-personality"
+          echo "   https://huggingface.co/sisilolalive/sisi-lola-brain-mistral"
+          echo "   https://huggingface.co/sisilolalive/sisi-lola-voice-xtts"
           echo ""
           echo "⏰ Next scheduled run: $(date -d '+2 days' '+%Y-%m-%d 02:00 UTC')"

@@ -118,9 +118,9 @@ The following workflows have been renamed to `.deprecated`:
 
 | Model | Repository |
 |-------|------------|
-| Personality | `BAMG-Studio/sisi-lola-personality` |
-| Brain (Mistral) | `BAMG-Studio/sisi-lola-brain-mistral` |
-| Voice (XTTS) | `BAMG-Studio/sisi-lola-voice-xtts` |
+| Personality | `sisilolalive/sisi-lola-personality` |
+| Brain (Mistral) | `sisilolalive/sisi-lola-brain-mistral` |
+| Voice (XTTS) | `sisilolalive/sisi-lola-voice-xtts` |
 
 ---
 
@@ -184,9 +184,9 @@ export ELEVENLABS_API_KEY="optional_for_premium_tts"
                               ▼
 ┌──────────────────────────────────────────────────────────────────┐
 │               HuggingFace Hub                                    │
-│  BAMG-Studio/sisi-lola-personality                               │
-│  BAMG-Studio/sisi-lola-brain-mistral                             │
-│  BAMG-Studio/sisi-lola-voice-xtts                                │
+│  sisilolalive/sisi-lola-personality                               │
+│  sisilolalive/sisi-lola-brain-mistral                             │
+│  sisilolalive/sisi-lola-voice-xtts                                │
 └──────────────────────────────────────────────────────────────────┘
 ```
 

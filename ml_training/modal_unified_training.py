@@ -22,10 +22,10 @@ Usage:
     modal deploy modal_unified_training.py
 
 HuggingFace Hub Targets:
-    - BAMG-Studio/sisi-lola-personality (personality traits)
-    - BAMG-Studio/sisi-lola-brain-mistral (Mistral-7B QLoRA)
-    - BAMG-Studio/sisi-lola-voice-xtts (XTTS-v2 speaker embeddings)
-    - BAMG-Studio/sisi-lola-voice-yoruba (VITS Yoruba model)
+    - sisilolalive/sisi-lola-personality (personality traits)
+    - sisilolalive/sisi-lola-brain-mistral (Mistral-7B QLoRA)
+    - sisilolalive/sisi-lola-voice-xtts (XTTS-v2 speaker embeddings)
+    - sisilolalive/sisi-lola-voice-yoruba (VITS Yoruba model)
 """
 
 import modal
@@ -97,7 +97,7 @@ CONFIG = {
     "brain": {
         "base_model": "mistralai/Mistral-7B-Instruct-v0.2",
         "fallback_model": "microsoft/phi-2",  # If A100 unavailable
-        "hub_repo": "BAMG-Studio/sisi-lola-brain-mistral",
+        "hub_repo": "sisilolalive/sisi-lola-brain-mistral",
         "lora_r": 32,
         "lora_alpha": 64,
         "lora_dropout": 0.1,
@@ -111,7 +111,7 @@ CONFIG = {
     
     # Personality Configuration
     "personality": {
-        "hub_repo": "BAMG-Studio/sisi-lola-personality",
+        "hub_repo": "sisilolalive/sisi-lola-personality",
         "traits": {
             "confidence": 8.5,
             "humor": 8.5,
@@ -124,8 +124,8 @@ CONFIG = {
     
     # Voice Configuration
     "voice": {
-        "xtts_hub_repo": "BAMG-Studio/sisi-lola-voice-xtts",
-        "vits_hub_repo": "BAMG-Studio/sisi-lola-voice-yoruba",
+        "xtts_hub_repo": "sisilolalive/sisi-lola-voice-xtts",
+        "vits_hub_repo": "sisilolalive/sisi-lola-voice-yoruba",
         "sample_rate": 22050,
         "speaker_embedding_dim": 512,
         "reference_audio_dir": "/data/voice_samples",
