@@ -1,54 +1,135 @@
-# Python
+# Virtual environments
+.venv/
+.venv_*/
+venv/
+env/
+ENV/
+
+# Python cache
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
+
+# Distribution / packaging
 .Python
-venv/
-venv_wsl/
-.venv/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# celery beat schedule file
+celerybeat-schedule
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
 ENV/
 env/
-.venv_sisi/
-venv_new/
-.venv_auto/
+venv/
 
-# ML Training
-ml_training/checkpoints/
-ml_training/datasets/
-ml_training/logs/
-ml_training/temp/
-ml_training/outputs/
-*.pth
-*.ckpt
-*.safetensors
+# Spyder project settings
+.spyderproject
+.spyproject
 
-# Environment
-.env
-*.env.local
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 
 # OS
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+
+# Model files (too large for git)
+*.bin
+*.safetensors
+*.ckpt
+*.pth
+*.pt
+models/
+checkpoints/
 
 # Logs
 *.log
+logs/
 
-# Ansible
-ansible/vars/secrets.yml
-*.retry
+# Temporary files
+tmp/
+temp/
+*.tmp
 
-# Database
-*.db
-*.sqlite
+# API keys and secrets
+.env
+secrets.json
+config.json
 
-# Credentials
-*.json.credentials
-.credentials.json
-.venv_coqui/
+# Large datasets
+data/
+datasets/
+*.csv
+*.json
+*.parquet
+
+# Generated files
+nul
+"ecret is configured*"
