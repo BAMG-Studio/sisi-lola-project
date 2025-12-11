@@ -127,8 +127,13 @@ config.json
 data/
 datasets/
 *.csv
-*.json
 *.parquet
+
+# Voice samples (too large for git)
+ml_training/data/voice_samples/fleurs_*/
+ml_training/data/voice_samples/*/female/*.wav
+ml_training/data/voice_samples/*/male/*.wav
+ml_training/data/voice_samples/speaker_reference_candidates/*.wav
 
 # Generated files
 nul
