@@ -41,29 +41,63 @@ from typing import Optional, List, Dict, Literal
 
 app = modal.App("sisi-lola-unified-training")
 
-# Base image with Python ML stack
-base_image = modal.Image.debian_slim(python_version="3.10").pip_install(
-    # Core ML
-    "torch==2.1.2",
-    "transformers>=4.40.0",
+# Brain-specific image - newer transformers for Mistral tokenizer compatibility
+brain_image = modal.Image.debian_slim(python_version="3.10").pip_install(
+    "packaging",
+).pip_install(
+    # Core ML - newer versions for Mistral compatibility
+    "numpy<2.0",
+    "torch==2.3.1",
+    "torchaudio==2.3.1",
+    "transformers>=4.42.0",  # Newer transformers for Mistral tokenizer
     "accelerate>=0.27.0",
-    "peft>=0.10.0",
+    "peft>=0.11.0",  # PEFT compatible with newer transformers
     "bitsandbytes>=0.43.0",
     "datasets>=2.18.0",
     
     # Training utilities
-    "trl>=0.8.0",  # For SFT training
+    "trl>=0.8.0",
     "sentencepiece",
     "protobuf",
     "scipy",
     "einops",
-    "flash-attn",  # For faster attention
+    
+    # HuggingFace Hub
+    "huggingface_hub>=0.22.0",
+    
+    # Utilities
+    "pyyaml",
+    "tqdm",
+    "rich",
+)
+
+# Base image with Python ML stack (for personality embeddings)
+base_image = modal.Image.debian_slim(python_version="3.10").pip_install(
+    # Install packaging first (needed by some packages)
+    "packaging",
+).pip_install(
+    # Core ML - use same versions as voice_image for compatibility
+    "numpy<2.0",  # Must install before torch to avoid NumPy 2.x incompatibility
+    "torch==2.3.1",
+    "torchaudio==2.3.1",
+    "transformers==4.33.3",  # Required for pytree compatibility with torch 2.3.1
+    "accelerate>=0.27.0",
+    "peft==0.7.1",  # PEFT 0.7.1 is compatible with transformers 4.33.x (newer versions require transformers>=4.38)
+    "bitsandbytes>=0.43.0",
+    "datasets>=2.18.0",
+    
+    # Training utilities
+    "trl==0.7.11",  # TRL 0.7.11 is compatible with transformers 4.33.x and peft 0.7.1
+    "sentencepiece",
+    "protobuf",
+    "scipy",
+    "einops",
+    # Note: flash-attn removed due to build issues, using default attention
     
     # HuggingFace Hub
     "huggingface_hub>=0.22.0",
     
     # Audio/Voice (for voice training)
-    "torchaudio>=2.1.0",
     "librosa>=0.10.0",
     "soundfile",
     "pydub",
@@ -74,12 +108,40 @@ base_image = modal.Image.debian_slim(python_version="3.10").pip_install(
     "rich",
 )
 
-# XTTS-specific image (extends base)
-voice_image = base_image.pip_install(
-    "TTS>=0.22.0",  # Coqui TTS with XTTS-v2
+# XTTS-specific image - requires torch 2.3.1 for TTS compatibility
+# TTS 0.22.0 requires transformers 4.33.x (BeamSearchScorer was removed in newer versions)
+voice_image = modal.Image.debian_slim(python_version="3.10").apt_install(
+    "espeak-ng",  # Required for phonemizer
+    "ffmpeg",     # Required for audio processing
+).pip_install(
+    "packaging",
+).pip_install(
+    # Core ML - TTS requires newer torch for pytree compatibility
+    "torch==2.3.1",
+    "torchaudio==2.3.1",
+    "transformers==4.33.3",  # TTS 0.22.0 requires this version (BeamSearchScorer)
+    "accelerate>=0.27.0",
+    
+    # HuggingFace Hub
+    "huggingface_hub>=0.22.0",
+    
+    # Audio
+    "librosa>=0.10.0",
+    "soundfile",
+    "pydub",
+    "numpy<2.0",  # TTS requires numpy < 2
+    
+    # Utilities
+    "pyyaml",
+    "tqdm",
+    "rich",
+).pip_install(
+    "TTS>=0.22.0",  # Coqui TTS with XTTS-v2 - install after torch
     "phonemizer",
     "unidecode",
-)
+).env({
+    "COQUI_TOS_AGREED": "1",  # Accept Coqui license for non-interactive mode
+})
 
 # Persistent volumes for models and data
 model_volume = modal.Volume.from_name("sisi-lola-models-v2", create_if_missing=True)
@@ -322,7 +384,7 @@ Always maintain your warm, funny personality while being helpful and informative
 # ============================================================================
 
 @app.function(
-    image=base_image,
+    image=brain_image,  # Use brain_image for newer transformers/tokenizers
     gpu="A100",  # A100 for Mistral-7B QLoRA
     timeout=7200,  # 2 hours max
     secrets=[hf_secret],
@@ -466,7 +528,7 @@ def train_brain(use_fallback: bool = False) -> Dict:
     
     print(f"📊 Training on {len(dataset)} examples")
     
-    # Training arguments
+    # Training arguments - TRL 0.26+ handles tokenization internally
     output_dir = "/models/brain_mistral"
     training_args = TrainingArguments(
         output_dir=output_dir,
@@ -485,15 +547,14 @@ def train_brain(use_fallback: bool = False) -> Dict:
         max_grad_norm=0.3,
     )
     
-    # SFT Trainer
+    # Truncate/pad dataset to max_seq_length via tokenizer  
+    tokenizer.model_max_length = CONFIG["brain"]["max_seq_length"]
+    
+    # SFT Trainer - TRL 0.26+ simplified API
     trainer = SFTTrainer(
         model=model,
         args=training_args,
         train_dataset=dataset,
-        tokenizer=tokenizer,
-        dataset_text_field="text",
-        max_seq_length=CONFIG["brain"]["max_seq_length"],
-        packing=True,
     )
     
     print("\n🚀 Starting Mistral-7B QLoRA training...")
@@ -577,73 +638,61 @@ def train_voice() -> Dict:
         
         print("\n📦 Loading XTTS-v2 model...")
         
-        # Initialize XTTS
-        tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2")
+        # Initialize XTTS with license agreement (required for non-interactive mode)
+        tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2", gpu=True)
         
-        # Check for reference audio files
-        voice_samples_dir = Path("/data/voice_samples")
-        if not voice_samples_dir.exists():
-            voice_samples_dir.mkdir(parents=True)
-            print(f"⚠️ Voice samples directory created at {voice_samples_dir}")
-            print("   Please add reference .wav files for voice cloning")
+        # Check for reference audio files in the training_ready and speaker_reference directories
+        training_dir = Path("/data/voice_samples/training_ready/female")
+        speaker_ref_dir = Path("/data/voice_samples/speaker_reference")
         
-        # Find reference audio files
-        reference_files = list(voice_samples_dir.glob("*.wav"))
+        # Find reference audio files - prefer speaker_reference, fall back to training samples
+        reference_files = list(speaker_ref_dir.glob("*.wav")) if speaker_ref_dir.exists() else []
+        if not reference_files:
+            reference_files = list(training_dir.glob("*.wav")) if training_dir.exists() else []
         
-        if reference_files:
-            print(f"✅ Found {len(reference_files)} reference audio files")
-            
-            # Use first reference file for speaker embedding extraction
-            reference_audio = str(reference_files[0])
-            print(f"📎 Using reference: {reference_audio}")
-            
-            # Extract speaker embedding
-            print("\n🔢 Extracting speaker embedding...")
-            
-            # Generate test audio to verify the voice
-            test_text = "Hello! I am Sisi Lola, your Nigerian virtual host. How you dey today?"
-            test_output = os.path.join(output_dir, "voice_test.wav")
-            
-            tts.tts_to_file(
-                text=test_text,
-                file_path=test_output,
-                speaker_wav=reference_audio,
-                language="en",
-            )
-            
-            print(f"✅ Test audio generated: {test_output}")
-            
-            # Save voice configuration
-            voice_config = {
-                "version": "2.0.0",
-                "engine": "xtts_v2",
-                "updated_at": datetime.now().isoformat(),
-                "reference_files": [f.name for f in reference_files],
-                "languages_supported": ["en", "yo", "pcm"],  # English, Yoruba, Pidgin
-                "sample_rate": CONFIG["voice"]["sample_rate"],
-                "speaker_embedding_dim": CONFIG["voice"]["speaker_embedding_dim"],
-            }
-            
-            config_path = os.path.join(output_dir, "voice_config.json")
-            with open(config_path, "w") as f:
-                json.dump(voice_config, f, indent=2)
-            
-            print(f"✅ Voice config saved to {config_path}")
-            
-        else:
-            print("⚠️ No reference audio files found. Creating placeholder config...")
-            
-            voice_config = {
-                "version": "2.0.0",
-                "engine": "xtts_v2",
-                "status": "awaiting_reference_audio",
-                "updated_at": datetime.now().isoformat(),
-                "instructions": "Add .wav reference files to /data/voice_samples for voice cloning",
-            }
-            
-            config_path = os.path.join(output_dir, "voice_config.json")
-            with open(config_path, "w") as f:
-                json.dump(voice_config, f, indent=2)
+        if not reference_files:
+            print("⚠️ No reference audio files found")
+            print(f"   Checked: {speaker_ref_dir} and {training_dir}")
+            return {"status": "error", "message": "No reference audio files"}
+        
+        print(f"✅ Found {len(reference_files)} reference audio files")
+        
+        # Use first reference file for speaker embedding extraction
+        reference_audio = str(reference_files[0])
+        print(f"📎 Using reference: {reference_audio}")
+        
+        # Extract speaker embedding
+        print("\n🔢 Extracting speaker embedding...")
+        
+        # Generate test audio to verify the voice
+        test_text = "Hello! I am Sisi Lola, your Nigerian virtual host. How you dey today?"
+        test_output = os.path.join(output_dir, "voice_test.wav")
+        
+        tts.tts_to_file(
+            text=test_text,
+            file_path=test_output,
+            speaker_wav=reference_audio,
+            language="en",
+        )
+        
+        print(f"✅ Test audio generated: {test_output}")
+        
+        # Save voice configuration
+        voice_config = {
+            "version": "2.0.0",
+            "engine": "xtts_v2",
+            "updated_at": datetime.now().isoformat(),
+            "reference_files": [f.name for f in reference_files],
+            "languages_supported": ["en", "yo", "pcm"],  # English, Yoruba, Pidgin
+            "sample_rate": CONFIG["voice"]["sample_rate"],
+            "speaker_embedding_dim": CONFIG["voice"]["speaker_embedding_dim"],
+        }
+        
+        config_path = os.path.join(output_dir, "voice_config.json")
+        with open(config_path, "w") as f:
+            json.dump(voice_config, f, indent=2)
+        
+        print(f"✅ Voice config saved to {config_path}")
         
         # Commit volume
         model_volume.commit()

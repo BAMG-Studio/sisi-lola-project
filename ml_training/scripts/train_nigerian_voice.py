@@ -6,6 +6,8 @@ Trains cross-lingual TTS with Nigerian accent and voice cloning
 Supports two modes:
 1. Full XTTS training (requires voice samples + GPU)
 2. Voice profile setup (EdgeTTS + config for immediate use)
+
+NEW: Supports curated datasets from Voice Dataset Curator GPT
 """
 import os
 import sys
@@ -33,6 +35,7 @@ class NigerianVoiceTrainer:
     - XTTS-v2 fine-tuning with Nigerian voice samples
     - Voice profile generation for EdgeTTS fallback
     - Voice cloning with reference audio
+    - Curated datasets from Voice Dataset Curator GPT
     """
     
     def __init__(self, config_path="ml_training/configs/nigerian_models_config.yaml"):
@@ -41,6 +44,10 @@ class NigerianVoiceTrainer:
         self.device = "cuda" if TTS_AVAILABLE and torch.cuda.is_available() else "cpu"
         self.output_dir = Path("ml_training/checkpoints/xtts_sisi_lola")
         self.output_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Curated datasets paths
+        self.curated_manifests_dir = Path("ml_training/curator/manifests")
+        self.curated_datasets_dir = Path("ml_training/datasets/curated")
         
     def _load_config(self):
         """Load configuration file"""
@@ -116,6 +123,90 @@ class NigerianVoiceTrainer:
         
         return samples
     
+    def load_curated_datasets(self):
+        """
+        Load samples from curated dataset manifests.
+        
+        These are datasets curated by the Voice Dataset Curator GPT.
+        """
+        curated_samples = []
+        
+        if not self.curated_manifests_dir.exists():
+            print("  ⚠️ No curated manifests directory found")
+            return curated_samples
+        
+        # Check for training queue
+        queue_file = self.curated_datasets_dir / "training_queue.json"
+        manifest_files = []
+        
+        if queue_file.exists():
+            with open(queue_file, 'r') as f:
+                queue = json.load(f)
+                dataset_ids = queue.get("dataset_ids", [])
+                for dataset_id in dataset_ids:
+                    manifest_path = self.curated_manifests_dir / f"{dataset_id}.json"
+                    if manifest_path.exists():
+                        manifest_files.append(manifest_path)
+            print(f"  📋 Found {len(manifest_files)} datasets in training queue")
+        else:
+            # Load all manifests if no queue
+            manifest_files = list(self.curated_manifests_dir.glob("*.json"))
+            print(f"  📋 Found {len(manifest_files)} curated manifests")
+        
+        for manifest_file in manifest_files:
+            try:
+                with open(manifest_file, 'r', encoding='utf-8') as f:
+                    manifest = json.load(f)
+                
+                dataset_id = manifest.get("dataset_id", manifest_file.stem)
+                language = manifest.get("language", "unknown")
+                samples = manifest.get("samples", [])
+                
+                print(f"  📁 Loading {dataset_id}: {len(samples)} samples ({language})")
+                
+                # Get base directory for audio files
+                base_dir = self.curated_datasets_dir / dataset_id
+                
+                for sample in samples:
+                    # Skip non-Sisi-compatible samples if we have enough
+                    if not sample.get("sisi_compatible", True):
+                        quality = sample.get("quality_score", 0)
+                        if quality < 0.5 and len(curated_samples) > 10:
+                            continue
+                    
+                    audio_path = sample.get("audio_path", "")
+                    text = sample.get("text", "")
+                    
+                    # Resolve audio path
+                    full_path = None
+                    if Path(audio_path).is_absolute() and Path(audio_path).exists():
+                        full_path = audio_path
+                    elif (base_dir / audio_path).exists():
+                        full_path = str(base_dir / audio_path)
+                    elif Path(audio_path).exists():
+                        full_path = audio_path
+                    else:
+                        continue  # Skip if file not found
+                    
+                    curated_samples.append({
+                        "audio_file": full_path,
+                        "text": text,
+                        "speaker_name": "sisi_lola",
+                        "language": language,
+                        "source": dataset_id,
+                        "quality_score": sample.get("quality_score", 0.7),
+                        "dialect": sample.get("dialect", "general")
+                    })
+                
+            except Exception as e:
+                print(f"  ⚠️ Error loading {manifest_file.name}: {e}")
+        
+        # Sort by quality score (best first)
+        curated_samples.sort(key=lambda x: x.get("quality_score", 0), reverse=True)
+        
+        print(f"  ✅ Loaded {len(curated_samples)} curated samples")
+        return curated_samples
+    
     def create_training_manifest(self, samples, output_path="ml_training/datasets/voice_manifest.json"):
         """Create XTTS training manifest"""
         manifest = {
@@ -138,10 +229,13 @@ class NigerianVoiceTrainer:
         
         return output_path
     
-    def train_xtts(self):
+    def train_xtts(self, include_curated=True):
         """
         Full XTTS-v2 fine-tuning.
         Requires: GPU, voice samples, TTS library
+        
+        Args:
+            include_curated: Whether to include curated datasets from Curator GPT
         """
         if not TTS_AVAILABLE:
             print("❌ TTS library not available for full training")
@@ -149,6 +243,13 @@ class NigerianVoiceTrainer:
             
         print("🎤 Preparing Sisi Lola voice samples...")
         samples = self.prepare_voice_samples()
+        
+        # Add curated datasets
+        if include_curated:
+            print("🎤 Loading curated datasets...")
+            curated_samples = self.load_curated_datasets()
+            samples.extend(curated_samples)
+            print(f"  Total samples: {len(samples)} (original + curated)")
         
         if len(samples) < 3:
             print(f"⚠️ Need at least 3 voice samples for training, found {len(samples)}")
@@ -317,21 +418,30 @@ class NigerianVoiceTrainer:
         except Exception as e:
             print(f"⚠️ EdgeTTS sample generation failed: {e}")
     
-    def train(self):
+    def train(self, include_curated=True):
         """
         Main training entry point.
         Attempts XTTS training, falls back to profile mode.
+        
+        Args:
+            include_curated: Whether to include curated datasets from Voice Dataset Curator GPT
         """
         print("=" * 60)
         print("🎤 SISI LOLA NIGERIAN VOICE TRAINING")
         print("=" * 60)
         print(f"Device: {self.device}")
         print(f"TTS Available: {TTS_AVAILABLE}")
+        print(f"Include Curated Datasets: {include_curated}")
         print()
+        
+        # Check for curated datasets
+        if include_curated and self.curated_manifests_dir.exists():
+            curated_count = len(list(self.curated_manifests_dir.glob("*.json")))
+            print(f"📋 Found {curated_count} curated dataset manifest(s)")
         
         if TTS_AVAILABLE and self.device == "cuda":
             print("🚀 Attempting full XTTS training...")
-            result = self.train_xtts()
+            result = self.train_xtts(include_curated=include_curated)
         else:
             print("📋 Running in voice profile mode...")
             result = self.create_voice_profile()
@@ -347,14 +457,43 @@ class NigerianVoiceTrainer:
 
 def main():
     """Main entry point"""
+    import argparse
+    
+    parser = argparse.ArgumentParser(description="Sisi Lola Nigerian Voice Training")
+    parser.add_argument("--no-curated", action="store_true", 
+                       help="Skip curated datasets from Voice Dataset Curator GPT")
+    parser.add_argument("--validate-only", action="store_true",
+                       help="Only validate curated samples, don't train")
+    parser.add_argument("--config", default="ml_training/configs/nigerian_models_config.yaml",
+                       help="Path to configuration file")
+    
+    args = parser.parse_args()
+    
     # Set HuggingFace token if available
     hf_token = os.environ.get('HF_TOKEN') or os.environ.get('HUGGINGFACE_TOKEN')
     if hf_token:
         os.environ['HF_TOKEN'] = hf_token
         print(f"✓ HuggingFace token configured")
     
-    trainer = NigerianVoiceTrainer()
-    model_path = trainer.train()
+    trainer = NigerianVoiceTrainer(config_path=args.config)
+    
+    # Validation only mode
+    if args.validate_only:
+        print("🔍 Running validation only...")
+        from validate_curated_samples import validate_directory
+        
+        curated_dir = trainer.curated_datasets_dir
+        if curated_dir.exists():
+            report = validate_directory(str(curated_dir))
+            print(report.summary)
+            return
+        else:
+            print("❌ No curated datasets directory found")
+            return
+    
+    # Training
+    include_curated = not args.no_curated
+    model_path = trainer.train(include_curated=include_curated)
     print(f"\n🎉 Voice model/profile ready at: {model_path}")
     return model_path
 

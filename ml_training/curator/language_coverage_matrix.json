@@ -1,0 +1,362 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "last_updated": "2025-12-13",
+    "curator": "Sisi Lola Voice Dataset Curator",
+    "purpose": "Track available datasets for Sisi Lola target languages"
+  },
+  "sisi_lola_target_languages": {
+    "primary": ["yoruba", "nigerian_pidgin", "hausa", "igbo", "nigerian_english"],
+    "secondary": ["swahili", "zulu", "xhosa", "twi", "lingala"],
+    "future": ["amharic", "wolof", "fulani", "akan"]
+  },
+  "language_coverage": {
+    "yoruba": {
+      "iso_code": "yo",
+      "priority": "HIGH",
+      "datasets": [
+        {
+          "name": "BibleTTS",
+          "hours": 86,
+          "quality": "studio",
+          "license": "CC-BY-SA-4.0",
+          "commercial_ready": true,
+          "url": "http://www.openslr.org/129/"
+        },
+        {
+          "name": "NaijaVoices",
+          "hours": 600,
+          "quality": "crowdsourced",
+          "license": "research",
+          "commercial_ready": false,
+          "url": "https://huggingface.co/datasets/naijavoices/naijavoices-dataset"
+        },
+        {
+          "name": "OpenSLR-86",
+          "hours": 12,
+          "quality": "crowdsourced",
+          "license": "CC-BY-SA-4.0",
+          "commercial_ready": true,
+          "url": "http://www.openslr.org/86/"
+        },
+        {
+          "name": "FLEURS",
+          "hours": 2,
+          "quality": "research",
+          "license": "CC-BY-4.0",
+          "commercial_ready": true,
+          "url": "https://huggingface.co/datasets/google/fleurs"
+        },
+        {
+          "name": "Yoruba-LJSpeech",
+          "hours": 100,
+          "quality": "studio",
+          "license": "CC-BY-SA-4.0",
+          "commercial_ready": true,
+          "url": "https://huggingface.co/datasets/Abdullah804/yoruba-ljspeech"
+        },
+        {
+          "name": "YoruLect",
+          "hours": 50,
+          "quality": "filtered",
+          "license": "CC-BY-4.0",
+          "commercial_ready": true,
+          "url": "https://huggingface.co/datasets/yorulect"
+        },
+        {
+          "name": "IroyinSpeech",
+          "hours": 30,
+          "quality": "studio",
+          "license": "CC-BY-4.0",
+          "commercial_ready": true,
+          "url": "https://huggingface.co/datasets/iroyinspeech"
+        }
+      ],
+      "total_hours": 880,
+      "commercial_hours": 280,
+      "best_quality": "BibleTTS",
+      "dialects": {
+        "lagos": {"available": true, "hours": 100},
+        "ibadan": {"available": false, "hours": 0},
+        "oyo": {"available": false, "hours": 0},
+        "ekiti": {"available": false, "hours": 0}
+      },
+      "gap_analysis": "Good coverage but need more dialect variety"
+    },
+    "nigerian_pidgin": {
+      "iso_code": "pcm",
+      "priority": "HIGH",
+      "datasets": [
+        {
+          "name": "Mozilla Common Voice",
+          "hours": 15,
+          "quality": "crowdsourced",
+          "license": "CC0-1.0",
+          "commercial_ready": true,
+          "url": "https://commonvoice.mozilla.org/"
+        },
+        {
+          "name": "Nigerian Pidgin ASR 1.0",
+          "hours": 4.8,
+          "quality": "crowdsourced",
+          "license": "research",
+          "commercial_ready": false,
+          "url": "https://huggingface.co/datasets/asr-nigerian-pidgin/nigerian-pidgin-1.0"
+        },
+        {
+          "name": "Rexe Nigerian Pidgin",
+          "hours": 5,
+          "quality": "crowdsourced",
+          "license": "MIT",
+          "commercial_ready": true,
+          "url": "https://huggingface.co/datasets/Rexe/nigerian-pidgin-speech"
+        }
+      ],
+      "total_hours": 24.8,
+      "commercial_hours": 20,
+      "best_quality": "Mozilla Common Voice",
+      "gap_analysis": "LOW COVERAGE - Need more data urgently"
+    },
+    "hausa": {
+      "iso_code": "ha",
+      "priority": "HIGH",
+      "datasets": [
+        {
+          "name": "BibleTTS",
+          "hours": 86,
+          "quality": "studio",
+          "license": "CC-BY-SA-4.0",
+          "commercial_ready": true,
+          "url": "http://www.openslr.org/129/"
+        },
+        {
+          "name": "NaijaVoices",
+          "hours": 600,
+          "quality": "crowdsourced",
+          "license": "research",
+          "commercial_ready": false,
+          "url": "https://huggingface.co/datasets/naijavoices/naijavoices-dataset"
+        },
+        {
+          "name": "FLEURS",
+          "hours": 2,
+          "quality": "research",
+          "license": "CC-BY-4.0",
+          "commercial_ready": true,
+          "url": "https://huggingface.co/datasets/google/fleurs"
+        },
+        {
+          "name": "Hausa Speech Corpus",
+          "hours": 20,
+          "quality": "crowdsourced",
+          "license": "CC-BY-SA-4.0",
+          "commercial_ready": true,
+          "url": "http://www.openslr.org/hausa"
+        }
+      ],
+      "total_hours": 708,
+      "commercial_hours": 108,
+      "best_quality": "BibleTTS",
+      "gap_analysis": "Good coverage with BibleTTS"
+    },
+    "igbo": {
+      "iso_code": "ig",
+      "priority": "HIGH",
+      "datasets": [
+        {
+          "name": "NaijaVoices",
+          "hours": 600,
+          "quality": "crowdsourced",
+          "license": "research",
+          "commercial_ready": false,
+          "url": "https://huggingface.co/datasets/naijavoices/naijavoices-dataset"
+        },
+        {
+          "name": "FLEURS",
+          "hours": 2,
+          "quality": "research",
+          "license": "CC-BY-4.0",
+          "commercial_ready": true,
+          "url": "https://huggingface.co/datasets/google/fleurs"
+        }
+      ],
+      "total_hours": 602,
+      "commercial_hours": 2,
+      "best_quality": "NaijaVoices (research only)",
+      "gap_analysis": "CRITICAL GAP - Very low commercial-ready data"
+    },
+    "nigerian_english": {
+      "iso_code": "en-NG",
+      "priority": "HIGH",
+      "datasets": [
+        {
+          "name": "AfriSpeech-200",
+          "hours": 200,
+          "quality": "research",
+          "license": "Apache-2.0",
+          "commercial_ready": true,
+          "url": "https://huggingface.co/datasets/intronhealth/afrispeech-200"
+        }
+      ],
+      "total_hours": 200,
+      "commercial_hours": 200,
+      "best_quality": "AfriSpeech-200",
+      "gap_analysis": "Good coverage for Nigerian English accents"
+    },
+    "swahili": {
+      "iso_code": "sw",
+      "priority": "MEDIUM",
+      "datasets": [
+        {
+          "name": "Luganda-Swahili TTS",
+          "hours": 17,
+          "quality": "filtered",
+          "license": "CC-BY-4.0",
+          "commercial_ready": true,
+          "url": "https://data.mendeley.com/datasets/nb8b25h9nj/3"
+        },
+        {
+          "name": "FLEURS",
+          "hours": 2,
+          "quality": "research",
+          "license": "CC-BY-4.0",
+          "commercial_ready": true,
+          "url": "https://huggingface.co/datasets/google/fleurs"
+        },
+        {
+          "name": "OpenSLR-25",
+          "hours": 10,
+          "quality": "crowdsourced",
+          "license": "CC-BY-SA-4.0",
+          "commercial_ready": true,
+          "url": "http://www.openslr.org/25/"
+        }
+      ],
+      "total_hours": 29,
+      "commercial_hours": 29,
+      "best_quality": "Luganda-Swahili TTS",
+      "gap_analysis": "Moderate coverage"
+    },
+    "zulu": {
+      "iso_code": "zu",
+      "priority": "MEDIUM",
+      "datasets": [
+        {
+          "name": "OpenSLR-32",
+          "hours": 5,
+          "quality": "studio",
+          "license": "CC-BY-SA-4.0",
+          "commercial_ready": true,
+          "url": "http://www.openslr.org/32/"
+        },
+        {
+          "name": "FLEURS",
+          "hours": 2,
+          "quality": "research",
+          "license": "CC-BY-4.0",
+          "commercial_ready": true,
+          "url": "https://huggingface.co/datasets/google/fleurs"
+        }
+      ],
+      "total_hours": 7,
+      "commercial_hours": 7,
+      "best_quality": "OpenSLR-32",
+      "gap_analysis": "Low coverage - need more data"
+    },
+    "xhosa": {
+      "iso_code": "xh",
+      "priority": "MEDIUM",
+      "datasets": [
+        {
+          "name": "OpenSLR-32",
+          "hours": 5,
+          "quality": "studio",
+          "license": "CC-BY-SA-4.0",
+          "commercial_ready": true,
+          "url": "http://www.openslr.org/32/"
+        },
+        {
+          "name": "FLEURS",
+          "hours": 2,
+          "quality": "research",
+          "license": "CC-BY-4.0",
+          "commercial_ready": true,
+          "url": "https://huggingface.co/datasets/google/fleurs"
+        }
+      ],
+      "total_hours": 7,
+      "commercial_hours": 7,
+      "best_quality": "OpenSLR-32",
+      "gap_analysis": "Low coverage - need more data"
+    },
+    "twi": {
+      "iso_code": "tw",
+      "priority": "LOW",
+      "datasets": [
+        {
+          "name": "BibleTTS",
+          "hours": 86,
+          "quality": "studio",
+          "license": "CC-BY-SA-4.0",
+          "commercial_ready": true,
+          "url": "http://www.openslr.org/129/"
+        }
+      ],
+      "total_hours": 86,
+      "commercial_hours": 86,
+      "best_quality": "BibleTTS",
+      "gap_analysis": "Good coverage via BibleTTS"
+    },
+    "lingala": {
+      "iso_code": "ln",
+      "priority": "LOW",
+      "datasets": [
+        {
+          "name": "BibleTTS",
+          "hours": 21,
+          "quality": "studio",
+          "license": "CC-BY-SA-4.0",
+          "commercial_ready": true,
+          "url": "http://www.openslr.org/129/"
+        }
+      ],
+      "total_hours": 21,
+      "commercial_hours": 21,
+      "best_quality": "BibleTTS",
+      "gap_analysis": "Good coverage via BibleTTS"
+    }
+  },
+  "gap_summary": {
+    "critical_gaps": [
+      {
+        "language": "igbo",
+        "issue": "Only 2 hours of commercial-ready data",
+        "recommendation": "Priority search for CC-BY or MIT licensed Igbo datasets"
+      },
+      {
+        "language": "nigerian_pidgin",
+        "issue": "Only 20 hours total",
+        "recommendation": "Expand Mozilla Common Voice collection, find more datasets"
+      }
+    ],
+    "moderate_gaps": [
+      {
+        "language": "yoruba",
+        "issue": "No dialect variety (only Lagos)",
+        "recommendation": "Find Ibadan, Oyo, Ekiti dialect recordings"
+      },
+      {
+        "language": "zulu",
+        "issue": "Only 7 hours available",
+        "recommendation": "Search for additional South African datasets"
+      }
+    ],
+    "well_covered": ["hausa", "nigerian_english", "twi", "lingala"]
+  },
+  "total_commercial_hours_by_priority": {
+    "high_priority_languages": 610,
+    "medium_priority_languages": 43,
+    "low_priority_languages": 107,
+    "total": 760
+  }
+}

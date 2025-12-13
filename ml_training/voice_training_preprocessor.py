@@ -339,11 +339,11 @@ def prepare_for_modal_training(voice_samples_dir: Path) -> Dict:
     """
     preprocessor = VoiceTrainingPreprocessor(voice_samples_dir)
     
-    # Prepare female voice training data
+    # Prepare female voice training data (use more samples now that we have 283)
     manifest = preprocessor.prepare_training_data(
         target_gender="female",
-        min_samples=20,
-        max_samples=50
+        min_samples=50,
+        max_samples=150
     )
     
     # Select best speaker references
