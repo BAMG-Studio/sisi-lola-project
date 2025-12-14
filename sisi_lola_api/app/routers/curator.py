@@ -38,22 +38,58 @@ MANIFESTS_DIR.mkdir(parents=True, exist_ok=True)
 # Request/Response Models
 # =============================================================================
 
+class AudioSpecs(BaseModel):
+    """Audio specifications for the dataset"""
+    sample_rate: int = 22050
+    channels: int = 1
+    format: str = "wav"
+    bit_depth: int = 16
+
+
+class SelectionCriteria(BaseModel):
+    """Selection criteria used by the GPT curator"""
+    duration_sec: Optional[Dict[str, float]] = None  # {"min": 15, "max": 30}
+    speaker_gender: Optional[str] = None
+    speaker_age_range: Optional[str] = None
+    snr_db_min: Optional[float] = None
+    format_required: Optional[str] = None
+    sample_rate_hz_required: Optional[int] = None
+    required_emotions: Optional[List[str]] = None
+    style: Optional[str] = None
+    focus: Optional[List[str]] = None
+
+
+class StyleProfile(BaseModel):
+    """Sisi Lola style profile for the dataset"""
+    persona: Optional[str] = "Sisi Lola"
+    energy: Optional[str] = "high"
+    delivery: Optional[str] = "natural, playful, engaging"
+    tone: Optional[str] = "street-smart, comedic"
+    accent_authenticity: Optional[str] = None
+
+
 class CuratedSampleInput(BaseModel):
     """Input model for a curated sample"""
     audio_path: str
     text: Optional[str] = None
     translation: Optional[str] = None
-    language: str = "yoruba"
-    dialect: str = "lagos"
+    language: Optional[str] = None
+    dialect: Optional[str] = None
     duration: float = 0.0
     quality_score: float = 0.7
+    snr_db: Optional[float] = None  # Signal-to-noise ratio
     is_clean: bool = True
     speaker_gender: str = "female"
-    speaker_age_range: str = "28-40"
+    speaker_age_range: str = "25-40"
+    speaker_region: Optional[str] = None  # e.g., "Nigeria"
+    dialect_style: Optional[str] = None  # e.g., "Lagos/urban"
     emotion: str = "neutral"
+    style: Optional[str] = None  # e.g., "street-smart, energetic"
+    tags: Optional[List[str]] = None  # e.g., ["urban", "conversational"]
     source_dataset: Optional[str] = None
     source_url: Optional[str] = None
     sisi_compatible: bool = False
+    commercial_ready: bool = True
     persona_match_score: float = 0.0
 
 
@@ -65,13 +101,22 @@ class CuratedManifestInput(BaseModel):
     
     # Content
     language: str = "yoruba"
-    dialect: str = "lagos"
+    dialect: Optional[str] = "lagos"
+    alternate_names: Optional[List[str]] = None  # e.g., ["Pidgin", "Naija Pidgin"]
+    region: Optional[str] = None  # e.g., "Nigeria (nationwide, all dialects)"
     samples: List[CuratedSampleInput] = []
     
-    # Technical specs
-    sample_rate: int = 22050
-    channels: int = 1
-    audio_format: str = "wav"
+    # Technical specs - support both flat and nested formats
+    sample_rate: Optional[int] = None
+    channels: Optional[int] = None
+    audio_format: Optional[str] = None
+    audio_specs: Optional[AudioSpecs] = None  # GPT's nested format
+    
+    # Selection criteria from GPT
+    selection_criteria: Optional[SelectionCriteria] = None
+    
+    # Sisi Lola style profile
+    style_profile: Optional[StyleProfile] = None
     
     # Licensing
     license: str = "CC-BY-SA-4.0"
@@ -91,13 +136,13 @@ class DatasetSummary(BaseModel):
     dataset_id: str
     name: str
     language: str
-    dialect: str
+    dialect: Optional[str] = "lagos"
     total_samples: int
     total_duration_hours: float
     sisi_compatible_count: int
     commercial_ready: bool
     license: str
-    registered_at: str
+    registered_at: Optional[str] = None
 
 
 class CoverageReport(BaseModel):

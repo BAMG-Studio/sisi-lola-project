@@ -1,0 +1,90 @@
+{
+  "dataset_id": "curated_nigerian_pidgin_female_snr20_22k_v1",
+  "name": "Curated Nigerian Pidgin Female Voice Dataset - Sisi Lola Style",
+  "version": "1.0.0",
+  "language": "nigerian_pidgin",
+  "dialect": "lagos",
+  "alternate_names": [
+    "Nigerian Pidgin",
+    "Naija Pidgin",
+    "Pidgin"
+  ],
+  "region": "Nigeria (nationwide)",
+  "samples": [
+    {
+      "audio_path": "pidgin/ng/female/pid_f_0001.wav",
+      "text": "How you dey? Today we go yarn about tech innovation wey dey change our life.",
+      "translation": null,
+      "language": null,
+      "dialect": null,
+      "duration": 18.5,
+      "quality_score": 0.92,
+      "snr_db": 24.0,
+      "is_clean": true,
+      "speaker_gender": "female",
+      "speaker_age_range": "25-40",
+      "speaker_region": "Nigeria",
+      "dialect_style": "Lagos/urban",
+      "emotion": "conversational",
+      "style": "playful",
+      "tags": [
+        "urban",
+        "conversational"
+      ],
+      "source_dataset": null,
+      "source_url": null,
+      "sisi_compatible": true,
+      "commercial_ready": true,
+      "persona_match_score": 0.0
+    }
+  ],
+  "sample_rate": null,
+  "channels": null,
+  "audio_format": null,
+  "audio_specs": {
+    "sample_rate": null,
+    "channels": null,
+    "format": null,
+    "bit_depth": 16
+  },
+  "selection_criteria": {
+    "duration_sec": {
+      "min": 15.0,
+      "max": 30.0
+    },
+    "speaker_gender": "female",
+    "speaker_age_range": "25-40",
+    "snr_db_min": 20.0,
+    "format_required": null,
+    "sample_rate_hz_required": null,
+    "required_emotions": [
+      "conversational",
+      "playful",
+      "confident"
+    ],
+    "style": "street-smart, energetic",
+    "focus": [
+      "urban",
+      "conversational"
+    ]
+  },
+  "style_profile": {
+    "persona": "Sisi Lola",
+    "energy": "high",
+    "delivery": "natural, conversational",
+    "tone": "playful, confident",
+    "accent_authenticity": "authentic Nigerian Pidgin"
+  },
+  "license": "CC-BY-SA-4.0",
+  "commercial_ready": true,
+  "attribution_text": "Nigerian Pidgin voice samples curated under CC-BY-SA 4.0 for Sisi Lola project.",
+  "source_datasets": [],
+  "curator": "voice_dataset_curator_gpt",
+  "notes": "",
+  "created_at": "2025-12-13T05:51:21.326490",
+  "updated_at": "2025-12-13T05:51:21.326516",
+  "total_samples": 1,
+  "total_duration_hours": 0.005138888888888889,
+  "sisi_compatible_count": 1,
+  "average_quality_score": 0.92
+}

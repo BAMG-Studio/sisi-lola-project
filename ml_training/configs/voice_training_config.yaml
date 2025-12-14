@@ -1,0 +1,336 @@
+# =============================================================================
+# SISI LOLA VOICE (TTS) TRAINING CONFIGURATION
+# =============================================================================
+# Central source of truth for all voice model training parameters.
+# Used by: train_nigerian_voice.py, voice_training_preprocessor.py
+# =============================================================================
+
+version: "1.0.0"
+last_updated: "2025-12-14"
+
+# =============================================================================
+# MODEL SELECTION
+# =============================================================================
+models:
+  # Primary TTS model - XTTS-v2 for voice cloning
+  primary:
+    name: "tts_models/multilingual/multi-dataset/xtts_v2"
+    type: "xtts"
+    description: "Coqui XTTS-v2 - zero-shot voice cloning, multilingual"
+    min_reference_audio_sec: 6
+    max_reference_audio_sec: 30
+  
+  # Yoruba-specific VITS model
+  yoruba:
+    name: "tts_models/yor/openbible/vits"
+    type: "vits"
+    description: "Yoruba VITS trained on BibleTTS - native pronunciation"
+  
+  # Fallback - EdgeTTS (always available, no GPU needed)
+  fallback:
+    name: "edge-tts"
+    voice: "en-NG-EzinneNeural"
+    type: "edge"
+    description: "Microsoft EdgeTTS Nigerian English voice - production fallback"
+  
+  # Active model selection
+  active: "primary"
+
+# =============================================================================
+# AUDIO SPECIFICATIONS
+# =============================================================================
+audio:
+  # Target sample rate for all training
+  sample_rate: 22050
+  
+  # Audio format
+  format: "wav"
+  channels: 1
+  bit_depth: 16
+  
+  # Quality thresholds
+  min_snr_db: 20
+  max_silence_ratio: 0.3
+  
+  # Duration constraints
+  min_duration_sec: 3
+  max_duration_sec: 30
+  optimal_duration_sec:
+    min: 10
+    max: 20
+  
+  # Normalization
+  normalize: true
+  target_db: -20
+
+# =============================================================================
+# XTTS-v2 FINE-TUNING PARAMETERS
+# =============================================================================
+xtts:
+  # Training steps
+  num_epochs: 10
+  steps_per_epoch: 1000
+  total_steps: 10000
+  
+  # Batch size
+  batch_size: 4
+  eval_batch_size: 2
+  
+  # Learning rate
+  learning_rate: 0.00001
+  lr_scheduler: "cosine"
+  warmup_steps: 500
+  
+  # Speaker embedding
+  speaker_embedding_dim: 512
+  
+  # GPT (language model) settings
+  gpt_max_audio_tokens: 605
+  gpt_max_text_tokens: 402
+  gpt_num_audio_tokens: 8194
+  
+  # Memory optimization
+  gradient_checkpointing: true
+  mixed_precision: true
+  
+  # Checkpointing
+  save_steps: 1000
+  eval_steps: 500
+  save_total_limit: 3
+  
+  # Reference audio for voice cloning
+  reference_audio:
+    path: "ml_training/voice_samples/sisi_lola_reference"
+    min_samples: 5
+    total_duration_sec: 60
+
+# =============================================================================
+# VITS TRAINING PARAMETERS (YORUBA)
+# =============================================================================
+vits:
+  # Training
+  epochs: 100
+  batch_size: 16
+  learning_rate: 0.0001
+  
+  # Model architecture
+  hidden_channels: 192
+  filter_channels: 768
+  n_heads: 2
+  n_layers: 6
+  kernel_size: 3
+  p_dropout: 0.1
+  
+  # Audio processing
+  segment_size: 8192
+  n_fft: 1024
+  hop_length: 256
+  win_length: 1024
+  
+  # Mel spectrogram
+  n_mel_channels: 80
+  mel_fmin: 0
+  mel_fmax: null  # nyquist
+
+# =============================================================================
+# DATA AUGMENTATION
+# =============================================================================
+augmentation:
+  enabled: true
+  
+  # Speed perturbation (time stretch)
+  speed_perturbation:
+    enabled: true
+    factors: [0.9, 0.95, 1.0, 1.05, 1.1]
+    probability: 0.5
+  
+  # Pitch shifting
+  pitch_shift:
+    enabled: true
+    semitones_range: [-2, 2]
+    probability: 0.3
+  
+  # Volume perturbation
+  volume_perturbation:
+    enabled: true
+    gain_db_range: [-3, 3]
+    probability: 0.5
+  
+  # Background noise (light)
+  add_noise:
+    enabled: false  # Disabled by default - we want clean speech
+    snr_db_range: [30, 50]
+    probability: 0.1
+  
+  # Reverberation (light room)
+  reverb:
+    enabled: false  # Disabled by default
+    room_scale_range: [0.1, 0.3]
+    probability: 0.1
+
+# =============================================================================
+# DATA SOURCES
+# =============================================================================
+data:
+  # Curated datasets from GPT curator
+  curator_manifests: "ml_training/curator/manifests"
+  
+  # Downloaded voice datasets
+  downloaded_datasets: "ml_training/datasets/voice"
+  
+  # Reference voice samples
+  reference_samples: "ml_training/voice_samples"
+  
+  # Processed/augmented output
+  processed_output: "ml_training/datasets/voice_processed"
+  
+  # Languages to train
+  languages:
+    - code: "yoruba"
+      priority: 1
+      min_samples: 50
+      min_hours: 1.0
+    - code: "nigerian_pidgin"
+      priority: 1
+      min_samples: 50
+      min_hours: 1.0
+    - code: "pidgin_english"
+      priority: 2
+      min_samples: 30
+      min_hours: 0.5
+    - code: "hausa"
+      priority: 2
+      min_samples: 30
+      min_hours: 0.5
+    - code: "igbo"
+      priority: 2
+      min_samples: 30
+      min_hours: 0.5
+    - code: "nigerian_english"
+      priority: 3
+      min_samples: 20
+      min_hours: 0.3
+
+# =============================================================================
+# SPEAKER PROFILE (SISI LOLA)
+# =============================================================================
+speaker_profile:
+  name: "Sisi Lola"
+  gender: "female"
+  age_range: "25-40"
+  accent: "Nigerian (Lagos)"
+  
+  # Voice characteristics to match
+  characteristics:
+    energy: "high"
+    tone: "warm, playful"
+    pace: "natural, conversational"
+    pitch_range: "medium-high"
+  
+  # Emotions to include in training
+  emotions:
+    - "neutral"
+    - "happy"
+    - "conversational"
+    - "playful"
+    - "expressive"
+  
+  # Quality requirements for samples
+  quality:
+    min_quality_score: 0.8
+    sisi_compatible_only: true
+    commercial_ready_only: true
+
+# =============================================================================
+# EVALUATION
+# =============================================================================
+evaluation:
+  # Evaluation frequency
+  eval_steps: 500
+  
+  # Metrics
+  metrics:
+    - "mel_cepstral_distortion"  # MCD - lower is better
+    - "speaker_similarity"       # Cosine similarity to reference
+    - "word_error_rate"          # WER from ASR
+    - "mos_prediction"           # Predicted Mean Opinion Score
+  
+  # Thresholds for deployment
+  thresholds:
+    mel_cepstral_distortion_max: 6.0
+    speaker_similarity_min: 0.75
+    word_error_rate_max: 0.15
+    mos_prediction_min: 3.5
+  
+  # Reference audio for evaluation
+  eval_texts:
+    - "Ẹ káàbọ̀ sí Sisi Lola! How you dey today?"
+    - "Omo, make I tell you something important about Lagos life."
+    - "No wahala, everything go dey alright. Na so life be sometimes."
+    - "You too much! Keep pushing, your time go come."
+
+# =============================================================================
+# CHECKPOINTING
+# =============================================================================
+checkpointing:
+  save_dir: "ml_training/checkpoints/voice"
+  save_steps: 1000
+  save_total_limit: 5
+  resume_from_checkpoint: true
+
+# =============================================================================
+# MODEL REGISTRY
+# =============================================================================
+registry:
+  path: "ml_training/model_registry.json"
+  hub_repo: "BAMG-Studio/sisi-lola-voice"
+  auto_push: true
+  
+  # Metrics to track
+  metrics:
+    - "mel_cepstral_distortion"
+    - "speaker_similarity"
+    - "training_loss"
+  
+  # Auto-select best model
+  auto_select:
+    enabled: true
+    primary_metric: "speaker_similarity"
+    min_threshold: 0.75
+
+# =============================================================================
+# MODAL.COM CLOUD TRAINING
+# =============================================================================
+modal:
+  enabled: true
+  gpu: "A100"
+  timeout_hours: 6  # Voice training takes longer
+  volume_name: "sisi-lola-voice-vol"
+  
+  # Secrets
+  secrets:
+    - "huggingface-secret"
+  
+  # Schedule
+  schedule: "0 4 * * 0"  # Sunday 4 AM (after brain training)
+
+# =============================================================================
+# CI/CD SETTINGS
+# =============================================================================
+ci:
+  # Quick validation mode
+  validation_mode:
+    max_steps: 100
+    eval_steps: 50
+    save_steps: 100
+  
+  # Required tests
+  required_tests:
+    - "audio_quality"
+    - "speaker_consistency"
+    - "language_pronunciation"
+  
+  # Deployment thresholds
+  deployment_thresholds:
+    speaker_similarity: 0.7
+    mos_prediction: 3.0

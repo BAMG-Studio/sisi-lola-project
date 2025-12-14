@@ -1,0 +1,89 @@
+{
+  "dataset_id": "curated_yoruba_lagos_female_snr20_22k_v1",
+  "name": "Curated Yoruba Lagos Female Voice Dataset - Sisi Lola Style",
+  "version": "1.0.0",
+  "language": "yoruba",
+  "dialect": "lagos",
+  "alternate_names": [
+    "Yoruba",
+    "Èdè Yorùbá"
+  ],
+  "region": "Nigeria (Lagos)",
+  "samples": [
+    {
+      "audio_path": "yoruba/lagos/female/yor_f_0001.wav",
+      "text": "Ẹ káàbọ̀ sí Sisi Lola! Mo fẹ́ràn láti bá yín sọ̀rọ̀ nípa ọjọ́ yìí.",
+      "translation": null,
+      "language": null,
+      "dialect": null,
+      "duration": 19.2,
+      "quality_score": 0.94,
+      "snr_db": 25.5,
+      "is_clean": true,
+      "speaker_gender": "female",
+      "speaker_age_range": "25-40",
+      "speaker_region": "Lagos, Nigeria",
+      "dialect_style": "Lagos Yoruba",
+      "emotion": "conversational",
+      "style": "expressive",
+      "tags": [
+        "urban",
+        "conversational"
+      ],
+      "source_dataset": null,
+      "source_url": null,
+      "sisi_compatible": true,
+      "commercial_ready": true,
+      "persona_match_score": 0.0
+    }
+  ],
+  "sample_rate": null,
+  "channels": null,
+  "audio_format": null,
+  "audio_specs": {
+    "sample_rate": null,
+    "channels": null,
+    "format": null,
+    "bit_depth": 16
+  },
+  "selection_criteria": {
+    "duration_sec": {
+      "min": 15.0,
+      "max": 30.0
+    },
+    "speaker_gender": "female",
+    "speaker_age_range": "25-40",
+    "snr_db_min": 20.0,
+    "format_required": null,
+    "sample_rate_hz_required": null,
+    "required_emotions": [
+      "conversational",
+      "expressive",
+      "playful"
+    ],
+    "style": "high-energy, natural",
+    "focus": [
+      "urban",
+      "lifestyle"
+    ]
+  },
+  "style_profile": {
+    "persona": "Sisi Lola",
+    "energy": "high",
+    "delivery": "conversational, expressive",
+    "tone": "playful, confident",
+    "accent_authenticity": "native Lagos Yoruba"
+  },
+  "license": "CC-BY-SA-4.0",
+  "commercial_ready": true,
+  "attribution_text": "Yoruba Lagos voice samples curated under CC-BY-SA 4.0 for Sisi Lola project.",
+  "source_datasets": [],
+  "curator": "voice_dataset_curator_gpt",
+  "notes": "",
+  "created_at": "2025-12-13T05:50:58.346342",
+  "updated_at": "2025-12-13T05:50:58.346358",
+  "total_samples": 1,
+  "total_duration_hours": 0.005333333333333333,
+  "sisi_compatible_count": 1,
+  "average_quality_score": 0.94
+}

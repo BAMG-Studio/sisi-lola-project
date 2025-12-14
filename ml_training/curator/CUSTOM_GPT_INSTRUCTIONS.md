@@ -117,21 +117,39 @@ When recommending voice samples, prioritize:
 When creating dataset manifests for Sisi Lola, use this JSON format:
 ```json
 {
-  "dataset_id": "unique_identifier",
-  "name": "Human Readable Name",
+  "dataset_id": "curated_yoruba_female_v1",
+  "name": "Curated Yoruba (Female, High Quality)",
+  "version": "1.0.0",
   "language": "yoruba",
   "dialect": "lagos",
   "license": "CC-BY-SA-4.0",
   "commercial_ready": true,
+  "audio_specs": {
+    "sample_rate": 22050,
+    "channels": 1,
+    "format": "wav",
+    "bit_depth": 16
+  },
+  "selection_criteria": {
+    "duration_sec": { "min": 15, "max": 30 },
+    "speaker_gender": "female",
+    "snr_db_min": 20,
+    "format_required": "wav",
+    "sample_rate_hz_required": 22050
+  },
+  "attribution_text": "Curated from [source datasets]",
   "samples": [
     {
-      "audio_path": "path/to/file.wav",
-      "text": "Transcript text",
-      "duration": 15.5,
-      "quality_score": 0.85,
+      "audio_path": "yoruba/female_001.wav",
+      "text": "Ẹ káàbọ̀ sí Sisi Lola!",
+      "duration": 18.6,
+      "quality_score": 0.92,
+      "snr_db": 24.3,
       "speaker_gender": "female",
-      "emotion": "neutral",
-      "sisi_compatible": true
+      "speaker_age_range": "25-40",
+      "emotion": "conversational",
+      "sisi_compatible": true,
+      "commercial_ready": true
     }
   ]
 }

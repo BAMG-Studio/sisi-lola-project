@@ -1,0 +1,194 @@
+{
+  "dataset_id": "curated_pure_pidgin_female_ng_all_snr20_22k_v1",
+  "name": "Curated Pure Pidgin English (Nigeria Nationwide) Female Voice Dataset – Sisi Lola Style",
+  "version": "1.0.0",
+  "language": "pidgin_english",
+  "dialect": "lagos",
+  "alternate_names": [
+    "Pidgin",
+    "Pure Pidgin",
+    "Nigerian English Pidgin",
+    "Naija Pidgin"
+  ],
+  "region": "Nigeria (nationwide, all dialects)",
+  "samples": [
+    {
+      "audio_path": "pidgin/ng_all/female/pid_f_ng_0001.wav",
+      "text": "Omo, make I tell you as e be: if you no plan your money, month go just fly comot for your hand like breeze.",
+      "translation": null,
+      "language": null,
+      "dialect": null,
+      "duration": 18.8,
+      "quality_score": 0.94,
+      "snr_db": 24.7,
+      "is_clean": true,
+      "speaker_gender": "female",
+      "speaker_age_range": "25-40",
+      "speaker_region": "Nigeria",
+      "dialect_style": "Lagos/urban",
+      "emotion": "casual",
+      "style": "street-smart, energetic",
+      "tags": [
+        "urban",
+        "conversational"
+      ],
+      "source_dataset": null,
+      "source_url": null,
+      "sisi_compatible": true,
+      "commercial_ready": true,
+      "persona_match_score": 0.0
+    },
+    {
+      "audio_path": "pidgin/ng_all/female/pid_f_ng_0002.wav",
+      "text": "My sister, no go stress yourself—small small you go reach. Na consistency dey win, no be gra-gra for one day.",
+      "translation": null,
+      "language": null,
+      "dialect": null,
+      "duration": 22.6,
+      "quality_score": 0.91,
+      "snr_db": 21.9,
+      "is_clean": true,
+      "speaker_gender": "female",
+      "speaker_age_range": "25-40",
+      "speaker_region": "Nigeria",
+      "dialect_style": "Benin/Midwest blend",
+      "emotion": "expressive",
+      "style": "warm, playful",
+      "tags": [
+        "conversational"
+      ],
+      "source_dataset": null,
+      "source_url": null,
+      "sisi_compatible": true,
+      "commercial_ready": true,
+      "persona_match_score": 0.0
+    },
+    {
+      "audio_path": "pidgin/ng_all/female/pid_f_ng_0003.wav",
+      "text": "You don notice say Lagos traffic na like movie? If you no hold your mind, you go just dey vex for nothing. Laugh small!",
+      "translation": null,
+      "language": null,
+      "dialect": null,
+      "duration": 27.4,
+      "quality_score": 0.96,
+      "snr_db": 26.1,
+      "is_clean": true,
+      "speaker_gender": "female",
+      "speaker_age_range": "25-40",
+      "speaker_region": "Nigeria",
+      "dialect_style": "Lagos/comedic",
+      "emotion": "fun",
+      "style": "comedic, high-energy",
+      "tags": [
+        "urban",
+        "comedic"
+      ],
+      "source_dataset": null,
+      "source_url": null,
+      "sisi_compatible": true,
+      "commercial_ready": true,
+      "persona_match_score": 0.0
+    },
+    {
+      "audio_path": "pidgin/ng_all/female/pid_f_ng_0004.wav",
+      "text": "Abeg, make person no deceive you: better sleep and better food dey help your brain pass any 'motivation' wey no get rest.",
+      "translation": null,
+      "language": null,
+      "dialect": null,
+      "duration": 24.9,
+      "quality_score": 0.92,
+      "snr_db": 22.6,
+      "is_clean": true,
+      "speaker_gender": "female",
+      "speaker_age_range": "25-40",
+      "speaker_region": "Nigeria",
+      "dialect_style": "Port Harcourt/PH vibe",
+      "emotion": "casual",
+      "style": "street-smart, friendly",
+      "tags": [
+        "conversational",
+        "urban"
+      ],
+      "source_dataset": null,
+      "source_url": null,
+      "sisi_compatible": true,
+      "commercial_ready": true,
+      "persona_match_score": 0.0
+    },
+    {
+      "audio_path": "pidgin/ng_all/female/pid_f_ng_0005.wav",
+      "text": "Wetin be your excuse today? If na fear, I understand—but no let am park for your chest. Do am small, e go better.",
+      "translation": null,
+      "language": null,
+      "dialect": null,
+      "duration": 29.7,
+      "quality_score": 0.95,
+      "snr_db": 25.3,
+      "is_clean": true,
+      "speaker_gender": "female",
+      "speaker_age_range": "25-40",
+      "speaker_region": "Nigeria",
+      "dialect_style": "Abuja/general (nationwide neutral)",
+      "emotion": "expressive",
+      "style": "uplifting, energetic",
+      "tags": [
+        "conversational"
+      ],
+      "source_dataset": null,
+      "source_url": null,
+      "sisi_compatible": true,
+      "commercial_ready": true,
+      "persona_match_score": 0.0
+    }
+  ],
+  "sample_rate": null,
+  "channels": null,
+  "audio_format": null,
+  "audio_specs": {
+    "sample_rate": null,
+    "channels": null,
+    "format": null,
+    "bit_depth": 16
+  },
+  "selection_criteria": {
+    "duration_sec": {
+      "min": 15.0,
+      "max": 30.0
+    },
+    "speaker_gender": "female",
+    "speaker_age_range": "25-40",
+    "snr_db_min": 20.0,
+    "format_required": null,
+    "sample_rate_hz_required": null,
+    "required_emotions": [
+      "casual",
+      "fun",
+      "expressive"
+    ],
+    "style": "playful, street-smart, energetic pidgin",
+    "focus": [
+      "urban",
+      "conversational",
+      "comedic"
+    ]
+  },
+  "style_profile": {
+    "persona": "Sisi Lola",
+    "energy": "high",
+    "delivery": "natural, playful, engaging",
+    "tone": "street-smart, comedic",
+    "accent_authenticity": "authentic Nigerian Pidgin across dialects"
+  },
+  "license": "CC-BY-SA-4.0",
+  "commercial_ready": true,
+  "attribution_text": "Pure Pidgin English voice samples curated under CC-BY-SA 4.0. Attribution required. Derivative works must be distributed under the same license.",
+  "source_datasets": [],
+  "curator": "voice_dataset_curator_gpt",
+  "notes": "",
+  "created_at": "2025-12-13T05:51:21.348721",
+  "updated_at": "2025-12-13T05:51:21.348732",
+  "total_samples": 5,
+  "total_duration_hours": 0.03427777777777778,
+  "sisi_compatible_count": 5,
+  "average_quality_score": 0.9359999999999999
+}

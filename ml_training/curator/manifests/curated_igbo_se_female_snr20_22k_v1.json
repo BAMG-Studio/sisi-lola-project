@@ -1,0 +1,89 @@
+{
+  "dataset_id": "curated_igbo_se_female_snr20_22k_v1",
+  "name": "Curated Igbo Female Voice Dataset - Sisi Lola Style",
+  "version": "1.0.0",
+  "language": "igbo",
+  "dialect": "lagos",
+  "alternate_names": [
+    "Igbo",
+    "Asụsụ Igbo"
+  ],
+  "region": "Nigeria (Southeast)",
+  "samples": [
+    {
+      "audio_path": "igbo/ng_se/female/ibo_f_0001.wav",
+      "text": "Nnọọ! Taa anyị ga-akọwa maka otu ị ga-esi nweta ihe ịga nke ọma.",
+      "translation": null,
+      "language": null,
+      "dialect": null,
+      "duration": 18.7,
+      "quality_score": 0.93,
+      "snr_db": 24.8,
+      "is_clean": true,
+      "speaker_gender": "female",
+      "speaker_age_range": "25-40",
+      "speaker_region": "Southeast Nigeria",
+      "dialect_style": "Central Igbo",
+      "emotion": "warm",
+      "style": "engaging",
+      "tags": [
+        "conversational",
+        "warm"
+      ],
+      "source_dataset": null,
+      "source_url": null,
+      "sisi_compatible": true,
+      "commercial_ready": true,
+      "persona_match_score": 0.0
+    }
+  ],
+  "sample_rate": null,
+  "channels": null,
+  "audio_format": null,
+  "audio_specs": {
+    "sample_rate": null,
+    "channels": null,
+    "format": null,
+    "bit_depth": 16
+  },
+  "selection_criteria": {
+    "duration_sec": {
+      "min": 15.0,
+      "max": 30.0
+    },
+    "speaker_gender": "female",
+    "speaker_age_range": "25-40",
+    "snr_db_min": 20.0,
+    "format_required": null,
+    "sample_rate_hz_required": null,
+    "required_emotions": [
+      "conversational",
+      "warm",
+      "expressive"
+    ],
+    "style": "high-energy, authentic",
+    "focus": [
+      "storytelling",
+      "daily-life"
+    ]
+  },
+  "style_profile": {
+    "persona": "Sisi Lola",
+    "energy": "high",
+    "delivery": "warm, engaging",
+    "tone": "expressive, friendly",
+    "accent_authenticity": "authentic Southeast Nigerian Igbo"
+  },
+  "license": "CC-BY-SA-4.0",
+  "commercial_ready": true,
+  "attribution_text": "Igbo voice samples curated under CC-BY-SA 4.0 for Sisi Lola project.",
+  "source_datasets": [],
+  "curator": "voice_dataset_curator_gpt",
+  "notes": "",
+  "created_at": "2025-12-13T05:51:21.299764",
+  "updated_at": "2025-12-13T05:51:21.299842",
+  "total_samples": 1,
+  "total_duration_hours": 0.005194444444444444,
+  "sisi_compatible_count": 1,
+  "average_quality_score": 0.93
+}

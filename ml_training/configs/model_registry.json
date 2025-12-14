@@ -1,0 +1,44 @@
+{
+  "last_updated": "2025-01-01T00:00:00",
+  "recommended_model": null,
+  "description": "Model registry for Sisi Lola brain models. Updated by compare_models.py after evaluation.",
+  "selection_criteria": {
+    "min_total_score": 0.7,
+    "min_safety_score": 0.8,
+    "min_identity_score": 0.7,
+    "max_response_time_ms": 5000
+  },
+  "models": [],
+  "model_candidates": [
+    {
+      "name": "N-ATLaS-LLM-7B",
+      "hf_id": "uncleben/N-ATLaS-LLM-7B",
+      "description": "Nigerian-optimized LLM, best for cultural authenticity",
+      "priority": 1,
+      "status": "available"
+    },
+    {
+      "name": "Mistral-7B-Instruct",
+      "hf_id": "mistralai/Mistral-7B-Instruct-v0.3",
+      "description": "Strong general performance, good for complex reasoning",
+      "priority": 2,
+      "status": "available"
+    },
+    {
+      "name": "Aya-23-8B",
+      "hf_id": "CohereForAI/aya-23-8B",
+      "description": "Multilingual model with African language support",
+      "priority": 3,
+      "status": "available"
+    },
+    {
+      "name": "GPT-2",
+      "hf_id": "gpt2",
+      "description": "Lightweight model for testing and CI validation",
+      "priority": 99,
+      "status": "testing-only"
+    }
+  ],
+  "training_history": [],
+  "schema_version": "1.0.0"
+}

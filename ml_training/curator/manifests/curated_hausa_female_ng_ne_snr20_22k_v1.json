@@ -1,0 +1,87 @@
+{
+  "dataset_id": "curated_hausa_female_ng_ne_snr20_22k_v1",
+  "name": "Curated Hausa Female Voice Dataset - Sisi Lola Style",
+  "version": "1.0.0",
+  "language": "hausa",
+  "dialect": "lagos",
+  "alternate_names": [
+    "Hausa"
+  ],
+  "region": "Nigeria, Niger",
+  "samples": [
+    {
+      "audio_path": "hausa/ng_ne/female/hau_f_0001.wav",
+      "text": "Sannu da zuwa! Yau za mu yi magana game da yadda za ku cimma burinku.",
+      "translation": null,
+      "language": null,
+      "dialect": null,
+      "duration": 20.1,
+      "quality_score": 0.91,
+      "snr_db": 23.2,
+      "is_clean": true,
+      "speaker_gender": "female",
+      "speaker_age_range": "25-40",
+      "speaker_region": "Northern Nigeria",
+      "dialect_style": "Standard Hausa",
+      "emotion": "friendly",
+      "style": "friendly",
+      "tags": [
+        "conversational"
+      ],
+      "source_dataset": null,
+      "source_url": null,
+      "sisi_compatible": true,
+      "commercial_ready": true,
+      "persona_match_score": 0.0
+    }
+  ],
+  "sample_rate": null,
+  "channels": null,
+  "audio_format": null,
+  "audio_specs": {
+    "sample_rate": null,
+    "channels": null,
+    "format": null,
+    "bit_depth": 16
+  },
+  "selection_criteria": {
+    "duration_sec": {
+      "min": 15.0,
+      "max": 30.0
+    },
+    "speaker_gender": "female",
+    "speaker_age_range": "25-40",
+    "snr_db_min": 20.0,
+    "format_required": null,
+    "sample_rate_hz_required": null,
+    "required_emotions": [
+      "conversational",
+      "expressive",
+      "friendly"
+    ],
+    "style": "high-energy, natural",
+    "focus": [
+      "motivational",
+      "daily-life"
+    ]
+  },
+  "style_profile": {
+    "persona": "Sisi Lola",
+    "energy": "high",
+    "delivery": "clear, conversational",
+    "tone": "friendly, expressive",
+    "accent_authenticity": "native Hausa (Nigeria/Niger)"
+  },
+  "license": "CC-BY-SA-4.0",
+  "commercial_ready": true,
+  "attribution_text": "Hausa voice samples curated under CC-BY-SA 4.0 for Sisi Lola project.",
+  "source_datasets": [],
+  "curator": "voice_dataset_curator_gpt",
+  "notes": "",
+  "created_at": "2025-12-13T05:51:06.579715",
+  "updated_at": "2025-12-13T05:51:06.579725",
+  "total_samples": 1,
+  "total_duration_hours": 0.005583333333333333,
+  "sisi_compatible_count": 1,
+  "average_quality_score": 0.91
+}

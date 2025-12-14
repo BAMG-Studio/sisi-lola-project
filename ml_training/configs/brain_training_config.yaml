@@ -1,0 +1,315 @@
+# =============================================================================
+# SISI LOLA BRAIN (LLM) TRAINING CONFIGURATION
+# =============================================================================
+# Central source of truth for all brain model training parameters.
+# Used by: train_nigerian_brain.py, modal_unified_training.py, compare_models.py
+# =============================================================================
+
+version: "1.0.0"
+last_updated: "2025-12-14"
+
+# =============================================================================
+# MODEL SELECTION
+# =============================================================================
+models:
+  # Primary model - used for production training
+  primary:
+    name: "mistralai/Mistral-7B-Instruct-v0.3"
+    type: "mistral"
+    use_4bit: true
+    description: "Primary production model - strong multilingual, instruction-tuned"
+  
+  # Secondary model - Nigerian-optimized alternative
+  secondary:
+    name: "NCAIR1/N-ATLaS"
+    type: "llama"
+    use_4bit: true
+    description: "Nigerian-optimized LLaMA3 variant for local languages"
+  
+  # Fallback for CI/testing (smaller, faster)
+  fallback:
+    name: "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
+    type: "llama"
+    use_4bit: false
+    description: "Fast CI/testing model - not for production"
+
+  # Active model selection (primary, secondary, or fallback)
+  active: "primary"
+
+# =============================================================================
+# LORA CONFIGURATION
+# =============================================================================
+lora:
+  # Rank: Lower = less params, faster; Higher = more expressive
+  # Recommended: 8-16 for fine-tuning, 32 for complex tasks
+  r: 16
+  
+  # Alpha: Scaling factor, typically 2x rank
+  alpha: 32
+  
+  # Dropout: Regularization to prevent overfitting
+  dropout: 0.1
+  
+  # Target modules per model type
+  target_modules:
+    llama: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
+    mistral: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
+    gpt2: ["c_attn", "c_proj"]
+  
+  # Bias handling
+  bias: "none"
+  
+  # Task type
+  task_type: "CAUSAL_LM"
+
+# =============================================================================
+# QUANTIZATION (4-BIT QLORA)
+# =============================================================================
+quantization:
+  enabled: true
+  load_in_4bit: true
+  bnb_4bit_quant_type: "nf4"
+  bnb_4bit_compute_dtype: "bfloat16"
+  bnb_4bit_use_double_quant: true
+
+# =============================================================================
+# TRAINING HYPERPARAMETERS
+# =============================================================================
+training:
+  # Epochs and steps
+  num_train_epochs: 3
+  max_steps: -1  # -1 = use num_train_epochs
+  
+  # Batch size (effective = per_device * gradient_accumulation)
+  per_device_train_batch_size: 4
+  per_device_eval_batch_size: 4
+  gradient_accumulation_steps: 4
+  # Effective batch size: 4 * 4 = 16
+  
+  # Learning rate
+  learning_rate: 2.0e-4
+  lr_scheduler_type: "cosine"
+  warmup_ratio: 0.1
+  
+  # Regularization
+  weight_decay: 0.01
+  max_grad_norm: 0.3
+  
+  # Precision
+  fp16: false
+  bf16: true  # Use bfloat16 on A100/H100
+  
+  # Memory optimization
+  gradient_checkpointing: true
+  optim: "paged_adamw_8bit"
+  
+  # Sequence length
+  max_seq_length: 2048
+
+# =============================================================================
+# EVALUATION & EARLY STOPPING
+# =============================================================================
+evaluation:
+  # Enable evaluation during training
+  do_eval: true
+  
+  # Evaluation frequency
+  eval_strategy: "steps"
+  eval_steps: 50
+  
+  # Logging
+  logging_steps: 10
+  logging_first_step: true
+  
+  # Early stopping
+  early_stopping:
+    enabled: true
+    patience: 3
+    threshold: 0.01
+  
+  # Best model selection
+  load_best_model_at_end: true
+  metric_for_best_model: "eval_loss"
+  greater_is_better: false
+  
+  # Validation split
+  validation_split: 0.2
+
+# =============================================================================
+# CHECKPOINTING
+# =============================================================================
+checkpointing:
+  save_strategy: "steps"
+  save_steps: 100
+  save_total_limit: 3
+  resume_from_checkpoint: true
+
+# =============================================================================
+# DATA CONFIGURATION
+# =============================================================================
+data:
+  # Training dataset paths
+  train_dataset: "ml_training/datasets/brain_instructions.jsonl"
+  eval_dataset: "ml_training/datasets/brain_instructions_eval.jsonl"
+  
+  # Personality test set for regression testing
+  personality_test: "ml_training/datasets/personality_test_prompts.jsonl"
+  
+  # Chat log database for dataset generation
+  chat_log_db: "ml_training/data/chat_training_data.db"
+  
+  # Curator manifests directory
+  curator_manifests: "ml_training/curator/manifests"
+  
+  # Format
+  format: "jsonl"
+  columns:
+    system: "system"
+    user: "user"
+    assistant: "assistant"
+  
+  # Data quality thresholds
+  min_response_length: 10
+  max_response_length: 2048
+  min_quality_rating: 3  # 1-5 scale from chat logs
+
+# =============================================================================
+# SISI LOLA PERSONALITY SYSTEM PROMPT
+# =============================================================================
+personality:
+  system_prompt: |
+    You are Sisi Lola, a vibrant Nigerian virtual influencer and content creator in your early 30s. 
+    You embody the spirit of Lagos — sophisticated yet down-to-earth, tech-savvy but deeply rooted 
+    in Nigerian culture and traditions.
+    
+    PERSONALITY TRAITS:
+    - Warm, witty, and occasionally sassy
+    - Proud of your Nigerian heritage, especially Lagos culture
+    - Fluent in English, Yoruba, and Nigerian Pidgin — mix them naturally
+    - Tech enthusiast who makes complex topics accessible
+    - Fashion-forward with appreciation for both Ankara and contemporary styles
+    - Supportive big-sister energy, especially to younger Nigerians
+    
+    COMMUNICATION STYLE:
+    - Use Nigerian expressions naturally: "Omo!", "Wahala!", "No wahala", "E go be"
+    - Sprinkle in Yoruba greetings: "Ẹ káàbọ̀", "Ẹ kú ilẹ̀", "Ó dàbọ̀"
+    - Reference Lagos life, Nigerian music (Afrobeats), and local culture
+    - Be encouraging but keep it real — no fake motivation
+    - Balance humor with wisdom
+    
+    BOUNDARIES:
+    - Stay positive and uplifting
+    - Avoid controversial political statements
+    - Respect all Nigerian ethnic groups equally
+    - Keep content family-friendly
+  
+  # Required phrases for personality validation
+  validation_phrases:
+    - "Omo"
+    - "wahala"
+    - "Lagos"
+    - "Yoruba"
+    - "Pidgin"
+    - "Naija"
+
+# =============================================================================
+# HYPERPARAMETER SEARCH (OPTUNA)
+# =============================================================================
+hyperparameter_search:
+  enabled: false  # Set to true to run Optuna search
+  n_trials: 20
+  direction: "minimize"  # minimize eval_loss
+  
+  # Search space
+  search_space:
+    lora_r: [8, 16, 32]
+    lora_alpha: [16, 32, 64]
+    learning_rate:
+      type: "loguniform"
+      low: 1.0e-5
+      high: 5.0e-4
+    per_device_train_batch_size: [2, 4, 8]
+    weight_decay:
+      type: "uniform"
+      low: 0.0
+      high: 0.1
+  
+  # Optuna settings
+  sampler: "TPESampler"
+  pruner: "MedianPruner"
+  storage: "sqlite:///ml_training/optuna_studies.db"
+  study_name: "sisi_lola_brain_tuning"
+
+# =============================================================================
+# MODEL REGISTRY
+# =============================================================================
+registry:
+  path: "ml_training/model_registry.json"
+  hub_repo: "BAMG-Studio/sisi-lola-brain"
+  auto_push: true
+  
+  # Metrics to track
+  metrics:
+    - "eval_loss"
+    - "perplexity"
+    - "personality_score"
+    - "bleu_score"
+  
+  # Auto-select best model for production
+  auto_select:
+    enabled: true
+    primary_metric: "personality_score"
+    min_threshold: 0.7
+
+# =============================================================================
+# MODAL.COM CLOUD TRAINING
+# =============================================================================
+modal:
+  enabled: true
+  gpu: "A100"
+  timeout_hours: 4
+  volume_name: "sisi-lola-training-vol"
+  
+  # Secrets (configured in Modal dashboard)
+  secrets:
+    - "huggingface-secret"
+    - "wandb-secret"
+  
+  # Schedule (cron format)
+  schedule: "0 2 * * 0"  # Sunday 2 AM
+
+# =============================================================================
+# WEIGHTS & BIASES LOGGING
+# =============================================================================
+wandb:
+  enabled: true
+  project: "sisi-lola-brain"
+  entity: "bamg-studio"
+  run_name_prefix: "brain-train"
+  tags:
+    - "sisi-lola"
+    - "nigerian-llm"
+    - "lora"
+
+# =============================================================================
+# CI/CD SETTINGS
+# =============================================================================
+ci:
+  # Quick validation mode for CI
+  validation_mode:
+    max_steps: 10
+    eval_steps: 5
+    save_steps: 10
+  
+  # Required tests before deployment
+  required_tests:
+    - "personality_coherence"
+    - "language_mixing"
+    - "safety_boundaries"
+    - "response_quality"
+  
+  # Minimum scores for deployment
+  deployment_thresholds:
+    personality_score: 0.7
+    safety_score: 0.9
+    response_quality: 0.6
