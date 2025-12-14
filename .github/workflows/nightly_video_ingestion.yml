@@ -1,0 +1,243 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# SISI LOLA - NIGHTLY VIDEO INGESTION WORKFLOW
+# ═══════════════════════════════════════════════════════════════════════════════
+# Automatically processes new training videos every night at 2 AM
+# Triggers: schedule, manual dispatch, new video push
+# ═══════════════════════════════════════════════════════════════════════════════
+
+name: Nightly Video Ingestion
+
+on:
+  # Run every night at 2 AM UTC
+  schedule:
+    - cron: '0 2 * * *'
+  
+  # Manual trigger with options
+  workflow_dispatch:
+    inputs:
+      video_count:
+        description: 'Number of videos to process (0 = all)'
+        required: false
+        default: '0'
+      force_reprocess:
+        description: 'Force reprocess existing videos'
+        required: false
+        type: boolean
+        default: false
+      backend:
+        description: 'Transcription backend'
+        required: false
+        type: choice
+        options:
+          - reccloud
+          - modal
+        default: reccloud
+
+  # Trigger on new videos (if using Git LFS or similar)
+  push:
+    paths:
+      - 'training_videos/**'
+
+env:
+  PYTHON_VERSION: '3.11'
+  RECCLOUD_API_KEY: ${{ secrets.RECCLOUD_API_KEY }}
+  MODAL_TOKEN_ID: ${{ secrets.MODAL_TOKEN_ID }}
+  MODAL_TOKEN_SECRET: ${{ secrets.MODAL_TOKEN_SECRET }}
+  HF_TOKEN: ${{ secrets.HF_TOKEN }}
+
+jobs:
+  # ═══════════════════════════════════════════════════════════════════════════
+  # JOB 1: Video Ingestion
+  # ═══════════════════════════════════════════════════════════════════════════
+  ingest-videos:
+    name: 📹 Ingest Training Videos
+    runs-on: ubuntu-latest
+    timeout-minutes: 120  # 2 hour timeout for large batches
+    
+    outputs:
+      examples_generated: ${{ steps.ingest.outputs.examples }}
+      videos_processed: ${{ steps.ingest.outputs.processed }}
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true  # Pull large video files if using Git LFS
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+      
+      - name: 📦 Install FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+      
+      - name: 📦 Install Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -r requirements_reccloud.txt
+      
+      - name: 🔐 Configure API Keys
+        run: |
+          echo "RECCLOUD_API_KEY=${{ secrets.RECCLOUD_API_KEY }}" >> $GITHUB_ENV
+          echo "TRANSCRIPTION_BACKEND=${{ github.event.inputs.backend || 'reccloud' }}" >> $GITHUB_ENV
+      
+      - name: 📹 Download Training Videos (if from cloud)
+        if: ${{ env.VIDEO_STORAGE_URL != '' }}
+        run: |
+          # Optional: Download videos from cloud storage
+          # aws s3 sync s3://bucket/videos ./training_videos
+          # rclone sync remote:videos ./training_videos
+          echo "Videos ready for processing"
+      
+      - name: 🎙️ Run Video Ingestion
+        id: ingest
+        run: |
+          cd ml_training/scripts
+          
+          # Determine processing mode
+          if [ "${{ github.event.inputs.force_reprocess }}" == "true" ]; then
+            export SKIP_EXISTING=false
+          fi
+          
+          # Run ingestion
+          python reccloud_ingest_runner.py batch 2>&1 | tee ingestion_output.log
+          
+          # Parse output for GitHub Actions
+          PROCESSED=$(grep -oP 'Videos processed: \K\d+' ingestion_output.log || echo "0")
+          EXAMPLES=$(grep -oP 'Total examples:\s+\K\d+' ingestion_output.log || echo "0")
+          
+          echo "processed=$PROCESSED" >> $GITHUB_OUTPUT
+          echo "examples=$EXAMPLES" >> $GITHUB_OUTPUT
+          
+          echo "### 📊 Ingestion Results" >> $GITHUB_STEP_SUMMARY
+          echo "| Metric | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Videos Processed | $PROCESSED |" >> $GITHUB_STEP_SUMMARY
+          echo "| Total Examples | $EXAMPLES |" >> $GITHUB_STEP_SUMMARY
+      
+      - name: 📤 Upload Ingestion Manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: ingestion-manifest
+          path: ml_training/datasets/video_training_data/ingestion_manifest.json
+          retention-days: 30
+      
+      - name: 📤 Upload Training Data
+        uses: actions/upload-artifact@v4
+        with:
+          name: video-training-data
+          path: ml_training/datasets/video_training_data/*.jsonl
+          retention-days: 30
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # JOB 2: Generate Combined Dataset
+  # ═══════════════════════════════════════════════════════════════════════════
+  generate-dataset:
+    name: 📝 Generate Training Dataset
+    runs-on: ubuntu-latest
+    needs: ingest-videos
+    if: needs.ingest-videos.outputs.videos_processed > 0
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+      
+      - name: 📦 Install Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: 📥 Download Video Training Data
+        uses: actions/download-artifact@v4
+        with:
+          name: video-training-data
+          path: ml_training/datasets/video_training_data
+      
+      - name: 📝 Generate Brain Dataset
+        run: |
+          cd ml_training/scripts
+          python generate_brain_dataset.py --output combined_brain_dataset.jsonl
+          
+          # Count examples
+          TOTAL=$(wc -l < ../datasets/combined_brain_dataset.jsonl)
+          
+          echo "### 🧠 Dataset Generation" >> $GITHUB_STEP_SUMMARY
+          echo "Total training examples: $TOTAL" >> $GITHUB_STEP_SUMMARY
+      
+      - name: 📤 Upload Combined Dataset
+        uses: actions/upload-artifact@v4
+        with:
+          name: combined-brain-dataset
+          path: ml_training/datasets/combined_brain_dataset.jsonl
+          retention-days: 30
+      
+      - name: 🚀 Push to Hugging Face (Optional)
+        if: ${{ env.HF_TOKEN != '' }}
+        run: |
+          pip install huggingface_hub
+          
+          python -c "
+          from huggingface_hub import HfApi
+          import os
+          
+          api = HfApi(token=os.environ['HF_TOKEN'])
+          
+          try:
+              api.upload_file(
+                  path_or_fileobj='ml_training/datasets/combined_brain_dataset.jsonl',
+                  path_in_repo='brain_dataset/combined_brain_dataset.jsonl',
+                  repo_id='SisiLolaAI/training-data',
+                  repo_type='dataset'
+              )
+              print('✓ Uploaded to Hugging Face')
+          except Exception as e:
+              print(f'Failed to upload: {e}')
+          "
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # JOB 3: Notify on Completion
+  # ═══════════════════════════════════════════════════════════════════════════
+  notify:
+    name: 📢 Send Notifications
+    runs-on: ubuntu-latest
+    needs: [ingest-videos, generate-dataset]
+    if: always()
+    
+    steps:
+      - name: 📢 Slack Notification (Optional)
+        if: ${{ env.SLACK_WEBHOOK_URL != '' }}
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: |
+            {
+              "text": "🎬 Sisi Lola Video Ingestion Complete",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Nightly Video Ingestion Results*\n• Videos processed: ${{ needs.ingest-videos.outputs.videos_processed }}\n• Training examples: ${{ needs.ingest-videos.outputs.examples_generated }}"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      
+      - name: 📧 Summary
+        run: |
+          echo "### ✅ Nightly Ingestion Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Videos Processed:** ${{ needs.ingest-videos.outputs.videos_processed }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Training Examples:** ${{ needs.ingest-videos.outputs.examples_generated }}" >> $GITHUB_STEP_SUMMARY

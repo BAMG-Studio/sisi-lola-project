@@ -8,6 +8,7 @@ Combines multiple data sources:
 2. Curated manifests from curator system
 3. Synthetic examples from personality specs
 4. Persona test prompts for evaluation
+5. Video transcripts from RecCloud ingestion pipeline (multilingual)
 
 Output: brain_instructions.jsonl with format:
 {
@@ -55,6 +56,7 @@ class BrainDatasetGenerator:
     - Curator manifests (voice transcripts for text consistency)
     - Synthetic examples (generated from personality patterns)
     - Persona probes (for evaluation)
+    - Video transcripts (multilingual from RecCloud ingestion)
     """
     
     def __init__(self, config_path: Optional[str] = None):
@@ -72,6 +74,11 @@ class BrainDatasetGenerator:
         self.manifests_dir = self.project_root / self.config["dataset_config"]["curator_manifests_dir"]
         self.output_dir = self.project_root / self.config["dataset_config"]["output_dir"]
         
+        # Video transcripts path
+        self.video_transcripts_dir = self.project_root / self.config["dataset_config"].get(
+            "video_transcripts_dir", "ml_training/datasets/video_training_data"
+        )
+        
         # Ensure output directory exists
         self.output_dir.mkdir(parents=True, exist_ok=True)
         
@@ -83,6 +90,7 @@ class BrainDatasetGenerator:
             "chat_logs": 0,
             "manifests": 0,
             "synthetic": 0,
+            "video_transcripts": 0,
             "total": 0,
             "skipped_duplicates": 0,
             "skipped_low_quality": 0
@@ -307,6 +315,119 @@ Use humor and charisma in every response. Speak like a supportive sister."""
         print(f"[OK] Extracted {len(examples)} examples from manifests")
         return examples
     
+    def extract_from_video_transcripts(self) -> List[Dict[str, Any]]:
+        """Extract training examples from video transcripts (RecCloud ingestion)"""
+        examples = []
+        
+        if not self.video_transcripts_dir.exists():
+            print(f"[INFO] Video transcripts directory not found at {self.video_transcripts_dir}")
+            return examples
+        
+        # Load ingestion manifest for metadata
+        manifest_path = self.video_transcripts_dir / "ingestion_manifest.json"
+        if manifest_path.exists():
+            with open(manifest_path) as f:
+                ingestion_manifest = json.load(f)
+            print(f"[INFO] Found {ingestion_manifest.get('total_examples', 0)} video examples in manifest")
+        
+        # Process all transcript JSONL files
+        for transcript_file in self.video_transcripts_dir.glob("*.jsonl"):
+            if transcript_file.name == "combined_training_data.jsonl":
+                continue  # Skip combined file (we create it)
+                
+            try:
+                with open(transcript_file, 'r', encoding='utf-8') as f:
+                    for line in f:
+                        line = line.strip()
+                        if not line:
+                            continue
+                        
+                        try:
+                            segment = json.loads(line)
+                        except json.JSONDecodeError:
+                            continue
+                        
+                        # Extract user prompt and assistant response from segment
+                        # Segments can be: conversation pairs, monologue teaching moments, Q&A
+                        segment_type = segment.get("segment_type", "teaching")
+                        text = segment.get("text", "").strip()
+                        translation = segment.get("translation", "")
+                        languages = segment.get("languages", [])
+                        speaker = segment.get("speaker", "Sisi Lola")
+                        topic = segment.get("topic", "general")
+                        
+                        if not text:
+                            continue
+                        
+                        # Generate training examples based on segment type
+                        if segment_type == "conversation":
+                            # Already has user/assistant format
+                            user_msg = segment.get("user", "")
+                            assistant_msg = segment.get("assistant", text)
+                        elif segment_type == "qa":
+                            # Q&A format from video
+                            user_msg = segment.get("question", "Tell me more about this topic")
+                            assistant_msg = text
+                        elif segment_type == "teaching":
+                            # Teaching/monologue - convert to conversational
+                            # Generate contextual question based on topic
+                            topic_prompts = {
+                                "lifestyle": "Give me some lifestyle advice, Sisi Lola style!",
+                                "culture": "Tell me something about Nigerian culture",
+                                "motivation": "I need some encouragement today",
+                                "fashion": "What fashion tips do you have?",
+                                "relationships": "Any relationship advice for me?",
+                                "language": f"Teach me something in {', '.join(languages) if languages else 'Pidgin'}",
+                                "general": "What's on your mind today, Sisi Lola?"
+                            }
+                            user_msg = topic_prompts.get(topic, topic_prompts["general"])
+                            assistant_msg = text
+                        elif segment_type == "translation":
+                            # Bilingual translation pair
+                            if translation and len(languages) >= 2:
+                                user_msg = f"How do you say '{translation}' in {languages[0].title()}?"
+                                assistant_msg = f"In {languages[0].title()}, you say: '{text}' - na so we dey talk am!"
+                            else:
+                                continue  # Skip incomplete translations
+                        else:
+                            # Default: treat as teaching moment
+                            user_msg = f"Share some wisdom about {topic}"
+                            assistant_msg = text
+                        
+                        # Skip if missing required fields
+                        if not user_msg or not assistant_msg:
+                            continue
+                        
+                        # Skip duplicates
+                        if self._is_duplicate(user_msg, assistant_msg):
+                            self.stats["skipped_duplicates"] += 1
+                            continue
+                        
+                        # Create training example
+                        example = {
+                            "system": self.system_prompt,
+                            "user": user_msg,
+                            "assistant": assistant_msg,
+                            "metadata": {
+                                "source": "video_transcript",
+                                "video_id": segment.get("video_id", transcript_file.stem),
+                                "segment_type": segment_type,
+                                "speaker": speaker,
+                                "topic": topic,
+                                "languages": languages,
+                                "timestamp": segment.get("timestamp"),
+                                "duration": segment.get("duration")
+                            }
+                        }
+                        examples.append(example)
+                        
+            except Exception as e:
+                print(f"[WARN] Error processing transcript {transcript_file}: {e}")
+        
+        self.stats["video_transcripts"] = len(examples)
+        print(f"[OK] Extracted {len(examples)} examples from video transcripts")
+        return examples
+    
     def generate_synthetic_examples(self) -> List[Dict[str, Any]]:
         """Generate synthetic training examples from personality patterns"""
         examples = []
@@ -467,6 +588,7 @@ Use humor and charisma in every response. Speak like a supportive sister."""
                               include_chat_logs: bool = True,
                               include_manifests: bool = True,
                               include_synthetic: bool = True,
+                              include_video_transcripts: bool = True,
                               output_filename: str = "brain_instructions.jsonl") -> Path:
         """
         Generate the complete training dataset.
@@ -475,6 +597,7 @@ Use humor and charisma in every response. Speak like a supportive sister."""
             include_chat_logs: Include examples from chat database
             include_manifests: Include examples from curator manifests
             include_synthetic: Include synthetic personality examples
+            include_video_transcripts: Include examples from video transcripts
             output_filename: Name of output JSONL file
         
         Returns:
@@ -495,6 +618,9 @@ Use humor and charisma in every response. Speak like a supportive sister."""
         
         if include_synthetic:
             all_examples.extend(self.generate_synthetic_examples())
+        
+        if include_video_transcripts:
+            all_examples.extend(self.extract_from_video_transcripts())
         
         # Shuffle for better training
         random.shuffle(all_examples)
@@ -517,14 +643,15 @@ Use humor and charisma in every response. Speak like a supportive sister."""
         print("\n" + "-"*60)
         print("DATASET GENERATION SUMMARY")
         print("-"*60)
-        print(f"Chat log examples:    {self.stats['chat_logs']}")
-        print(f"Manifest examples:    {self.stats['manifests']}")
-        print(f"Synthetic examples:   {self.stats['synthetic']}")
-        print(f"Skipped (duplicates): {self.stats['skipped_duplicates']}")
-        print(f"Skipped (low quality):{self.stats['skipped_low_quality']}")
+        print(f"Chat log examples:      {self.stats['chat_logs']}")
+        print(f"Manifest examples:      {self.stats['manifests']}")
+        print(f"Synthetic examples:     {self.stats['synthetic']}")
+        print(f"Video transcript exs:   {self.stats['video_transcripts']}")
+        print(f"Skipped (duplicates):   {self.stats['skipped_duplicates']}")
+        print(f"Skipped (low quality):  {self.stats['skipped_low_quality']}")
         print("-"*60)
-        print(f"TOTAL EXAMPLES:       {self.stats['total']}")
-        print(f"Output file:          {output_path}")
+        print(f"TOTAL EXAMPLES:         {self.stats['total']}")
+        print(f"Output file:            {output_path}")
         print("="*60 + "\n")
         
         # Also save persona probes
@@ -554,6 +681,7 @@ def main():
     parser.add_argument("--no-chat-logs", action="store_true", help="Skip chat logs")
     parser.add_argument("--no-manifests", action="store_true", help="Skip manifests")
     parser.add_argument("--no-synthetic", action="store_true", help="Skip synthetic examples")
+    parser.add_argument("--no-video", action="store_true", help="Skip video transcripts")
     parser.add_argument("--probes-only", action="store_true", 
                         help="Only generate persona test probes")
     
@@ -568,6 +696,7 @@ def main():
             include_chat_logs=not args.no_chat_logs,
             include_manifests=not args.no_manifests,
             include_synthetic=not args.no_synthetic,
+            include_video_transcripts=not args.no_video,
             output_filename=args.output
         )
 

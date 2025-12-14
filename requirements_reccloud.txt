@@ -1,0 +1,68 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# SISI LOLA - RECCLOUD VIDEO INGESTION DEPENDENCIES
+# ═══════════════════════════════════════════════════════════════════════════════
+# Install with: pip install -r requirements_reccloud.txt
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# Core dependencies (already in main requirements.txt)
+# requests>=2.28.0
+# python-dotenv>=1.0.0
+# pyyaml>=6.0
+
+# RecCloud API Client
+requests>=2.28.0
+httpx>=0.25.0                    # Async HTTP client for parallel uploads
+
+# Audio/Video Processing
+moviepy>=1.0.3                   # Video manipulation (extract audio)
+pydub>=0.25.1                    # Audio processing
+ffmpeg-python>=0.2.0             # FFmpeg bindings (requires ffmpeg binary)
+
+# Language Detection
+langdetect>=1.0.9                # Language identification
+lingua-language-detector>=2.0.0  # High-accuracy language detection
+
+# Text Processing
+nltk>=3.8.1                      # NLP for segmentation
+spacy>=3.7.0                     # Advanced NLP (optional)
+transformers>=4.35.0             # For sentence embeddings (quality scoring)
+
+# Data Processing
+pandas>=2.0.0                    # Data manipulation
+jsonlines>=4.0.0                 # JSONL file handling
+
+# Progress Bars
+tqdm>=4.66.0                     # Progress tracking
+
+# Configuration
+python-dotenv>=1.0.0             # Environment variable management
+pyyaml>=6.0                      # YAML config parsing
+
+# Typing and Validation
+pydantic>=2.0.0                  # Data validation
+
+# Logging
+colorlog>=6.7.0                  # Colored logging output
+
+# Optional: Modal GPU Whisper
+# modal>=0.55.0                  # Modal serverless functions
+# openai-whisper>=20231117       # OpenAI Whisper model (if using local)
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SYSTEM REQUIREMENTS
+# ═══════════════════════════════════════════════════════════════════════════════
+# 
+# 1. FFmpeg binary must be installed:
+#    - Windows: choco install ffmpeg
+#    - macOS: brew install ffmpeg
+#    - Linux: apt install ffmpeg
+#
+# 2. For Modal Whisper backend:
+#    - pip install modal
+#    - modal setup (authenticate)
+#
+# 3. Environment variables:
+#    - RECCLOUD_API_KEY: Your RecCloud API key
+#    - VIDEO_SOURCE_DIR: Path to video files (optional)
+#    - TRANSCRIPTION_BACKEND: "reccloud" or "modal" (optional)
+# ═══════════════════════════════════════════════════════════════════════════════

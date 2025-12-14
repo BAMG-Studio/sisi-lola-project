@@ -1,0 +1,103 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# SISI LOLA - UNIFIED VIDEO INGESTION CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════════
+# Central configuration for video transcription → training data pipeline
+# Environment variables: Use ${VAR_NAME} or ${VAR_NAME:default} syntax
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# RECCLOUD API SETTINGS
+# ─────────────────────────────────────────────────────────────────────────────────
+reccloud:
+  api_key: ${RECCLOUD_API_KEY}
+  base_url: https://api.reccloud.com/v1
+  timeout: 300                    # Request timeout in seconds
+  max_retries: 3                  # Number of retry attempts
+  cost_per_minute: 0.0006         # USD per minute of transcription
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# MODAL WHISPER SETTINGS (Alternative Backend)
+# ─────────────────────────────────────────────────────────────────────────────────
+modal:
+  enabled: false                  # Set true to enable Modal backend
+  function_name: whisper_transcribe
+  timeout: 600                    # GPU function timeout
+  gpu_type: A100                  # GPU type for Modal
+  cost_per_minute: 0.0002         # USD per minute (GPU cost)
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# TRANSCRIPTION PIPELINE
+# ─────────────────────────────────────────────────────────────────────────────────
+transcription:
+  # Backend selection: "reccloud" | "modal"
+  backend: ${TRANSCRIPTION_BACKEND:reccloud}
+  
+  # Language settings
+  primary_language: en            # Primary transcription language
+  secondary_languages:            # Languages to translate to
+    - yo                          # Yoruba
+    - np                          # Nigerian Pidgin
+  
+  # Transcript format: "single" | "dual" | "multi"
+  transcript_format: dual
+  
+  # Processing options
+  speaker_diarization: true       # Identify different speakers
+  timestamp_alignment: true       # Align timestamps with audio
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# VIDEO INGESTION
+# ─────────────────────────────────────────────────────────────────────────────────
+video:
+  # Source directory for training videos (updated path for SLS folder inside ml_training)
+  video_source_dir: ${VIDEO_SOURCE_DIR:ml_training/data/videos/SLS/SL TRAINING VIDEOS}
+  
+  # Fallback paths for video discovery
+  fallback_paths:
+    - ml_training/data/videos
+    - video-1.mp4
+  
+  # Output directory for processed data
+  output_dir: ${RECCLOUD_OUTPUT_DIR:ml_training/datasets/video_training_data}
+  
+  # Processing settings
+  batch_size: 5                   # Max videos to process in parallel
+  skip_existing: true             # Skip already processed videos
+  retry_failed: true              # Retry previously failed videos
+  
+  # Supported formats
+  video_extensions:
+    - .mp4
+    - .mov
+    - .avi
+    - .mkv
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# ML TRAINING TARGETS
+# ─────────────────────────────────────────────────────────────────────────────────
+training:
+  # Dataset composition
+  target_examples: 1750           # Total training examples target
+  chat_examples: 500              # Examples from chat logs
+  video_examples: 1250            # Examples from video transcripts
+  
+  # Model settings
+  model_name: mistralai/Mistral-7B-Instruct-v0.2
+  lora_rank: 64
+  epochs: 3
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# PROFILES (Optional overrides for different environments)
+# ─────────────────────────────────────────────────────────────────────────────────
+# dev:
+#   transcription:
+#     backend: reccloud
+#     secondary_languages: []       # Skip translation in dev
+#   video:
+#     batch_size: 1                 # Process one at a time in dev
+# 
+# prod:
+#   transcription:
+#     backend: modal                # Use faster Modal in production
+#   video:
+#     batch_size: 10                # Higher parallelism in prod
