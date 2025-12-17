@@ -136,23 +136,10 @@ ml_training/data/voice_samples/*/female/*.wav
 ml_training/data/voice_samples/*/male/*.wav
 ml_training/data/voice_samples/speaker_reference_candidates/*.wav
 
-# Video files (too large for git)
-*.mp4
-*.mkv
-*.avi
-*.mov
-*.webm
-*.flv
-*.part
-ml_training/external_videos/tier1_ted/
-ml_training/external_videos/tier2_*/
-ml_training/external_videos/tier3_*/
-06_RENDER_OUTPUT/*.mp4
-training_videos/
-
 # Video transcripts (generated, too large)
 ml_training/datasets/video_training_data/*.jsonl
 ml_training/datasets/video_training_data/ingestion_manifest.json
+training_videos/
 
 # RecCloud/Modal credentials
 ml_training/configs/local_secrets.yaml

@@ -23,20 +23,6 @@ load_dotenv()
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-# Setup logging FIRST (before using logger)
-log_dir = PROJECT_ROOT / "ml_training" / "logs"
-log_dir.mkdir(parents=True, exist_ok=True)
-
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.StreamHandler(),
-        logging.FileHandler(log_dir / 'reccloud_ingestion.log')
-    ]
-)
-logger = logging.getLogger(__name__)
-
 # Try to import WhisperVideoIngestion (local Whisper), fallback to RecCloud
 try:
     from ml_training.scripts.whisper_video_ingestion import (
@@ -54,6 +40,20 @@ except ImportError:
     )
     TRANSCRIPTION_BACKEND = "reccloud"
     logger.info("Using RecCloud backend for transcription")
+
+# Setup logging
+log_dir = PROJECT_ROOT / "ml_training" / "logs"
+log_dir.mkdir(parents=True, exist_ok=True)
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(),
+        logging.FileHandler(log_dir / 'reccloud_ingestion.log')
+    ]
+)
+logger = logging.getLogger(__name__)
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
