@@ -144,7 +144,7 @@ To process into training data:
 # Curate logs into training format
 python ml_training/curate_training_data.py
 
-# Output: ml_training/data/sisi_lola_chat_instructions.jsonl
+# Output: ml_training/datasets/curated_chat_data.jsonl
 ```
 
 Training data includes:
