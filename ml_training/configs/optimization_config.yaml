@@ -1,0 +1,277 @@
+# =============================================================================
+# SISI LOLA FINE-TUNING OPTIMIZATION CONFIGURATION
+# =============================================================================
+# Comprehensive optimization settings for performance improvement
+# Target: Reduce response time from 80.5s to <2s (40x faster)
+# =============================================================================
+
+version: "2.0.0"
+last_updated: "2025-12-17"
+
+# =============================================================================
+# LORA RANK OPTIMIZATION
+# =============================================================================
+# LoRA rank affects model expressiveness vs training speed
+# r=8: Fast training, less expressive (for simple tasks)
+# r=16: Balanced (recommended for production)
+# r=32: More expressive, slower training (for complex multi-language tasks)
+lora_optimization:
+  # Available configurations to experiment with
+  configurations:
+    lightweight:
+      r: 8
+      alpha: 16
+      dropout: 0.05
+      description: "Fast training, good for simple fine-tuning"
+      estimated_params: "~4M trainable"
+      
+    balanced:
+      r: 16
+      alpha: 32
+      dropout: 0.1
+      description: "Recommended production configuration"
+      estimated_params: "~8M trainable"
+      
+    expressive:
+      r: 32
+      alpha: 64
+      dropout: 0.1
+      description: "Complex multi-task, multi-language learning"
+      estimated_params: "~16M trainable"
+      
+    maximum:
+      r: 64
+      alpha: 128
+      dropout: 0.15
+      description: "Maximum expressiveness, slowest training"
+      estimated_params: "~32M trainable"
+  
+  # Active configuration
+  active: "balanced"
+  
+  # Target modules for different model architectures
+  target_modules:
+    mistral: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
+    llama: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
+    gpt2: ["c_attn", "c_proj", "c_fc"]
+
+# =============================================================================
+# DPO (DIRECT PREFERENCE OPTIMIZATION)
+# =============================================================================
+# Aligns model outputs with human preferences
+dpo_config:
+  enabled: true
+  beta: 0.1  # KL divergence penalty coefficient
+  
+  # Preference dataset settings
+  preference_data:
+    source: "ml_training/datasets/preference_pairs.jsonl"
+    min_pairs: 100
+    
+  # Rating thresholds for auto-generating preference pairs
+  rating_thresholds:
+    preferred_min: 4.0  # Ratings 4-5 become preferred responses
+    rejected_max: 2.0   # Ratings 1-2 become rejected responses
+    
+  # DPO training settings
+  training:
+    epochs: 1
+    learning_rate: 5.0e-7
+    batch_size: 4
+    warmup_steps: 100
+    
+# =============================================================================
+# MULTI-TASK LEARNING
+# =============================================================================
+# Combine multiple tasks for better generalization
+multi_task:
+  enabled: true
+  
+  tasks:
+    chat:
+      weight: 0.4
+      description: "Conversational responses with Nigerian personality"
+      dataset: "ml_training/datasets/conversations.jsonl"
+      
+    translation:
+      weight: 0.3
+      description: "Nigerian language translation (Yoruba, Hausa, Igbo, Pidgin)"
+      dataset: "ml_training/datasets/translations.jsonl"
+      
+    summarization:
+      weight: 0.15
+      description: "Content summarization in Nigerian style"
+      dataset: "ml_training/datasets/summaries.jsonl"
+      
+    code_switching:
+      weight: 0.15
+      description: "Seamless language mixing (Yorunglish, Pidgin)"
+      dataset: "ml_training/datasets/code_switching.jsonl"
+      
+  # Task sampling strategy
+  sampling:
+    strategy: "proportional"  # or "round_robin", "temperature"
+    temperature: 2.0  # For temperature sampling
+
+# =============================================================================
+# CONTEXT WINDOW EXTENSION
+# =============================================================================
+# Extend context from 4K to 8K/16K tokens
+context_extension:
+  enabled: true
+  
+  # Target context length
+  target_length: 8192  # Options: 4096, 8192, 16384
+  
+  # Extension methods
+  methods:
+    # RoPE scaling (preferred for Mistral/Llama)
+    rope_scaling:
+      enabled: true
+      type: "dynamic"  # or "linear"
+      factor: 2.0  # 4K * 2 = 8K context
+      
+    # Flash Attention 2 (required for long contexts)
+    flash_attention:
+      enabled: true
+      version: 2
+      
+    # Sliding window attention (for Mistral)
+    sliding_window:
+      enabled: true
+      window_size: 4096
+      
+# =============================================================================
+# CONTINUOUS LEARNING PIPELINE
+# =============================================================================
+# Auto-retrain on highly-rated user interactions
+continuous_learning:
+  enabled: true
+  
+  # Rating thresholds for training data collection
+  collection:
+    min_rating: 4.0  # Only collect 4+ star rated responses
+    min_feedback_length: 10  # Minimum feedback text length
+    
+  # Auto-retrain triggers
+  triggers:
+    min_new_samples: 50  # Minimum new samples before retraining
+    max_days_since_retrain: 7  # Maximum days without retraining
+    performance_degradation: 0.1  # Retrain if perplexity increases by 10%
+    
+  # Retrain schedule
+  schedule:
+    type: "hybrid"  # "scheduled", "threshold", or "hybrid"
+    cron: "0 2 * * 0"  # Weekly at 2 AM Sunday
+    
+  # Retrain settings
+  training:
+    epochs: 1  # Fine-tune for 1 epoch on new data
+    learning_rate: 1.0e-5  # Lower LR for continued training
+    use_lora: true  # Continue with LoRA for efficiency
+
+# =============================================================================
+# INFERENCE OPTIMIZATION
+# =============================================================================
+inference:
+  # Model loading strategy
+  loading:
+    singleton: true  # Load model once, keep in memory
+    lazy_load: false  # Load immediately at startup
+    preload_on_startup: true
+    
+  # Flash Attention 2
+  flash_attention:
+    enabled: true
+    version: 2
+    
+  # vLLM/TGI optimization
+  engine:
+    type: "vllm"  # Options: "vllm", "tgi", "native"
+    max_model_len: 8192
+    gpu_memory_utilization: 0.9
+    
+  # Continuous batching
+  batching:
+    enabled: true
+    max_batch_size: 16
+    max_waiting_tokens: 20
+    
+  # KV cache optimization
+  kv_cache:
+    enabled: true
+    quantization: "fp8"  # fp8, fp16, or none
+    
+  # Response streaming
+  streaming:
+    enabled: true
+    chunk_size: 20  # Tokens per chunk
+
+# =============================================================================
+# CACHING LAYER
+# =============================================================================
+caching:
+  # Response caching
+  response_cache:
+    enabled: true
+    backend: "redis"  # or "memory", "disk"
+    ttl_seconds: 3600  # 1 hour
+    max_entries: 10000
+    
+  # Embedding cache
+  embedding_cache:
+    enabled: true
+    backend: "redis"
+    ttl_seconds: 86400  # 24 hours
+    
+  # Redis configuration
+  redis:
+    host: "localhost"
+    port: 6379
+    db: 0
+    password: null
+    
+# =============================================================================
+# REQUEST BATCHING & QUEUING
+# =============================================================================
+request_handling:
+  # Request queue
+  queue:
+    enabled: true
+    max_size: 100
+    timeout_seconds: 30
+    
+  # Dynamic batching
+  batching:
+    enabled: true
+    max_batch_size: 8
+    max_wait_ms: 50
+    
+  # Priority levels
+  priority:
+    enabled: true
+    levels:
+      high: 1  # VIP users
+      normal: 2  # Regular users
+      low: 3  # Background tasks
+
+# =============================================================================
+# PERFORMANCE TARGETS
+# =============================================================================
+performance_targets:
+  # Response time targets
+  latency:
+    p50_ms: 500
+    p95_ms: 1500
+    p99_ms: 2000
+    max_ms: 5000
+    
+  # Throughput targets
+  throughput:
+    requests_per_second: 50
+    tokens_per_second: 2000
+    
+  # Memory targets
+  memory:
+    max_gpu_gb: 16
+    max_cpu_gb: 32
