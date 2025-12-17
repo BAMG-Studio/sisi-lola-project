@@ -141,6 +141,7 @@ jobs:
           name: curated-training-data
           path: ml_training/datasets/curated_*.jsonl
           retention-days: 7
+          if-no-files-found: ignore  # Don't fail if no curated data exists
 
   # =========================================================================
   # JOB 3: MODAL UNIFIED TRAINING
@@ -176,6 +177,11 @@ jobs:
           MODAL_TOKEN_ID: ${{ secrets.MODAL_TOKEN_ID }}
           MODAL_TOKEN_SECRET: ${{ secrets.MODAL_TOKEN_SECRET }}
         run: |
+          if [ -z "$MODAL_TOKEN_ID" ] || [ -z "$MODAL_TOKEN_SECRET" ]; then
+            echo "⚠️ Modal credentials not configured. Please add MODAL_TOKEN_ID and MODAL_TOKEN_SECRET secrets."
+            echo "   Get your tokens from: https://modal.com/settings/tokens"
+            exit 1
+          fi
           modal token set --token-id $MODAL_TOKEN_ID --token-secret $MODAL_TOKEN_SECRET
           echo "✅ Modal CLI configured"
       

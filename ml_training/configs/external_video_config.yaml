@@ -1,0 +1,161 @@
+# External Video Configuration
+# ═══════════════════════════════════════════════════════════════════════════════
+# Configuration for external video ingestion and processing
+# December 14, 2025
+
+external_videos:
+  # Source directories by tier
+  source_dirs:
+    tier1_ted: "ml_training/external_videos/tier1_ted"
+    tier1_bbc: "ml_training/external_videos/tier1_bbc"
+    tier1_educational: "ml_training/external_videos/tier1_educational"
+    tier2_youtube: "ml_training/external_videos/tier2_youtube"
+    tier2_podcasts: "ml_training/external_videos/tier2_podcasts"
+    tier3_licensed: "ml_training/external_videos/tier3_licensed"
+  
+  # Output directories
+  output_dir: "ml_training/datasets/external_video_training"
+  tracker_file: "ml_training/external_videos/external_videos_tracker.csv"
+  
+  # RecCloud API settings
+  reccloud:
+    api_key_env: "RECCLOUD_API_KEY"
+    primary_language: "yo"
+    secondary_language: "en"
+    speaker_detection: true
+    translation_enabled: true
+    dual_transcript: true
+    polling_interval_seconds: 30
+    max_retries: 3
+  
+  # Processing settings
+  processing:
+    batch_size: 5
+    min_segment_words: 10
+    max_segment_words: 500
+    retry_attempts: 3
+    
+  # Video file extensions to process
+  video_extensions:
+    - ".mp4"
+    - ".mkv"
+    - ".webm"
+    - ".avi"
+    - ".mov"
+  
+  # Audio file extensions (for podcasts)
+  audio_extensions:
+    - ".mp3"
+    - ".m4a"
+    - ".wav"
+    - ".flac"
+
+# Persona pillar classification
+persona_pillars:
+  cultural_ambassador:
+    target_percentage: 20
+    keywords:
+      - "culture"
+      - "tradition"
+      - "heritage"
+      - "yoruba"
+      - "igbo"
+      - "hausa"
+      - "nigeria"
+      - "african"
+      - "ancestor"
+      - "proverb"
+      - "jollof"
+      - "market"
+    
+  tech_visionary:
+    target_percentage: 20
+    keywords:
+      - "technology"
+      - "ai"
+      - "startup"
+      - "innovation"
+      - "digital"
+      - "fintech"
+      - "blockchain"
+      - "entrepreneur"
+    
+  african_mother:
+    target_percentage: 15
+    keywords:
+      - "my child"
+      - "advice"
+      - "wisdom"
+      - "respect"
+      - "education"
+      - "family"
+      - "prayer"
+      - "faith"
+    
+  lagos_hustler:
+    target_percentage: 15
+    keywords:
+      - "hustle"
+      - "money"
+      - "business"
+      - "grind"
+      - "naira"
+      - "profit"
+      - "lagos"
+      - "oga"
+    
+  diaspora_guide:
+    target_percentage: 15
+    keywords:
+      - "abroad"
+      - "japa"
+      - "visa"
+      - "immigration"
+      - "homesick"
+      - "expat"
+      - "culture shock"
+    
+  code_switcher:
+    target_percentage: 15
+    keywords:
+      - "wetin"
+      - "wahala"
+      - "gist"
+      - "abi"
+      - "sha"
+      - "dey"
+
+# Language settings
+languages:
+  english:
+    code: "en"
+    target_percentage: 40
+    
+  yoruba:
+    code: "yo"
+    target_percentage: 30
+    
+  nigerian_pidgin:
+    code: "np"
+    alt_codes: ["pcm"]
+    target_percentage: 20
+    
+  hausa:
+    code: "ha"
+    target_percentage: 5
+    
+  igbo:
+    code: "ig"
+    target_percentage: 5
+
+# Quality thresholds
+quality:
+  min_confidence: 0.7
+  min_segment_length: 10
+  max_segment_length: 500
+  duplicate_threshold: 0.9
+
+# Cost tracking
+costs:
+  reccloud_per_minute: 0.004
+  estimated_examples_per_minute: 8.83  # Based on 530 examples / 60 minutes

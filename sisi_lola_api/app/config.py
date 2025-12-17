@@ -55,7 +55,10 @@ class SisiLolaDNA:
     }
     
     # AI Model Configuration (Best Results)
-    CHAT_MODEL = "gpt-4o"  # Best for personality and character consistency
+    # Fine-tuned Sisi Lola model trained on authentic Nigerian content
+    CHAT_MODEL_FINETUNED = "ft:gpt-3.5-turbo-0125:bamg-studio:sisi-lola:Cmpaf8B0"
+    CHAT_MODEL_FALLBACK = "gpt-4o"  # Fallback for complex reasoning tasks
+    CHAT_MODEL = CHAT_MODEL_FINETUNED  # Default to fine-tuned model
     RESEARCH_MODEL = "sonar-pro"  # Perplexity's standard model
     IMAGE_MODEL = "kling-v1"  # KlingAI standard model
     VIDEO_MODEL = "kling-v1"  # KlingAI video model

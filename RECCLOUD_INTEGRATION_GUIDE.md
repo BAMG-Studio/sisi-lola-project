@@ -307,6 +307,75 @@ TOTAL EXAMPLES:         1820
 
 ---
 
+## 🎬 EXTERNAL VIDEO INTEGRATION (NEW)
+
+### Overview
+
+In addition to native Sisi Lola videos, the system now supports external video sources to expand training data from ~600 to 3,430+ examples.
+
+### External Video Categories
+
+| Tier | Source | Rights | Cost |
+|------|--------|--------|------|
+| Tier 1 | TED Talks, BBC Learning, Khan Academy | CC/Public | $0 |
+| Tier 2 | YouTube Creators, Podcasts | Permission-based | $0 |
+| Tier 3 | Nollywood, Comedy Specials | Licensed | $500-10,000 |
+
+### External Video Commands
+
+```bash
+# Discover external videos
+python ml_training/scripts/submit_external_videos.py discover
+
+# Submit Phase 1 (Tier 1 content)
+python ml_training/scripts/submit_external_videos.py submit --phase 1
+
+# Check processing status
+python ml_training/scripts/submit_external_videos.py status
+
+# Process completed transcripts
+python ml_training/scripts/process_external_transcripts.py --phase 1
+
+# Merge external + native data
+python ml_training/scripts/merge_external_native.py
+```
+
+### External Video Directory Structure
+
+```
+ml_training/external_videos/
+├── tier1_ted/              # TED Talks
+├── tier1_bbc/              # BBC Learning
+├── tier1_educational/      # Khan Academy
+├── tier2_youtube/          # YouTube creators
+├── tier2_podcasts/         # Podcast episodes
+├── tier3_licensed/         # Licensed content
+├── external_videos_tracker.csv
+├── TEMPLATE_video_metadata.json
+└── README.md
+```
+
+### Persona Pillar Classification
+
+External videos are automatically classified by persona pillars:
+
+- 🎭 **Cultural Ambassador** - Traditions, food, culture
+- 🔮 **Tech Visionary** - AI, startups, innovation
+- 👩 **African Mother/Aunty** - Wisdom, advice, respect
+- 💼 **Lagos Hustler** - Business, money, negotiation
+- 🌍 **Diaspora Guide** - Japa, expat life, homesickness
+- 🗣️ **Code-Switch Master** - Yorunglish, Pidgin mixing
+
+### Related External Video Docs
+
+- [External Video Sources Strategy](EXTERNAL_VIDEO_SOURCES_STRATEGY.md)
+- [External Video Acquisition Implementation](EXTERNAL_VIDEO_ACQUISITION_IMPLEMENTATION.md)
+- [External Videos Quick Start](EXTERNAL_VIDEOS_QUICK_START_GUIDE.md)
+- [Video Target List by Persona Pillars](VIDEO_TARGET_LIST_PERSONA_PILLARS.md)
+- [Complete Training Ecosystem Visual](COMPLETE_TRAINING_ECOSYSTEM_VISUAL.md)
+
+---
+
 ## 📚 Related Documentation
 
 - [ML Training Quickstart](QUICK_START_ML_TRAINING.md)
@@ -316,4 +385,4 @@ TOTAL EXAMPLES:         1820
 
 ---
 
-*Last updated: Integration complete. Ready for production use.*
+*Last updated: December 14, 2025 - External video integration added.*

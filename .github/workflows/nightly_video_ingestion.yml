@@ -78,8 +78,14 @@ jobs:
       - name: 📦 Install Dependencies
         run: |
           pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install -r requirements_reccloud.txt
+          # Install root requirements first
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          fi
+          # Install reccloud requirements
+          if [ -f requirements_reccloud.txt ]; then
+            pip install -r requirements_reccloud.txt
+          fi
       
       - name: 🔐 Configure API Keys
         run: |

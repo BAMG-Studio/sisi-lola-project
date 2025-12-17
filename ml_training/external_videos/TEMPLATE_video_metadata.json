@@ -1,0 +1,27 @@
+{
+    "video_id": "EXT_TED_001",
+    "title": "REPLACE: Video Title Here",
+    "creator": "REPLACE: Creator Name",
+    "source_url": "https://REPLACE-WITH-SOURCE-URL.com",
+    "duration_seconds": 0,
+    "primary_language": "en",
+    "secondary_languages": ["yo"],
+    "license_type": "CC-BY-NC-ND",
+    "acquisition_date": "2025-12-14",
+    "tier": 1,
+    "phase": 1,
+    "category": "REPLACE: language_learning | cultural_identity | tech | diaspora | food | history",
+    "persona_pillars": [
+        "cultural_ambassador",
+        "REPLACE: tech_visionary | african_mother | lagos_hustler | diaspora_guide | code_switcher"
+    ],
+    "attribution": "REPLACE: Creator Name, Platform Name",
+    "processing_status": "pending",
+    "reccloud_job_id": null,
+    "cost": 0.00,
+    "expected_examples": 0,
+    "notes": "REPLACE: Brief description of why this video is valuable for training",
+    "rights_verified": false,
+    "permission_email_sent": null,
+    "permission_received": null
+}
