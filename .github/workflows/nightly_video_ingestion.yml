@@ -83,6 +83,11 @@ jobs:
       
       - name: 🔐 Configure API Keys
         run: |
+          if [ -z "${{ secrets.RECCLOUD_API_KEY }}" ]; then
+            echo "⚠️ RECCLOUD_API_KEY not configured."
+            echo "Please add RECCLOUD_API_KEY to repository secrets for video ingestion."
+            echo "Workflow will continue but transcription may fail."
+          fi
           echo "RECCLOUD_API_KEY=${{ secrets.RECCLOUD_API_KEY }}" >> $GITHUB_ENV
           echo "TRANSCRIPTION_BACKEND=${{ github.event.inputs.backend || 'reccloud' }}" >> $GITHUB_ENV
       
@@ -96,8 +101,19 @@ jobs:
       
       - name: 🎙️ Run Video Ingestion
         id: ingest
+        continue-on-error: true
         run: |
           cd ml_training/scripts
+          
+          # Check if training videos exist
+          if [ ! -d "../../training_videos" ] && [ ! -d "$PROJECT_ROOT/training_videos" ]; then
+            echo "ℹ️ No training_videos directory found"
+            echo "processed=0" >> $GITHUB_OUTPUT
+            echo "examples=0" >> $GITHUB_OUTPUT
+            echo "### 📊 Ingestion Results" >> $GITHUB_STEP_SUMMARY
+            echo "No training videos found. Add videos to training_videos/ directory." >> $GITHUB_STEP_SUMMARY
+            exit 0
+          fi
           
           # Determine processing mode
           if [ "${{ github.event.inputs.force_reprocess }}" == "true" ]; then

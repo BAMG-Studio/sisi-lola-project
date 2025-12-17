@@ -23,25 +23,7 @@ load_dotenv()
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-# Try to import WhisperVideoIngestion (local Whisper), fallback to RecCloud
-try:
-    from ml_training.scripts.whisper_video_ingestion import (
-        VideoIngestionOrchestrator,
-        TrainingExample,
-        LanguageCode
-    )
-    TRANSCRIPTION_BACKEND = "whisper"
-    logger.info("Using Whisper backend for transcription")
-except ImportError:
-    from ml_training.scripts.reccloud_video_ingestion import (
-        VideoIngestionOrchestrator,
-        VideoTranscriptFormat,
-        LanguageCode
-    )
-    TRANSCRIPTION_BACKEND = "reccloud"
-    logger.info("Using RecCloud backend for transcription")
-
-# Setup logging
+# Setup logging first (before imports that might use it)
 log_dir = PROJECT_ROOT / "ml_training" / "logs"
 log_dir.mkdir(parents=True, exist_ok=True)
 
@@ -54,6 +36,29 @@ logging.basicConfig(
     ]
 )
 logger = logging.getLogger(__name__)
+
+# Try to import WhisperVideoIngestion (local Whisper), fallback to RecCloud
+try:
+    from ml_training.scripts.whisper_video_ingestion import (
+        VideoIngestionOrchestrator,
+        TrainingExample,
+        LanguageCode
+    )
+    TRANSCRIPTION_BACKEND = "whisper"
+    logger.info("Using Whisper backend for transcription")
+except ImportError:
+    try:
+        from ml_training.scripts.reccloud_video_ingestion import (
+            VideoIngestionOrchestrator,
+            VideoTranscriptFormat,
+            LanguageCode
+        )
+        TRANSCRIPTION_BACKEND = "reccloud"
+        logger.info("Using RecCloud backend for transcription")
+    except ImportError as e:
+        logger.error(f"No transcription backend available: {e}")
+        logger.error("Please install required dependencies or ensure scripts exist")
+        TRANSCRIPTION_BACKEND = None
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
