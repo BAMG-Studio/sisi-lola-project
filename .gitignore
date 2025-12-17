@@ -147,3 +147,8 @@ ml_training/configs/local_secrets.yaml
 # Generated files
 nul
 "ecret is configured*"
+
+# Large video files (exceeds GitHub 100MB limit)
+*.mp4
+*.mp4.part
+ml_training/external_videos/

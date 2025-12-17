@@ -1,0 +1,8 @@
+remote: error: Trace: 16d95c09a8fc8e03e24ba4b0123506269bfbb7080ea64f65b10495404adf2293        
+remote: error: See https://gh.io/lfs for more information.        
+remote: error: File ml_training/external_videos/tier1_ted/The danger of a single story.mp4 is 131.34 MB; this exceeds GitHub's file size limit of 100.00 MB        
+remote: error: File ml_training/external_videos/tier1_ted/We should all be feminists.fhls-3768.mp4.part is 267.18 MB; this exceeds GitHub's file size limit of 100.00 MB        
+remote: error: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.        
+To https://github.com/BAMG-Studio/sisi-lola-project.git
+ ! [remote rejected]   main -> main (pre-receive hook declined)
+error: failed to push some refs to 'https://github.com/BAMG-Studio/sisi-lola-project.git'
