@@ -56,7 +56,7 @@ interaction_id = logger.log_interaction(
 **Usage**:
 ```bash
 python ml_training/curate_training_data.py
-# Outputs: ml_training/data/sisi_lola_chat_instructions.jsonl
+# Outputs: ml_training/datasets/curated_chat_data.jsonl
 ```
 
 #### 3. Social Media Bot Infrastructure
@@ -188,7 +188,7 @@ jobs:
       - name: Run fine-tuning
         run: |
           python ml_training/fine_tune_natlas.py \
-            --input ml_training/data/sisi_lola_chat_instructions.jsonl \
+            --input ml_training/datasets/curated_chat_data.jsonl \
             --output models/sisi_lola_natlas_v2.bin \
             --epochs 3 \
             --learning_rate 1e-5

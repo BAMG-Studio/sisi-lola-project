@@ -17,7 +17,7 @@ class TrainingDataCurator:
     
     def __init__(self, 
                  raw_logs_file: str = "ml_training/data/chat_logs/chat_logs_raw.jsonl",
-                 output_file: str = "ml_training/data/sisi_lola_chat_instructions.jsonl"):
+                 output_file: str = "ml_training/datasets/curated_chat_data.jsonl"):
         self.raw_logs_file = raw_logs_file
         self.output_file = output_file
         self.personality_system_prompt = self._load_personality_prompt()
