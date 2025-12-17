@@ -193,13 +193,13 @@ jobs:
           # Upload datasets to Modal volume
           if [ -d "ml_training/datasets" ]; then
             echo "📤 Uploading datasets to Modal volume..."
-            modal volume put sisi-lola-training-data ml_training/datasets/ /datasets/
+            modal volume put --force sisi-lola-training-data ml_training/datasets/ /datasets/
           fi
           
           # Upload voice samples if they exist
           if [ -d "04_AUDIO_CORE/voice_samples" ]; then
             echo "📤 Uploading voice samples to Modal volume..."
-            modal volume put sisi-lola-training-data 04_AUDIO_CORE/voice_samples/ /voice_samples/
+            modal volume put --force sisi-lola-training-data 04_AUDIO_CORE/voice_samples/ /voice_samples/
           fi
       
       - name: Run Unified Training Pipeline
@@ -354,3 +354,4 @@ jobs:
           echo "   https://huggingface.co/sisilolalive/sisi-lola-voice-xtts"
           echo ""
           echo "⏰ Next scheduled run: $(date -d '+2 days' '+%Y-%m-%d 02:00 UTC')"
+
