@@ -87,10 +87,38 @@ if static_dir.exists():
 
 @app.on_event("startup")
 async def startup_init():
+    """Initialize services on API startup"""
     auth_store.init_db()
-    print("🚀 Sisi Lola API started!")
+    
+    print("=" * 60)
+    print("🚀 SISI LOLA API STARTING...")
+    print("=" * 60)
+    
+    # Preload inference service for faster first response
+    preload_models = os.getenv("PRELOAD_MODELS", "true").lower() == "true"
+    
+    if preload_models:
+        print("\n📦 Preloading inference service...")
+        try:
+            from app.services.unified_inference import get_inference_service
+            # Load with voice disabled for faster startup (can be enabled per-request)
+            service = get_inference_service(load_brain=False, load_voice=False)
+            print("✅ Inference service ready (using fine-tuned OpenAI models)")
+        except Exception as e:
+            print(f"⚠️  Inference preload skipped: {e}")
+    
+    print("\n" + "=" * 60)
+    print("🎉 SISI LOLA API READY!")
+    print("=" * 60)
     print("📖 API Docs: http://localhost:8000/docs")
     print("💃 Web Demo: http://localhost:8000/demo")
+    print("🗣️ Chat API: POST /unified/chat")
+    print("\n🎯 OPTIMIZATIONS ACTIVE:")
+    print("   • Fine-tuned OpenAI models (2-5s response)")
+    print("   • Response caching for repeated queries")
+    print("   • Bracket pollution cleanup")
+    print("   • Paragraph formatting")
+    print("=" * 60)
 
 # CORS for frontend integration
 allowed_origins = [

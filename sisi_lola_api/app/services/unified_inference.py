@@ -1,13 +1,21 @@
 """
 SISI LOLA UNIFIED INFERENCE SERVICE
 Combines Brain (Mistral-7B LoRA) + Personality + Voice (XTTS) into one seamless interface
+
+Optimizations:
+- Singleton pattern for model caching
+- Response post-processing (bracket cleanup, formatting)
+- Fast fine-tuned OpenAI models
+- Response caching for repeated queries
 """
 
 import os
+import re
 import json
 import asyncio
 import tempfile
 import base64
+import hashlib
 from typing import Optional, Dict, Any, List
 from pathlib import Path
 from datetime import datetime
@@ -47,12 +55,18 @@ class UnifiedInferenceService:
     - Brain (Mistral-7B + LoRA) for intelligent responses
     - Personality engine for Nigerian flair
     - Voice (XTTS-v2) for speech synthesis
+    - Response caching for faster repeated queries
+    - Post-processing for clean output
     """
     
     # HuggingFace repositories
     HF_BRAIN_REPO = "sisilolalive/sisi-lola-brain-mistral"
     HF_PERSONALITY_REPO = "sisilolalive/sisi-lola-personality"
     HF_VOICE_REPO = "sisilolalive/sisi-lola-voice-xtts"
+    
+    # Use fine-tuned OpenAI models for faster responses
+    OPENAI_MODEL_FAST = "ft:gpt-3.5-turbo-0125:bamg-studio:sisi-lola:Cmpaf8B0"
+    OPENAI_MODEL_ADVANCED = "ft:gpt-4o-mini-2024-07-18:bamg-studio:sisi-lola-v2:Cni0J1fQ"
     
     def __init__(
         self,
@@ -71,10 +85,17 @@ class UnifiedInferenceService:
         self.voice_model = None
         self.personality_config = None
         
+        # Response cache for faster repeated queries
+        self._response_cache: Dict[str, tuple] = {}  # hash -> (response, timestamp)
+        self._cache_ttl = 3600  # 1 hour cache TTL
+        self._cache_max_entries = 500
+        
         # Load status
         self.brain_loaded = False
         self.voice_loaded = False
         self.personality_loaded = False
+        
+        print("🚀 Initializing Sisi Lola Unified Inference Service...")
         
         # Initialize
         self._load_personality()
@@ -293,17 +314,41 @@ Always maintain your warm, funny personality while being helpful and informative
             SisiLolaResponse with text and optional audio
         """
         start_time = datetime.now()
+        cached = False
         
-        # Step 1: Generate text response
-        text_response = await self._generate_text(
-            message=message,
-            language=language,
-            conversation_history=conversation_history,
-            max_tokens=max_tokens,
-            temperature=temperature,
-        )
+        # Check cache first (only for text-only mode without conversation history)
+        if mode == ResponseMode.TEXT_ONLY and not conversation_history:
+            cached_response = self._get_cached_response(message, language.value)
+            if cached_response:
+                cached = True
+                text_response = cached_response
+            else:
+                text_response = await self._generate_text(
+                    message=message,
+                    language=language,
+                    conversation_history=conversation_history,
+                    max_tokens=max_tokens,
+                    temperature=temperature,
+                )
+                # Cache the response
+                self._cache_response(message, language.value, text_response)
+        else:
+            # Generate fresh for conversations or voice modes
+            text_response = await self._generate_text(
+                message=message,
+                language=language,
+                conversation_history=conversation_history,
+                max_tokens=max_tokens,
+                temperature=temperature,
+            )
         
-        # Step 2: Generate voice if requested
+        # Step 2: Extract language tags BEFORE post-processing
+        language_tags = self._extract_language_tags(text_response)
+        
+        # Step 3: Post-process for clean output
+        text_response = self._post_process_response(text_response)
+        
+        # Step 4: Generate voice if requested
         audio_base64 = None
         audio_url = None
         
@@ -313,10 +358,7 @@ Always maintain your warm, funny personality while being helpful and informative
             else:
                 print("⚠️  Voice generation requested but voice model not loaded")
         
-        # Step 3: Extract language tags
-        language_tags = self._extract_language_tags(text_response)
-        
-        # Step 4: Calculate generation time
+        # Step 5: Calculate generation time
         generation_time = (datetime.now() - start_time).total_seconds() * 1000
         
         return SisiLolaResponse(
@@ -399,26 +441,63 @@ Always maintain your warm, funny personality while being helpful and informative
         max_tokens: int = 512,
         temperature: float = 0.7,
     ) -> str:
-        """Fallback to OpenAI/OpenRouter API"""
-        import openai
+        """Generate response using OpenAI API with fine-tuned Sisi Lola model"""
         
-        api_key = os.getenv("OPENAI_API_KEY") or os.getenv("OPENROUTER_API_KEY")
+        api_key = os.getenv("OPENAI_API_KEY")
         
         if not api_key:
-            # Return a default response if no API key
+            # Try OpenRouter as fallback
+            return await self._generate_with_openrouter(message, language, conversation_history, max_tokens, temperature)
+        
+        try:
+            from openai import OpenAI
+            client = OpenAI(api_key=api_key)
+            
+            # Use fine-tuned Sisi Lola model for MUCH faster responses (2-5s vs 60-70s)
+            model = self.OPENAI_MODEL_ADVANCED  # ft:gpt-4o-mini fine-tuned on Sisi Lola
+            
+            system_prompt = self.get_system_prompt()
+            
+            messages = [{"role": "system", "content": system_prompt}]
+            
+            if conversation_history:
+                messages.extend(conversation_history)
+            
+            messages.append({"role": "user", "content": message})
+            
+            # Use async thread for sync OpenAI client
+            response = await asyncio.to_thread(
+                lambda: client.chat.completions.create(
+                    model=model,
+                    messages=messages,
+                    temperature=temperature,
+                    max_tokens=max_tokens,
+                )
+            )
+            return response.choices[0].message.content
+            
+        except Exception as e:
+            print(f"OpenAI API error: {e}")
+            # Try OpenRouter as fallback
+            return await self._generate_with_openrouter(message, language, conversation_history, max_tokens, temperature)
+    
+    async def _generate_with_openrouter(
+        self,
+        message: str,
+        language: Language,
+        conversation_history: List[Dict] = None,
+        max_tokens: int = 512,
+        temperature: float = 0.7,
+    ) -> str:
+        """Fallback to OpenRouter API"""
+        import httpx
+        
+        api_key = os.getenv("OPEN_ROUTER_API") or os.getenv("OPENROUTER_API_KEY")
+        
+        if not api_key:
             return self._get_fallback_response(message, language)
         
-        # Determine API base
-        if os.getenv("OPENROUTER_API_KEY"):
-            openai.api_base = "https://openrouter.ai/api/v1"
-            openai.api_key = os.getenv("OPENROUTER_API_KEY")
-            model = "mistralai/mistral-7b-instruct"
-        else:
-            openai.api_key = api_key
-            model = "gpt-4"
-        
         system_prompt = self.get_system_prompt()
-        
         messages = [{"role": "system", "content": system_prompt}]
         
         if conversation_history:
@@ -427,26 +506,41 @@ Always maintain your warm, funny personality while being helpful and informative
         messages.append({"role": "user", "content": message})
         
         try:
-            response = await asyncio.to_thread(
-                openai.ChatCompletion.create,
-                model=model,
-                messages=messages,
-                temperature=temperature,
-                max_tokens=max_tokens,
-            )
-            return response.choices[0].message.content
+            async with httpx.AsyncClient() as client:
+                response = await client.post(
+                    "https://openrouter.ai/api/v1/chat/completions",
+                    headers={
+                        "Authorization": f"Bearer {api_key}",
+                        "HTTP-Referer": "https://sisilola.live",
+                        "X-Title": "Sisi Lola AI",
+                    },
+                    json={
+                        "model": "mistralai/mistral-7b-instruct",
+                        "messages": messages,
+                        "temperature": temperature,
+                        "max_tokens": max_tokens,
+                    },
+                    timeout=60
+                )
+                
+                if response.status_code == 200:
+                    data = response.json()
+                    return data["choices"][0]["message"]["content"]
+                    
         except Exception as e:
-            print(f"API error: {e}")
-            return self._get_fallback_response(message, language)
+            print(f"OpenRouter API error: {e}")
+        
+        return self._get_fallback_response(message, language)
     
     def _get_fallback_response(self, message: str, language: Language) -> str:
         """Fallback response when no model is available"""
         responses = {
-            Language.ENGLISH: "[EN] Hey there! I'm Sisi Lola, your Nigerian virtual host. I'm currently in offline mode, but I can't wait to chat with you properly soon! [/EN]",
-            Language.PIDGIN: "[NP] How far! Na Sisi Lola be this o. I dey offline now, but make we yarn soon soon! [/NP]",
-            Language.YORUBA: "[YO] Bawo ni! Mo n pe Sisi Lola. [/YO] [EN] I'm offline right now, but let's chat soon! [/EN]",
-            Language.MIXED: "[EN] Hey! [/EN] [NP] How body? Na Sisi Lola be this o! [/NP] [EN] I'm offline now, but we go yarn soon! [/EN]",
+            Language.ENGLISH: "Hey there! I'm Sisi Lola, your Nigerian virtual host. I'm currently in offline mode, but I can't wait to chat with you properly soon!",
+            Language.PIDGIN: "How far! Na Sisi Lola be this o. I dey offline now, but make we yarn soon soon!",
+            Language.YORUBA: "Bawo ni! Mo n pe Sisi Lola. I'm offline right now, but let's chat soon!",
+            Language.MIXED: "Hey! How body? Na Sisi Lola be this o! I'm offline now, but we go yarn soon!",
         }
+        return responses.get(language, responses[Language.MIXED])
         return responses.get(language, responses[Language.MIXED])
     
     async def _generate_voice(
@@ -517,9 +611,83 @@ Always maintain your warm, funny personality while being helpful and informative
     
     def _extract_language_tags(self, text: str) -> List[str]:
         """Extract language tags used in response"""
-        import re
         tags = re.findall(r'\[(EN|NP|YO|IG|HA)\]', text)
         return list(set(tags))
+    
+    def _post_process_response(self, text: str) -> str:
+        """
+        Post-process response for quality and consistency.
+        Fixes bracket pollution, removes repetitive expressions, and formats paragraphs.
+        """
+        # 1. Remove bracket pollution around words/phrases (NOT language tags)
+        valid_tags = ['EN', 'NP', 'YO', 'IG', 'HA', 'PIDGIN', 'YORUBA', 'IGBO', 'HAUSA', 'ENGLISH']
+        
+        def clean_bracket(match):
+            content = match.group(1)
+            if content.upper() in valid_tags or (content.startswith('/') and content[1:].upper() in valid_tags):
+                return match.group(0)  # Keep valid language tags
+            return content  # Remove brackets, keep content
+        
+        text = re.sub(r'\[([^\]]+)\]', clean_bracket, text)
+        
+        # 2. Remove hashtags (training data leakage)
+        text = re.sub(r'#[A-Za-z0-9_]+', '', text)
+        
+        # 3. Remove repetitive Nigerian expressions (keep max 1 each)
+        text = re.sub(r'(E choke!?\s*){2,}', 'E choke! ', text, flags=re.IGNORECASE)
+        text = re.sub(r'(Omo!?\s*){2,}', 'Omo! ', text, flags=re.IGNORECASE)
+        text = re.sub(r'(Wahala!?\s*){2,}', 'Wahala! ', text, flags=re.IGNORECASE)
+        text = re.sub(r'(Chai!?\s*){2,}', 'Chai! ', text, flags=re.IGNORECASE)
+        text = re.sub(r'(Na wa o!?\s*){2,}', 'Na wa o! ', text, flags=re.IGNORECASE)
+        
+        # 4. Strip language tags for cleaner display
+        text = re.sub(r'\[(EN|NP|YO|IG|HA|PIDGIN|YORUBA|IGBO|HAUSA|ENGLISH)\]', '', text, flags=re.IGNORECASE)
+        text = re.sub(r'\[/(EN|NP|YO|IG|HA|PIDGIN|YORUBA|IGBO|HAUSA|ENGLISH)\]', '', text, flags=re.IGNORECASE)
+        
+        # 5. Add paragraph formatting for long responses
+        if len(text) > 200:
+            topic_patterns = [
+                r'(?<=\. )(?=So,? )',
+                r'(?<=\. )(?=Now,? )',
+                r'(?<=\. )(?=But )',
+                r'(?<=\. )(?=Also,? )',
+                r'(?<=\. )(?=Speaking of )',
+            ]
+            for pattern in topic_patterns:
+                text = re.sub(pattern, '\n\n', text)
+        
+        # 6. Clean up whitespace
+        text = re.sub(r'\n{3,}', '\n\n', text)
+        text = re.sub(r' {2,}', ' ', text)
+        
+        return text.strip()
+    
+    def _get_cache_key(self, message: str, language: str) -> str:
+        """Generate cache key for a message"""
+        key_data = f"{message}|{language}"
+        return hashlib.md5(key_data.encode()).hexdigest()
+    
+    def _get_cached_response(self, message: str, language: str) -> Optional[str]:
+        """Get cached response if available and not expired"""
+        key = self._get_cache_key(message, language)
+        if key in self._response_cache:
+            response, timestamp = self._response_cache[key]
+            age = (datetime.now() - timestamp).total_seconds()
+            if age < self._cache_ttl:
+                return response
+            else:
+                del self._response_cache[key]
+        return None
+    
+    def _cache_response(self, message: str, language: str, response: str):
+        """Cache a response"""
+        # Evict oldest if cache is full
+        if len(self._response_cache) >= self._cache_max_entries:
+            oldest_key = min(self._response_cache.keys(), key=lambda k: self._response_cache[k][1])
+            del self._response_cache[oldest_key]
+        
+        key = self._get_cache_key(message, language)
+        self._response_cache[key] = (response, datetime.now())
     
     def get_status(self) -> Dict[str, Any]:
         """Get service status"""
@@ -528,6 +696,7 @@ Always maintain your warm, funny personality while being helpful and informative
             "voice_loaded": self.voice_loaded,
             "personality_loaded": self.personality_loaded,
             "device": self.device,
+            "cache_entries": len(self._response_cache),
             "models": {
                 "brain": self.HF_BRAIN_REPO if self.brain_loaded else None,
                 "voice": self.HF_VOICE_REPO if self.voice_loaded else None,
