@@ -13,10 +13,12 @@ GPU_CONFIG = "T4"  # 10x faster cold start than A100
 
 # ============================================
 # OPTIMIZATION 2: Optimized Image with Caching
+# Pin numpy<2 for torch 2.1.0 compatibility
 # ============================================
 image = (
     modal.Image.debian_slim(python_version="3.11")
     .pip_install(
+        "numpy<2",  # Pin numpy for torch compatibility
         "torch==2.1.0",
         "transformers==4.35.0",
         "accelerate==0.24.0",
@@ -37,7 +39,7 @@ app = modal.App("sisi-lola-inference")
 @app.cls(
     image=image,
     gpu=GPU_CONFIG,
-    min_containers=2,  # Keep 2 containers always ready
+    min_containers=1,  # Keep 1 container always ready (cheaper)
     scaledown_window=300,  # Keep alive for 5 minutes
     timeout=300,  # 5 minute max per request
     secrets=[
@@ -48,9 +50,9 @@ app = modal.App("sisi-lola-inference")
 class ModelInference:
     """Persistent model cache that loads once per container"""
     
-    def __init__(self):
-        self.models = {}
-        self.tokenizers = {}
+    # Use class attributes instead of __init__
+    models: Dict[str, Any] = {}
+    tokenizers: Dict[str, Any] = {}
     
     @modal.enter()
     def load_models(self):
@@ -60,15 +62,19 @@ class ModelInference:
         
         print("🚀 Loading models into memory...")
         
-        # Model paths from environment
-        chat_model = os.getenv("CHAT_MODEL", "meta-llama/Llama-2-7b-chat-hf")
+        # Get HuggingFace token from environment (set by Modal secret)
+        hf_token = os.getenv("HF_TOKEN") or os.getenv("HUGGINGFACE_TOKEN")
+        
+        # Use a simpler, non-gated model for reliability
+        chat_model = os.getenv("CHAT_MODEL", "microsoft/DialoGPT-medium")
         
         try:
             # Load with optimizations
             self.tokenizers['chat'] = AutoTokenizer.from_pretrained(
                 chat_model,
                 cache_dir="/cache/huggingface",
-                trust_remote_code=True
+                trust_remote_code=True,
+                token=hf_token
             )
             
             self.models['chat'] = AutoModelForCausalLM.from_pretrained(
@@ -76,8 +82,8 @@ class ModelInference:
                 cache_dir="/cache/huggingface",
                 device_map="auto",
                 torch_dtype=torch.float16,
-                load_in_8bit=True,  # Use quantization for speed
-                trust_remote_code=True
+                trust_remote_code=True,
+                token=hf_token
             )
             
             print("✅ Models loaded successfully!")
@@ -109,7 +115,7 @@ class ModelInference:
         response = tokenizer.decode(outputs[0], skip_special_tokens=True)
         return response
 
-    @modal.web_endpoint(method="POST")
+    @modal.fastapi_endpoint(method="POST")
     async def generate_text(self, request: Dict[str, Any]) -> Dict[str, Any]:
         """
         Fast inference endpoint with model caching
@@ -158,7 +164,7 @@ class ModelInference:
                 "inference_time_ms": round((time.time() - start_time) * 1000, 2)
             }
 
-    @modal.web_endpoint(method="GET")
+    @modal.fastapi_endpoint(method="GET")
     def health(self) -> Dict[str, Any]:
         """Health check endpoint for monitoring"""
         return {
@@ -166,7 +172,7 @@ class ModelInference:
             "service": "sisi-lola-inference",
             "optimizations": [
                 "Model caching with @enter",
-                "Keep-warm containers (2)",
+                "Keep-warm containers (1)",
                 "Container idle timeout (300s)",
                 "T4 GPU (fast startup)",
                 "8-bit quantization"
