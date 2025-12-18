@@ -63,3 +63,13 @@ class SisiLolaDNA:
     RESEARCH_MODEL = "sonar-pro"  # Perplexity's standard model
     IMAGE_MODEL = "kling-v1"  # KlingAI standard model
     VIDEO_MODEL = "kling-v1"  # KlingAI video model
+
+# ============================================
+# MODAL INFERENCE SERVICE - OPTIMIZED
+# ============================================
+MODAL_INFERENCE_URL = "https://bamg-studio--sisi-lola-inference-modelinference-generate-text.modal.run"
+MODAL_HEALTH_URL = "https://bamg-studio--sisi-lola-inference-modelinference-health.modal.run"
+
+# Modal inference configuration
+MODAL_TIMEOUT = 30  # seconds
+MODAL_MAX_RETRIES = 3
