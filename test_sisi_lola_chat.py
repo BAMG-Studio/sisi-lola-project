@@ -24,7 +24,7 @@ print(f"Test started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 print("="*70 + "\n")
 
 # Modal endpoint URL
-modal_url = "https://bamg-studio--sisi-lola-modal-inference-model-generate.modal.run"
+modal_url = "https://bamg-studio--sisi-lola-inference-modelinference-generate-text.modal.run"
 
 results = []
 total_start_time = time.time()
