@@ -1,4 +1,7 @@
 """
+import httpx
+import time
+from app.config import MODAL_INFERENCE_URL, MODAL_TIMEOUT
 SISI LOLA ENHANCED CHAT ROUTER
 Multimodal endpoint with training data collection, special commands, and improved responses.
 
@@ -15,6 +18,51 @@ from fastapi.responses import StreamingResponse, JSONResponse, FileResponse
 from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any
 from enum import Enum
+
+# ========================================
+# MODAL INFERENCE OPTIMIZATION
+# Connects to optimized Modal endpoint for 20-80x speedup
+# ========================================
+
+async def call_modal_inference(message: str, max_tokens: int = 256, temperature: float = 0.7):
+    """
+    Call optimized Modal inference endpoint.
+    Expected response: <2 seconds (vs 30-60s with old system)
+    """
+    start = time.time()
+    
+    try:
+        async with httpx.AsyncClient(timeout=MODAL_TIMEOUT) as client:
+            response = await client.post(
+                MODAL_INFERENCE_URL,
+                json={
+                    "message": message,
+                    "max_tokens": max_tokens,
+                    "temperature": temperature
+                },
+                headers={"Content-Type": "application/json"}
+            )
+            response.raise_for_status()
+            result = response.json()
+            
+            elapsed = time.time() - start
+            print(f"[⚡ MODAL] Response in {elapsed:.2f}s - {len(result.get('text', ''))} chars")
+            
+            # Return just the text
+            return result.get("text", "Sorry, I couldn't generate a response.")
+            
+    except httpx.TimeoutException as e:
+        elapsed = time.time() - start
+        print(f"[❌ MODAL] Timeout after {elapsed:.2f}s: {e}")
+        return "I'm taking longer than expected. Please try again."
+    except httpx.HTTPStatusError as e:
+        print(f"[❌ MODAL] HTTP error {e.response.status_code}: {e}")
+        return "Sorry, there was a server error. Please try again."
+    except Exception as e:
+        elapsed = time.time() - start
+        print(f"[❌ MODAL] Error after {elapsed:.2f}s: {type(e).__name__}: {e}")
+        return "Sorry, I encountered an error. Please try again."
+
 import asyncio
 import json
 import os
