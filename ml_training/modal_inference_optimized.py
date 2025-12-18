@@ -4,8 +4,7 @@ Fixes: Cold starts, model caching, keep-warm configuration
 """
 import modal
 import os
-from typing import Dict, Any, Optional
-import asyncio
+from typing import Dict, Any
 
 # ============================================
 # OPTIMIZATION 1: Use faster GPU (T4 vs A100)
@@ -25,6 +24,7 @@ image = (
         "scipy",
         "sentencepiece",
         "protobuf",
+        "fastapi[standard]",
     )
     .env({"TRANSFORMERS_CACHE": "/cache/huggingface"})
 )
@@ -32,8 +32,19 @@ image = (
 app = modal.App("sisi-lola-inference")
 
 # ============================================
-# OPTIMIZATION 3: Model Cache with @enter
+# OPTIMIZATION 3: Model Cache Class with @modal.cls
 # ============================================
+@app.cls(
+    image=image,
+    gpu=GPU_CONFIG,
+    min_containers=2,  # Keep 2 containers always ready
+    scaledown_window=300,  # Keep alive for 5 minutes
+    timeout=300,  # 5 minute max per request
+    secrets=[
+        modal.Secret.from_name("huggingface-secret"),
+        modal.Secret.from_name("sisi-lola-secrets")
+    ],
+)
 class ModelInference:
     """Persistent model cache that loads once per container"""
     
@@ -75,6 +86,7 @@ class ModelInference:
             print(f"❌ Error loading models: {e}")
             raise
     
+    @modal.method()
     def generate(self, prompt: str, max_length: int = 256, temperature: float = 0.7) -> str:
         """Fast inference using cached models"""
         import torch
@@ -97,103 +109,67 @@ class ModelInference:
         response = tokenizer.decode(outputs[0], skip_special_tokens=True)
         return response
 
-# ============================================
-# OPTIMIZATION 4: Keep-Warm + Container Idle Timeout
-# ============================================
-@app.function(
-    image=image,
-    gpu=GPU_CONFIG,
-    min_containers=2,  # Keep 2 containers always ready (renamed from keep_warm)
-    scaledown_window=300,  # Keep alive for 5 minutes (renamed from container_idle_timeout)
-    timeout=300,  # 5 minute max per request
-    secrets=[
-        modal.Secret.from_name("huggingface-secret"),
-        modal.Secret.from_name("sisi-lola-secrets")
-    ],
-)
-@modal.concurrent(max_inputs=10)  # Handle multiple requests
-@modal.fastapi_endpoint(method="POST")
-async def generate_text(request: Dict[str, Any]) -> Dict[str, Any]:
-    """
-    Fast inference endpoint with model caching
-    
-    Request format:
-    {
-        "message": "user message",
-        "session_id": "session123",
-        "max_tokens": 256,
-        "temperature": 0.7
-    }
-    """
-    import time
-    start_time = time.time()
-    
-    try:
-        # Initialize model cache (reuses existing if available)
-        cache = ModelInference()
+    @modal.web_endpoint(method="POST")
+    async def generate_text(self, request: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Fast inference endpoint with model caching
         
-        # Extract parameters
-        message = request.get("message", "")
-        max_tokens = request.get("max_tokens", 256)
-        temperature = request.get("temperature", 0.7)
-        
-        if not message:
-            return {"error": "No message provided", "status": "error"}
-        
-        # Generate response
-        response_text = cache.generate(
-            prompt=message,
-            max_length=max_tokens,
-            temperature=temperature
-        )
-        
-        inference_time = time.time() - start_time
-        
-        return {
-            "status": "success",
-            "text": response_text,
-            "inference_time_ms": round(inference_time * 1000, 2),
-            "model": "cached",
-            "gpu": "T4"
+        Request format:
+        {
+            "message": "user message",
+            "session_id": "session123",
+            "max_tokens": 256,
+            "temperature": 0.7
         }
-    
-    except Exception as e:
+        """
+        import time
+        start_time = time.time()
+        
+        try:
+            # Extract parameters
+            message = request.get("message", "")
+            max_tokens = request.get("max_tokens", 256)
+            temperature = request.get("temperature", 0.7)
+            
+            if not message:
+                return {"error": "No message provided", "status": "error"}
+            
+            # Generate response using the cached model
+            response_text = self.generate(
+                prompt=message,
+                max_length=max_tokens,
+                temperature=temperature
+            )
+            
+            inference_time = time.time() - start_time
+            
+            return {
+                "status": "success",
+                "text": response_text,
+                "inference_time_ms": round(inference_time * 1000, 2),
+                "model": "cached",
+                "gpu": "T4"
+            }
+        
+        except Exception as e:
+            return {
+                "status": "error",
+                "error": str(e),
+                "inference_time_ms": round((time.time() - start_time) * 1000, 2)
+            }
+
+    @modal.web_endpoint(method="GET")
+    def health(self) -> Dict[str, Any]:
+        """Health check endpoint for monitoring"""
         return {
-            "status": "error",
-            "error": str(e),
-            "inference_time_ms": round((time.time() - start_time) * 1000, 2)
+            "status": "healthy",
+            "service": "sisi-lola-inference",
+            "optimizations": [
+                "Model caching with @enter",
+                "Keep-warm containers (2)",
+                "Container idle timeout (300s)",
+                "T4 GPU (fast startup)",
+                "8-bit quantization"
+            ]
         }
-
-# ============================================
-# OPTIMIZATION 5: Health Check Endpoint
-# ============================================
-@app.function()
-@modal.fastapi_endpoint(method="GET")
-def health() -> Dict[str, Any]:
-    """Health check endpoint for monitoring"""
-    return {
-        "status": "healthy",
-        "service": "sisi-lola-inference",
-        "optimizations": [
-            "Model caching with @enter",
-            "Keep-warm containers (2)",
-            "Container idle timeout (300s)",
-            "T4 GPU (fast startup)",
-            "8-bit quantization"
-        ]
-    }
-
-# ============================================
-# OPTIMIZATION 6: Preload Cache Endpoint
-# ============================================
-@app.function(
-    image=image,
-    gpu=GPU_CONFIG,
-    timeout=600
-)
-def preload_cache():
-    """Manually trigger model preloading"""
-    cache = ModelInference()
-    cache.load_models()
-    return {"status": "Models preloaded", "message": "Cache is warm"}
 
