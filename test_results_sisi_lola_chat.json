@@ -1,0 +1,93 @@
+{
+  "timestamp": "2025-12-18T11:31:12.977566",
+  "summary": {
+    "total": 10,
+    "successful": 0,
+    "failed": 10,
+    "success_rate": "0.0%",
+    "avg_latency": "0.00s",
+    "total_duration": "9.65s"
+  },
+  "results": [
+    {
+      "test": 1,
+      "prompt": "Hello Sisi Lola, how are you doing today?",
+      "error": "modal-http: invalid function call\n",
+      "status_code": 404,
+      "latency": 0.0684511661529541,
+      "status": "failed"
+    },
+    {
+      "test": 2,
+      "prompt": "Tell me about yourself and what makes you special",
+      "error": "modal-http: invalid function call\n",
+      "status_code": 404,
+      "latency": 0.07921528816223145,
+      "status": "failed"
+    },
+    {
+      "test": 3,
+      "prompt": "What's your favorite thing about Nigerian culture?",
+      "error": "modal-http: invalid function call\n",
+      "status_code": 404,
+      "latency": 0.0547480583190918,
+      "status": "failed"
+    },
+    {
+      "test": 4,
+      "prompt": "Can you help me learn some Yoruba phrases?",
+      "error": "modal-http: invalid function call\n",
+      "status_code": 404,
+      "latency": 0.09013247489929199,
+      "status": "failed"
+    },
+    {
+      "test": 5,
+      "prompt": "What do you think about technology and AI?",
+      "error": "modal-http: invalid function call\n",
+      "status_code": 404,
+      "latency": 0.07474470138549805,
+      "status": "failed"
+    },
+    {
+      "test": 6,
+      "prompt": "Tell me a story about Lagos",
+      "error": "modal-http: invalid function call\n",
+      "status_code": 404,
+      "latency": 0.05295562744140625,
+      "status": "failed"
+    },
+    {
+      "test": 7,
+      "prompt": "What advice would you give to someone visiting Nigeria?",
+      "error": "modal-http: invalid function call\n",
+      "status_code": 404,
+      "latency": 0.0542912483215332,
+      "status": "failed"
+    },
+    {
+      "test": 8,
+      "prompt": "How do you stay positive and motivated?",
+      "error": "modal-http: invalid function call\n",
+      "status_code": 404,
+      "latency": 0.055185794830322266,
+      "status": "failed"
+    },
+    {
+      "test": 9,
+      "prompt": "What are your thoughts on African innovation?",
+      "error": "modal-http: invalid function call\n",
+      "status_code": 404,
+      "latency": 0.05841875076293945,
+      "status": "failed"
+    },
+    {
+      "test": 10,
+      "prompt": "Can you recommend some Nigerian music?",
+      "error": "modal-http: invalid function call\n",
+      "status_code": 404,
+      "latency": 0.05835843086242676,
+      "status": "failed"
+    }
+  ]
+}
