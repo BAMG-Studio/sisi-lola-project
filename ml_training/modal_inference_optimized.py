@@ -10,7 +10,7 @@ import asyncio
 # ============================================
 # OPTIMIZATION 1: Use faster GPU (T4 vs A100)
 # ============================================
-GPU_CONFIG = modal.gpu.T4()  # 10x faster cold start than A100
+GPU_CONFIG = "T4"  # 10x faster cold start than A100
 
 # ============================================
 # OPTIMIZATION 2: Optimized Image with Caching
@@ -103,16 +103,16 @@ class ModelInference:
 @app.function(
     image=image,
     gpu=GPU_CONFIG,
-    keep_warm=2,  # Keep 2 containers always ready
-    container_idle_timeout=300,  # Keep alive for 5 minutes
-    allow_concurrent_inputs=10,  # Handle multiple requests
+    min_containers=2,  # Keep 2 containers always ready (renamed from keep_warm)
+    scaledown_window=300,  # Keep alive for 5 minutes (renamed from container_idle_timeout)
     timeout=300,  # 5 minute max per request
     secrets=[
         modal.Secret.from_name("huggingface-secret"),
         modal.Secret.from_name("sisi-lola-secrets")
     ],
 )
-@modal.web_endpoint(method="POST")
+@modal.concurrent(max_inputs=10)  # Handle multiple requests
+@modal.fastapi_endpoint(method="POST")
 async def generate_text(request: Dict[str, Any]) -> Dict[str, Any]:
     """
     Fast inference endpoint with model caching
@@ -168,7 +168,7 @@ async def generate_text(request: Dict[str, Any]) -> Dict[str, Any]:
 # OPTIMIZATION 5: Health Check Endpoint
 # ============================================
 @app.function()
-@modal.web_endpoint(method="GET")
+@modal.fastapi_endpoint(method="GET")
 def health() -> Dict[str, Any]:
     """Health check endpoint for monitoring"""
     return {
