@@ -9,9 +9,12 @@ Key Optimizations:
 3. Response caching (Redis/Memory)
 4. Async processing
 5. Flash Attention 2 support
+6. Bracket pollution cleanup
+7. Paragraph formatting for readability
 """
 import os
 import sys
+import re
 import torch
 import asyncio
 import hashlib
@@ -127,6 +130,69 @@ Communication Style:
         """Format prompt with system message"""
         return f"<|system|>\n{self.system_prompt}\n<|user|>\n{user_input}\n<|assistant|>\n"
     
+    def _post_process_response(self, response: str) -> str:
+        """
+        Post-process response for quality and consistency.
+        Fixes bracket pollution, removes repetitive expressions, and formats paragraphs.
+        """
+        # 1. Remove bracket pollution around words/phrases (NOT language tags)
+        valid_tags = ['EN', 'NP', 'YO', 'IG', 'HA', 'PIDGIN', 'YORUBA', 'IGBO', 'HAUSA', 'ENGLISH']
+        
+        def clean_bracket(match):
+            content = match.group(1)
+            if content.upper() in valid_tags or (content.startswith('/') and content[1:].upper() in valid_tags):
+                return match.group(0)  # Keep valid language tags
+            return content  # Remove brackets, keep content
+        
+        response = re.sub(r'\[([^\]]+)\]', clean_bracket, response)
+        
+        # 2. Remove hashtags (training data leakage)
+        response = re.sub(r'#[A-Za-z0-9_]+', '', response)
+        
+        # 3. Remove repetitive Nigerian expressions (keep max 1 each)
+        response = re.sub(r'(E choke!?\s*){2,}', 'E choke! ', response, flags=re.IGNORECASE)
+        response = re.sub(r'(Omo!?\s*){2,}', 'Omo! ', response, flags=re.IGNORECASE)
+        response = re.sub(r'(Wahala!?\s*){2,}', 'Wahala! ', response, flags=re.IGNORECASE)
+        response = re.sub(r'(Chai!?\s*){2,}', 'Chai! ', response, flags=re.IGNORECASE)
+        response = re.sub(r'(Na wa o!?\s*){2,}', 'Na wa o! ', response, flags=re.IGNORECASE)
+        
+        # 4. Remove language tags for cleaner display
+        response = re.sub(r'\[(EN|NP|YO|IG|HA|PIDGIN|YORUBA|IGBO|HAUSA|ENGLISH)\]', '', response, flags=re.IGNORECASE)
+        response = re.sub(r'\[/(EN|NP|YO|IG|HA|PIDGIN|YORUBA|IGBO|HAUSA|ENGLISH)\]', '', response, flags=re.IGNORECASE)
+        
+        # 5. Add paragraph formatting for long responses
+        if len(response) > 200:
+            # Add breaks before topic transitions
+            topic_patterns = [
+                r'(?<=\. )(?=So,? )',
+                r'(?<=\. )(?=Now,? )',
+                r'(?<=\. )(?=But )',
+                r'(?<=\. )(?=Also,? )',
+                r'(?<=\. )(?=Speaking of )',
+            ]
+            for pattern in topic_patterns:
+                response = re.sub(pattern, '\n\n', response)
+            
+            # If still no breaks, add them every 3-4 sentences
+            sentences = re.split(r'(?<=[.!?])\s+', response)
+            if len(sentences) > 4 and '\n\n' not in response:
+                paragraphs = []
+                current = []
+                for i, sentence in enumerate(sentences):
+                    current.append(sentence)
+                    if len(current) >= 3 and i < len(sentences) - 1:
+                        paragraphs.append(' '.join(current))
+                        current = []
+                if current:
+                    paragraphs.append(' '.join(current))
+                response = '\n\n'.join(paragraphs)
+        
+        # 6. Clean up whitespace
+        response = re.sub(r'\n{3,}', '\n\n', response)
+        response = re.sub(r' {2,}', ' ', response)
+        
+        return response.strip()
+    
     async def generate_text(
         self,
         prompt: str,
@@ -185,6 +251,9 @@ Communication Style:
         # Extract assistant response
         if "<|assistant|>" in response:
             response = response.split("<|assistant|>")[-1].strip()
+        
+        # CRITICAL: Post-process to clean up response quality
+        response = self._post_process_response(response)
         
         # Cache response
         if cfg.use_cache:

@@ -428,6 +428,11 @@ Provide this report in a format ready for:
     ) -> str:
         """Post-process response for quality and consistency"""
         
+        # CRITICAL FIX: Remove bracket pollution around words/phrases
+        # Pattern: [Word!] or [Some phrase] that aren't language tags
+        # Keep valid tags like [EN], [NP], [YO], [IG], [HA] and their closing forms
+        response = self._remove_bracket_pollution(response)
+        
         # Remove repeated patterns first
         response = self._remove_repetitions(response)
         
@@ -437,6 +442,11 @@ Provide this report in a format ready for:
         # Remove "E choke" spam (keep max 1)
         response = re.sub(r'(E choke!?\s*){2,}', 'E choke! ', response, flags=re.IGNORECASE)
         
+        # Remove other repetitive Nigerian expressions (keep max 1 each)
+        response = re.sub(r'(Omo!?\s*){2,}', 'Omo! ', response, flags=re.IGNORECASE)
+        response = re.sub(r'(Wahala!?\s*){2,}', 'Wahala! ', response, flags=re.IGNORECASE)
+        response = re.sub(r'(Chai!?\s*){2,}', 'Chai! ', response, flags=re.IGNORECASE)
+        
         # Remove any social media style artifacts
         response = re.sub(r'#\w+', '', response)
         
@@ -445,6 +455,9 @@ Provide this report in a format ready for:
         
         # Ensure proper tag closure
         response = self._close_open_tags(response)
+        
+        # Add paragraph formatting for readability
+        response = self._add_paragraph_formatting(response)
         
         # Remove hallucinated user messages
         response = re.sub(r'\[?User:.*?\]?(?:\[/user\])?', '', response, flags=re.IGNORECASE)
@@ -466,6 +479,77 @@ Provide this report in a format ready for:
         response = re.sub(r' {2,}', ' ', response)
         
         return response.strip()
+    
+    def _remove_bracket_pollution(self, text: str) -> str:
+        """
+        Remove bracket pollution around words/phrases.
+        The model sometimes wraps Nigerian expressions in brackets like [Wahalai!] [Omo,]
+        This keeps valid language tags like [EN], [NP], [YO], [IG], [HA] intact.
+        """
+        # Valid language tags to preserve
+        valid_tags = ['EN', 'NP', 'YO', 'IG', 'HA', 'PIDGIN', 'YORUBA', 'IGBO', 'HAUSA', 'ENGLISH']
+        valid_pattern = '|'.join(valid_tags)
+        
+        # Remove brackets that are NOT valid language tags
+        # Pattern: [anything] where "anything" is not a language tag
+        def clean_bracket(match):
+            content = match.group(1)
+            # Check if it's a valid language tag (opening or closing)
+            if content.upper() in valid_tags or (content.startswith('/') and content[1:].upper() in valid_tags):
+                return match.group(0)  # Keep it
+            else:
+                return content  # Return content without brackets
+        
+        # Match [anything] where anything is captured
+        text = re.sub(r'\[([^\]]+)\]', clean_bracket, text)
+        
+        return text
+    
+    def _add_paragraph_formatting(self, text: str) -> str:
+        """
+        Add paragraph breaks for better readability.
+        Long responses should be broken into digestible paragraphs.
+        """
+        # If text is short (under 200 chars), don't format
+        if len(text) < 200:
+            return text
+        
+        # Split on sentence endings followed by new topics
+        # Add breaks before topic transitions
+        topic_starters = [
+            r'(?<=\. )(?=So,? )',
+            r'(?<=\. )(?=Now,? )',
+            r'(?<=\. )(?=But )',
+            r'(?<=\. )(?=Also,? )',
+            r'(?<=\. )(?=First,? )',
+            r'(?<=\. )(?=Second,? )',
+            r'(?<=\. )(?=Third,? )',
+            r'(?<=\. )(?=Finally,? )',
+            r'(?<=\. )(?=Lastly,? )',
+            r'(?<=\. )(?=Speaking of )',
+            r'(?<=\. )(?=When it comes to )',
+            r'(?<=! )(?=[A-Z])',  # After exclamation, new sentence
+        ]
+        
+        for pattern in topic_starters:
+            text = re.sub(pattern, '\n\n', text)
+        
+        # Also break after about 3-4 sentences if no breaks exist
+        sentences = re.split(r'(?<=[.!?])\s+', text)
+        if len(sentences) > 4 and '\n\n' not in text:
+            # Group into paragraphs of 3-4 sentences
+            paragraphs = []
+            current = []
+            for i, sentence in enumerate(sentences):
+                current.append(sentence)
+                if len(current) >= 3 and i < len(sentences) - 1:
+                    paragraphs.append(' '.join(current))
+                    current = []
+            if current:
+                paragraphs.append(' '.join(current))
+            text = '\n\n'.join(paragraphs)
+        
+        return text
     
     def _strip_language_tags(self, text: str) -> str:
         """Remove all language tags from text for clean display"""

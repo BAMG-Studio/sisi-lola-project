@@ -1058,20 +1058,47 @@
                 });
             }
             
-            // Remove ALL language tags from text
-            let clean = text
+            // CRITICAL FIX: Remove bracket pollution (non-language-tag brackets)
+            // Pattern: [Word!] or [Some text] that aren't language tags
+            const validTags = ['EN', 'NP', 'YO', 'IG', 'HA', 'PIDGIN', 'YORUBA', 'IGBO', 'HAUSA', 'ENGLISH'];
+            let clean = text.replace(/\[([^\]]+)\]/g, (match, content) => {
+                const upperContent = content.toUpperCase();
+                // Keep if it's a valid language tag (opening or closing)
+                if (validTags.includes(upperContent) || 
+                    (content.startsWith('/') && validTags.includes(content.slice(1).toUpperCase()))) {
+                    return match;
+                }
+                // Otherwise remove brackets, keep content
+                return content;
+            });
+            
+            // Remove ALL language tags from text after extracting them
+            clean = clean
                 .replace(/\[(EN|NP|YO|IG|HA|PIDGIN|YORUBA|IGBO|HAUSA|ENGLISH)\]/gi, '')
                 .replace(/\[\/(EN|NP|YO|IG|HA|PIDGIN|YORUBA|IGBO|HAUSA|ENGLISH)\]/gi, '')
                 // Remove hashtags (training data leakage)
-                .replace(/#[A-Za-z]+/g, '')
+                .replace(/#[A-Za-z0-9_]+/g, '')
                 // Remove "User:" hallucinations
                 .replace(/User:\s*[^.!?]*[.!?]/gi, '')
-                // Remove excessive "E choke" repetitions
+                // Remove excessive expression repetitions
                 .replace(/(E choke!?\s*){2,}/gi, 'E choke! ')
-                // Clean up double spaces and newlines
-                .replace(/\s+/g, ' ')
-                .replace(/\n{3,}/g, '\n\n')
+                .replace(/(Omo!?\s*){2,}/gi, 'Omo! ')
+                .replace(/(Wahala!?\s*){2,}/gi, 'Wahala! ')
+                .replace(/(Chai!?\s*){2,}/gi, 'Chai! ')
+                // Clean up double spaces
+                .replace(/ {2,}/g, ' ')
                 .trim();
+            
+            // Format paragraphs for better readability
+            if (clean.length > 200) {
+                // Convert single newlines in appropriate places
+                clean = clean
+                    .replace(/\. So,? /g, '.\n\nSo, ')
+                    .replace(/\. Now,? /g, '.\n\nNow, ')
+                    .replace(/\. But /g, '.\n\nBut ')
+                    .replace(/\. Also,? /g, '.\n\nAlso, ')
+                    .replace(/\n{3,}/g, '\n\n');
+            }
             
             return { text: clean, tags };
         }

@@ -1,4 +1,2 @@
 *.mp4 filter=lfs diff=lfs merge=lfs -text
 *.mp4.part filter=lfs diff=lfs merge=lfs -text
-ml_training/external_videos/tier1_ted/The[[:space:]]danger[[:space:]]of[[:space:]]a[[:space:]]single[[:space:]]story.mp4 filter=lfs diff=lfs merge=lfs -text
-ml_training/external_videos/tier1_ted/We[[:space:]]should[[:space:]]all[[:space:]]be[[:space:]]feminists.fhls-3768.mp4.part filter=lfs diff=lfs merge=lfs -text
