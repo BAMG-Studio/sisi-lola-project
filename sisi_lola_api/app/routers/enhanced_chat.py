@@ -1,7 +1,8 @@
 """
+from ml_training.scripts.model_cache_manager import get_model_cache
 import httpx
 import time
-from app.config import MODAL_INFERENCE_URL, MODAL_TIMEOUT
+from sisi_lola_api.app.config import MODAL_INFERENCE_URL, MODAL_TIMEOUT
 SISI LOLA ENHANCED CHAT ROUTER
 Multimodal endpoint with training data collection, special commands, and improved responses.
 
@@ -31,7 +32,7 @@ async def call_modal_inference(message: str, max_tokens: int = 256, temperature:
     """
     start = time.time()
     
-    try:
+    # OLD MODAL HTTP IMPLEMENTATION - REPLACED WITH LOCAL MODEL CACHEtry:
         async with httpx.AsyncClient(timeout=MODAL_TIMEOUT) as client:
             response = await client.post(
                 MODAL_INFERENCE_URL,
@@ -77,7 +78,7 @@ def get_service():
     """Lazy-load the enhanced inference service"""
     global _service
     if _service is None:
-        from app.services.enhanced_inference import get_enhanced_inference_service
+        from sisi_lola_api.app.services.enhanced_inference import get_enhanced_inference_service
         _service = get_enhanced_inference_service(load_brain=True, load_voice=False)
     return _service
 
@@ -202,7 +203,7 @@ async def enhanced_chat(request: EnhancedChatRequest):
         service = get_service()
         
         # Import enums from service
-        from app.services.enhanced_inference import ResponseMode as ServiceMode, Language as ServiceLang
+        from sisi_lola_api.app.services.enhanced_inference import ResponseMode as ServiceMode, Language as ServiceLang
         
         # Map enums
         service_mode = ServiceMode(request.mode.value)
@@ -256,7 +257,7 @@ async def start_session(
     - Intensity: heavy (70-90% target), medium (50-70%), light (30-50%)
     - Mood: default, flirty, mama_bear, strict_aunty, therapist, street_smart, hype_woman, storyteller
     """
-    from app.services.personality_modes import PrimaryLanguage, LanguageMode, MoodPreset
+    from sisi_lola_api.app.services.personality_modes import PrimaryLanguage, LanguageMode, MoodPreset
     
     service = get_service()
     
@@ -392,7 +393,7 @@ async def analyze_url(url: str = Query(..., description="URL to analyze")):
     
     Returns language pattern analysis for training data.
     """
-    from app.services.multimodal_processor import get_multimodal_processor
+    from sisi_lola_api.app.services.multimodal_processor import get_multimodal_processor
     
     processor = get_multimodal_processor()
     result = await processor.process_input(url)
@@ -421,7 +422,7 @@ async def preview_prompt(
     See the system prompt that will be used for a given mode.
     Useful for understanding and debugging Sisi Lola's behavior.
     """
-    from app.services.prompt_engine import get_prompt_engine, PromptMode, LanguageStyle
+    from sisi_lola_api.app.services.prompt_engine import get_prompt_engine, PromptMode, LanguageStyle
     
     engine = get_prompt_engine()
     
@@ -507,7 +508,7 @@ async def get_available_modes():
     
     Returns all available language modes, intensity levels, and mood presets.
     """
-    from app.services.personality_modes import (
+    from sisi_lola_api.app.services.personality_modes import (
         PrimaryLanguage, LanguageMode, MoodPreset, get_personality_modes
     )
     
@@ -565,7 +566,7 @@ async def update_session_personality(session_id: str, request: PersonalityModeRe
     Change language intensity and mood for the current session.
     Changes take effect immediately for subsequent messages.
     """
-    from app.services.personality_modes import PrimaryLanguage, LanguageMode, MoodPreset
+    from sisi_lola_api.app.services.personality_modes import PrimaryLanguage, LanguageMode, MoodPreset
     
     service = get_service()
     
@@ -642,7 +643,7 @@ async def get_training_dashboard():
     - Training statistics
     - Next training prompt
     """
-    from app.services.training_reinforcement import get_training_engine
+    from sisi_lola_api.app.services.training_reinforcement import get_training_engine
     
     engine = get_training_engine()
     dashboard = engine.get_training_dashboard()
@@ -663,7 +664,7 @@ async def get_training_schedule():
     - Daily: Focus areas by day of week
     - Weekly: Language focus by week number
     """
-    from app.services.training_reinforcement import get_training_engine
+    from sisi_lola_api.app.services.training_reinforcement import get_training_engine
     
     engine = get_training_engine()
     focus, language, description = engine.get_today_focus()
@@ -702,7 +703,7 @@ async def get_training_prompt(focus: Optional[str] = None):
     Generate a training prompt for the current focus area.
     Use this to practice and improve specific personality aspects.
     """
-    from app.services.training_reinforcement import get_training_engine, TrainingFocus
+    from sisi_lola_api.app.services.training_reinforcement import get_training_engine, TrainingFocus
     
     engine = get_training_engine()
     
@@ -730,7 +731,7 @@ async def get_weekly_report():
     
     Summarizes the past week's training sessions and progress.
     """
-    from app.services.training_reinforcement import get_training_engine
+    from sisi_lola_api.app.services.training_reinforcement import get_training_engine
     
     engine = get_training_engine()
     report = engine.get_weekly_report()
@@ -749,7 +750,7 @@ async def get_monthly_evolution_plan():
     
     Analyze training data and generate recommendations for model improvement.
     """
-    from app.services.training_reinforcement import get_training_engine
+    from sisi_lola_api.app.services.training_reinforcement import get_training_engine
     
     engine = get_training_engine()
     plan = engine.get_monthly_evolution_plan()
@@ -827,7 +828,7 @@ async def websocket_chat(websocket: WebSocket, session_id: str):
             temperature = data.get("temperature", 0.7)
             
             # Import enums
-            from app.services.enhanced_inference import ResponseMode as ServiceMode, Language as ServiceLang
+            from sisi_lola_api.app.services.enhanced_inference import ResponseMode as ServiceMode, Language as ServiceLang
             
             # Generate response
             response = await service.generate(

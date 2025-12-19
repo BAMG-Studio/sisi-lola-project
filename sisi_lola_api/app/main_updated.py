@@ -8,12 +8,12 @@ load_dotenv()
 import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import agent, images, videos, audio, auth, nigerian_models
-from app.routers import auth_router, control_center_router
-from app.database import init_db
-# from app.routers import chat
-from app.config import SisiLolaDNA
-from app.services import auth_store
+from sisi_lola_api.app.routers import agent, images, videos, audio, auth, nigerian_models
+from sisi_lola_api.app.routers import auth_router, control_center_router
+from sisi_lola_api.app.database import init_db
+# from sisi_lola_api.app.routers import chat
+from sisi_lola_api.app.config import SisiLolaDNA
+from sisi_lola_api.app.services import auth_store
 
 app = FastAPI(
     title="Sisi Lola Control Center API",

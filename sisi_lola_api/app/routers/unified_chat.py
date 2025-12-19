@@ -22,7 +22,7 @@ def get_service():
     """Lazy-load the inference service"""
     global _service
     if _service is None:
-        from app.services.unified_inference import get_inference_service
+        from sisi_lola_api.app.services.unified_inference import get_inference_service
         _service = get_inference_service(load_brain=True, load_voice=True)
     return _service
 
@@ -129,7 +129,7 @@ async def unified_chat(request: UnifiedChatRequest):
             history = [{"role": m.role, "content": m.content} for m in request.conversation_history]
         
         # Import response mode from service
-        from app.services.unified_inference import ResponseMode as ServiceMode, Language as ServiceLang
+        from sisi_lola_api.app.services.unified_inference import ResponseMode as ServiceMode, Language as ServiceLang
         
         # Map enums
         service_mode = ServiceMode(request.mode.value)
@@ -172,7 +172,7 @@ async def generate_voice(request: VoiceGenerateRequest):
         if not service.voice_loaded:
             raise HTTPException(status_code=503, detail="Voice model not loaded")
         
-        from app.services.unified_inference import Language as ServiceLang
+        from sisi_lola_api.app.services.unified_inference import Language as ServiceLang
         
         audio_base64, audio_url = await service._generate_voice(
             text=request.text,
@@ -276,7 +276,7 @@ async def websocket_chat(websocket: WebSocket):
             conversation_history.append({"role": "user", "content": message})
             
             # Generate response
-            from app.services.unified_inference import ResponseMode, Language
+            from sisi_lola_api.app.services.unified_inference import ResponseMode, Language
             
             response = await service.generate(
                 message=message,
@@ -339,7 +339,7 @@ async def continue_conversation(session_id: str, request: UnifiedChatRequest):
     
     # Generate response with full history
     service = get_service()
-    from app.services.unified_inference import ResponseMode, Language
+    from sisi_lola_api.app.services.unified_inference import ResponseMode, Language
     
     response = await service.generate(
         message=request.message,

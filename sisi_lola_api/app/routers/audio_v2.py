@@ -25,10 +25,10 @@ import httpx
 import os
 import base64
 
-from app.config import SisiLolaDNA
-from app.utils.language_detector import SisiLolaLanguageDetector, LanguageSegment
-from app.utils.prosody_processor import ProsodyProcessor
-from app.utils.voice_accent import rewrite_for_accent
+from sisi_lola_api.app.config import SisiLolaDNA
+from sisi_lola_api.app.utils.language_detector import SisiLolaLanguageDetector, LanguageSegment
+from sisi_lola_api.app.utils.prosody_processor import ProsodyProcessor
+from sisi_lola_api.app.utils.voice_accent import rewrite_for_accent
 
 router = APIRouter()
 

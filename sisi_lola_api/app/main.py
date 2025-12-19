@@ -11,13 +11,13 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
-from app.routers import agent, images, videos, audio, auth, nigerian_models, cohere, chat
-from app.routers import unified_chat
-from app.routers import enhanced_chat
-from app.routers import curator
-from app.services.instagram_bot import router as instagram_router
-from app.config import SisiLolaDNA
-from app.services import auth_store
+#from sisi_lola_api.app.routers import agent, images, videos, audio, auth, nigerian_models, cohere, chat
+from sisi_lola_api.app.routers import unified_chat
+from sisi_lola_api.app.routers import enhanced_chat
+#from sisi_lola_api.app.routers import curator
+from sisi_lola_api.app.services.instagram_bot import router as instagram_router
+from sisi_lola_api.app.config import SisiLolaDNA
+from sisi_lola_api.app.services import auth_store
 
 app = FastAPI(
     title="Sisi Lola OS API",
@@ -58,14 +58,14 @@ Visit the [interactive demo](/demo) to chat with Sisi Lola!
 )
 
 # Include the modular routers
-app.include_router(agent.router, prefix="/agent", tags=["Agent Builder"])
+#app.include_router(agent.router, prefix="/agent", tags=["Agent Builder"])
 app.include_router(chat.router, prefix="/chat", tags=["Chat & Persona"])
-app.include_router(images.router, prefix="/images", tags=["Image Generation"])
-app.include_router(videos.router, prefix="/videos", tags=["Video Production"])
+#app.include_router(images.router, prefix="/images", tags=["Image Generation"])
+#app.include_router(videos.router, prefix="/videos", tags=["Video Production"])
 app.include_router(audio.router, prefix="/audio", tags=["Audio & Voice"])
 app.include_router(auth.router, tags=["Auth"])
-app.include_router(nigerian_models.router)
-app.include_router(cohere.router)
+#app.include_router(nigerian_models.router)
+#app.include_router(cohere.router)
 
 # NEW: Unified multimodal chat
 app.include_router(unified_chat.router)
@@ -77,7 +77,7 @@ app.include_router(enhanced_chat.router)
 app.include_router(instagram_router)
 
 # NEW: Voice Dataset Curator for African language datasets
-app.include_router(curator.router)
+#app.include_router(curator.router)
 
 # Mount static files for web demo
 static_dir = Path(__file__).parent.parent / "static"
@@ -100,7 +100,7 @@ async def startup_init():
     if preload_models:
         print("\n📦 Preloading inference service...")
         try:
-            from app.services.unified_inference import get_inference_service
+            from sisi_lola_api.app.services.unified_inference import get_inference_service
             # Load with voice disabled for faster startup (can be enabled per-request)
             service = get_inference_service(load_brain=False, load_voice=False)
             print("✅ Inference service ready (using fine-tuned OpenAI models)")

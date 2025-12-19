@@ -3,7 +3,7 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import Optional, List, Dict
-from app.services.cohere_service import CohereService
+from sisi_lola_api.app.services.cohere_service import CohereService
 
 router = APIRouter(prefix="/cohere", tags=["cohere"])
 cohere_service = CohereService()

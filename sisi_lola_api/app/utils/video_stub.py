@@ -8,9 +8,9 @@ from pathlib import Path
 from typing import Tuple
 
 import httpx
-import imageio.v3 as iio
+#import imageio.v3 as iio
 import numpy as np
-from PIL import Image
+#from PIL import Image
 
 
 def _download_image(url: str) -> bytes:

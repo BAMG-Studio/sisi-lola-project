@@ -11,6 +11,20 @@ from typing import Dict, Any
 # ============================================
 GPU_CONFIG = "T4"  # 10x faster cold start than A100
 
+
+# =====================================================
+# MODEL CONFIGURATION
+# =====================================================
+# Phase 1: Default English model (GPT-Neo - non-gated)
+DEFAULT_ENGLISH_MODEL = "EleutherAI/gpt-neo-1.3B"  # Fast, non-gated
+# Phase 2: Nigerian custom model (your trained model)
+NIGERIAN_MODEL = "sisilolalive/sisi-lola-brain-mistral"  # Your custom trained model
+
+# Language detection keywords
+NIGERIAN_KEYWORDS = [
+        "abeg", "oga", "wetin", "no wahala", "how far", "na so",
+            "bros", "sista", "make we", "shey", "abi", "ehn"
+            ]
 # ============================================
 # OPTIMIZATION 2: Optimized Image with Caching
 # Pin numpy<2 for torch 2.1.0 compatibility
@@ -33,6 +47,13 @@ image = (
 
 app = modal.App("sisi-lola-inference")
 
+# =====================================================
+# LANGUAGE DETECTION (Phase 3)
+# =====================================================
+def detect_nigerian_language(text: str) -> bool:
+        """Simple keyword-based Nigerian language detection (Pidgin/Yoruba)."""
+            text_lower = text.lower()
+                return any(keyword in text_lower for keyword in NIGERIAN_KEYWORDS)
 # ============================================
 # OPTIMIZATION 3: Model Cache Class with @modal.cls
 # ============================================
@@ -65,7 +86,11 @@ class ModelInference:
         # Get HuggingFace token from environment (set by Modal secret)
         hf_token = os.getenv("HF_TOKEN") or os.getenv("HUGGINGFACE_TOKEN")
         
-        # Use a simpler, non-gated model for reliability
+                # TODO: UPDATED - Load BOTH English (GPT-Neo) and Nigerian (sisi-lola-brain-mistral) models
+                        # Phase 1: English model = DEFAULT_ENGLISH_MODEL
+                                # Phase 2: Nigerian model = NIGERIAN_MODEL
+                                        # Phase 3: Use detect_nigerian_language() to route requests
+                                        # Use a simpler, non-gated model for reliability
         chat_model = os.getenv("CHAT_MODEL", "microsoft/DialoGPT-medium")
         
         try:

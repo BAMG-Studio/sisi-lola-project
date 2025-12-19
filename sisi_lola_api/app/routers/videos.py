@@ -3,14 +3,14 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 import time
 
-from app.config import SisiLolaDNA
-from app.dependencies.auth import require_api_key
-from app.services import auth_store
-from app.utils.heygen import poll_heygen_video, start_heygen_video
-from app.utils.perplexity import enhance_prompt_with_perplexity
-from app.utils.perplexity_generation import generate_perplexity_video
-from app.utils.video_stub import create_stub_video
-from app.utils.openai_images import generate_openai_image
+from sisi_lola_api.app.config import SisiLolaDNA
+from sisi_lola_api.app.dependencies.auth import require_api_key
+from sisi_lola_api.app.services import auth_store
+from sisi_lola_api.app.utils.heygen import poll_heygen_video, start_heygen_video
+from sisi_lola_api.app.utils.perplexity import enhance_prompt_with_perplexity
+from sisi_lola_api.app.utils.perplexity_generation import generate_perplexity_video
+from sisi_lola_api.app.utils.video_stub import create_stub_video
+from sisi_lola_api.app.utils.openai_images import generate_openai_image
 
 router = APIRouter()
 

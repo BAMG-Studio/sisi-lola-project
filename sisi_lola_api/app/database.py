@@ -133,7 +133,7 @@ def init_db():
     
     # Create default roles
     db = SessionLocal()
-    from app.auth import ROLES
+    from sisi_lola_api.app.auth import ROLES
     
     for role_name, role_data in ROLES.items():
         existing = db.query(Role).filter(Role.name == role_name).first()

@@ -7,12 +7,12 @@ from sqlalchemy.orm import Session
 from datetime import datetime
 from typing import List
 
-from app.auth import (
+from sisi_lola_api.app.auth import (
     UserCreate, UserLogin, Token, User as UserSchema, TokenData,
     get_password_hash, verify_password, create_access_token, create_refresh_token,
     get_current_user, require_role, require_permission
 )
-from app.database import get_db, User, Role, Session as DBSession, AuditLog
+from sisi_lola_api.app.database import get_db, User, Role, Session as DBSession, AuditLog
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 
