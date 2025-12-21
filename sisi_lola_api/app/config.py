@@ -67,6 +67,10 @@ class SisiLolaDNA:
 # ============================================
 # MODAL INFERENCE SERVICE - OPTIMIZED
 # ============================================
+sed -n '68,72p' sisi_lola_api/app/config.py
+python3 -c "with open('sisi_lola_api/app/config.py') as f: lines=f.readlines(); [print(f'{i}: {lines[i]}', end='') for i in range(67, 73)]"
+grep -r "we go yarn soon" sisi_lola_api/
+grep -n "I'm offline now" sisi_lola_api/app/config.py
 MODAL_INFERENCE_URL = "https://bamg-studio--sisi-lola-inference-modelinference-generate-text.modal.run"
 MODAL_HEALTH_URL = "https://bamg-studio--sisi-lola-inference-modelinference-health.modal.run"
 

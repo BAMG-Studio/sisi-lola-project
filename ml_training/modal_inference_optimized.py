@@ -51,9 +51,19 @@ app = modal.App("sisi-lola-inference")
 # LANGUAGE DETECTION (Phase 3)
 # =====================================================
 def detect_nigerian_language(text: str) -> bool:
-        """Simple keyword-based Nigerian language detection (Pidgin/Yoruba)."""
-            text_lower = text.lower()
-                return any(keyword in text_lower for keyword in NIGERIAN_KEYWORDS)
+        """Simple keyword-basedcat modal_inference_optimized.py | head -60 | tail -15
+        awk 'NR>=53 && NR<=58 {printf "%3d: %s\n", NR, $0}' modal_inference_optimized.py
+        python3 -c "with open('modal_inference_optimized.py') as f: lines = f.readlines(); [print(f'{i}: {repr(lines[i-1])}') for i in range(53, 59)]"
+        clear
+        head -n 58 modal_inference_optimized.py | tail -n 6
+        sed -n '54p' modal_inference_optimized.py
+        sed -i '55s/^.*/    text_lower = text.lower()/' modal_inference_optimized.py
+        sed -n '54,56p' modal_inference_optimized.py
+        python -m py_compile modal_inference_optimized.py
+        modal deploy modal_inference_optimized.py
+        
+         Nigerian language detection (Pidgin/Yoruba)."""
+                    text_lower = text.lower()    return any(keyword in text_lower for keyword in NIGERIAN_KEYWORDS)
 # ============================================
 # OPTIMIZATION 3: Model Cache Class with @modal.cls
 # ============================================

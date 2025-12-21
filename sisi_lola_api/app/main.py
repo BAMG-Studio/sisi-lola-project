@@ -11,7 +11,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
-#from sisi_lola_api.app.routers import agent, images, videos, audio, auth, nigerian_models, cohere, chat
+from sisi_lola_api.app.routers import enhanced_chat
 from sisi_lola_api.app.routers import unified_chat
 from sisi_lola_api.app.routers import enhanced_chat
 #from sisi_lola_api.app.routers import curator
@@ -59,11 +59,11 @@ Visit the [interactive demo](/demo) to chat with Sisi Lola!
 
 # Include the modular routers
 #app.include_router(agent.router, prefix="/agent", tags=["Agent Builder"])
-app.include_router(chat.router, prefix="/chat", tags=["Chat & Persona"])
-#app.include_router(images.router, prefix="/images", tags=["Image Generation"])
-#app.include_router(videos.router, prefix="/videos", tags=["Video Production"])
-app.include_router(audio.router, prefix="/audio", tags=["Audio & Voice"])
-app.include_router(auth.router, tags=["Auth"])
+##app.include_router(chat.router, prefix="/chat", tags=["Chat & Persona"])
+##app.include_router(images.router, prefix="/images", tags=["Image Generation"])
+##app.include_router(videos.router, prefix="/videos", tags=["Video Production"])
+#app.include_router(audio.router, prefix="/audio", tags=["Audio & Voice"])
+#app.include_router(auth.router, tags=["Auth"])
 #app.include_router(nigerian_models.router)
 #app.include_router(cohere.router)
 
