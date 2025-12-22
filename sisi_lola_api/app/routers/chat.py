@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 from typing import Optional, List
-from app.config import SisiLolaDNA
-from app.services.personality_engine import personality_engine
+from sisi_lola_api.app.config import SisiLolaDNA
+from sisi_lola_api.app.services.personality_engine import personality_engine
 from openai import OpenAI
 import os
 

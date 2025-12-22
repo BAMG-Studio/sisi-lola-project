@@ -8,8 +8,8 @@ from typing import List, Optional
 from datetime import datetime
 from pydantic import BaseModel
 
-from app.auth import TokenData, get_current_user, require_permission
-from app.database import (
+from sisi_lola_api.app.auth import TokenData, get_current_user, require_permission
+from sisi_lola_api.app.database import (
     get_db, Asset, ContentQueue, TrainingJob, 
     PlatformAccount, AuditLog, User
 )

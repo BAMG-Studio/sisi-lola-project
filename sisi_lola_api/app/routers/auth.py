@@ -6,8 +6,8 @@ from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
 
-from app.dependencies.auth import require_admin, require_api_key
-from app.services import auth_store
+from sisi_lola_api.app.dependencies.auth import require_admin, require_api_key
+from sisi_lola_api.app.services import auth_store
 
 router = APIRouter()
 

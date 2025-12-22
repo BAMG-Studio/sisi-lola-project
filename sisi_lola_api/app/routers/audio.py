@@ -5,10 +5,10 @@ import time
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 import httpx
-from app.config import SisiLolaDNA
-from app.dependencies.auth import require_api_key
-from app.services import auth_store
-from app.utils.voice_accent import rewrite_for_accent
+from sisi_lola_api.app.config import SisiLolaDNA
+from sisi_lola_api.app.dependencies.auth import require_api_key
+from sisi_lola_api.app.services import auth_store
+from sisi_lola_api.app.utils.voice_accent import rewrite_for_accent
 
 router = APIRouter()
 

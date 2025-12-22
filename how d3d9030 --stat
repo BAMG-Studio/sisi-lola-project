@@ -1,0 +1,10 @@
+[33md3d9030[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Optimize unified inference: fine-tuned models, caching, post-processing
+[33me749d45[m Fix: Bracket pollution, response formatting, and optimization activation
+[33mfd2aa03[m Update project files and assets (excluding large videos)
+[33mecb9cbe[m Merge remote changes with local fine-tuning optimizations
+[33mf9c25e2[m feat: Implement comprehensive fine-tuning optimization (40x speedup)
+[33mb42916b[m Fix: Add --force flag to modal volume put commands
+[33m1d327b3[m Add comprehensive training pipeline status update
+[33mdce6f9d[m Fix training pipeline workflow failures
+[33mb27a67e[m Add comprehensive N-ATLaS training implementation documentation
+[33m8b2bbb9[m Upgrade to GPT-4o-mini fine-tuned model as default

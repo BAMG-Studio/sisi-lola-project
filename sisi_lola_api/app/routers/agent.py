@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from app.config import SisiLolaDNA
+from sisi_lola_api.app.config import SisiLolaDNA
 import httpx
 import os
 

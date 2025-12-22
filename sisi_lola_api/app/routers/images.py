@@ -5,13 +5,13 @@ from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 import httpx
-from app.config import SisiLolaDNA
-from app.dependencies.auth import require_api_key
-from app.services import auth_store
-from app.utils.klingai import build_klingai_headers, KLINGAI_IMAGE_ENDPOINT
-from app.utils.openai_images import generate_openai_image
-from app.utils.perplexity import enhance_prompt_with_perplexity
-from app.utils.perplexity_generation import generate_perplexity_image
+from sisi_lola_api.app.config import SisiLolaDNA
+from sisi_lola_api.app.dependencies.auth import require_api_key
+from sisi_lola_api.app.services import auth_store
+from sisi_lola_api.app.utils.klingai import build_klingai_headers, KLINGAI_IMAGE_ENDPOINT
+from sisi_lola_api.app.utils.openai_images import generate_openai_image
+from sisi_lola_api.app.utils.perplexity import enhance_prompt_with_perplexity
+from sisi_lola_api.app.utils.perplexity_generation import generate_perplexity_image
 
 router = APIRouter()
 

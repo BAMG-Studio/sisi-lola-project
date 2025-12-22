@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from fastapi import Depends, Header, HTTPException, status
 
-from app.services import auth_store
+from sisi_lola_api.app.services import auth_store
 
 
 async def require_api_key(authorization: str = Header(None)):

@@ -22,10 +22,10 @@ def get_service():
     """Lazy-load the inference service"""
     global _service
     if _service is None:
-        from app.services.unified_inference import get_inference_service
-        from app.services.memory_bank import memory_bank
+        from sisi_lola_api.app.services.unified_inference import get_inference_service
+        from sisi_lola_api.app.services.memory_bank import memory_bank
         # Use default settings (controlled by env vars)
-        _service = get_inference_service()
+        _service = get_inference_service(load_brain=True, load_voice=True)
         _service.memory_bank = memory_bank
     return _service
 
@@ -126,11 +126,11 @@ async def unified_chat(request: UnifiedChatRequest):
         if request.conversation_history:
             history = [{"role": m.role, "content": m.content} for m in request.conversation_history]
         
-        # Import memory bank
-        from app.services.memory_bank import memory_bank
+        # Import memory bank and service enums
+        from sisi_lola_api.app.services.memory_bank import memory_bank
+        from sisi_lola_api.app.services.unified_inference import ResponseMode as ServiceMode, Language as ServiceLang
+        
         session_id = request.model_info.get("session_id", "default") if request.model_info else "default"
-
-        # Generate
         response = await service.generate(
             message=request.message,
             mode=ServiceMode(request.mode.value),
@@ -173,7 +173,7 @@ async def unified_chat_stream(request: UnifiedChatRequest):
     if request.conversation_history:
         history = [{"role": m.role, "content": m.content} for m in request.conversation_history]
     
-    from app.services.unified_inference import Language as ServiceLang
+    from sisi_lola_api.app.services.unified_inference import Language as ServiceLang
     
     return StreamingResponse(
         service.generate_stream(
@@ -182,6 +182,7 @@ async def unified_chat_stream(request: UnifiedChatRequest):
             conversation_history=history,
             max_tokens=request.max_tokens,
             temperature=request.temperature,
+            session_id=request.model_info.get("session_id", "default") if request.model_info else "default"
         ),
         media_type="text/event-stream"
     )
@@ -199,7 +200,7 @@ async def generate_voice(request: VoiceGenerateRequest):
         if not service.voice_loaded:
             raise HTTPException(status_code=503, detail="Voice model not loaded")
         
-        from app.services.unified_inference import Language as ServiceLang
+        from sisi_lola_api.app.services.unified_inference import Language as ServiceLang
         
         audio_base64, audio_url = await service._generate_voice(
             text=request.text,
@@ -278,7 +279,7 @@ async def log_alignment(request: AlignmentFeedbackRequest):
     Used to improve Sisi Lola's cultural and linguistic accuracy.
     """
     try:
-        from app.services.alignment_engine import alignment_engine
+        from sisi_lola_api.app.services.alignment_engine import alignment_engine
         alignment_engine.log_alignment_feedback(
             session_id=request.session_id,
             feedback_type=request.feedback_type,
@@ -348,7 +349,7 @@ async def websocket_chat(websocket: WebSocket):
             conversation_history.append({"role": "user", "content": message})
             
             # Generate response
-            from app.services.unified_inference import ResponseMode, Language
+            from sisi_lola_api.app.services.unified_inference import ResponseMode, Language
             
             response = await service.generate(
                 message=message,
@@ -411,8 +412,8 @@ async def continue_conversation(session_id: str, request: UnifiedChatRequest):
     
     # Generate response with full history from memory bank
     service = get_service()
-    from app.services.unified_inference import ResponseMode, Language
-    from app.services.memory_bank import memory_bank
+    from sisi_lola_api.app.services.unified_inference import ResponseMode, Language
+    from sisi_lola_api.app.services.memory_bank import memory_bank
     
     # Get history from DB if not provided
     if not history:

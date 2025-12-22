@@ -1,6 +1,6 @@
 import os
 import httpx
-from app.config import SisiLolaDNA
+from sisi_lola_api.app.config import SisiLolaDNA
 
 
 def _fallback_prompt(scenario: str, outfit: str, modality: str) -> str:

@@ -9,7 +9,7 @@ from __future__ import annotations
 import os
 import httpx
 from typing import List
-from app.config import SisiLolaDNA
+from sisi_lola_api.app.config import SisiLolaDNA
 
 
 async def rewrite_for_accent(text: str, accent: str = "nigerian-yoruba", languages: List[str] | None = None) -> str:

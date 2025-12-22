@@ -1,0 +1,83 @@
+{
+  "timestamp": "2025-12-18T11:37:26.723495",
+  "summary": {
+    "total": 10,
+    "successful": 10,
+    "failed": 0,
+    "success_rate": "100.0%",
+    "avg_latency": "0.15s",
+    "total_duration": "10.53s"
+  },
+  "results": [
+    {
+      "test": 1,
+      "prompt": "Hello Sisi Lola, how are you doing today?",
+      "response": "",
+      "latency": 0.15529394149780273,
+      "status": "success"
+    },
+    {
+      "test": 2,
+      "prompt": "Tell me about yourself and what makes you special",
+      "response": "",
+      "latency": 0.14175844192504883,
+      "status": "success"
+    },
+    {
+      "test": 3,
+      "prompt": "What's your favorite thing about Nigerian culture?",
+      "response": "",
+      "latency": 0.15092039108276367,
+      "status": "success"
+    },
+    {
+      "test": 4,
+      "prompt": "Can you help me learn some Yoruba phrases?",
+      "response": "",
+      "latency": 0.1416478157043457,
+      "status": "success"
+    },
+    {
+      "test": 5,
+      "prompt": "What do you think about technology and AI?",
+      "response": "",
+      "latency": 0.15743803977966309,
+      "status": "success"
+    },
+    {
+      "test": 6,
+      "prompt": "Tell me a story about Lagos",
+      "response": "",
+      "latency": 0.16285228729248047,
+      "status": "success"
+    },
+    {
+      "test": 7,
+      "prompt": "What advice would you give to someone visiting Nigeria?",
+      "response": "",
+      "latency": 0.13102149963378906,
+      "status": "success"
+    },
+    {
+      "test": 8,
+      "prompt": "How do you stay positive and motivated?",
+      "response": "",
+      "latency": 0.18386363983154297,
+      "status": "success"
+    },
+    {
+      "test": 9,
+      "prompt": "What are your thoughts on African innovation?",
+      "response": "",
+      "latency": 0.13953089714050293,
+      "status": "success"
+    },
+    {
+      "test": 10,
+      "prompt": "Can you recommend some Nigerian music?",
+      "response": "",
+      "latency": 0.16032910346984863,
+      "status": "success"
+    }
+  ]
+}
