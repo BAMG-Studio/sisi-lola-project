@@ -80,9 +80,20 @@ app.include_router(instagram_router)
 app.include_router(curator.router)
 
 # Mount static files for web demo
-static_dir = Path(__file__).parent.parent / "static"
+# Search for static dir relative to this file to be robust
+current_dir = Path(__file__).parent.parent
+static_dir = current_dir / "static"
+
+# Fallback check if mounted incorrectly
+if not static_dir.exists():
+    # Try one level up if we're in a subdirectory of app
+    static_dir = Path(__file__).parent.parent.parent / "sisi_lola_api" / "static"
+
 if static_dir.exists():
+    print(f"📁 Mounting static files from: {static_dir}")
     app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
+else:
+    print(f"⚠️  Static directory not found at {static_dir}")
 
 
 @app.on_event("startup")
@@ -103,6 +114,13 @@ async def startup_init():
             from app.services.unified_inference import get_inference_service
             # Load with voice disabled for faster startup (can be enabled per-request)
             service = get_inference_service(load_brain=False, load_voice=False)
+            
+            # Background preload MMS for Native Authenticity
+            from app.services.mms_service import mms_service
+            import asyncio
+            # We don't await this to avoid blocking startup, but it starts the download
+            asyncio.create_task(asyncio.to_thread(mms_service.preload_common_models))
+            
             print("✅ Inference service ready (using fine-tuned OpenAI models)")
         except Exception as e:
             print(f"⚠️  Inference preload skipped: {e}")
@@ -141,10 +159,16 @@ app.add_middleware(
 @app.get("/demo", include_in_schema=False)
 async def serve_demo():
     """Serve the interactive web demo"""
+    # Use the same logic as the static mount for consistency
     static_file = Path(__file__).parent.parent / "static" / "index.html"
+    
+    # Fallback check
+    if not static_file.exists():
+        static_file = Path(__file__).parent.parent.parent / "sisi_lola_api" / "static" / "index.html"
+
     if static_file.exists():
         return FileResponse(str(static_file))
-    return {"error": "Demo not found", "hint": "Run from sisi_lola_api directory"}
+    return {"error": "Demo not found", "hint": f"Looked in {static_file}"}
 
 
 @app.get("/")

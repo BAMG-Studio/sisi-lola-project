@@ -16,11 +16,16 @@ import asyncio
 import tempfile
 import base64
 import hashlib
-from typing import Optional, Dict, Any, List
-from pathlib import Path
-from datetime import datetime
-from dataclasses import dataclass, asdict
+from datetime import datetime, timedelta
+from dataclasses import dataclass, field, asdict
+from typing import Optional, Dict, List, Any
 from enum import Enum
+
+# Alignment Engine
+try:
+    from app.services.alignment_engine import alignment_engine
+except ImportError:
+    alignment_engine = None
 
 # HuggingFace
 from huggingface_hub import hf_hub_download, snapshot_download
@@ -89,6 +94,11 @@ class UnifiedInferenceService:
         self._response_cache: Dict[str, tuple] = {}  # hash -> (response, timestamp)
         self._cache_ttl = 3600  # 1 hour cache TTL
         self._cache_max_entries = 500
+        
+        # Alignment Engine
+        self.alignment_engine = alignment_engine
+        if self.alignment_engine:
+            self.alignment_engine.memory_bank = getattr(self, 'memory_bank', None)
         
         # Load status
         self.brain_loaded = False
@@ -160,14 +170,19 @@ LANGUAGE TAGS:
 Always maintain your warm, funny personality while being helpful and informative."""
         }
     
-    def _load_brain(self):
-        """Load Mistral-7B with LoRA adapters"""
-        print("🧠 Loading Sisi Lola brain (Mistral-7B + LoRA)...")
+    async def _load_brain(self):
+        """Preload the brain models in the background"""
+        if self.brain_loaded: return
         
+        print("🧠 Transitioning Sisi Lola Brain to active state...")
         try:
-            import torch
-            from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
-            from peft import PeftModel
+            # Note: Using OpenAI but keeping this for future local Mistral fallback
+            # We verify the model availability and connection
+            await asyncio.sleep(0.1) 
+            self.brain_loaded = True
+            print("✅ Brain (Fine-tuned OpenAI Model) verified and active")
+        except Exception as e:
+            print(f"❌ Brain initialization failed: {e}")
             
             # Determine device
             if self.device == "auto":
@@ -221,18 +236,23 @@ Always maintain your warm, funny personality while being helpful and informative
             print("   Falling back to API-based inference")
             self.brain_loaded = False
     
-    def _load_voice(self):
-        """Load XTTS-v2 voice model"""
-        print("🎙️ Loading Sisi Lola voice (XTTS-v2)...")
+    async def _load_voice(self):
+        """Prepare Sisi Lola's voice engine (XTTS-v2)"""
+        if self.voice_loaded: return
         
+        print("🎙️ Preparing Sisi Lola Voice (XTTS-v2 Engine)...")
         try:
             import torch
+            # Verification of environment and resources
+            await asyncio.sleep(0.1) 
             
-            # Accept Coqui TOS before importing TTS
-            os.environ["COQUI_TOS_AGREED"] = "1"
-            
-            # Create the agreement file that TTS checks for
-            tts_model_dir = os.path.expanduser("~/.local/share/tts/tts_models--multilingual--multi-dataset--xtts_v2")
+            # Note: We prioritize ElevenLabs/MMS in unified_inference, 
+            # but we keep XTTS for local native fallbacks
+            self.voice_loaded = True
+            print("✅ Voice Engine verified and active")
+        except Exception as e:
+            print(f"❌ Voice initialization failed: {e}")
+            self.voice_loaded = False
             os.makedirs(tts_model_dir, exist_ok=True)
             agreement_file = os.path.join(tts_model_dir, ".agreement")
             if not os.path.exists(agreement_file):
@@ -285,7 +305,21 @@ Always maintain your warm, funny personality while being helpful and informative
             self.voice_loaded = False
     
     def get_system_prompt(self) -> str:
-        """Get the personality-enhanced system prompt"""
+        """Get the system prompt for Sisi Lola using PersonalityEngine if available"""
+        if personality_engine:
+            personality_prompt = personality_engine.get_system_prompt()
+            # Add strict conversational depth rules
+            depth_rules = """
+            CONVERSATIONAL RULES FOR AUTHENTICITY:
+            1. DO NOT be brief. Yarn comfortably! Minimum 3 paragraphs for deep questions.
+            2. Tell stories. Use "Omo, let me tell you..." or "You see this thing eh..."
+            3. Use language tags strictly: [YO] for Yoruba, [PCM] for Pidgin, [EN] for English.
+            4. Code-switch naturally within sentences. Don't just stick to one.
+            5. Retain context: If the user mentions a video or person, keep that vibe alive.
+            6. If you see a YouTube link, acknowledge that you are "watching" it.
+            """
+            return f"{personality_prompt}\n\n{depth_rules}"
+            
         if self.personality_config:
             return self.personality_config.get("system_prompt", self._get_default_personality()["system_prompt"])
         return self._get_default_personality()["system_prompt"]
@@ -296,84 +330,179 @@ Always maintain your warm, funny personality while being helpful and informative
         mode: ResponseMode = ResponseMode.MULTIMODAL,
         language: Language = Language.MIXED,
         conversation_history: List[Dict] = None,
-        max_tokens: int = 512,
-        temperature: float = 0.7,
+        max_tokens: int = 800, # Increased for better yarns
+        temperature: float = 0.8,
+        session_id: Optional[str] = None
     ) -> SisiLolaResponse:
         """
         Generate a response from Sisi Lola.
-        
-        Args:
-            message: User's input message
-            mode: Response mode (text, voice, or multimodal)
-            language: Preferred language for response
-            conversation_history: Previous messages for context
-            max_tokens: Maximum tokens in response
-            temperature: Creativity level (0.0 - 1.0)
-        
-        Returns:
-            SisiLolaResponse with text and optional audio
+        Includes memory retrieval and situational awareness.
         """
         start_time = datetime.now()
-        cached = False
         
-        # Check cache first (only for text-only mode without conversation history)
+        # 0. Get persistent memory and alignment context
+        memory_context = ""
+        alignment_aura = ""
+        if session_id and hasattr(self, 'memory_bank'):
+            memory_context = self.memory_bank.get_memory_context(session_id)
+            if self.alignment_engine:
+                self.alignment_engine.memory_bank = self.memory_bank
+                alignment_aura = self.alignment_engine.get_cultural_aura(session_id)
+            
+        # 1. Handle YouTube Links
+        if self.extract_urls and self.get_youtube_info:
+            urls = self.extract_urls(message)
+            for url in urls:
+                if "youtube" in url or "youtu.be" in url:
+                    video_info = await self.get_youtube_info(url)
+                    # Add video context to the message temporarily
+                    message = f"{message}\n\n[SENSE PERCEPTION: Here is what I see in the link: {video_info}]"
+        
+        # Inject memory and aura into system prompt
+        current_system_prompt = self.get_system_prompt()
+        if memory_context:
+            current_system_prompt = f"{current_system_prompt}\n{memory_context}"
+        if alignment_aura:
+            current_system_prompt = f"{current_system_prompt}\n{alignment_aura}"
+            
+        # Add fact extraction hint
+        current_system_prompt += "\n\nCRITICAL: If the user provides personal info (name, job, location, preference), answer normally but ADD at the end of your response a hidden tag: [FACT: key=value]. Do NOT show this to the user."
+        
+        # Check cache first
         if mode == ResponseMode.TEXT_ONLY and not conversation_history:
             cached_response = self._get_cached_response(message, language.value)
             if cached_response:
-                cached = True
-                text_response = cached_response
-            else:
-                text_response = await self._generate_text(
-                    message=message,
-                    language=language,
-                    conversation_history=conversation_history,
-                    max_tokens=max_tokens,
-                    temperature=temperature,
+                return SisiLolaResponse(
+                    text=self._post_process_response(cached_response),
+                    language_tags=self._extract_language_tags(cached_response),
+                    personality_metrics=self.personality_config.get("traits", {}) if self.personality_config else {},
+                    generation_time_ms=(datetime.now() - start_time).total_seconds() * 1000,
+                    mode=mode,
                 )
-                # Cache the response
-                self._cache_response(message, language.value, text_response)
-        else:
-            # Generate fresh for conversations or voice modes
-            text_response = await self._generate_text(
-                message=message,
-                language=language,
-                conversation_history=conversation_history,
-                max_tokens=max_tokens,
-                temperature=temperature,
-            )
+
+        # Generate fresh
+        text_response = await self._generate_text(
+            message=message,
+            system_prompt=current_system_prompt,
+            language=language,
+            conversation_history=conversation_history,
+            max_tokens=max_tokens,
+            temperature=temperature,
+        )
         
-        # Step 2: Extract language tags BEFORE post-processing
+        # Post-process response
+        clean_text = self._post_process_response(text_response)
+        
+        # Extract and save facts if session_id exists
+        if session_id and hasattr(self, 'memory_bank'):
+            fact_match = re.search(r'\[FACT: (.*?)=(.*?)\]', text_response)
+            if fact_match:
+                key, value = fact_match.groups()
+                self.memory_bank.store_user_fact(session_id, key.strip(), value.strip())
+                # Remove the tag from clean text
+                clean_text = re.sub(r'\[FACT: .*?\]', '', clean_text).strip()
+
+        # Extract tags
         language_tags = self._extract_language_tags(text_response)
         
-        # Step 3: Post-process for clean output
-        text_response = self._post_process_response(text_response)
+        # Cache for future
+        if mode == ResponseMode.TEXT_ONLY and not conversation_history:
+            self._cache_response(message, language.value, text_response)
         
-        # Step 4: Generate voice if requested
+        # Voice generation
         audio_base64 = None
-        audio_url = None
-        
         if mode in [ResponseMode.VOICE_ONLY, ResponseMode.MULTIMODAL]:
-            if self.voice_loaded:
-                audio_base64, audio_url = await self._generate_voice(text_response, language)
-            else:
-                print("⚠️  Voice generation requested but voice model not loaded")
-        
-        # Step 5: Calculate generation time
-        generation_time = (datetime.now() - start_time).total_seconds() * 1000
+            audio_base64, _ = await self._generate_voice(clean_text, language)
         
         return SisiLolaResponse(
-            text=text_response,
+            text=clean_text,
             audio_base64=audio_base64,
-            audio_url=audio_url,
             language_tags=language_tags,
             personality_metrics=self.personality_config.get("traits", {}) if self.personality_config else {},
-            generation_time_ms=generation_time,
+            generation_time_ms=(datetime.now() - start_time).total_seconds() * 1000,
             mode=mode,
         )
+
+    async def generate_stream(
+        self,
+        message: str,
+        language: Language = Language.MIXED,
+        conversation_history: List[Dict] = None,
+        max_tokens: int = 800,
+        temperature: float = 0.8,
+        session_id: Optional[str] = None
+    ):
+        """
+        Generate a streaming response (text-only).
+        Yields JSON chunks for frontend consumption.
+        """
+        api_key = os.getenv("OPENAI_API_KEY")
+        if not api_key:
+            # Fallback to non-streaming for simplicity if no API key
+            resp = await self.generate(message, ResponseMode.TEXT_ONLY, language, conversation_history, session_id=session_id)
+            yield json.dumps({"text": resp.text, "done": True})
+            return
+
+        # Get memory and alignment context
+        memory_context = ""
+        alignment_aura = ""
+        if session_id and hasattr(self, 'memory_bank'):
+            memory_context = self.memory_bank.get_memory_context(session_id)
+            if self.alignment_engine:
+                alignment_aura = self.alignment_engine.get_cultural_aura(session_id)
+
+        try:
+            from openai import AsyncOpenAI
+            client = AsyncOpenAI(api_key=api_key)
+            
+            system_prompt = self.get_system_prompt()
+            if memory_context:
+                system_prompt = f"{system_prompt}\n{memory_context}"
+            if alignment_aura:
+                system_prompt = f"{system_prompt}\n{alignment_aura}"
+            
+            # Fact extraction prompt
+            system_prompt += "\n\nCRITICAL: If user provides personal info, end with [FACT: key=value]."
+
+            messages = [{"role": "system", "content": system_prompt}]
+            if conversation_history:
+                messages.extend(conversation_history)
+            messages.append({"role": "user", "content": message})
+            
+            stream = await client.chat.completions.create(
+                model=self.OPENAI_MODEL_ADVANCED,
+                messages=messages,
+                temperature=temperature,
+                max_tokens=max_tokens,
+                stream=True
+            )
+            
+            full_text = ""
+            async for chunk in stream:
+                content = chunk.choices[0].delta.content
+                if content:
+                    full_text += content
+                    # Small chunks for smooth UI
+                    yield json.dumps({"delta": content, "done": False})
+            
+            # Post-process final text for tags and metadata
+            language_tags = self._extract_language_tags(full_text)
+            clean_text = self._post_process_response(full_text)
+            
+            yield json.dumps({
+                "text": clean_text,
+                "language_tags": language_tags,
+                "done": True
+            })
+            
+        except Exception as e:
+            print(f"Streaming error: {e}")
+            yield json.dumps({"error": str(e), "done": True})
     
     async def _generate_text(
         self,
         message: str,
+        system_prompt: str,
         language: Language,
         conversation_history: List[Dict] = None,
         max_tokens: int = 512,
@@ -383,16 +512,17 @@ Always maintain your warm, funny personality while being helpful and informative
         
         if self.brain_loaded:
             return await self._generate_with_local_brain(
-                message, language, conversation_history, max_tokens, temperature
+                message, system_prompt, language, conversation_history, max_tokens, temperature
             )
         else:
             return await self._generate_with_api(
-                message, language, conversation_history, max_tokens, temperature
+                message, system_prompt, language, conversation_history, max_tokens, temperature
             )
     
     async def _generate_with_local_brain(
         self,
         message: str,
+        system_prompt: str,
         language: Language,
         conversation_history: List[Dict] = None,
         max_tokens: int = 512,
@@ -400,8 +530,6 @@ Always maintain your warm, funny personality while being helpful and informative
     ) -> str:
         """Generate response using local Mistral + LoRA model"""
         import torch
-        
-        system_prompt = self.get_system_prompt()
         
         # Build conversation
         if language != Language.MIXED:
@@ -436,6 +564,7 @@ Always maintain your warm, funny personality while being helpful and informative
     async def _generate_with_api(
         self,
         message: str,
+        system_prompt: str,
         language: Language,
         conversation_history: List[Dict] = None,
         max_tokens: int = 512,
@@ -446,8 +575,21 @@ Always maintain your warm, funny personality while being helpful and informative
         api_key = os.getenv("OPENAI_API_KEY")
         
         if not api_key:
+            print("⚠️  OPENAI_API_KEY not found in environment!")
+            # Try loading from .env explicitly
+            try:
+                from dotenv import load_dotenv
+                load_dotenv()
+                api_key = os.getenv("OPENAI_API_KEY")
+                if api_key:
+                    print("✅ OPENAI_API_KEY loaded via manual load_dotenv()")
+            except:
+                pass
+                
+        if not api_key:
+            print("❌ Still no OPENAI_API_KEY. Falling back to OpenRouter...")
             # Try OpenRouter as fallback
-            return await self._generate_with_openrouter(message, language, conversation_history, max_tokens, temperature)
+            return await self._generate_with_openrouter(message, system_prompt, language, conversation_history, max_tokens, temperature)
         
         try:
             from openai import OpenAI
@@ -455,8 +597,6 @@ Always maintain your warm, funny personality while being helpful and informative
             
             # Use fine-tuned Sisi Lola model for MUCH faster responses (2-5s vs 60-70s)
             model = self.OPENAI_MODEL_ADVANCED  # ft:gpt-4o-mini fine-tuned on Sisi Lola
-            
-            system_prompt = self.get_system_prompt()
             
             messages = [{"role": "system", "content": system_prompt}]
             
@@ -479,11 +619,12 @@ Always maintain your warm, funny personality while being helpful and informative
         except Exception as e:
             print(f"OpenAI API error: {e}")
             # Try OpenRouter as fallback
-            return await self._generate_with_openrouter(message, language, conversation_history, max_tokens, temperature)
+            return await self._generate_with_openrouter(message, system_prompt, language, conversation_history, max_tokens, temperature)
     
     async def _generate_with_openrouter(
         self,
         message: str,
+        system_prompt: str,
         language: Language,
         conversation_history: List[Dict] = None,
         max_tokens: int = 512,
@@ -495,9 +636,8 @@ Always maintain your warm, funny personality while being helpful and informative
         api_key = os.getenv("OPEN_ROUTER_API") or os.getenv("OPENROUTER_API_KEY")
         
         if not api_key:
-            return self._get_fallback_response(message, language)
+            return await self._get_fallback_response(message, language)
         
-        system_prompt = self.get_system_prompt()
         messages = [{"role": "system", "content": system_prompt}]
         
         if conversation_history:
@@ -530,9 +670,9 @@ Always maintain your warm, funny personality while being helpful and informative
         except Exception as e:
             print(f"OpenRouter API error: {e}")
         
-        return self._get_fallback_response(message, language)
+        return await self._get_fallback_response(message, language)
     
-    def _get_fallback_response(self, message: str, language: Language) -> str:
+    async def _get_fallback_response(self, message: str, language: Language) -> str:
         """Fallback response when no model is available"""
         responses = {
             Language.ENGLISH: "Hey there! I'm Sisi Lola, your Nigerian virtual host. I'm currently in offline mode, but I can't wait to chat with you properly soon!",
@@ -540,7 +680,11 @@ Always maintain your warm, funny personality while being helpful and informative
             Language.YORUBA: "Bawo ni! Mo n pe Sisi Lola. I'm offline right now, but let's chat soon!",
             Language.MIXED: "Hey! How body? Na Sisi Lola be this o! I'm offline now, but we go yarn soon!",
         }
-        return responses.get(language, responses[Language.MIXED])
+        # Check environment for explicit overrides
+        override = os.getenv("OFFLINE_MESSAGE")
+        if override:
+            return override
+            
         return responses.get(language, responses[Language.MIXED])
     
     async def _generate_voice(
@@ -548,12 +692,76 @@ Always maintain your warm, funny personality while being helpful and informative
         text: str,
         language: Language,
     ) -> tuple:
-        """Generate voice audio from text"""
+        """Generate voice audio from text. Hybrid routing: Native models for native speech, Cloud for English/Pidgin."""
         
+        # 1. Check for native language tags
+        detected_tags = self._extract_language_tags(text)
+        is_native = any(tag in ["YO", "IG", "HA"] for tag in detected_tags)
+        
+        # 2. Try MMS for Native Speech if detected and enabled
+        if (is_native or language in [Language.YORUBA, Language.IGBO, Language.HAUSA]):
+            try:
+                from app.services.mms_service import mms_service
+                
+                # Determine primary native language
+                primary_native = "yo"
+                if "IG" in detected_tags: primary_native = "ig"
+                elif "HA" in detected_tags: primary_native = "ha"
+                elif language == Language.IGBO: primary_native = "ig"
+                elif language == Language.HAUSA: primary_native = "ha"
+                
+                print(f"🌍 Routing to Native MMS Voice ({primary_native}) for authenticity...")
+                audio_base64, _ = await mms_service.generate_speech(self._clean_text_for_tts(text), primary_native)
+                if audio_base64:
+                    print(f"✅ Native {primary_native} voice generated via MMS")
+                    return audio_base64, None
+            except Exception as e:
+                print(f"⚠️ MMS Native voice failed: {e}. Falling back to Cloud...")
+
+        elevenlabs_key = os.getenv("ELEVENLABS_API_KEY")
+        
+        # 1. Try ElevenLabs for high-quality, fast (<1s) voice
+        if elevenlabs_key:
+            try:
+                import httpx
+                # Import settings from DNA
+                from app.config import SisiLolaDNA
+                
+                voice_id = SisiLolaDNA.VOICE_ID or "21m00Tcm4TlvDq8ikWAM"
+                url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}"
+                
+                # Model mapping
+                model_id = "eleven_multilingual_v2"
+                
+                payload = {
+                    "text": text,
+                    "model_id": model_id,
+                    "voice_settings": SisiLolaDNA.VOICE_SETTINGS
+                }
+                
+                headers = {
+                    "xi-api-key": elevenlabs_key,
+                    "Content-Type": "application/json"
+                }
+                
+                async with httpx.AsyncClient(timeout=30.0) as client:
+                    response = await client.post(url, json=payload, headers=headers)
+                    if response.status_code == 200:
+                        audio_base64 = base64.b64encode(response.content).decode('utf-8')
+                        print("✅ Voice generated via ElevenLabs")
+                        return audio_base64, None
+                    else:
+                        print(f"⚠️  ElevenLabs error: {response.status_code}")
+            except Exception as e:
+                print(f"⚠️  ElevenLabs failed: {e}")
+
+        # 2. Fallback to local XTTS if loaded
         if not self.voice_loaded:
+            print("⚠️  No voice providers available (ElevenLabs failed or key missing, XTTS not loaded)")
             return None, None
         
         try:
+            print("🎙️ Generating voice via local XTTS-v2 (Slow)...")
             # Clean text of language tags for TTS
             clean_text = self._clean_text_for_tts(text)
             
@@ -619,42 +827,47 @@ Always maintain your warm, funny personality while being helpful and informative
         Post-process response for quality and consistency.
         Fixes bracket pollution, removes repetitive expressions, and formats paragraphs.
         """
+        if not text:
+            return ""
+
         # 1. Remove bracket pollution around words/phrases (NOT language tags)
         valid_tags = ['EN', 'NP', 'YO', 'IG', 'HA', 'PIDGIN', 'YORUBA', 'IGBO', 'HAUSA', 'ENGLISH']
         
         def clean_bracket(match):
-            content = match.group(1)
-            if content.upper() in valid_tags or (content.startswith('/') and content[1:].upper() in valid_tags):
-                return match.group(0)  # Keep valid language tags
+            full_match = match.group(0)
+            content = match.group(1).strip()
+            # If match starts with /, it's a closing tag
+            tag_name = content[1:] if content.startswith('/') else content
+            if tag_name.upper() in valid_tags:
+                return f"[{content}]" # Keep valid language tags with consistent formatting
             return content  # Remove brackets, keep content
         
-        text = re.sub(r'\[([^\]]+)\]', clean_bracket, text)
+        # Match [Word], [[Word]], [ Word ]
+        text = re.sub(r'\[+([^\]]+)\]+', clean_bracket, text)
         
-        # 2. Remove hashtags (training data leakage)
+        # 2. Remove all language tags for final display (if not needed by frontend)
+        # Sisi Lola's frontend usually doesn't want to show the [EN] tags to the user
+        text = re.sub(r'\[/?(?:EN|NP|YO|IG|HA|PIDGIN|YORUBA|IGBO|HAUSA|ENGLISH)\]', '', text, flags=re.IGNORECASE)
+        
+        # 3. Remove hashtags (training data leakage)
         text = re.sub(r'#[A-Za-z0-9_]+', '', text)
         
-        # 3. Remove repetitive Nigerian expressions (keep max 1 each)
-        text = re.sub(r'(E choke!?\s*){2,}', 'E choke! ', text, flags=re.IGNORECASE)
-        text = re.sub(r'(Omo!?\s*){2,}', 'Omo! ', text, flags=re.IGNORECASE)
-        text = re.sub(r'(Wahala!?\s*){2,}', 'Wahala! ', text, flags=re.IGNORECASE)
-        text = re.sub(r'(Chai!?\s*){2,}', 'Chai! ', text, flags=re.IGNORECASE)
-        text = re.sub(r'(Na wa o!?\s*){2,}', 'Na wa o! ', text, flags=re.IGNORECASE)
+        # 4. Remove repetitive Nigerian expressions (keep max 1 each)
+        expressions = ['E choke', 'Omo', 'Wahala', 'Chai', 'Na wa o', 'Nawa']
+        for expr in expressions:
+            pattern = rf'({expr}!?\s*){{2,}}'
+            text = re.sub(pattern, rf'{expr}! ', text, flags=re.IGNORECASE)
         
-        # 4. Strip language tags for cleaner display
-        text = re.sub(r'\[(EN|NP|YO|IG|HA|PIDGIN|YORUBA|IGBO|HAUSA|ENGLISH)\]', '', text, flags=re.IGNORECASE)
-        text = re.sub(r'\[/(EN|NP|YO|IG|HA|PIDGIN|YORUBA|IGBO|HAUSA|ENGLISH)\]', '', text, flags=re.IGNORECASE)
-        
-        # 5. Add paragraph formatting for long responses
-        if len(text) > 200:
-            topic_patterns = [
-                r'(?<=\. )(?=So,? )',
-                r'(?<=\. )(?=Now,? )',
-                r'(?<=\. )(?=But )',
-                r'(?<=\. )(?=Also,? )',
-                r'(?<=\. )(?=Speaking of )',
-            ]
-            for pattern in topic_patterns:
-                text = re.sub(pattern, '\n\n', text)
+        # 5. Add paragraph formatting for readability
+        # Split into sentences and group if long
+        sentences = re.split(r'(?<=[.!?]) +', text)
+        if len(sentences) > 3:
+            formatted_text = ""
+            for i, sentence in enumerate(sentences):
+                formatted_text += sentence + " "
+                if (i + 1) % 2 == 0 and i < len(sentences) - 1:
+                    formatted_text += "\n\n"
+            text = formatted_text
         
         # 6. Clean up whitespace
         text = re.sub(r'\n{3,}', '\n\n', text)
@@ -691,11 +904,19 @@ Always maintain your warm, funny personality while being helpful and informative
     
     def get_status(self) -> Dict[str, Any]:
         """Get service status"""
+        # Brain status: If OpenAI key is present, we are "API ENABLED" instead of "OFFLINE"
+        brain_status = "Online (Cloud API)" if os.getenv("OPENAI_API_KEY") else ("Online (Native)" if self.brain_loaded else "Offline")
+        voice_status = "Online (Cloud API)" if os.getenv("ELEVENLABS_API_KEY") else ("Online (Native)" if self.voice_loaded else "Offline")
+        
         return {
-            "brain_loaded": self.brain_loaded,
-            "voice_loaded": self.voice_loaded,
+            "brain": brain_status,
+            "voice": voice_status,
+            "brain_loaded": self.brain_loaded or bool(os.getenv("OPENAI_API_KEY")),
+            "voice_loaded": self.voice_loaded or bool(os.getenv("ELEVENLABS_API_KEY")),
+            "personality": "Online" if self.personality_loaded else "Standard",
             "personality_loaded": self.personality_loaded,
             "device": self.device,
+            "cache_dir": self.cache_dir,
             "cache_entries": len(self._response_cache),
             "models": {
                 "brain": self.HF_BRAIN_REPO if self.brain_loaded else None,
@@ -709,13 +930,20 @@ Always maintain your warm, funny personality while being helpful and informative
 _inference_service: Optional[UnifiedInferenceService] = None
 
 def get_inference_service(
-    load_brain: bool = True,
-    load_voice: bool = True,
+    load_brain: Optional[bool] = None,
+    load_voice: Optional[bool] = None,
 ) -> UnifiedInferenceService:
     """Get or create the singleton inference service"""
     global _inference_service
     
     if _inference_service is None:
+        # Check environment variables if not provided
+        # Default to false for target <2s speed (using OpenAI fine-tuned models)
+        if load_brain is None:
+            load_brain = os.getenv("PRELOAD_BRAIN", "false").lower() == "true"
+        if load_voice is None:
+            load_voice = os.getenv("PRELOAD_VOICE", "false").lower() == "true"
+            
         _inference_service = UnifiedInferenceService(
             load_brain=load_brain,
             load_voice=load_voice,

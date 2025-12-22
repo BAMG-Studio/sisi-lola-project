@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sisi Lola - Nigerian AI Virtual Host 🇳🇬</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -88,7 +90,8 @@
             transition: color 0.3s;
         }
 
-        .nav-link:hover, .nav-link.active {
+        .nav-link:hover,
+        .nav-link.active {
             color: var(--primary-light);
         }
 
@@ -158,8 +161,15 @@
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
         }
 
         .chat-messages {
@@ -182,8 +192,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .message.user {
@@ -219,11 +236,56 @@
             font-weight: 600;
         }
 
-        .lang-tag.EN { background: rgba(255, 255, 255, 0.2); }
-        .lang-tag.NP { background: var(--pidgin); color: #000; }
-        .lang-tag.YO { background: var(--yoruba); color: #000; }
-        .lang-tag.IG { background: var(--igbo); color: #000; }
-        .lang-tag.HA { background: var(--hausa); color: #000; }
+        .lang-tag.EN {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .lang-tag.NP {
+            background: var(--pidgin);
+            color: #000;
+        }
+
+        .lang-tag.YO {
+            background: var(--yoruba);
+            color: #000;
+        }
+
+        .lang-tag.IG {
+            background: var(--igbo);
+            color: #000;
+        }
+
+        .lang-tag.HA {
+            background: var(--hausa);
+            color: #000;
+        }
+
+        .native-pulse {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 700;
+            color: #ffcc00;
+            text-transform: uppercase;
+            animation: textPulse 1.5s infinite;
+        }
+
+        @keyframes textPulse {
+            0% {
+                opacity: 0.7;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+
+            100% {
+                opacity: 0.7;
+                transform: scale(1);
+            }
+        }
 
         .audio-player {
             margin-top: 0.75rem;
@@ -318,7 +380,8 @@
             gap: 0.5rem;
         }
 
-        .mode-btn:hover, .mode-btn.active {
+        .mode-btn:hover,
+        .mode-btn.active {
             background: var(--primary-dark);
             border-color: var(--primary);
             color: var(--text-primary);
@@ -381,7 +444,8 @@
             gap: 0.5rem;
         }
 
-        .lang-btn:hover, .lang-btn.active {
+        .lang-btn:hover,
+        .lang-btn.active {
             background: var(--primary-dark);
             border-color: var(--primary);
             color: var(--text-primary);
@@ -483,9 +547,20 @@
             font-weight: 600;
         }
 
-        .status-badge.online { background: var(--success); color: #000; }
-        .status-badge.offline { background: var(--error); color: #fff; }
-        .status-badge.loading { background: var(--accent); color: #000; }
+        .status-badge.online {
+            background: var(--success);
+            color: #000;
+        }
+
+        .status-badge.offline {
+            background: var(--error);
+            color: #fff;
+        }
+
+        .status-badge.loading {
+            background: var(--accent);
+            color: #000;
+        }
 
         /* Typing Indicator */
         .typing-indicator {
@@ -514,13 +589,91 @@
             animation: bounce 1.4s infinite ease-in-out;
         }
 
-        .typing-dots span:nth-child(1) { animation-delay: 0s; }
-        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
-        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+        .typing-dots span:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .typing-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
 
         @keyframes bounce {
-            0%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-6px); }
+
+            0%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-6px);
+            }
+        }
+
+        /* Alignment Feedback */
+        .feedback-controls {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .message.assistant:hover .feedback-controls {
+            opacity: 1;
+        }
+
+        .feedback-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+            backdrop-filter: blur(4px);
+        }
+
+        .feedback-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        .feedback-btn.active {
+            background: var(--primary-light);
+            color: #000;
+            border-color: var(--primary-light);
+            font-weight: 700;
+        }
+
+        /* Pulsing Loading State */
+        .status-badge.loading {
+            background: var(--accent);
+            color: #000;
+            animation: statusPulse 1.5s infinite;
+        }
+
+        @keyframes statusPulse {
+            0% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.6;
+            }
         }
 
         /* Mobile Responsive */
@@ -528,7 +681,7 @@
             .main-container {
                 grid-template-columns: 1fr;
             }
-            
+
             .sidebar {
                 display: none;
             }
@@ -538,15 +691,15 @@
             .header {
                 padding: 1rem;
             }
-            
+
             .nav-links {
                 display: none;
             }
-            
+
             .main-container {
                 padding: 1rem;
             }
-            
+
             .message {
                 max-width: 90%;
             }
@@ -571,6 +724,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <header class="header">
@@ -578,7 +732,7 @@
             <span class="logo-icon">💃</span>
             <div class="logo-text">
                 <h1>Sisi Lola</h1>
-                <p>Nigerian AI Virtual Host</p>
+                <p>Africa's AI Virtual Host</p>
             </div>
         </div>
         <nav class="nav-links">
@@ -590,50 +744,61 @@
     </header>
 
     <!-- Voice Studio Modal -->
-    <div id="voice-studio-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1000; overflow:auto;">
-        <div style="background:var(--bg-card); margin:50px auto; padding:30px; max-width:800px; border-radius:16px; border:1px solid var(--border);">
+    <div id="voice-studio-modal"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1000; overflow:auto;">
+        <div
+            style="background:var(--bg-card); margin:50px auto; padding:30px; max-width:800px; border-radius:16px; border:1px solid var(--border);">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
                 <h2 style="color:var(--primary-light);">🎙️ Voice Studio</h2>
-                <button onclick="showSection('chat')" style="background:var(--error); border:none; color:white; padding:8px 16px; border-radius:8px; cursor:pointer;">✕ Close</button>
+                <button onclick="showSection('chat')"
+                    style="background:var(--error); border:none; color:white; padding:8px 16px; border-radius:8px; cursor:pointer;">✕
+                    Close</button>
             </div>
-            
+
             <div style="background:var(--bg-input); padding:20px; border-radius:12px; margin-bottom:20px;">
                 <h3 style="color:var(--accent); margin-bottom:10px;">⚠️ Voice Status</h3>
                 <p id="voice-studio-status" style="color:var(--text-secondary);">Checking voice model status...</p>
             </div>
-            
+
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
                 <div style="background:var(--bg-input); padding:20px; border-radius:12px;">
                     <h4 style="color:var(--primary-light); margin-bottom:15px;">🎤 Text-to-Speech</h4>
-                    <textarea id="tts-text" placeholder="Enter text to convert to speech..." style="width:100%; height:100px; background:var(--bg-dark); border:1px solid var(--border); border-radius:8px; color:white; padding:10px; resize:none;"></textarea>
-                    <select id="tts-language" style="width:100%; margin-top:10px; padding:10px; background:var(--bg-dark); border:1px solid var(--border); border-radius:8px; color:white;">
+                    <textarea id="tts-text" placeholder="Enter text to convert to speech..."
+                        style="width:100%; height:100px; background:var(--bg-dark); border:1px solid var(--border); border-radius:8px; color:white; padding:10px; resize:none;"></textarea>
+                    <select id="tts-language"
+                        style="width:100%; margin-top:10px; padding:10px; background:var(--bg-dark); border:1px solid var(--border); border-radius:8px; color:white;">
                         <option value="en">English</option>
                         <option value="yo">Yoruba</option>
                         <option value="pcm">Nigerian Pidgin</option>
                         <option value="ig">Igbo</option>
                         <option value="ha">Hausa</option>
                     </select>
-                    <button onclick="generateSpeech()" style="width:100%; margin-top:15px; padding:12px; background:var(--primary); border:none; border-radius:8px; color:white; font-weight:600; cursor:pointer;">🔊 Generate Speech</button>
+                    <button onclick="generateSpeech()"
+                        style="width:100%; margin-top:15px; padding:12px; background:var(--primary); border:none; border-radius:8px; color:white; font-weight:600; cursor:pointer;">🔊
+                        Generate Speech</button>
                 </div>
-                
+
                 <div style="background:var(--bg-input); padding:20px; border-radius:12px;">
                     <h4 style="color:var(--primary-light); margin-bottom:15px;">📁 Voice Samples</h4>
                     <div id="voice-samples-list" style="display:flex; flex-direction:column; gap:10px;">
-                        <div onclick="playSample('pidgin_greeting')" style="background:var(--bg-dark); padding:12px; border-radius:8px; cursor:pointer; display:flex; align-items:center; gap:10px;">
+                        <div onclick="playSample('pidgin_greeting')"
+                            style="background:var(--bg-dark); padding:12px; border-radius:8px; cursor:pointer; display:flex; align-items:center; gap:10px;">
                             <span style="font-size:1.5rem;">▶️</span>
                             <div>
                                 <strong style="color:white;">Pidgin Greeting</strong>
                                 <p style="color:var(--text-secondary); font-size:0.8rem;">Energetic Nigerian Pidgin</p>
                             </div>
                         </div>
-                        <div onclick="playSample('english_intro')" style="background:var(--bg-dark); padding:12px; border-radius:8px; cursor:pointer; display:flex; align-items:center; gap:10px;">
+                        <div onclick="playSample('english_intro')"
+                            style="background:var(--bg-dark); padding:12px; border-radius:8px; cursor:pointer; display:flex; align-items:center; gap:10px;">
                             <span style="font-size:1.5rem;">▶️</span>
                             <div>
                                 <strong style="color:white;">English Introduction</strong>
                                 <p style="color:var(--text-secondary); font-size:0.8rem;">Warm English welcome</p>
                             </div>
                         </div>
-                        <div onclick="playSample('mixed_greeting')" style="background:var(--bg-dark); padding:12px; border-radius:8px; cursor:pointer; display:flex; align-items:center; gap:10px;">
+                        <div onclick="playSample('mixed_greeting')"
+                            style="background:var(--bg-dark); padding:12px; border-radius:8px; cursor:pointer; display:flex; align-items:center; gap:10px;">
                             <span style="font-size:1.5rem;">▶️</span>
                             <div>
                                 <strong style="color:white;">Mixed Language</strong>
@@ -643,11 +808,13 @@
                     </div>
                 </div>
             </div>
-            
+
             <div style="background:var(--bg-input); padding:20px; border-radius:12px; margin-top:20px;">
                 <h4 style="color:var(--primary-light); margin-bottom:10px;">💡 How to Enable Voice</h4>
                 <ol style="color:var(--text-secondary); padding-left:20px; line-height:1.8;">
-                    <li>Install TTS library: <code style="background:var(--bg-dark); padding:2px 6px; border-radius:4px;">pip install TTS</code></li>
+                    <li>Install TTS library: <code
+                            style="background:var(--bg-dark); padding:2px 6px; border-radius:4px;">pip install TTS</code>
+                    </li>
                     <li>Restart the server with voice enabled</li>
                     <li>Voice model (XTTS-v2) will download automatically</li>
                     <li>GPU recommended for real-time synthesis</li>
@@ -664,27 +831,37 @@
             <div id="personality-traits">
                 <div class="personality-trait">
                     <span class="trait-name">Confidence</span>
-                    <div class="trait-bar"><div class="trait-fill" style="width: 90%"></div></div>
+                    <div class="trait-bar">
+                        <div class="trait-fill" style="width: 90%"></div>
+                    </div>
                     <span class="trait-value">9.0</span>
                 </div>
                 <div class="personality-trait">
                     <span class="trait-name">Humor</span>
-                    <div class="trait-bar"><div class="trait-fill" style="width: 85%"></div></div>
+                    <div class="trait-bar">
+                        <div class="trait-fill" style="width: 85%"></div>
+                    </div>
                     <span class="trait-value">8.5</span>
                 </div>
                 <div class="personality-trait">
                     <span class="trait-name">Charisma</span>
-                    <div class="trait-bar"><div class="trait-fill" style="width: 90%"></div></div>
+                    <div class="trait-bar">
+                        <div class="trait-fill" style="width: 90%"></div>
+                    </div>
                     <span class="trait-value">9.0</span>
                 </div>
                 <div class="personality-trait">
                     <span class="trait-name">Warmth</span>
-                    <div class="trait-bar"><div class="trait-fill" style="width: 80%"></div></div>
+                    <div class="trait-bar">
+                        <div class="trait-fill" style="width: 80%"></div>
+                    </div>
                     <span class="trait-value">8.0</span>
                 </div>
                 <div class="personality-trait">
                     <span class="trait-name">Authenticity</span>
-                    <div class="trait-bar"><div class="trait-fill" style="width: 90%"></div></div>
+                    <div class="trait-bar">
+                        <div class="trait-fill" style="width: 90%"></div>
+                    </div>
                     <span class="trait-value">9.0</span>
                 </div>
             </div>
@@ -742,7 +919,8 @@
                 <!-- Welcome Message -->
                 <div class="message assistant">
                     <p>Hey there! How body? Na Sisi Lola be this o! 💃</p>
-                    <p style="margin-top: 0.5rem;">I'm your Nigerian AI virtual host - ready to chat, help, and have fun! What's on your mind today?</p>
+                    <p style="margin-top: 0.5rem;">I'm your Nigerian AI virtual host - ready to chat, help, and have
+                        fun! What's on your mind today?</p>
                     <div class="message-meta">
                         <div class="language-tags">
                             <span class="lang-tag EN">EN</span>
@@ -764,13 +942,8 @@
 
             <div class="chat-input-area">
                 <div class="input-row">
-                    <input 
-                        type="text" 
-                        class="chat-input" 
-                        id="message-input"
-                        placeholder="Type your message to Sisi Lola..."
-                        autocomplete="off"
-                    >
+                    <input type="text" class="chat-input" id="message-input"
+                        placeholder="Type your message to Sisi Lola..." autocomplete="off">
                     <button class="send-btn" id="send-btn">
                         <i class="fas fa-paper-plane"></i>
                     </button>
@@ -852,8 +1025,10 @@
 
             <h3 style="margin-top: 1.5rem;"><i class="fas fa-info-circle"></i> About Sisi Lola</h3>
             <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.6;">
-                Sisi Lola is an AI-powered Nigerian virtual host trained on authentic Nigerian languages and culture. 
-                She speaks English, Nigerian Pidgin, Yoruba, Igbo, and Hausa with a warm, funny, and charismatic personality.
+                Sisi Lola is Africa's AI Virtual Host, representing the vibrant energy of modern Lagos and the depth of
+                the continent.
+                She is a master of Yorunglish, Yoruba, Igbo, Hausa, and Pidgin - always ready to yarn, hype you up, and
+                keep it real.
             </p>
         </aside>
     </main>
@@ -863,10 +1038,10 @@
 
     <script>
         // Configuration
-        const API_BASE = window.location.hostname === 'localhost' 
-            ? 'http://localhost:8000' 
+        const API_BASE = window.location.hostname === 'localhost'
+            ? 'http://localhost:8000'
             : '';
-        
+
         // State
         let sessionId = null;
         let selectedMode = 'multimodal';
@@ -882,6 +1057,10 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', async () => {
+            console.log('🔥 Warming up Sisi Lola...');
+            // Trigger warmup in background
+            fetch(`${API_BASE}/unified/warm`).catch(e => console.log('Warmup delayed'));
+
             await checkSystemStatus();
             await startConversation();
             setupEventListeners();
@@ -922,26 +1101,27 @@
             try {
                 const response = await fetch(`${API_BASE}/unified/health`);
                 const data = await response.json();
-                
-                updateStatusBadge('brain-status', data.brain_loaded);
-                updateStatusBadge('voice-status', data.voice_loaded);
-                updateStatusBadge('personality-status', data.personality_loaded);
+
+                updateStatusBadge('brain-status', data.brain);
+                updateStatusBadge('voice-status', data.voice);
+                updateStatusBadge('personality-status', data.personality);
 
                 // Update personality traits if available
-                if (data.personality_loaded) {
+                if (data.personality !== 'Offline') {
                     await fetchPersonality();
                 }
             } catch (error) {
                 console.error('Failed to check status:', error);
-                updateStatusBadge('brain-status', false);
-                updateStatusBadge('voice-status', false);
-                updateStatusBadge('personality-status', false);
+                updateStatusBadge('brain-status', 'Offline');
+                updateStatusBadge('voice-status', 'Offline');
+                updateStatusBadge('personality-status', 'Offline');
             }
         }
 
-        function updateStatusBadge(elementId, isOnline) {
+        function updateStatusBadge(elementId, status) {
             const badge = document.getElementById(elementId);
-            badge.textContent = isOnline ? 'Online' : 'Offline';
+            badge.textContent = status;
+            const isOnline = status.includes('Online');
             badge.className = `status-badge ${isOnline ? 'online' : 'offline'}`;
         }
 
@@ -950,7 +1130,7 @@
             try {
                 const response = await fetch(`${API_BASE}/unified/personality`);
                 const data = await response.json();
-                
+
                 if (data.traits) {
                     updatePersonalityDisplay(data.traits);
                 }
@@ -962,7 +1142,7 @@
         function updatePersonalityDisplay(traits) {
             const container = document.getElementById('personality-traits');
             container.innerHTML = '';
-            
+
             for (const [name, value] of Object.entries(traits)) {
                 const percentage = (value / 10) * 100;
                 container.innerHTML += `
@@ -1006,20 +1186,19 @@
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
             try {
-                const endpoint = sessionId 
+                const endpoint = sessionId
                     ? `${API_BASE}/unified/conversation/${sessionId}/message`
                     : `${API_BASE}/unified/chat`;
 
-                const response = await fetch(endpoint, {
+                const response = await fetch(`${API_BASE}/unified/chat`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         message: message,
                         mode: selectedMode,
                         language: selectedLanguage,
-                        max_tokens: 512,
-                        temperature: 0.7,
-                        include_audio_base64: selectedMode !== 'text'
+                        include_audio_base64: selectedMode !== 'text',
+                        model_info: { session_id: sessionId }
                     })
                 });
 
@@ -1048,58 +1227,42 @@
 
         // Clean text by stripping language tags for display
         function cleanTextForDisplay(text) {
+            if (!text) return { text: '', tags: [] };
+
             // Extract language tags for metadata
             const tags = [];
-            const tagMatches = text.match(/\[(EN|NP|YO|IG|HA)\]/g);
+            const tagMatches = text.match(/\[(EN|NP|YO|IG|HA|PIDGIN|YORUBA|IGBO|HAUSA|ENGLISH)\]/gi);
             if (tagMatches) {
                 tagMatches.forEach(tag => {
-                    const langCode = tag.replace(/[\[\]]/g, '');
+                    const langCode = tag.replace(/[\[\]\/]/g, '').toUpperCase();
                     if (!tags.includes(langCode)) tags.push(langCode);
                 });
             }
-            
+
             // CRITICAL FIX: Remove bracket pollution (non-language-tag brackets)
-            // Pattern: [Word!] or [Some text] that aren't language tags
             const validTags = ['EN', 'NP', 'YO', 'IG', 'HA', 'PIDGIN', 'YORUBA', 'IGBO', 'HAUSA', 'ENGLISH'];
-            let clean = text.replace(/\[([^\]]+)\]/g, (match, content) => {
-                const upperContent = content.toUpperCase();
-                // Keep if it's a valid language tag (opening or closing)
-                if (validTags.includes(upperContent) || 
-                    (content.startsWith('/') && validTags.includes(content.slice(1).toUpperCase()))) {
-                    return match;
+            let clean = text.replace(/\[+([^\]]+)\]+/g, (match, content) => {
+                const trimmedContent = content.trim();
+                const tagName = trimmedContent.startsWith('/') ? trimmedContent.slice(1) : trimmedContent;
+                if (validTags.includes(tagName.toUpperCase())) {
+                    return `[${trimmedContent}]`;
                 }
-                // Otherwise remove brackets, keep content
-                return content;
+                return trimmedContent;
             });
-            
+
             // Remove ALL language tags from text after extracting them
             clean = clean
-                .replace(/\[(EN|NP|YO|IG|HA|PIDGIN|YORUBA|IGBO|HAUSA|ENGLISH)\]/gi, '')
-                .replace(/\[\/(EN|NP|YO|IG|HA|PIDGIN|YORUBA|IGBO|HAUSA|ENGLISH)\]/gi, '')
-                // Remove hashtags (training data leakage)
+                .replace(/\[\/?(?:EN|NP|YO|IG|HA|PIDGIN|YORUBA|IGBO|HAUSA|ENGLISH)\]/gi, '')
                 .replace(/#[A-Za-z0-9_]+/g, '')
-                // Remove "User:" hallucinations
-                .replace(/User:\s*[^.!?]*[.!?]/gi, '')
-                // Remove excessive expression repetitions
                 .replace(/(E choke!?\s*){2,}/gi, 'E choke! ')
                 .replace(/(Omo!?\s*){2,}/gi, 'Omo! ')
                 .replace(/(Wahala!?\s*){2,}/gi, 'Wahala! ')
-                .replace(/(Chai!?\s*){2,}/gi, 'Chai! ')
-                // Clean up double spaces
                 .replace(/ {2,}/g, ' ')
                 .trim();
-            
-            // Format paragraphs for better readability
-            if (clean.length > 200) {
-                // Convert single newlines in appropriate places
-                clean = clean
-                    .replace(/\. So,? /g, '.\n\nSo, ')
-                    .replace(/\. Now,? /g, '.\n\nNow, ')
-                    .replace(/\. But /g, '.\n\nBut ')
-                    .replace(/\. Also,? /g, '.\n\nAlso, ')
-                    .replace(/\n{3,}/g, '\n\n');
-            }
-            
+
+            // Format paragraphs
+            clean = clean.split('\n\n').map(p => p.trim()).filter(p => p).join('\n\n');
+
             return { text: clean, tags };
         }
 
@@ -1111,8 +1274,8 @@
             // Clean text and extract tags
             const { text: displayText, tags: detectedTags } = cleanTextForDisplay(text);
 
-            // Build message HTML
-            let html = `<p>${displayText}</p>`;
+            // Build message HTML - support multiple paragraphs
+            let html = displayText.split('\n\n').map(p => `<p>${p}</p>`).join('');
 
             // Add audio player if available
             if (audioBase64) {
@@ -1125,13 +1288,26 @@
 
             // Add metadata
             const tags = languageTags.length > 0 ? languageTags : detectedTags;
+            const isNative = tags.some(t => ['YO', 'IG', 'HA', 'YORUBA', 'IGBO', 'HAUSA'].includes(t.toUpperCase()));
+
             html += `
                 <div class="message-meta">
                     <div class="language-tags">
-                        ${tags.map(tag => `<span class="lang-tag ${tag}">${tag}</span>`).join('')}
+                        ${tags.map(tag => `<span class="lang-tag ${tag.toUpperCase()}">${tag}</span>`).join('')}
                     </div>
-                    <span>${generationTime > 0 ? `${(generationTime/1000).toFixed(1)}s` : 'Just now'}</span>
+                    ${isNative ? '<span class="native-pulse"><i class="fas fa-globe-africa"></i> Native Connection Active</span>' : ''}
+                    <span>${generationTime > 0 ? `${(generationTime / 1000).toFixed(1)}s` : 'Just now'}</span>
                 </div>
+                ${role === 'assistant' ? `
+                <div class="feedback-controls">
+                    <button class="feedback-btn" onclick="sendFeedback(this, 'positive', '${displayText.slice(0, 30).replace(/'/g, "\\'")}')">
+                        <i class="fas fa-thumbs-up"></i> Hype
+                    </button>
+                    <button class="feedback-btn" onclick="sendFeedback(this, 'negative', '${displayText.slice(0, 30).replace(/'/g, "\\'")}')">
+                        <i class="fas fa-thumbs-down"></i> Not Sisi
+                    </button>
+                </div>
+                ` : ''}
             `;
 
             messageDiv.innerHTML = html;
@@ -1157,12 +1333,12 @@
                 // Check voice status first
                 const statusResponse = await fetch(`${API_BASE}/unified/health`);
                 const status = await statusResponse.json();
-                
+
                 if (!status.voice_loaded) {
                     alert('Voice (XTTS-v2) is currently offline. Voice samples are not available.\n\nTo enable voice:\n1. Install TTS: pip install TTS\n2. Restart the server with voice enabled');
                     return;
                 }
-                
+
                 // Try to fetch sample
                 const response = await fetch(`${API_BASE}/audio/samples/${sampleName}.wav`);
                 if (response.ok) {
@@ -1176,7 +1352,7 @@
                         'english_intro': 'Hello and welcome! I am Sisi Lola, your Nigerian AI virtual host.',
                         'mixed_greeting': 'Hey there! Ẹ kú àárọ̀! How body dey? Sisi Lola is ready to chat!'
                     };
-                    
+
                     const text = sampleTexts[sampleName] || 'Hello from Sisi Lola!';
                     alert(`Sample not cached. Text: "${text}"\n\nVoice generation is available via the API.`);
                 }
@@ -1195,7 +1371,7 @@
         function showSection(section) {
             const modal = document.getElementById('voice-studio-modal');
             const navLinks = document.querySelectorAll('.nav-link');
-            
+
             if (section === 'voice-studio') {
                 modal.style.display = 'block';
                 checkVoiceStudioStatus();
@@ -1214,7 +1390,7 @@
             try {
                 const response = await fetch(`${API_BASE}/unified/health`);
                 const data = await response.json();
-                
+
                 if (data.voice_loaded) {
                     statusEl.innerHTML = '✅ <strong style="color:var(--success);">Voice Model Online</strong> - XTTS-v2 is ready for synthesis!';
                 } else {
@@ -1229,21 +1405,21 @@
         async function generateSpeech() {
             const text = document.getElementById('tts-text').value.trim();
             const language = document.getElementById('tts-language').value;
-            
+
             if (!text) {
                 alert('Please enter some text to convert to speech.');
                 return;
             }
-            
+
             // Check voice status first
             const statusResponse = await fetch(`${API_BASE}/unified/health`);
             const status = await statusResponse.json();
-            
+
             if (!status.voice_loaded) {
                 alert('Voice model (XTTS-v2) is not loaded.\\n\\nTo enable voice synthesis:\\n1. Install TTS: pip install TTS\\n2. Restart the server with voice enabled\\n3. The XTTS-v2 model will download automatically');
                 return;
             }
-            
+
             try {
                 const response = await fetch(`${API_BASE}/unified/tts`, {
                     method: 'POST',
@@ -1253,7 +1429,7 @@
                         language: language
                     })
                 });
-                
+
                 if (response.ok) {
                     const blob = await response.blob();
                     audioPlayer.src = URL.createObjectURL(blob);
@@ -1266,6 +1442,33 @@
                 alert('Voice generation failed: ' + error.message);
             }
         }
+        // Send alignment feedback
+        async function sendFeedback(btn, type, preview) {
+            if (btn.classList.contains('active')) return;
+
+            try {
+                const response = await fetch(`${API_BASE}/unified/align`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        session_id: sessionId,
+                        feedback_type: type,
+                        details: `Message: ${preview}`
+                    })
+                });
+
+                if (response.ok) {
+                    btn.classList.add('active');
+                    btn.innerHTML = type === 'positive' ? '✅ Hyped!' : '✅ Logged';
+
+                    // Add a little toast or console log
+                    console.log(`Alignment logged: ${type}`);
+                }
+            } catch (error) {
+                console.error('Failed to log alignment:', error);
+            }
+        }
     </script>
 </body>
+
 </html>

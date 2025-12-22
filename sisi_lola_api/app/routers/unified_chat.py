@@ -23,7 +23,10 @@ def get_service():
     global _service
     if _service is None:
         from app.services.unified_inference import get_inference_service
-        _service = get_inference_service(load_brain=True, load_voice=True)
+        from app.services.memory_bank import memory_bank
+        # Use default settings (controlled by env vars)
+        _service = get_inference_service()
+        _service.memory_bank = memory_bank
     return _service
 
 
@@ -111,39 +114,36 @@ async def unified_chat(request: UnifiedChatRequest):
     🗣️ Chat with Sisi Lola - Multimodal AI
     
     This endpoint combines:
-    - 🧠 Brain: Mistral-7B fine-tuned with Nigerian languages
+    - 🧠 Brain: Mistral-7B fine-tuned with Nigerian languages (or OpenAI fallback)
     - 💃 Personality: Confident, funny, charismatic Nigerian host
-    - 🎙️ Voice: XTTS-v2 trained on Nigerian voice samples
-    
-    Set `mode` to:
-    - `text`: Text response only (fastest)
-    - `voice`: Voice response only
-    - `multimodal`: Both text and voice (default)
+    - 🎙️ Voice: XTTS-v2 or ElevenLabs
     """
     try:
         service = get_service()
         
-        # Convert conversation history
+        # Convert history
         history = None
         if request.conversation_history:
             history = [{"role": m.role, "content": m.content} for m in request.conversation_history]
         
-        # Import response mode from service
-        from app.services.unified_inference import ResponseMode as ServiceMode, Language as ServiceLang
-        
-        # Map enums
-        service_mode = ServiceMode(request.mode.value)
-        service_lang = ServiceLang(request.language.value)
-        
-        # Generate response
+        # Import memory bank
+        from app.services.memory_bank import memory_bank
+        session_id = request.model_info.get("session_id", "default") if request.model_info else "default"
+
+        # Generate
         response = await service.generate(
             message=request.message,
-            mode=service_mode,
-            language=service_lang,
+            mode=ServiceMode(request.mode.value),
+            language=ServiceLang(request.language.value),
             conversation_history=history,
             max_tokens=request.max_tokens,
             temperature=request.temperature,
+            session_id=session_id
         )
+        
+        # Save to memory bank
+        memory_bank.add_message(session_id, "user", request.message)
+        memory_bank.add_message(session_id, "assistant", response.text, response.language_tags)
         
         return UnifiedChatResponse(
             text=response.text,
@@ -153,11 +153,38 @@ async def unified_chat(request: UnifiedChatRequest):
             personality_metrics=response.personality_metrics or {},
             generation_time_ms=response.generation_time_ms,
             mode=ResponseMode(response.mode.value),
-            model_info=service.get_status()
+            model_info={**service.get_status(), "session_id": session_id}
         )
-        
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.post("/chat/stream")
+async def unified_chat_stream(request: UnifiedChatRequest):
+    """
+    🗣️ Stream Sisi Lola's response (Text-only)
+    
+    Provides real-time text streaming for faster perceived response.
+    Returns a stream of JSON chunks.
+    """
+    service = get_service()
+    
+    # Convert history
+    history = None
+    if request.conversation_history:
+        history = [{"role": m.role, "content": m.content} for m in request.conversation_history]
+    
+    from app.services.unified_inference import Language as ServiceLang
+    
+    return StreamingResponse(
+        service.generate_stream(
+            message=request.message,
+            language=ServiceLang(request.language.value),
+            conversation_history=history,
+            max_tokens=request.max_tokens,
+            temperature=request.temperature,
+        ),
+        media_type="text/event-stream"
+    )
 
 @router.post("/voice", response_model=Dict[str, Any])
 async def generate_voice(request: VoiceGenerateRequest):
@@ -212,7 +239,52 @@ async def get_personality():
             system_prompt_preview=config.get("system_prompt", "")[:500] + "...",
             status="Sisi Lola is FUNNY and CHARISMATIC! 💃"
         )
-        
+    except Exception as e:
+        print(f"❌ Personality endpoint error: {e}")
+        return PersonalityResponse(
+            name="Sisi Lola",
+            traits={"confidence": 9.5, "humor": 9.0, "charisma": 9.5, "warmth": 8.0, "authenticity": 9.5},
+            languages=["English", "Pidgin", "Yoruba", "Igbo", "Hausa"],
+            system_prompt_preview="Sisi Lola is Africa's AI Virtual Host...",
+            status="Sisi Lola is currently resetting her energy! 🧘‍♀️"
+        )
+
+@router.get("/warm")
+async def warm_up():
+    """
+    🔥 Warm up the Sisi Lola engines
+    
+    Trigger this on page load to ensure models are ready.
+    """
+    # Simply calling get_service() triggers the preloading task
+    service = get_service()
+    return {"status": "warming", "message": "Sisi Lola is getting ready for you!"}
+
+@router.get("/ping")
+async def ping():
+    """Simple ping for connection check"""
+    return {"status": "pong", "time": datetime.now().isoformat()}
+
+class AlignmentFeedbackRequest(BaseModel):
+    session_id: str
+    feedback_type: str  # e.g., "positive", "negative", "correction"
+    details: str
+
+@router.post("/align")
+async def log_alignment(request: AlignmentFeedbackRequest):
+    """
+    📊 Log behavioral alignment feedback
+    
+    Used to improve Sisi Lola's cultural and linguistic accuracy.
+    """
+    try:
+        from app.services.alignment_engine import alignment_engine
+        alignment_engine.log_alignment_feedback(
+            session_id=request.session_id,
+            feedback_type=request.feedback_type,
+            details=request.details
+        )
+        return {"status": "logged", "message": "Thank you for helping Sisi Lola grow! 💃"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -335,23 +407,30 @@ async def continue_conversation(session_id: str, request: UnifiedChatRequest):
     history = _conversations[session_id]
     
     # Add user message
-    history.append({"role": "user", "content": request.message})
+    # No need to manually add to dict, memory_bank handles it
     
-    # Generate response with full history
+    # Generate response with full history from memory bank
     service = get_service()
     from app.services.unified_inference import ResponseMode, Language
+    from app.services.memory_bank import memory_bank
+    
+    # Get history from DB if not provided
+    if not history:
+        history = memory_bank.get_history(session_id, limit=10)
     
     response = await service.generate(
         message=request.message,
         mode=ResponseMode(request.mode.value),
         language=Language(request.language.value),
-        conversation_history=history[-20:],  # Last 20 messages
+        conversation_history=history,
         max_tokens=request.max_tokens,
         temperature=request.temperature,
+        session_id=session_id
     )
     
-    # Add assistant response
-    history.append({"role": "assistant", "content": response.text})
+    # Save to memory bank
+    memory_bank.add_message(session_id, "user", request.message)
+    memory_bank.add_message(session_id, "assistant", response.text, response.language_tags)
     
     return UnifiedChatResponse(
         text=response.text,
@@ -361,7 +440,7 @@ async def continue_conversation(session_id: str, request: UnifiedChatRequest):
         personality_metrics=response.personality_metrics or {},
         generation_time_ms=response.generation_time_ms,
         mode=ResponseMode(response.mode.value),
-        model_info={"session_id": session_id, "message_count": len(history)}
+        model_info={"session_id": session_id, "message_count": len(history) + 2}
     )
 
 @router.get("/conversation/{session_id}/history")
