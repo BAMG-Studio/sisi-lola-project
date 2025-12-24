@@ -1,145 +1,161 @@
-#!/usr/bin/env python3
+"""Main orchestrator for Sisi Lola Social Media Automation
+Coordinates all social media bots and manages cross-platform posting.
 """
-Sisi Lola - Complete Social Media Automation System
-Handles Instagram, TikTok, YouTube, Twitch, Reddit, and Dropbox
-"""
-import asyncio
-import logging
+
 import os
-from datetime import datetime
-from typing import Dict, List
 from dotenv import load_dotenv
+from instagram_bot import InstagramBot
+from facebook_bot import FacebookBot
+from youtube_bot import YouTubeBot
+from twitter_bot import TwitterBot
+from tiktok_bot import TikTokBot
+from reddit_bot import RedditBot
+from twitch_bot import TwitchBot
+import schedule
+import time
+from datetime import datetime
 
-# Import platform bots
-try:
-    from platforms.instagram_bot import InstagramBot
-except ImportError:
-    InstagramBot = None
-    
 load_dotenv()
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler('logs/automation.log'),
-        logging.StreamHandler()
-    ]
-)
-logger = logging.getLogger(__name__)
 
-class SisiLolaAutomation:
-    """Main orchestration class for all social media automation"""
-    
+class SocialMediaOrchestrator:
     def __init__(self):
-        self.platforms = {}
-        self.initialize_platforms()
+        print("\n🚀 Initializing Sisi Lola Social Media Automation System...")
+        
+        self.bots = {}
+        self._initialize_bots()
     
-    def initialize_platforms(self):
-        """Initialize all available platform bots"""
+    def _initialize_bots(self):
+        """Initialize all available social media bots"""
+        
+        # Instagram
         try:
-            if InstagramBot:
-                self.platforms['instagram'] = InstagramBot()
-                logger.info("Instagram bot initialized")
+            self.bots['instagram'] = InstagramBot()
+            print("✅ Instagram Bot initialized")
         except Exception as e:
-            logger.error(f"Failed to initialize Instagram: {e}")
+            print(f"❌ Instagram Bot failed: {e}")
         
-        logger.info(f"Initialized {len(self.platforms)} platform(s)")
+        # Facebook
+        try:
+            self.bots['facebook'] = FacebookBot()
+            print("✅ Facebook Bot initialized")
+        except Exception as e:
+            print(f"❌ Facebook Bot failed: {e}")
+        
+        # YouTube
+        try:
+            self.bots['youtube'] = YouTubeBot()
+            print("✅ YouTube Bot initialized")
+        except Exception as e:
+            print(f"❌ YouTube Bot failed: {e}")
+        
+        # Twitter
+        try:
+            self.bots['twitter'] = TwitterBot()
+            print("✅ Twitter Bot initialized")
+        except Exception as e:
+            print(f"❌ Twitter Bot failed: {e}")
+        
+        # TikTok
+        try:
+            self.bots['tiktok'] = TikTokBot()
+            print("✅ TikTok Bot initialized")
+        except Exception as e:
+            print(f"❌ TikTok Bot failed: {e}")
+        
+        # Reddit
+        try:
+            self.bots['reddit'] = RedditBot()
+            print("✅ Reddit Bot initialized")
+        except Exception as e:
+            print(f"❌ Reddit Bot failed: {e}")
+        
+        # Twitch
+        try:
+            self.bots['twitch'] = TwitchBot()
+            print("✅ Twitch Bot initialized")
+        except Exception as e:
+            print(f"❌ Twitch Bot failed: {e}")
     
-    async def post_to_all_platforms(self, content: Dict):
-        """
-        Post content across all platforms simultaneously
+    def post_to_all(self, content: dict):
+        """Post content to all platforms"""
+        results = {}
         
-        Args:
-            content: Dict with keys:
-                - image_path: str
-                - video_path: str
-                - caption: str
-                - hashtags: List[str]
-                - platform_specific: Dict
-        """
-        tasks = []
+        for platform, bot in self.bots.items():
+            try:
+                if platform == 'instagram' and 'image' in content:
+                    result = bot.post_photo(
+                        content['image'],
+                        content.get('caption', '')
+                    )
+                    results[platform] = result
+                
+                elif platform == 'facebook':
+                    if 'image' in content:
+                        result = bot.post_photo(
+                            content['image'],
+                            content.get('caption', '')
+                        )
+                    else:
+                        result = bot.post_text(content.get('text', ''))
+                    results[platform] = result
+                
+                elif platform == 'twitter' and 'text' in content:
+                    if 'image' in content:
+                        result = bot.post_tweet_with_media(
+                            content['text'],
+                            content['image']
+                        )
+                    else:
+                        result = bot.post_tweet(content['text'])
+                    results[platform] = result
+                
+                elif platform == 'reddit' and 'subreddit' in content:
+                    if 'image' in content:
+                        result = bot.submit_image_post(
+                            content['subreddit'],
+                            content.get('title', ''),
+                            content['image']
+                        )
+                    else:
+                        result = bot.submit_text_post(
+                            content['subreddit'],
+                            content.get('title', ''),
+                            content.get('text', '')
+                        )
+                    results[platform] = result
+                
+                print(f"✅ Posted to {platform}")
+            
+            except Exception as e:
+                print(f"❌ Failed to post to {platform}: {e}")
+                results[platform] = {'error': str(e)}
         
-        if 'instagram' in self.platforms and content.get('image_path'):
-            tasks.append(self.post_instagram(content))
-        
-        results = await asyncio.gather(*tasks, return_exceptions=True)
-        logger.info(f"Posted to {len(results)} platforms")
         return results
     
-    async def post_instagram(self, content: Dict):
-        """Post to Instagram"""
-        try:
-            bot = self.platforms['instagram']
-            if content.get('video_path'):
-                return bot.post_reel(
-                    video_path=content['video_path'],
-                    caption=content['caption'],
-                    hashtags=content.get('hashtags', [])
-                )
-            else:
-                return bot.post_photo(
-                    image_path=content['image_path'],
-                    caption=content['caption'],
-                    hashtags=content.get('hashtags', [])
-                )
-        except Exception as e:
-            logger.error(f"Instagram posting failed: {e}")
-            return None
+    def schedule_post(self, content: dict, schedule_time: str):
+        """Schedule a post for all platforms"""
+        schedule.every().day.at(schedule_time).do(
+            self.post_to_all, content=content
+        )
+        print(f"📅 Post scheduled for {schedule_time}")
     
-    def get_all_analytics(self) -> Dict:
-        """Collect analytics from all platforms"""
-        analytics = {}
-        
-        for platform, bot in self.platforms.items():
-            try:
-                if hasattr(bot, 'get_insights'):
-                    analytics[platform] = bot.get_insights()
-            except Exception as e:
-                logger.error(f"Failed to get {platform} analytics: {e}")
-                analytics[platform] = {'error': str(e)}
-        
-        return analytics
-    
-    def run_engagement_cycle(self):
-        """Run automated engagement across platforms"""
-        # African/Nigerian hashtags for engagement
-        african_hashtags = [
-            'AfricanContent', 'NigerianCreative', 'AfroBeats',
-            'Lagos', 'Nigeria', 'NewAfrica', 'AfricanTech',
-            'NaijaEh', 'AfricanInfluencer', 'PanAfrican'
-        ]
-        
-        if 'instagram' in self.platforms:
-            try:
-                self.platforms['instagram'].auto_engage(
-                    hashtags=african_hashtags,
-                    like_count=5
-                )
-            except Exception as e:
-                logger.error(f"Instagram engagement failed: {e}")
+    def run_scheduler(self):
+        """Run the scheduler loop"""
+        print("⏰ Scheduler started. Press Ctrl+C to stop.")
+        while True:
+            schedule.run_pending()
+            time.sleep(60)
 
-async def main():
-    """Main entry point"""
-    logger.info("=" * 50)
-    logger.info("Sisi Lola Social Media Automation Started")
-    logger.info(f"Time: {datetime.now()}")
-    logger.info("=" * 50)
+def main():
+    orchestrator = SocialMediaOrchestrator()
     
-    automation = SisiLolaAutomation()
-    
-    # Example: Get analytics
-    analytics = automation.get_all_analytics()
-    logger.info(f"Current Analytics: {analytics}")
-    
-    # Example post
-    # content = {
-    #     'image_path': 'path/to/image.jpg',
-    #     'caption': 'Test post from Sisi Lola automation!',
-    #     'hashtags': ['SisiLolaLive', 'AfricanContent']
-    # }
-    # await automation.post_to_all_platforms(content)
-    
-    logger.info("Automation system ready!")
+    print("\n" + "="*50)
+    print("🌟 SISI LOLA SOCIAL MEDIA AUTOMATION READY! 🌟")
+    print("="*50)
+    print(f"\nActive Bots: {len(orchestrator.bots)}")
+    print(f"Platforms: {', '.join(orchestrator.bots.keys())}")
+    print("\nFor usage examples, see AUTOMATION_README.md")
+    print("="*50 + "\n")
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
