@@ -1,0 +1,748 @@
+{
+    "batch_id": "VIBES_2024_DEC23",
+    "batch_name": "Sisi Lola 10 Vibes - New Africa Launch",
+    "created_at": "2025-12-23T23:40:00-05:00",
+    "created_by": "Antigravity AI",
+    "deployment_start": "2025-12-24T19:00:00-05:00",
+    "vibes": [
+        {
+            "vibe_id": "VIBE001",
+            "title": "Afrobeats × AI Producer",
+            "content_type": "short_form",
+            "duration_seconds": 25,
+            "platforms": [
+                "TikTok",
+                "Instagram",
+                "YouTube_Shorts"
+            ],
+            "scheduled_date": "2025-12-24T19:00:00-05:00",
+            "scheduled_time_wat": "00:00",
+            "status": "production_ready",
+            "priority": "high",
+            "viral_potential": "high",
+            "hook": {
+                "duration_seconds": 3,
+                "visual": "Quick cuts: talking drum → AI waveform → Sisi Lola face",
+                "text_overlay": "When Ancestors Meet Algorithms 🥁✨"
+            },
+            "voiceover_script": "Our ancestors created talking drums that could send messages across villages. Today? AI dey help us remix that same energy for the whole world. From Lagos to London, African music dey use technology to reach ears wey nobody fit imagine before. This na Afro-futurism – where tradition meet innovation, and Nigeria dey lead the way!",
+            "language_mix": {
+                "english_percent": 40,
+                "pidgin_percent": 45,
+                "yoruba_percent": 15
+            },
+            "on_screen_text": [
+                "Talking Drum → 500 years",
+                "AI Music → Today",
+                "Afrobeats → Forever 🌍"
+            ],
+            "visual_cues": [
+                "Traditional drum B-roll",
+                "AI music interface shots",
+                "Lagos nightlife clips",
+                "Sisi Lola avatar speaking"
+            ],
+            "caption": "From talking drums to AI beats – African innovation never stop. 🥁✨\n\nOur ancestors were the first sound engineers. Now we dey take that legacy global with technology.\n\nWhich AI music tool you dey use? Drop am below! 👇🏾",
+            "hashtags": [
+                "SisiLola",
+                "Afrobeats",
+                "AIMusic",
+                "NewAfrica",
+                "LagosNights",
+                "AfricanTech",
+                "MusicProduction",
+                "NaijaToTheWorld",
+                "AfroFuturism",
+                "TalkingDrum"
+            ],
+            "cta": "Follow for more African tech + culture vibes! 🇳🇬",
+            "production_notes": {
+                "color_grading": "Warm gold #FFD700 + deep purple #8B008B",
+                "music": "Afrobeats instrumental 120 BPM",
+                "export_format": "1080x1920 9:16 vertical H.264"
+            },
+            "engagement_targets": {
+                "views_target": 50000,
+                "engagement_rate_target": 0.05,
+                "comments_target": 2500
+            }
+        },
+        {
+            "vibe_id": "VIBE002",
+            "title": "Ankara Algorithm",
+            "content_type": "short_form",
+            "duration_seconds": 30,
+            "platforms": [
+                "Instagram",
+                "TikTok",
+                "Facebook"
+            ],
+            "scheduled_date": "2025-01-02T19:00:00-05:00",
+            "scheduled_time_wat": "00:00",
+            "status": "production_ready",
+            "priority": "high",
+            "viral_potential": "high",
+            "hook": {
+                "duration_seconds": 3,
+                "visual": "AI generating Ankara patterns in real-time",
+                "text_overlay": "When Ankara Meets Algorithms 👗✨"
+            },
+            "voiceover_script": "African fashion no be 'village vibe' – na global luxury plus smart tech! Designers now dey use AI to test hundreds of Ankara patterns before dem sew one stitch. From Lagos runways to metaverse catwalks – Afro-futurism don land. Which pattern sweet you pass – A, B, or C? Vote below!",
+            "language_mix": {
+                "english_percent": 45,
+                "pidgin_percent": 45,
+                "yoruba_percent": 10
+            },
+            "on_screen_text": [
+                "AI × Fashion",
+                "Vote: A, B, or C?",
+                "African designers leading 🌍"
+            ],
+            "visual_cues": [
+                "AI interface generating fabric patterns",
+                "Close-up of vibrant Ankara textures",
+                "Fashion runway clips",
+                "3 pattern options for voting"
+            ],
+            "caption": "When Ankara meets algorithms – na so future dey look! 👗✨\n\nVote your favorite pattern below:\n🅰️ Traditional Adire\n🅱️ Kente-inspired\n🅲 Modern geometric\n\nAfrican fashion + AI = unstoppable! 🇳🇬",
+            "hashtags": [
+                "SisiLola",
+                "AfricanFashion",
+                "Ankara",
+                "AITech",
+                "AfroFuturism",
+                "NaijaDesign",
+                "FashionTech",
+                "AnkaraStyles",
+                "LuxuryAfrica",
+                "NewAfrica"
+            ],
+            "cta": "Save this if you love African fashion! 💛",
+            "production_notes": {
+                "color_grading": "Vibrant warm tones",
+                "music": "Afrobeats soft instrumental",
+                "export_format": "1080x1920 9:16 vertical H.264"
+            },
+            "engagement_targets": {
+                "views_target": 75000,
+                "engagement_rate_target": 0.08,
+                "comments_target": 5000
+            }
+        },
+        {
+            "vibe_id": "VIBE003",
+            "title": "Yoruba Word of the Day - Ìmọ̀tótó",
+            "content_type": "short_form_series",
+            "duration_seconds": 20,
+            "platforms": [
+                "TikTok",
+                "Instagram",
+                "YouTube_Shorts"
+            ],
+            "scheduled_date": "2025-12-25T12:00:00-05:00",
+            "scheduled_time_wat": "18:00",
+            "status": "production_ready",
+            "priority": "medium",
+            "viral_potential": "medium",
+            "series_info": {
+                "series_name": "Yoruba Word of the Day",
+                "episode_number": 1,
+                "frequency": "3x weekly"
+            },
+            "hook": {
+                "duration_seconds": 2,
+                "visual": "Sisi Lola with Yoruba text appearing",
+                "text_overlay": "ÌMỌTỌ́TỌ́ 🇳🇬"
+            },
+            "voiceover_script": "Word of the day with your AI Yoruba aunty! Ìmọ̀tótó... Ì-mọ̀-tó-tó... means cleanliness. But e no just mean wash your hands o! Na cleanliness inside code, inside datasets, inside character. Clean code, clean data, clean heart – all of dem na ìmọ̀tótó!",
+            "language_mix": {
+                "english_percent": 35,
+                "pidgin_percent": 30,
+                "yoruba_percent": 35
+            },
+            "on_screen_text": [
+                "ÌMỌTỌ́TỌ́",
+                "= Cleanliness",
+                "Code 🧹 Data 📊 Heart ❤️"
+            ],
+            "visual_cues": [
+                "Word with tone marks appearing large",
+                "Pronunciation animation",
+                "Split screen: Clean code + clean heart imagery"
+            ],
+            "caption": "Yoruba Word of the Day: ÌMỌTỌ́TỌ́ 🇳🇬\n\n= Cleanliness – but not just physical!\n\n🧹 Clean code\n📊 Clean datasets  \n❤️ Clean character\n\nDrop your mother tongue word for 'clean' below! 👇🏾",
+            "hashtags": [
+                "SisiLola",
+                "Yoruba",
+                "LearnYoruba",
+                "AfricanLanguages",
+                "NigerianLanguage",
+                "LanguageTikTok",
+                "EducationalContent",
+                "NewAfrica",
+                "CodeLife",
+                "AIEthics"
+            ],
+            "cta": "Follow for daily Yoruba + tech wisdom! 📚",
+            "production_notes": {
+                "color_grading": "Clean white/gold aesthetic",
+                "music": "Soft traditional Yoruba instrumental",
+                "export_format": "1080x1920 9:16 vertical H.264"
+            },
+            "engagement_targets": {
+                "views_target": 30000,
+                "engagement_rate_target": 0.06,
+                "comments_target": 1500
+            }
+        },
+        {
+            "vibe_id": "VIBE004",
+            "title": "Lagos Hustle Hot Take",
+            "content_type": "short_form",
+            "duration_seconds": 30,
+            "platforms": [
+                "TikTok",
+                "Instagram",
+                "YouTube_Shorts"
+            ],
+            "scheduled_date": "2025-01-04T19:00:00-05:00",
+            "scheduled_time_wat": "00:00",
+            "status": "production_ready",
+            "priority": "high",
+            "viral_potential": "high",
+            "hook": {
+                "duration_seconds": 3,
+                "visual": "Lagos traffic → laptop → success imagery",
+                "text_overlay": "Lagos Taught Me... 🚗💨"
+            },
+            "voiceover_script": "Make we talk true: Lagos go humble you, but e go also build you! The hustle here no be joke – from Yaba to Victoria Island, everybody dey on their grind. But here's the thing: the same energy wey make you navigate Lagos traffic morning and evening, na e go make you build that startup, finish that project, and show up when others don give up. Lagos na school of life with no graduation date!",
+            "language_mix": {
+                "english_percent": 40,
+                "pidgin_percent": 50,
+                "yoruba_percent": 10
+            },
+            "on_screen_text": [
+                "Lagos Lessons:",
+                "1. Hustle ≠ Suffering",
+                "2. Patience = Superpower",
+                "3. Rest ≠ Weakness"
+            ],
+            "visual_cues": [
+                "Lagos traffic time-lapse",
+                "Yaba tech hub",
+                "Victoria Island skyline",
+                "Entrepreneur working clips"
+            ],
+            "caption": "Lagos taught me hustle, but e also taught me rest na part of the game! 🚗💨\n\nThe city go test you – traffic, heat, stress. But that same energy go build empire.\n\nDrop '🏆' if Lagos (or any African city) trained you for success!",
+            "hashtags": [
+                "SisiLola",
+                "Lagos",
+                "LagosHustle",
+                "NaijaStartup",
+                "AfricanEntrepreneur",
+                "YabaTech",
+                "VictoriaIsland",
+                "MotivationMonday",
+                "NewAfrica",
+                "HustleCulture"
+            ],
+            "cta": "Share with someone who needs this energy! 💪🏾",
+            "production_notes": {
+                "color_grading": "Cinematic Lagos golden hour",
+                "music": "Motivational Afrobeats",
+                "export_format": "1080x1920 9:16 vertical H.264"
+            },
+            "engagement_targets": {
+                "views_target": 100000,
+                "engagement_rate_target": 0.07,
+                "comments_target": 5000
+            }
+        },
+        {
+            "vibe_id": "VIBE005",
+            "title": "From Village to Virtual",
+            "content_type": "short_form",
+            "duration_seconds": 35,
+            "platforms": [
+                "Instagram",
+                "TikTok",
+                "YouTube_Shorts"
+            ],
+            "scheduled_date": "2025-01-07T19:00:00-05:00",
+            "scheduled_time_wat": "00:00",
+            "status": "production_ready",
+            "priority": "high",
+            "viral_potential": "very_high",
+            "hook": {
+                "duration_seconds": 3,
+                "visual": "Old family photo → Modern tech setup",
+                "text_overlay": "From Village to Virtual 🌍✨"
+            },
+            "voiceover_script": "Some of us grew up where NEPA no sure, where network dey do hide and seek, where phone na luxury. Today? We dey build apps. We dey record podcasts. We dey create AI tools for the same continent we love. Never be ashamed of your 'before' – na that story go make your 'after' sweet. From village to virtual, African excellence no get limit!",
+            "language_mix": {
+                "english_percent": 45,
+                "pidgin_percent": 45,
+                "yoruba_percent": 10
+            },
+            "on_screen_text": [
+                "Your 'Before' → Your 'After'",
+                "Village Dreams → Global Impact",
+                "Never Be Ashamed 💛"
+            ],
+            "visual_cues": [
+                "Vintage photos (respectful)",
+                "Rural path → city skyline transition",
+                "Person at laptop/mic/camera",
+                "AI/tech overlay effects"
+            ],
+            "caption": "From village to virtual – every step of the journey matters. 🌍✨\n\nSome of us grew up where generator was luxury. Now we building apps and AI tools.\n\nIf your journey started from 'no light, no network' type '🌟 ME TOO 🌟' below!\n\nNever be ashamed of your 'before' – na part of your story! 💛",
+            "hashtags": [
+                "SisiLola",
+                "FromVillageToVirtual",
+                "AfricanExcellence",
+                "NaijaStory",
+                "JourneyToSuccess",
+                "AfricanDiaspora",
+                "TechAfrica",
+                "MyStory",
+                "NewAfrica",
+                "InspirationalContent"
+            ],
+            "cta": "Share your story! Comment below! 💬",
+            "production_notes": {
+                "color_grading": "Warm nostalgic → vibrant present transition",
+                "music": "Emotional Afrobeats with build",
+                "export_format": "1080x1920 9:16 vertical H.264"
+            },
+            "engagement_targets": {
+                "views_target": 150000,
+                "engagement_rate_target": 0.10,
+                "comments_target": 10000
+            }
+        },
+        {
+            "vibe_id": "VIBE006",
+            "title": "New Africa Challenge",
+            "content_type": "short_form_challenge",
+            "duration_seconds": 25,
+            "platforms": [
+                "TikTok",
+                "Instagram",
+                "YouTube_Shorts"
+            ],
+            "scheduled_date": "2025-12-27T20:00:00-05:00",
+            "scheduled_time_wat": "01:00",
+            "status": "production_ready",
+            "priority": "critical",
+            "viral_potential": "very_high",
+            "challenge_info": {
+                "challenge_name": "#NewAfricaChallenge",
+                "participation_cta": "Duet or Stitch showing your own New Africa vibe"
+            },
+            "hook": {
+                "duration_seconds": 2,
+                "visual": "Text appearing: Tell me you're New Africa...",
+                "text_overlay": "Tell me you're New Africa... 🌍"
+            },
+            "voiceover_script": "Tell me you're New Africa without telling me you're New Africa! Yoruba at home, Python on the laptop. Spotify playlist full of Afrobeats. Ankara jacket over your headphones. AI tools in the workflow. This na New Africa energy – tradition plus technology, culture plus innovation. Show me yours – duet or stitch this!",
+            "language_mix": {
+                "english_percent": 60,
+                "pidgin_percent": 30,
+                "yoruba_percent": 10
+            },
+            "on_screen_text": [
+                "Tell me you're New Africa...",
+                "Yoruba at home",
+                "Python on laptop",
+                "Afrobeats on repeat",
+                "AI in the workflow"
+            ],
+            "visual_cues": [
+                "Quick montage of 'New Africa' lifestyle",
+                "Phone with AI apps",
+                "Spotify Afrobeats playlist",
+                "Ankara + tech aesthetic"
+            ],
+            "caption": "Tell me you're New Africa without telling me you're New Africa 🌍✨\n\nYoruba at home, Python on the laptop, Afrobeats in the ear, AI in the workflow!\n\n🎬 Duet or stitch this with your own New Africa vibe!\n\nLet's make this challenge GLOBAL! 🚀",
+            "hashtags": [
+                "NewAfricaChallenge",
+                "SisiLola",
+                "NewAfrica",
+                "AfricanTech",
+                "TikTokAfrica",
+                "Afrofuturism",
+                "DuetThis",
+                "ChallengeTikTok",
+                "AfricanCreators",
+                "GlobalAfrica"
+            ],
+            "cta": "Duet or stitch NOW! Let's trend! 🔥",
+            "production_notes": {
+                "color_grading": "Vibrant, high contrast",
+                "music": "Trending Afrobeats sound",
+                "export_format": "1080x1920 9:16 vertical H.264"
+            },
+            "engagement_targets": {
+                "views_target": 200000,
+                "engagement_rate_target": 0.12,
+                "comments_target": 8000,
+                "ugc_target": 500
+            }
+        },
+        {
+            "vibe_id": "VIBE007",
+            "title": "Aunty's Tough Love Monday",
+            "content_type": "short_form_series",
+            "duration_seconds": 25,
+            "platforms": [
+                "Instagram",
+                "TikTok",
+                "Facebook"
+            ],
+            "scheduled_date": "2025-01-05T12:00:00-05:00",
+            "scheduled_time_wat": "18:00",
+            "status": "production_ready",
+            "priority": "medium",
+            "viral_potential": "high",
+            "series_info": {
+                "series_name": "Aunty's Advice",
+                "episode_number": 1,
+                "frequency": "Every Monday"
+            },
+            "hook": {
+                "duration_seconds": 2,
+                "visual": "Sisi Lola with 'Aunty Mode' badge",
+                "text_overlay": "Aunty Sisi Lola Talk Say... 🗣️"
+            },
+            "voiceover_script": "Aunty Sisi Lola dey tell you today: That podcast idea? Record episode one this week. That Ankara brand? Post your first 3 mockups. That AI project? Test it, fail small, adjust, move. New Africa no dey wait for permission – we create first, refine later. Perfectionism na colonial pressure o! Post it, my dear. The algorithm go reward consistency over perfection!",
+            "language_mix": {
+                "english_percent": 40,
+                "pidgin_percent": 50,
+                "yoruba_percent": 10
+            },
+            "on_screen_text": [
+                "Aunty's Advice:",
+                "1. Start before you're ready",
+                "2. Consistency > Perfection",
+                "3. Fear = Wasted time"
+            ],
+            "visual_cues": [
+                "Sisi Lola speaking directly to camera",
+                "Split screen with advice text",
+                "Motivational imagery"
+            ],
+            "caption": "Aunty Sisi Lola dey tell you: POST IT! 📱✨\n\nThat idea in your head? It's useless until you share it.\n\nPerfectionism na colonial pressure – New Africa creators dey move!\n\nWhat you dey procrastinate on? Drop am below, make we hold you accountable! 👇🏾",
+            "hashtags": [
+                "SisiLola",
+                "AuntyAdvice",
+                "MondayMotivation",
+                "AfricanCreators",
+                "JustStart",
+                "PodcastTips",
+                "StartupAdvice",
+                "NewAfrica",
+                "NoExcuses",
+                "CreatorLife"
+            ],
+            "cta": "Tag someone who needs this kick! 🦶✨",
+            "production_notes": {
+                "color_grading": "Warm, inviting tones",
+                "music": "Soft background beat",
+                "export_format": "1080x1920 9:16 vertical H.264"
+            },
+            "engagement_targets": {
+                "views_target": 60000,
+                "engagement_rate_target": 0.08,
+                "comments_target": 3000
+            }
+        },
+        {
+            "vibe_id": "VIBE008",
+            "title": "Jollof Debate × AI Prediction",
+            "content_type": "short_form",
+            "duration_seconds": 20,
+            "platforms": [
+                "TikTok",
+                "Instagram",
+                "YouTube_Shorts"
+            ],
+            "scheduled_date": "2025-12-31T19:00:00-05:00",
+            "scheduled_time_wat": "00:00",
+            "status": "production_ready",
+            "priority": "high",
+            "viral_potential": "very_high",
+            "hook": {
+                "duration_seconds": 2,
+                "visual": "AI loading screen with jollof images",
+                "text_overlay": "AI Settles the Jollof Debate... 🍛🤖"
+            },
+            "voiceover_script": "I trained AI to finally settle the great jollof wars! Ghana, Nigeria, Senegal... who win? Loading analysis... Processing data... AI result say: ERROR! All jollof dey sweet! Continental unity more important than rice beef. Oya, na so! Make we eat, no fight!",
+            "language_mix": {
+                "english_percent": 45,
+                "pidgin_percent": 45,
+                "yoruba_percent": 10
+            },
+            "on_screen_text": [
+                "AI Analyzing Jollof Wars...",
+                "🇬🇭 Ghana vs 🇳🇬 Nigeria vs 🇸🇳 Senegal",
+                "Result: ERROR 🚨",
+                "All Jollof = Valid ✅"
+            ],
+            "visual_cues": [
+                "Split screen: 3 jollof dishes",
+                "Fake 'AI loading' animation",
+                "Error message comedy beat",
+                "Unity message"
+            ],
+            "caption": "AI has spoken: STOP THE JOLLOF WARS! 🍛😂\n\nThe verdict is in... all jollof is VALID!\n\nBut for real – drop your flag 🇬🇭🇳🇬🇸🇳 and defend your jollof in the comments! 👇🏾\n\n(New Year's Eve vibes – eat more, fight less! 🎉)",
+            "hashtags": [
+                "SisiLola",
+                "JollofWars",
+                "JollofRice",
+                "GhanaJollof",
+                "NigerianJollof",
+                "SenegalJollof",
+                "AfricanFood",
+                "PanAfrican",
+                "FoodTikTok",
+                "NewYearsEve"
+            ],
+            "cta": "Drop your flag and defend your jollof! 🍚🔥",
+            "production_notes": {
+                "color_grading": "Vibrant, food-friendly warm tones",
+                "music": "Comedic sound effect + Afrobeats",
+                "export_format": "1080x1920 9:16 vertical H.264"
+            },
+            "engagement_targets": {
+                "views_target": 250000,
+                "engagement_rate_target": 0.15,
+                "comments_target": 15000
+            }
+        },
+        {
+            "vibe_id": "VIBE009",
+            "title": "Code-Switching Symphony",
+            "content_type": "short_form",
+            "duration_seconds": 25,
+            "platforms": [
+                "TikTok",
+                "Instagram",
+                "YouTube_Shorts"
+            ],
+            "scheduled_date": "2025-01-09T19:00:00-05:00",
+            "scheduled_time_wat": "00:00",
+            "status": "production_ready",
+            "priority": "high",
+            "viral_potential": "high",
+            "hook": {
+                "duration_seconds": 2,
+                "visual": "Phone showing different language calls",
+                "text_overlay": "4 Languages, 1 Brain 🧠🌍"
+            },
+            "voiceover_script": "Watch this! [Formal English] Hello, this is Lola speaking, how may I assist you? [Switch to Pidgin] Ah ah, my guy, wetin dey happen na? [Switch to Yoruba] Ẹ káàbọ̀ ma, báwo ni? [Switch to French] Oui, bonjour, ça va? This na African superpower – 4 languages, one brain, one conversation. Code-switching no be confusion – na cultural intelligence!",
+            "language_mix": {
+                "english_percent": 30,
+                "pidgin_percent": 30,
+                "yoruba_percent": 25,
+                "french_percent": 15
+            },
+            "on_screen_text": [
+                "English ✓",
+                "Pidgin ✓",
+                "Yoruba ✓",
+                "French ✓",
+                "= Cultural Intelligence 🧠"
+            ],
+            "visual_cues": [
+                "Phone call switching animation",
+                "Flag overlays for each language",
+                "Brain/intelligence imagery",
+                "Rapid switching demonstration"
+            ],
+            "caption": "How many languages you fit speak in ONE DAY? 🧠🌍\n\nNew Africa kids be like: English at work, Pidgin with friends, Yoruba with family, French for the Francophone deals!\n\nDrop your count below! 👇🏾\n\nCode-switching = SUPERPOWER, not confusion! 💪🏾",
+            "hashtags": [
+                "SisiLola",
+                "CodeSwitching",
+                "Multilingual",
+                "AfricanLanguages",
+                "Yoruba",
+                "NigerianPidgin",
+                "LanguageTikTok",
+                "CulturalIntelligence",
+                "NewAfrica",
+                "AfricanPolyglot"
+            ],
+            "cta": "Duet with your own language switch! 🎬",
+            "production_notes": {
+                "color_grading": "Clean, professional with color pops",
+                "music": "Beat switch for each language",
+                "export_format": "1080x1920 9:16 vertical H.264"
+            },
+            "engagement_targets": {
+                "views_target": 80000,
+                "engagement_rate_target": 0.09,
+                "comments_target": 4000
+            }
+        },
+        {
+            "vibe_id": "VIBE010",
+            "title": "New Africa Roll Call",
+            "content_type": "short_form",
+            "duration_seconds": 30,
+            "platforms": [
+                "TikTok",
+                "Instagram",
+                "YouTube_Shorts",
+                "Facebook"
+            ],
+            "scheduled_date": "2025-12-29T18:00:00-05:00",
+            "scheduled_time_wat": "00:00",
+            "status": "production_ready",
+            "priority": "critical",
+            "viral_potential": "very_high",
+            "hook": {
+                "duration_seconds": 2,
+                "visual": "African cities montage beginning",
+                "text_overlay": "WHERE MY PEOPLE DEY? 🌍📢"
+            },
+            "voiceover_script": "New Africa roll call! Where my people dey? From Lagos to London! Accra to Atlanta! Nairobi to New York! Johannesburg to Joburg! Addis to anywhere! Kigali to Kingston! New Africa no get border – we dey everywhere! Drop your flag in the comments, make we count how many countries we don reach. This na our moment – from the continent to the diaspora, we dey move together!",
+            "language_mix": {
+                "english_percent": 50,
+                "pidgin_percent": 40,
+                "yoruba_percent": 10
+            },
+            "on_screen_text": [
+                "NEW AFRICA ROLL CALL 📢",
+                "Lagos 🇳🇬",
+                "Accra 🇬🇭",
+                "Nairobi 🇰🇪",
+                "London 🇬🇧",
+                "Atlanta 🇺🇸",
+                "EVERYWHERE 🌍"
+            ],
+            "visual_cues": [
+                "Rapid montage of African + diaspora cities",
+                "Flags appearing with city names",
+                "Night skylines",
+                "Community footage"
+            ],
+            "caption": "🌍 NEW AFRICA ROLL CALL! 📢\n\nFrom Lagos to London, Accra to Atlanta, Nairobi to New York – WHERE MY PEOPLE DEY?\n\n👇🏾 DROP YOUR CITY/COUNTRY FLAG BELOW!\n\nLet's see how FAR we've reached!\nContinent + Diaspora = ONE COMMUNITY 💛💚",
+            "hashtags": [
+                "SisiLola",
+                "NewAfrica",
+                "AfricanDiaspora",
+                "PanAfrican",
+                "AfricaUnite",
+                "GlobalAfrica",
+                "RollCall",
+                "CommunityVibes",
+                "LagosToLondon",
+                "AfricanExcellence"
+            ],
+            "cta": "Drop your flag NOW! 🏳️ Let's count New Africa! 📊",
+            "production_notes": {
+                "color_grading": "High energy, vibrant saturated",
+                "music": "Hype Afrobeats 130 BPM with build",
+                "export_format": "1080x1920 9:16 vertical H.264",
+                "special_notes": "Pin own comment with multiple flags to start thread. Repost every 2 weeks to catch new followers."
+            },
+            "engagement_targets": {
+                "views_target": 300000,
+                "engagement_rate_target": 0.15,
+                "comments_target": 20000
+            }
+        }
+    ],
+    "deployment_calendar": {
+        "week_1": {
+            "2025-12-24": {
+                "vibe_id": "VIBE001",
+                "time_wat": "00:00",
+                "primary_platform": "TikTok"
+            },
+            "2025-12-25": {
+                "vibe_id": "VIBE003",
+                "time_wat": "18:00",
+                "primary_platform": "TikTok"
+            },
+            "2025-12-27": {
+                "vibe_id": "VIBE006",
+                "time_wat": "01:00",
+                "primary_platform": "TikTok"
+            },
+            "2025-12-29": {
+                "vibe_id": "VIBE010",
+                "time_wat": "00:00",
+                "primary_platform": "TikTok"
+            }
+        },
+        "week_2": {
+            "2025-12-31": {
+                "vibe_id": "VIBE008",
+                "time_wat": "00:00",
+                "primary_platform": "TikTok"
+            },
+            "2026-01-02": {
+                "vibe_id": "VIBE002",
+                "time_wat": "00:00",
+                "primary_platform": "Instagram"
+            },
+            "2026-01-04": {
+                "vibe_id": "VIBE004",
+                "time_wat": "00:00",
+                "primary_platform": "TikTok"
+            },
+            "2026-01-05": {
+                "vibe_id": "VIBE007",
+                "time_wat": "18:00",
+                "primary_platform": "Instagram"
+            }
+        },
+        "week_3": {
+            "2026-01-07": {
+                "vibe_id": "VIBE005",
+                "time_wat": "00:00",
+                "primary_platform": "Instagram"
+            },
+            "2026-01-09": {
+                "vibe_id": "VIBE009",
+                "time_wat": "00:00",
+                "primary_platform": "TikTok"
+            }
+        }
+    },
+    "cross_post_rules": {
+        "tiktok_to_reels": "Wait 2 hours after TikTok post",
+        "tiktok_to_shorts": "Wait 24 hours after TikTok post",
+        "reels_to_facebook": "Post same time as Reels for Vibes 5 and 10 only"
+    },
+    "voice_config": {
+        "primary_voice": "Lola",
+        "provider": "ElevenLabs",
+        "voice_settings": {
+            "stability": 0.5,
+            "similarity_boost": 0.75,
+            "style": 0.6
+        }
+    },
+    "production_specs": {
+        "resolution": "1080x1920",
+        "aspect_ratio": "9:16",
+        "frame_rate": 30,
+        "codec": "H.264",
+        "max_file_size_mb": 100,
+        "caption_style": "Burned-in, white with black outline",
+        "color_palette": {
+            "primary_gold": "#FFD700",
+            "accent_purple": "#8B008B",
+            "deep_blue": "#1A1A2E",
+            "warm_orange": "#FF6B35"
+        }
+    },
+    "success_metrics": {
+        "overall_views_target": 1500000,
+        "overall_engagement_rate": 0.08,
+        "follower_growth_target": 5000,
+        "ugc_submissions_target": 500
+    }
+}

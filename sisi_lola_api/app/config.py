@@ -79,8 +79,8 @@ class SisiLolaDNA:
 # MODAL INFERENCE SERVICE - OPTIMIZED
 # ============================================
 
-MODAL_INFERENCE_URL = "https://bamg-studio--sisi-lola-inference-modelinference-generate-text.modal.run"
-MODAL_HEALTH_URL = "https://bamg-studio--sisi-lola-inference-modelinference-health.modal.run"
+MODAL_INFERENCE_URL = "https://bamg-studio--sisi-lola-inference-generate.modal.run"
+MODAL_HEALTH_URL = "https://bamg-studio--sisi-lola-inference-health.modal.run"
 
 # Modal inference configuration
 MODAL_TIMEOUT = 30  # seconds

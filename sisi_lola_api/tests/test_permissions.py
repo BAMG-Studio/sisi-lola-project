@@ -1,5 +1,5 @@
 import pytest
-from app.auth import has_permission, ROLES
+from sisi_lola_api.app.auth import has_permission, ROLES
 
 def test_super_admin_has_all_permissions():
     assert has_permission(["SUPER_ADMIN"], "any:permission")

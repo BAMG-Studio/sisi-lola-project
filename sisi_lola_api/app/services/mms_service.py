@@ -23,6 +23,7 @@ class MMSLanguage(str, Enum):
     IGBO = "ibb" # MMS uses specific codes
     HAUSA = "hau"
     ENGLISH = "eng"
+    PIDGIN = "pcm"
 
 class MMSService:
     def __init__(self, device: str = "cpu"):
@@ -49,9 +50,13 @@ class MMSService:
         return lang in self.models
 
     def preload_common_models(self):
-        """Preloads Yoruba as the primary native language"""
-        print("🚚 Preloading Native Voice Models (MMS)...")
-        self._load_model("yor")
+        """Preloads major African native languages for instant response"""
+        print("🚚 Preloading Pan-African Voice Models (MMS)...")
+        for lang in ["yor", "ibo", "hau", "pcm"]:
+            try:
+                self._load_model(lang)
+            except Exception as e:
+                print(f"⚠️ Could not preload {lang}: {e}")
 
     async def generate_speech(self, text: str, lang_code: str = "yo") -> Tuple[Optional[str], Optional[str]]:
         """
@@ -66,9 +71,11 @@ class MMSService:
         mms_map = {
             "yo": "yor",
             "yoruba": "yor",
-            "ig": "ibb",
+            "ig": "ibo",
             "ha": "hau",
-            "en": "eng"
+            "en": "eng",
+            "pcm": "pcm",
+            "pidgin": "pcm"
         }
         lang = mms_map.get(lang_code.lower(), "yor")
 

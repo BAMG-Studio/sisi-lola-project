@@ -1,8 +1,8 @@
 import pytest
 from fastapi.testclient import TestClient
-from app.main_updated import app
-from app.database import Base, engine, SessionLocal
-from app.auth import get_password_hash
+from sisi_lola_api.app.main_updated import app
+from sisi_lola_api.app.database import Base, engine, SessionLocal
+from sisi_lola_api.app.auth import get_password_hash
 
 @pytest.fixture
 def client():
@@ -12,7 +12,7 @@ def client():
 
 @pytest.fixture
 def test_user(client):
-    from app.database import User, Role
+    from sisi_lola_api.app.database import User, Role
     db = SessionLocal()
     
     role = Role(name="VIEWER", description="Test", permissions=["content:read"])

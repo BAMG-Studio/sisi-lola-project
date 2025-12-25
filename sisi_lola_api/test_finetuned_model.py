@@ -15,7 +15,7 @@ from dotenv import load_dotenv
 load_dotenv('/mnt/c/Users/POK28/Dropbox/Sisi_Lola/sisi_lola_api/.env')
 
 from openai import OpenAI
-from app.config import SisiLolaDNA
+from sisi_lola_api.app.config import SisiLolaDNA
 
 def test_model():
     print("=" * 60)

@@ -11,10 +11,17 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+
+# Routers
 from sisi_lola_api.app.routers import enhanced_chat
 from sisi_lola_api.app.routers import unified_chat
-#from sisi_lola_api.app.routers import curator
 from sisi_lola_api.app.services.instagram_bot import router as instagram_router
+
+# V2 Control Center Routers
+from sisi_lola_api.app.routers import auth_router, control_center_router
+from sisi_lola_api.app.routers import agent, images, videos, audio, auth, nigerian_models
+from sisi_lola_api.app.database import init_db
+
 from sisi_lola_api.app.config import SisiLolaDNA
 from sisi_lola_api.app.services import auth_store
 
@@ -56,15 +63,31 @@ Visit the [interactive demo](/demo) to chat with Sisi Lola!
     redoc_url="/redoc"
 )
 
-# Include the modular routers
-#app.include_router(agent.router, prefix="/agent", tags=["Agent Builder"])
-##app.include_router(chat.router, prefix="/chat", tags=["Chat & Persona"])
-##app.include_router(images.router, prefix="/images", tags=["Image Generation"])
-##app.include_router(videos.router, prefix="/videos", tags=["Video Production"])
-#app.include_router(audio.router, prefix="/audio", tags=["Audio & Voice"])
-#app.include_router(auth.router, tags=["Auth"])
-#app.include_router(nigerian_models.router)
-#app.include_router(cohere.router)
+# ==========================================
+# ROUTER CONFIGURATION
+# ==========================================
+
+# 1. Core Chat & Intelligence (High Priority)
+app.include_router(unified_chat.router)
+app.include_router(enhanced_chat.router)
+
+# 2. Control Center & Auth (V2 Infrastructure)
+app.include_router(auth_router.router, prefix="/api/v2")
+app.include_router(control_center_router.router, prefix="/api/v2")
+
+# 3. Agent & Media Modules
+app.include_router(agent.router, prefix="/agent", tags=["Agent Builder"])
+app.include_router(images.router, prefix="/images", tags=["Image Generation"])
+app.include_router(videos.router, prefix="/videos", tags=["Video Production"])
+app.include_router(audio.router, prefix="/audio", tags=["Audio & Voice"])
+app.include_router(nigerian_models.router)
+
+# 4. Social & Integrations
+app.include_router(instagram_router)
+
+# 5. Content Vibes Production (New Africa Campaign)
+from sisi_lola_api.app.routers import vibes_router
+app.include_router(vibes_router.router)
 
 # NEW: Unified multimodal chat
 app.include_router(unified_chat.router)
@@ -98,6 +121,18 @@ else:
 @app.on_event("startup")
 async def startup_init():
     """Initialize services on API startup"""
+    # 1. Initialize Database
+    print("💽 Initializing Sisi Lola Database...")
+    auth_store.init_db()
+    init_db()
+    
+    # 2. Preload Inference Services (Async)
+    # Trigger loading in background to not block startup
+    print("🚀 Preloading AI Models...")
+    from sisi_lola_api.app.services.unified_inference import get_inference_service
+    get_inference_service()  # Triggers init in constructor
+    
+    print("✨ Sisi Lola V2 is READY! 💃")
     auth_store.init_db()
     
     print("=" * 60)

@@ -559,48 +559,64 @@ class EnhancedInferenceService:
     ) -> str:
         """Fallback to API-based generation"""
         
-        # Try OpenRouter or OpenAI
-        api_key = os.getenv("OPENROUTER_API_KEY") or os.getenv("OPENAI_API_KEY")
-        
-        if not api_key:
-            return self._get_offline_response()
-        
         try:
-            import httpx
+            from sisi_lola_api.app.services.api_manager import get_api_manager
+            api_manager = get_api_manager()
             
-            if os.getenv("OPENROUTER_API_KEY"):
-                api_url = "https://openrouter.ai/api/v1/chat/completions"
-                model = "mistralai/mistral-7b-instruct"
-                headers = {
-                    "Authorization": f"Bearer {os.getenv('OPENROUTER_API_KEY')}",
-                    "HTTP-Referer": "https://sisilola.live",
-                    "X-Title": "Sisi Lola AI",
-                }
-            else:
-                api_url = "https://api.openai.com/v1/chat/completions"
-                model = "gpt-4"
-                headers = {"Authorization": f"Bearer {api_key}"}
+            # 1. Try OpenAI with rotation
+            api_key = api_manager.get_next_openai_key()
             
-            async with httpx.AsyncClient() as client:
-                response = await client.post(
-                    api_url,
-                    headers=headers,
-                    json={
-                        "model": model,
-                        "messages": messages,
-                        "temperature": temperature,
-                        "max_tokens": max_tokens,
-                    },
-                    timeout=60
-                )
-                
-                if response.status_code == 200:
-                    data = response.json()
-                    return data["choices"][0]["message"]["content"]
-                else:
-                    print(f"API error: {response.status_code} - {response.text}")
-                    return self._get_offline_response()
+            if api_key:
+                try:
+                    import httpx
+                    api_url = "https://api.openai.com/v1/chat/completions"
+                    # Use standard gpt-4o or config model
+                    model = "gpt-4o" 
                     
+                    async with httpx.AsyncClient() as client:
+                        response = await client.post(
+                            api_url,
+                            headers={"Authorization": f"Bearer {api_key}"},
+                            json={
+                                "model": model,
+                                "messages": messages,
+                                "temperature": temperature,
+                                "max_tokens": max_tokens,
+                            },
+                            timeout=60
+                        )
+                        if response.status_code == 200:
+                            return response.json()["choices"][0]["message"]["content"]
+                        else:
+                            print(f"OpenAI error {response.status_code}: {response.text}")
+                except Exception as e:
+                    print(f"OpenAI attempt failed: {e}")
+
+            # 2. Try OpenRouter (Fallback)
+            openrouter_key = os.getenv("OPENROUTER_API_KEY")
+            if openrouter_key:
+                import httpx
+                async with httpx.AsyncClient() as client:
+                    response = await client.post(
+                        "https://openrouter.ai/api/v1/chat/completions",
+                        headers={
+                            "Authorization": f"Bearer {openrouter_key}",
+                            "HTTP-Referer": "https://sisilola.live",
+                            "X-Title": "Sisi Lola AI",
+                        },
+                        json={
+                            "model": "mistralai/mistral-7b-instruct",
+                            "messages": messages,
+                            "temperature": temperature,
+                            "max_tokens": max_tokens,
+                        },
+                        timeout=60
+                    )
+                    if response.status_code == 200:
+                        return response.json()["choices"][0]["message"]["content"]
+            
+            return self._get_offline_response()
+            
         except Exception as e:
             print(f"API error: {e}")
             return self._get_offline_response()

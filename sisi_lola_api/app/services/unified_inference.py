@@ -18,14 +18,22 @@ import base64
 import hashlib
 from datetime import datetime, timedelta
 from dataclasses import dataclass, field, asdict
-from typing import Optional, Dict, List, Any
+from typing import Optional, Dict, List, Any, Tuple
 from enum import Enum
 
 # Alignment Engine
 try:
-    from app.services.alignment_engine import alignment_engine
+    from sisi_lola_api.app.services.alignment_engine import alignment_engine
 except ImportError:
     alignment_engine = None
+
+try:
+    from sisi_lola_api.app.services.mms_service import MMSService
+except ImportError:
+    MMSService = None
+
+from sisi_lola_api.app.services.api_manager import get_api_manager
+
 
 # HuggingFace
 from huggingface_hub import hf_hub_download, snapshot_download
@@ -179,7 +187,8 @@ Always maintain your warm, funny personality while being helpful and informative
             # Note: Using OpenAI but keeping this for future local Mistral fallback
             # We verify the model availability and connection
             await asyncio.sleep(0.1) 
-            self.brain_loaded = True
+            # Do NOT set brain_loaded to True for API mode, as it triggers local model usage logic
+            # self.brain_loaded = True 
             print("✅ Brain (Fine-tuned OpenAI Model) verified and active")
         except Exception as e:
             print(f"❌ Brain initialization failed: {e}")
@@ -349,14 +358,14 @@ Always maintain your warm, funny personality while being helpful and informative
                 self.alignment_engine.memory_bank = self.memory_bank
                 alignment_aura = self.alignment_engine.get_cultural_aura(session_id)
             
-        # 1. Handle YouTube Links
-        if self.extract_urls and self.get_youtube_info:
-            urls = self.extract_urls(message)
-            for url in urls:
-                if "youtube" in url or "youtu.be" in url:
-                    video_info = await self.get_youtube_info(url)
-                    # Add video context to the message temporarily
-                    message = f"{message}\n\n[SENSE PERCEPTION: Here is what I see in the link: {video_info}]"
+        # 1. Handle YouTube Links (Disabled until methods implemented)
+        # if hasattr(self, 'extract_urls') and hasattr(self, 'get_youtube_info'):
+        #     urls = self.extract_urls(message)
+        #     for url in urls:
+        #         if "youtube" in url or "youtu.be" in url:
+        #             video_info = await self.get_youtube_info(url)
+        #             # Add video context to the message temporarily
+        #             message = f"{message}\n\n[SENSE PERCEPTION: Here is what I see in the link: {video_info}]"
         
         # Inject memory and aura into system prompt
         current_system_prompt = self.get_system_prompt()
@@ -436,7 +445,9 @@ Always maintain your warm, funny personality while being helpful and informative
         Generate a streaming response (text-only).
         Yields JSON chunks for frontend consumption.
         """
-        api_key = os.getenv("OPENAI_API_KEY")
+        api_manager = get_api_manager()
+        api_key = api_manager.get_next_openai_key()
+        
         if not api_key:
             # Fallback to non-streaming for simplicity if no API key
             resp = await self.generate(message, ResponseMode.TEXT_ONLY, language, conversation_history, session_id=session_id)
@@ -510,7 +521,9 @@ Always maintain your warm, funny personality while being helpful and informative
     ) -> str:
         """Generate text response using brain model or fallback API"""
         
-        if self.brain_loaded:
+        """Generate text response using brain model or fallback API"""
+        
+        if self.brain_loaded and self.brain_model is not None:
             return await self._generate_with_local_brain(
                 message, system_prompt, language, conversation_history, max_tokens, temperature
             )
@@ -570,29 +583,19 @@ Always maintain your warm, funny personality while being helpful and informative
         max_tokens: int = 512,
         temperature: float = 0.7,
     ) -> str:
-        """Generate response using OpenAI API with fine-tuned Sisi Lola model"""
+        """Generate response using OpenAI API (with rotation) or Perplexity"""
         
-        api_key = os.getenv("OPENAI_API_KEY")
+        api_manager = get_api_manager()
         
-        if not api_key:
-            print("⚠️  OPENAI_API_KEY not found in environment!")
-            # Try loading from .env explicitly
-            try:
-                from dotenv import load_dotenv
-                load_dotenv()
-                api_key = os.getenv("OPENAI_API_KEY")
-                if api_key:
-                    print("✅ OPENAI_API_KEY loaded via manual load_dotenv()")
-            except:
-                pass
-                
-        if not api_key:
-            print("❌ Still no OPENAI_API_KEY. Falling back to OpenRouter...")
-            # Try OpenRouter as fallback
-            return await self._generate_with_openrouter(message, system_prompt, language, conversation_history, max_tokens, temperature)
+        # Check if we should use Perplexity (e.g. for research or deep questions)
+        # For now, default to OpenAI unless specified or fallback needed
         
+        # 1. Try OpenAI with Key Rotation
         try:
             from openai import OpenAI
+            
+            # Get next key from rotation
+            api_key = api_manager.get_next_openai_key()
             client = OpenAI(api_key=api_key)
             
             # Use fine-tuned Sisi Lola model for MUCH faster responses (2-5s vs 60-70s)
@@ -617,9 +620,56 @@ Always maintain your warm, funny personality while being helpful and informative
             return response.choices[0].message.content
             
         except Exception as e:
-            print(f"OpenAI API error: {e}")
-            # Try OpenRouter as fallback
+            print(f"OpenAI API error (Key: {api_key[:10]}...): {e}")
+            
+            # 2. Try Perplexity as high-quality backup/research layer
+            perplexity_response = await self._generate_with_perplexity(
+                message, system_prompt, conversation_history
+            )
+            if perplexity_response:
+                return perplexity_response
+
+            # 3. Try OpenRouter as final fallback
             return await self._generate_with_openrouter(message, system_prompt, language, conversation_history, max_tokens, temperature)
+
+    async def _generate_with_perplexity(
+        self,
+        message: str,
+        system_prompt: str,
+        conversation_history: List[Dict] = None
+    ) -> Optional[str]:
+        """Generate response using Perplexity API (Sonar)"""
+        api_manager = get_api_manager()
+        client = api_manager.get_client("perplexity")
+        
+        if not client:
+            return None
+            
+        try:
+            print("🔍 Trying Perplexity API...")
+            messages = [{"role": "system", "content": system_prompt}]
+            if conversation_history:
+                messages.extend(conversation_history)
+            messages.append({"role": "user", "content": message})
+            
+            response = await client.post(
+                "/chat/completions",
+                json={
+                    "model": "sonar-pro", # Best reasoning model
+                    "messages": messages,
+                    "temperature": 0.7
+                }
+            )
+            
+            if response.status_code == 200:
+                print("✅ Perplexity response received")
+                return response.json()["choices"][0]["message"]["content"]
+            else:
+                print(f"Perplexity error: {response.status_code}")
+                return None
+        except Exception as e:
+            print(f"Perplexity failed: {e}")
+            return None
     
     async def _generate_with_openrouter(
         self,
@@ -687,45 +737,34 @@ Always maintain your warm, funny personality while being helpful and informative
             
         return responses.get(language, responses[Language.MIXED])
     
-    async def _generate_voice(
-        self,
-        text: str,
-        language: Language,
-    ) -> tuple:
-        """Generate voice audio from text. Hybrid routing: Native models for native speech, Cloud for English/Pidgin."""
+
+    
+    async def _generate_voice(self, text: str, language: Language) -> Tuple[Optional[str], Optional[str]]:
+        """
+        Generate voice audio using Priority Stack:
+        1. MMS (Meta Massively Multilingual Speech) for Native African Languages (Yoruba, Igbo, Hausa) - BEST Quality for Dialects
+        2. ElevenLabs (Cloud) for English/Pidgin/Mixed - Best Emotion/Quality
+        3. XTTS-v2 (Local) - Fallback
+        """
         
-        # 1. Check for native language tags
-        detected_tags = self._extract_language_tags(text)
-        is_native = any(tag in ["YO", "IG", "HA"] for tag in detected_tags)
-        
-        # 2. Try MMS for Native Speech if detected and enabled
-        if (is_native or language in [Language.YORUBA, Language.IGBO, Language.HAUSA]):
+        # 1. PRIORITY: MMS for Native Languages
+        if self.mms_loaded and language in [Language.YORUBA, Language.IGBO, Language.HAUSA]:
+            print(f"🎙️ Using MMS for Native Language: {language}")
             try:
-                from app.services.mms_service import mms_service
-                
-                # Determine primary native language
-                primary_native = "yo"
-                if "IG" in detected_tags: primary_native = "ig"
-                elif "HA" in detected_tags: primary_native = "ha"
-                elif language == Language.IGBO: primary_native = "ig"
-                elif language == Language.HAUSA: primary_native = "ha"
-                
-                print(f"🌍 Routing to Native MMS Voice ({primary_native}) for authenticity...")
-                audio_base64, _ = await mms_service.generate_speech(self._clean_text_for_tts(text), primary_native)
+                audio_base64, _ = await self.mms_service.generate_speech(text, lang_code=language.value)
                 if audio_base64:
-                    print(f"✅ Native {primary_native} voice generated via MMS")
                     return audio_base64, None
             except Exception as e:
-                print(f"⚠️ MMS Native voice failed: {e}. Falling back to Cloud...")
-
+                print(f"⚠️ MMS Generation failed: {e}")
+                # Fallthrough to next provider
+        
+        # 2. ElevenLabs (Cloud) - High Quality English/Pidgin
         elevenlabs_key = os.getenv("ELEVENLABS_API_KEY")
         
-        # 1. Try ElevenLabs for high-quality, fast (<1s) voice
         if elevenlabs_key:
             try:
                 import httpx
-                # Import settings from DNA
-                from app.config import SisiLolaDNA
+                from sisi_lola_api.app.config import SisiLolaDNA
                 
                 voice_id = SisiLolaDNA.VOICE_ID or "21m00Tcm4TlvDq8ikWAM"
                 url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}"

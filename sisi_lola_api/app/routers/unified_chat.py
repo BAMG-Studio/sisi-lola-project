@@ -60,6 +60,7 @@ class UnifiedChatRequest(BaseModel):
     max_tokens: int = Field(default=512, ge=50, le=2048, description="Max response length")
     temperature: float = Field(default=0.7, ge=0.0, le=1.5, description="Creativity level")
     include_audio_base64: bool = Field(default=True, description="Include audio as base64")
+    session_id: Optional[str] = Field(default="default", description="Conversation session identifier")
 
 class UnifiedChatResponse(BaseModel):
     """Response from unified chat endpoint"""
@@ -130,7 +131,7 @@ async def unified_chat(request: UnifiedChatRequest):
         from sisi_lola_api.app.services.memory_bank import memory_bank
         from sisi_lola_api.app.services.unified_inference import ResponseMode as ServiceMode, Language as ServiceLang
         
-        session_id = request.model_info.get("session_id", "default") if request.model_info else "default"
+        session_id = request.session_id or "default"
         response = await service.generate(
             message=request.message,
             mode=ServiceMode(request.mode.value),
@@ -151,11 +152,14 @@ async def unified_chat(request: UnifiedChatRequest):
             audio_url=response.audio_url,
             language_tags=response.language_tags or [],
             personality_metrics=response.personality_metrics or {},
-            generation_time_ms=response.generation_time_ms,
+            generation_time_ms=getattr(response, "generation_time_ms", 0),
             mode=ResponseMode(response.mode.value),
             model_info={**service.get_status(), "session_id": session_id}
         )
     except Exception as e:
+        print(f"❌ Unified Chat Error: {e}")
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/chat/stream")
@@ -182,7 +186,7 @@ async def unified_chat_stream(request: UnifiedChatRequest):
             conversation_history=history,
             max_tokens=request.max_tokens,
             temperature=request.temperature,
-            session_id=request.model_info.get("session_id", "default") if request.model_info else "default"
+            session_id=request.session_id or "default"
         ),
         media_type="text/event-stream"
     )
@@ -233,10 +237,26 @@ async def get_personality():
         service = get_service()
         config = service.personality_config or service._get_default_personality()
         
+        # Fix: Extract languages if they are a dict instead of a list
+        langs_data = config.get("languages", [])
+        languages = []
+        if isinstance(langs_data, dict):
+            # Extract from structured dict
+            if "primary" in langs_data: languages.append(langs_data["primary"])
+            if "secondary" in langs_data:
+                if isinstance(langs_data["secondary"], list):
+                    languages.extend(langs_data["secondary"])
+                else:
+                    languages.append(langs_data["secondary"])
+            # Clean up and capitalize
+            languages = [str(l).capitalize() for l in languages if l]
+        elif isinstance(langs_data, list):
+            languages = [str(l).capitalize() for l in langs_data]
+        
         return PersonalityResponse(
             name=config.get("name", "Sisi Lola"),
             traits=config.get("traits", {}),
-            languages=config.get("languages", []),
+            languages=languages,
             system_prompt_preview=config.get("system_prompt", "")[:500] + "...",
             status="Sisi Lola is FUNNY and CHARISMATIC! 💃"
         )

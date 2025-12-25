@@ -27,8 +27,7 @@ jobs:
     
     - name: Run tests
       run: |
-        cd sisi_lola_api
-        PYTHONPATH=. pytest tests/ -v --cov=app --cov-report=xml
+        PYTHONPATH=. pytest sisi_lola_api/tests/ -v --cov=sisi_lola_api/app --cov-report=xml
     
     - name: Upload coverage
       uses: codecov/codecov-action@v3

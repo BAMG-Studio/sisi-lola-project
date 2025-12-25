@@ -1,0 +1,1468 @@
+{
+  "posts": [
+    {
+      "vibe_id": "VIBE001",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TIKTOK_API_KEY not configured",
+      "timestamp": "2025-12-25T02:20:44.716289"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram credentials not configured",
+      "timestamp": "2025-12-25T02:20:44.735448"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "Unsupported platform: YouTube_Shorts",
+      "timestamp": "2025-12-25T02:20:44.753915"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram credentials not configured",
+      "timestamp": "2025-12-25T02:20:44.779506"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TIKTOK_API_KEY not configured",
+      "timestamp": "2025-12-25T02:20:44.799254"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Unsupported platform: Facebook",
+      "timestamp": "2025-12-25T02:20:44.821236"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TIKTOK_API_KEY not configured",
+      "timestamp": "2025-12-25T02:20:44.849803"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram credentials not configured",
+      "timestamp": "2025-12-25T02:20:44.866660"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "Unsupported platform: YouTube_Shorts",
+      "timestamp": "2025-12-25T02:20:44.882520"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TIKTOK_API_KEY not configured",
+      "timestamp": "2025-12-25T02:20:44.896599"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram credentials not configured",
+      "timestamp": "2025-12-25T02:20:44.912247"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "Unsupported platform: YouTube_Shorts",
+      "timestamp": "2025-12-25T02:20:44.926883"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram credentials not configured",
+      "timestamp": "2025-12-25T02:20:44.943134"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TIKTOK_API_KEY not configured",
+      "timestamp": "2025-12-25T02:20:44.958069"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "Unsupported platform: YouTube_Shorts",
+      "timestamp": "2025-12-25T02:20:44.974372"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TIKTOK_API_KEY not configured",
+      "timestamp": "2025-12-25T02:20:44.992290"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram credentials not configured",
+      "timestamp": "2025-12-25T02:20:45.007462"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "Unsupported platform: YouTube_Shorts",
+      "timestamp": "2025-12-25T02:20:45.023096"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram credentials not configured",
+      "timestamp": "2025-12-25T02:20:45.035799"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TIKTOK_API_KEY not configured",
+      "timestamp": "2025-12-25T02:20:45.051162"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Unsupported platform: Facebook",
+      "timestamp": "2025-12-25T02:20:45.063869"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TIKTOK_API_KEY not configured",
+      "timestamp": "2025-12-25T02:20:45.078174"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram credentials not configured",
+      "timestamp": "2025-12-25T02:20:45.093773"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "Unsupported platform: YouTube_Shorts",
+      "timestamp": "2025-12-25T02:20:45.106738"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TIKTOK_API_KEY not configured",
+      "timestamp": "2025-12-25T02:20:45.120919"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram credentials not configured",
+      "timestamp": "2025-12-25T02:20:45.138195"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "Unsupported platform: YouTube_Shorts",
+      "timestamp": "2025-12-25T02:20:45.151919"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TIKTOK_API_KEY not configured",
+      "timestamp": "2025-12-25T02:20:45.167565"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram credentials not configured",
+      "timestamp": "2025-12-25T02:20:45.182035"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "Unsupported platform: YouTube_Shorts",
+      "timestamp": "2025-12-25T02:20:45.195610"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Unsupported platform: Facebook",
+      "timestamp": "2025-12-25T02:20:45.207660"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225073401E405CD286D3C4002AD17\"}}",
+      "timestamp": "2025-12-25T02:34:01.761437"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"error\":{\"message\":\"Invalid OAuth access token - Cannot parse access token\",\"type\":\"OAuthException\",\"code\":190,\"fbtrace_id\":\"AQYNyDTMAX7Cfk9qN-UqOkw\"}}",
+      "timestamp": "2025-12-25T02:34:02.146758"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T02:34:02.159049"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"error\":{\"message\":\"Invalid OAuth access token - Cannot parse access token\",\"type\":\"OAuthException\",\"code\":190,\"fbtrace_id\":\"AhXJmnsztSRLnagsESnlkd8\"}}",
+      "timestamp": "2025-12-25T02:34:02.493400"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512250734021F5ECB94F2885F03325C\"}}",
+      "timestamp": "2025-12-25T02:34:03.113756"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Facebook Graph API Posting implementation in progress",
+      "timestamp": "2025-12-25T02:34:03.126342"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225073403DBCEEA6C39C46603087F\"}}",
+      "timestamp": "2025-12-25T02:34:03.807217"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"error\":{\"message\":\"Invalid OAuth access token - Cannot parse access token\",\"type\":\"OAuthException\",\"code\":190,\"fbtrace_id\":\"AXEeiwKgZ5SNlCRlaInDauw\"}}",
+      "timestamp": "2025-12-25T02:34:04.372574"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T02:34:04.386527"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"2025122507340481508F1ADD314502E2EF\"}}",
+      "timestamp": "2025-12-25T02:34:04.833995"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"error\":{\"message\":\"Invalid OAuth access token - Cannot parse access token\",\"type\":\"OAuthException\",\"code\":190,\"fbtrace_id\":\"A7JT0GhHVpPug-W-qZMN_io\"}}",
+      "timestamp": "2025-12-25T02:34:05.447895"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T02:34:05.461913"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"error\":{\"message\":\"Invalid OAuth access token - Cannot parse access token\",\"type\":\"OAuthException\",\"code\":190,\"fbtrace_id\":\"A89RnMNhM9_a3pdOfBYzd5B\"}}",
+      "timestamp": "2025-12-25T02:34:06.099427"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512250734068754B08FF5732002D4BC\"},\"data\":{}}",
+      "timestamp": "2025-12-25T02:34:06.536859"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T02:34:06.552908"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225073406946B701CAD89A702DD11\"}}",
+      "timestamp": "2025-12-25T02:34:07.129321"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"error\":{\"message\":\"Invalid OAuth access token - Cannot parse access token\",\"type\":\"OAuthException\",\"code\":190,\"fbtrace_id\":\"A-AnzvpE_ZuaF9GsybYlQCO\"}}",
+      "timestamp": "2025-12-25T02:34:07.469211"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T02:34:07.481813"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"error\":{\"message\":\"Invalid OAuth access token - Cannot parse access token\",\"type\":\"OAuthException\",\"code\":190,\"fbtrace_id\":\"A7dmiFD60tGpw9biRdbxCp8\"}}",
+      "timestamp": "2025-12-25T02:34:07.823850"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225073408A54765A85D063F02BF0E\"}}",
+      "timestamp": "2025-12-25T02:34:08.423536"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Facebook Graph API Posting implementation in progress",
+      "timestamp": "2025-12-25T02:34:08.435848"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512250734082FC6BE3B8296DA02C06F\"},\"data\":{}}",
+      "timestamp": "2025-12-25T02:34:08.849058"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"error\":{\"message\":\"Invalid OAuth access token - Cannot parse access token\",\"type\":\"OAuthException\",\"code\":190,\"fbtrace_id\":\"AHtxWWfmLgcKJIenH8PdXKU\"}}",
+      "timestamp": "2025-12-25T02:34:09.552564"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T02:34:09.572232"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225073409B80554FD2CF253030F40\"},\"data\":{}}",
+      "timestamp": "2025-12-25T02:34:09.982881"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"error\":{\"message\":\"Invalid OAuth access token - Cannot parse access token\",\"type\":\"OAuthException\",\"code\":190,\"fbtrace_id\":\"AYWoaiJIdrwG0-p-RHh7V2D\"}}",
+      "timestamp": "2025-12-25T02:34:10.570659"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T02:34:10.590840"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225073411C1180AF0E80E79036522\"}}",
+      "timestamp": "2025-12-25T02:34:11.387162"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"error\":{\"message\":\"Invalid OAuth access token - Cannot parse access token\",\"type\":\"OAuthException\",\"code\":190,\"fbtrace_id\":\"AeZmT_jSRUmx_chfWEj33xH\"}}",
+      "timestamp": "2025-12-25T02:34:11.760361"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T02:34:11.775532"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Facebook Graph API Posting implementation in progress",
+      "timestamp": "2025-12-25T02:34:11.786633"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225083021DFE9FEE604E13E01A5A2\"}}",
+      "timestamp": "2025-12-25T03:30:21.308127"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225083231AC7399FFE31F7801AA2A\"}}",
+      "timestamp": "2025-12-25T03:32:31.650322"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Failed to host video on Dropbox (Required for Instagram API)",
+      "timestamp": "2025-12-25T03:32:31.925769"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512250837567BB84E4E7668B301FE4B\"}}",
+      "timestamp": "2025-12-25T03:37:56.520564"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"error\":{\"message\":\"Invalid OAuth access token - Cannot parse access token\",\"type\":\"OAuthException\",\"code\":190,\"fbtrace_id\":\"Anr-xjT0-0Na6uzMoyildnY\"}}",
+      "timestamp": "2025-12-25T03:38:00.759935"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T03:38:00.796370"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"error\":{\"message\":\"Invalid OAuth access token - Cannot parse access token\",\"type\":\"OAuthException\",\"code\":190,\"fbtrace_id\":\"ALasmAksjjCzlVh_jKoVU6A\"}}",
+      "timestamp": "2025-12-25T03:38:05.050101"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"2025122508380560337968546DF101C471\"}}",
+      "timestamp": "2025-12-25T03:38:05.649797"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Facebook Graph API Posting implementation in progress",
+      "timestamp": "2025-12-25T03:38:05.664642"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225083805D9CFCB0E875E47020BC5\"}}",
+      "timestamp": "2025-12-25T03:38:06.093091"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"error\":{\"message\":\"Invalid OAuth access token - Cannot parse access token\",\"type\":\"OAuthException\",\"code\":190,\"fbtrace_id\":\"AN_KofaemXCJVrByH6qLs6V\"}}",
+      "timestamp": "2025-12-25T03:38:09.379370"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T03:38:09.395954"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225083809E6074B3965FA7801DB97\"}}",
+      "timestamp": "2025-12-25T03:38:10.020579"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"error\":{\"message\":\"Invalid OAuth access token - Cannot parse access token\",\"type\":\"OAuthException\",\"code\":190,\"fbtrace_id\":\"AlM5x0iu-f6asDd1CMjQewZ\"}}",
+      "timestamp": "2025-12-25T03:38:13.089657"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T03:38:13.101446"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"error\":{\"message\":\"Invalid OAuth access token - Cannot parse access token\",\"type\":\"OAuthException\",\"code\":190,\"fbtrace_id\":\"AvX-AugUoDoFleBPk73ssFE\"}}",
+      "timestamp": "2025-12-25T03:38:17.310405"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225083817AFBB37E61D08E101E2E8\"}}",
+      "timestamp": "2025-12-25T03:38:17.831762"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T03:38:17.847773"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"2025122508381805D49BAEB8B172020863\"}}",
+      "timestamp": "2025-12-25T03:38:18.255968"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"error\":{\"message\":\"Invalid OAuth access token - Cannot parse access token\",\"type\":\"OAuthException\",\"code\":190,\"fbtrace_id\":\"AnreFmOKq5hY8jPqXtgPa4u\"}}",
+      "timestamp": "2025-12-25T03:38:22.970529"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T03:38:22.984710"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"error\":{\"message\":\"Invalid OAuth access token - Cannot parse access token\",\"type\":\"OAuthException\",\"code\":190,\"fbtrace_id\":\"AfGnWA4yir2WwNLtpGZbvvO\"}}",
+      "timestamp": "2025-12-25T03:38:26.246781"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"2025122508382718FFC20CDFA32C01D162\"}}",
+      "timestamp": "2025-12-25T03:38:27.404474"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Facebook Graph API Posting implementation in progress",
+      "timestamp": "2025-12-25T03:38:27.429104"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225083827C9C01C8199585201F0CF\"}}",
+      "timestamp": "2025-12-25T03:38:28.069359"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"error\":{\"message\":\"Invalid OAuth access token - Cannot parse access token\",\"type\":\"OAuthException\",\"code\":190,\"fbtrace_id\":\"ALVOK51CmPb3o0Re-Yh2QR2\"}}",
+      "timestamp": "2025-12-25T03:38:31.352859"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T03:38:31.372175"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225083831BA738F3AF6F38301E4E5\"}}",
+      "timestamp": "2025-12-25T03:38:32.115361"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"error\":{\"message\":\"Invalid OAuth access token - Cannot parse access token\",\"type\":\"OAuthException\",\"code\":190,\"fbtrace_id\":\"AG2oXG6IeIaGDLouc-F5sZo\"}}",
+      "timestamp": "2025-12-25T03:38:35.787493"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T03:38:35.798013"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"2025122508383601D41F9942F18C01E502\"}}",
+      "timestamp": "2025-12-25T03:38:36.497209"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"error\":{\"message\":\"Invalid OAuth access token - Cannot parse access token\",\"type\":\"OAuthException\",\"code\":190,\"fbtrace_id\":\"AlYhwy9hIt7gXClomGIekAi\"}}",
+      "timestamp": "2025-12-25T03:38:39.687298"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T03:38:39.698503"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Facebook Graph API Posting implementation in progress",
+      "timestamp": "2025-12-25T03:38:39.711171"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"2025122508462966738F0A79B034028754\"}}",
+      "timestamp": "2025-12-25T03:46:30.107991"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"id\":\"17848968888617786\"}",
+      "timestamp": "2025-12-25T03:46:46.082766"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T03:46:46.095589"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"id\":\"17848968894617786\"}",
+      "timestamp": "2025-12-25T03:47:00.497732"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512250847007D7B311A5780820230EE\"}}",
+      "timestamp": "2025-12-25T03:47:00.956926"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Facebook Graph API Posting implementation in progress",
+      "timestamp": "2025-12-25T03:47:00.970458"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"2025122508470172CA31E49E340A01F865\"},\"data\":{}}",
+      "timestamp": "2025-12-25T03:47:01.409077"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"id\":\"17848968903617786\"}",
+      "timestamp": "2025-12-25T03:47:18.569186"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T03:47:18.584191"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512250847188BA2E9F5EAC13D021A77\"}}",
+      "timestamp": "2025-12-25T03:47:19.048566"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"id\":\"17848968921617786\"}",
+      "timestamp": "2025-12-25T03:47:35.324431"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T03:47:35.348502"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"id\":\"17848968957617786\"}",
+      "timestamp": "2025-12-25T03:47:50.815354"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512250847518A64A0806AFA96023AEE\"}}",
+      "timestamp": "2025-12-25T03:47:51.436270"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T03:47:51.460889"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512250847518A64A0806AFA96023AFD\"}}",
+      "timestamp": "2025-12-25T03:47:51.995929"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"id\":\"17848968978617786\"}",
+      "timestamp": "2025-12-25T03:48:06.812927"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T03:48:06.833715"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"id\":\"17848969017617786\"}",
+      "timestamp": "2025-12-25T03:48:21.545167"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225084822A923A15B7266AB0215E4\"}}",
+      "timestamp": "2025-12-25T03:48:22.193170"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Facebook Graph API Posting implementation in progress",
+      "timestamp": "2025-12-25T03:48:22.206803"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225084822AF40E5988F4B63020C11\"}}",
+      "timestamp": "2025-12-25T03:48:22.648830"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"id\":\"17848969029617786\"}",
+      "timestamp": "2025-12-25T03:48:36.628397"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T03:48:36.646258"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225084836191909B4D1D76802063D\"}}",
+      "timestamp": "2025-12-25T03:48:37.067797"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"id\":\"17848969047617786\"}",
+      "timestamp": "2025-12-25T03:48:51.604410"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T03:48:51.624657"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225084852FA5F270428E937024E45\"}}",
+      "timestamp": "2025-12-25T03:48:52.444458"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram API error: {\"id\":\"17848969059617786\"}",
+      "timestamp": "2025-12-25T03:49:07.444209"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T03:49:07.469335"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Facebook Graph API Posting implementation in progress",
+      "timestamp": "2025-12-25T03:49:07.486705"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225085700239B7A4288C45E024609\"},\"data\":{}}",
+      "timestamp": "2025-12-25T03:57:01.084414"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: {\"status_code\":\"ERROR\",\"id\":\"17848969599617786\"}",
+      "timestamp": "2025-12-25T03:57:16.211035"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T03:57:16.224918"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: {\"status_code\":\"ERROR\",\"id\":\"17848969611617786\"}",
+      "timestamp": "2025-12-25T03:57:53.120073"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225085753C307DD3958E21802D918\"},\"data\":{}}",
+      "timestamp": "2025-12-25T03:57:53.744716"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Facebook Graph API Posting implementation in progress",
+      "timestamp": "2025-12-25T03:57:53.758911"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225085754753B523E09FE77026F55\"}}",
+      "timestamp": "2025-12-25T03:57:54.401822"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: {\"status_code\":\"ERROR\",\"id\":\"17848969674617786\"}",
+      "timestamp": "2025-12-25T03:58:29.034747"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T03:58:29.052096"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225085829F2DF384023197C027EC9\"}}",
+      "timestamp": "2025-12-25T03:58:29.632024"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: {\"status_code\":\"ERROR\",\"id\":\"17848969848617786\"}",
+      "timestamp": "2025-12-25T03:59:06.309028"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T03:59:06.323670"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: {\"status_code\":\"ERROR\",\"id\":\"17848969959617786\"}",
+      "timestamp": "2025-12-25T03:59:42.893364"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225085943FA9DC4BEDD060B028529\"}}",
+      "timestamp": "2025-12-25T03:59:43.326234"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T03:59:43.338743"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512250859438FBDE9EA5E81CC023D22\"},\"data\":{}}",
+      "timestamp": "2025-12-25T03:59:43.918822"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing timeout (video still pending)",
+      "timestamp": "2025-12-25T04:01:51.714872"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T04:01:51.736107"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram Container error: {\"error\":{\"message\":\"Error validating access token: Session has expired on Thursday, 25-Dec-25 01:00:00 PST. The current time is Thursday, 25-Dec-25 01:01:55 PST.\",\"type\":\"OAuthException\",\"code\":190,\"error_subcode\":463,\"fbtrace_id\":\"AR9iGHP5yQcUeZG5CwcQ_Od\"}}",
+      "timestamp": "2025-12-25T04:01:56.020996"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512250901565DE8B6B7CE166402C710\"}}",
+      "timestamp": "2025-12-25T04:01:56.642253"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Facebook Graph API Posting implementation in progress",
+      "timestamp": "2025-12-25T04:01:56.654013"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225090156EDEE84C4E0CC92029DFD\"}}",
+      "timestamp": "2025-12-25T04:01:57.038034"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram Container error: {\"error\":{\"message\":\"Error validating access token: Session has expired on Thursday, 25-Dec-25 01:00:00 PST. The current time is Thursday, 25-Dec-25 01:02:01 PST.\",\"type\":\"OAuthException\",\"code\":190,\"error_subcode\":463,\"fbtrace_id\":\"AHvMuI5ZqmHVHSBtl9yfwjP\"}}",
+      "timestamp": "2025-12-25T04:02:01.184801"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T04:02:01.201040"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225090201FCD19BF3622E69026C78\"},\"data\":{}}",
+      "timestamp": "2025-12-25T04:02:01.849083"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram Container error: {\"error\":{\"message\":\"Error validating access token: Session has expired on Thursday, 25-Dec-25 01:00:00 PST. The current time is Thursday, 25-Dec-25 01:02:06 PST.\",\"type\":\"OAuthException\",\"code\":190,\"error_subcode\":463,\"fbtrace_id\":\"APSbxGIbQbn1NKPeeXqGbFs\"}}",
+      "timestamp": "2025-12-25T04:02:06.319277"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T04:02:06.332036"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225090206A754D0068B5829026E8D\"}}",
+      "timestamp": "2025-12-25T04:02:06.733931"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram Container error: {\"error\":{\"message\":\"Error validating access token: Session has expired on Thursday, 25-Dec-25 01:00:00 PST. The current time is Thursday, 25-Dec-25 01:02:10 PST.\",\"type\":\"OAuthException\",\"code\":190,\"error_subcode\":463,\"fbtrace_id\":\"Afw0lhsBY9L3KsiLQQnHM4n\"}}",
+      "timestamp": "2025-12-25T04:02:10.143967"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T04:02:10.155604"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Facebook Graph API Posting implementation in progress",
+      "timestamp": "2025-12-25T04:02:10.167848"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512250946224A2CA0165701A40384D2\"}}",
+      "timestamp": "2025-12-25T04:46:22.531603"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: {\"status_code\":\"ERROR\",\"id\":\"17848973709617786\"}",
+      "timestamp": "2025-12-25T04:46:37.529955"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T04:46:37.543883"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: {\"status_code\":\"ERROR\",\"id\":\"17848973736617786\"}",
+      "timestamp": "2025-12-25T04:46:52.670048"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225094653475F89EF620F760384CD\"}}",
+      "timestamp": "2025-12-25T04:46:53.469545"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Facebook Graph API Posting implementation in progress",
+      "timestamp": "2025-12-25T04:46:53.484306"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225094653F4316BA28AAF3903A24D\"}}",
+      "timestamp": "2025-12-25T04:46:53.915286"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512250952244210136E9FF5C7037540\"}}",
+      "timestamp": "2025-12-25T04:52:24.210216"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing timeout (video still pending)",
+      "timestamp": "2025-12-25T04:54:34.699270"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T04:54:34.716387"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing timeout (video still pending)",
+      "timestamp": "2025-12-25T04:56:43.445475"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225095643EA223408ECDEAE043F21\"}}",
+      "timestamp": "2025-12-25T04:56:43.898660"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Facebook Graph API Posting implementation in progress",
+      "timestamp": "2025-12-25T04:56:43.912557"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512250956445431B90C537087040E64\"}}",
+      "timestamp": "2025-12-25T04:56:44.494616"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing timeout (video still pending)",
+      "timestamp": "2025-12-25T04:58:53.127236"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T04:58:53.146147"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512250958539CBAB49F779E5D03CC2F\"}}",
+      "timestamp": "2025-12-25T04:58:53.699923"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing timeout (video still pending)",
+      "timestamp": "2025-12-25T05:01:04.456646"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T05:01:04.468794"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing timeout (video still pending)",
+      "timestamp": "2025-12-25T05:03:16.802594"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225100317BE410898E48CCF036AEE\"}}",
+      "timestamp": "2025-12-25T05:03:17.363131"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T05:03:17.378447"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251225100317858F3AB6FCAAA403D7CF\"}}",
+      "timestamp": "2025-12-25T05:03:18.140996"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing timeout (video still pending)",
+      "timestamp": "2025-12-25T05:05:28.047827"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T05:05:28.066128"
+    }
+  ]
+}

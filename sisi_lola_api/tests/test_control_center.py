@@ -1,8 +1,8 @@
 import pytest
 from fastapi.testclient import TestClient
-from app.main_updated import app
-from app.database import Base, engine, SessionLocal
-from app.auth import get_password_hash, create_access_token
+from sisi_lola_api.app.main_updated import app
+from sisi_lola_api.app.database import Base, engine, SessionLocal
+from sisi_lola_api.app.auth import get_password_hash, create_access_token
 
 @pytest.fixture
 def client():
@@ -12,7 +12,7 @@ def client():
 
 @pytest.fixture
 def admin_token():
-    from app.database import User, Role
+    from sisi_lola_api.app.database import User, Role
     db = SessionLocal()
     
     role = Role(name="SUPER_ADMIN", description="Admin", permissions=["*"])

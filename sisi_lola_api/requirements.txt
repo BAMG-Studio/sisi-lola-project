@@ -17,3 +17,22 @@ imageio-ffmpeg
 # librosa>=0.10.0
 # soundfile>=0.12.0
 # numpy>=1.24.0
+
+# Added during V2 Stabilization
+huggingface_hub
+numpy
+imageio
+imageio-ffmpeg
+sqlalchemy
+passlib[bcrypt]
+bcrypt
+python-jose[cryptography]
+# Social Media SDKs
+facebook-sdk
+google-api-python-client
+google-auth-oauthlib
+dropbox
+praw
+twitchio
+# Vibe Scheduling
+schedule

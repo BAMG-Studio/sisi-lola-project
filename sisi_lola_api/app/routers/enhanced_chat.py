@@ -1,8 +1,4 @@
 """
-from ml_training.scripts.model_cache_manager import get_model_cache
-import httpx
-import time
-from sisi_lola_api.app.config import MODAL_INFERENCE_URL, MODAL_TIMEOUT
 SISI LOLA ENHANCED CHAT ROUTER
 Multimodal endpoint with training data collection, special commands, and improved responses.
 
@@ -19,6 +15,9 @@ from fastapi.responses import StreamingResponse, JSONResponse, FileResponse
 from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any
 from enum import Enum
+import httpx
+import time
+from sisi_lola_api.app.config import MODAL_INFERENCE_URL, MODAL_TIMEOUT
 
 # ========================================
 # MODAL INFERENCE OPTIMIZATION
@@ -32,7 +31,8 @@ async def call_modal_inference(message: str, max_tokens: int = 256, temperature:
     """
     start = time.time()
     
-    # OLD MODAL HTTP IMPLEMENTATION - REPLACED WITH LOCAL MODEL CACHEtry:
+    # OLD MODAL HTTP IMPLEMENTATION - REPLACED WITH LOCAL MODEL CACHE
+    try:
         async with httpx.AsyncClient(timeout=MODAL_TIMEOUT) as client:
             response = await client.post(
                 MODAL_INFERENCE_URL,
