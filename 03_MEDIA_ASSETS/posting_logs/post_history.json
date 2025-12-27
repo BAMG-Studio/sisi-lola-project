@@ -1463,6 +1463,1118 @@
       "post_id": null,
       "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
       "timestamp": "2025-12-25T05:05:28.066128"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing timeout (video still pending)",
+      "timestamp": "2025-12-25T05:07:39.261265"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512251007395DC3289D5286F0042362\"}}",
+      "timestamp": "2025-12-25T05:07:39.928419"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Facebook Graph API Posting implementation in progress",
+      "timestamp": "2025-12-25T05:07:39.962212"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512251007402A28BA483B3E9E041AF8\"}}",
+      "timestamp": "2025-12-25T05:07:40.546772"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing timeout (video still pending)",
+      "timestamp": "2025-12-25T05:09:49.519843"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T05:09:49.536155"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512251009500146E64175AA840402D2\"}}",
+      "timestamp": "2025-12-25T05:09:50.267450"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing timeout (video still pending)",
+      "timestamp": "2025-12-25T05:12:00.332630"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T05:12:00.354765"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512251012008C4A1DDFC1661D03EB82\"}}",
+      "timestamp": "2025-12-25T05:12:01.000308"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing timeout (video still pending)",
+      "timestamp": "2025-12-25T05:14:11.074278"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube posting requires OAuth setup - API Key only supports read operations",
+      "timestamp": "2025-12-25T05:14:11.100719"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Facebook Graph API Posting implementation in progress",
+      "timestamp": "2025-12-25T05:14:11.117321"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512260127292E70239DA69D842C220C\"}}",
+      "timestamp": "2025-12-25T20:27:29.953093"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Failed to host video on Dropbox (Required for Instagram API)",
+      "timestamp": "2025-12-25T20:27:35.616861"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube Upload Error: No module named 'google_apiclient'",
+      "timestamp": "2025-12-25T20:27:37.993450"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Failed to host video on Dropbox (Required for Instagram API)",
+      "timestamp": "2025-12-25T20:27:41.939867"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251226012742A7D558914D25702C3013\"}}",
+      "timestamp": "2025-12-25T20:27:42.376830"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Facebook Graph API Posting implementation in progress",
+      "timestamp": "2025-12-25T20:27:42.388219"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251226012742A6BEE08F0CF5D72BD957\"}}",
+      "timestamp": "2025-12-25T20:27:42.817512"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Failed to host video on Dropbox (Required for Instagram API)",
+      "timestamp": "2025-12-25T20:27:47.010641"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube Upload Error: No module named 'google_apiclient'",
+      "timestamp": "2025-12-25T20:27:47.036465"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"2025122601274719F18DF718E4342BECDD\"}}",
+      "timestamp": "2025-12-25T20:27:47.743598"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Failed to host video on Dropbox (Required for Instagram API)",
+      "timestamp": "2025-12-25T20:27:51.661688"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube Upload Error: No module named 'google_apiclient'",
+      "timestamp": "2025-12-25T20:27:51.686715"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Failed to host video on Dropbox (Required for Instagram API)",
+      "timestamp": "2025-12-25T20:27:55.496662"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251226012756FBA229296450DD311CA5\"}}",
+      "timestamp": "2025-12-25T20:27:56.081481"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube Upload Error: No module named 'google_apiclient'",
+      "timestamp": "2025-12-25T20:27:56.115308"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"2025122601275695280D08C412CC30F833\"}}",
+      "timestamp": "2025-12-25T20:27:56.547335"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Failed to host video on Dropbox (Required for Instagram API)",
+      "timestamp": "2025-12-25T20:28:00.503662"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube Upload Error: No module named 'google_apiclient'",
+      "timestamp": "2025-12-25T20:28:00.525019"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Failed to host video on Dropbox (Required for Instagram API)",
+      "timestamp": "2025-12-25T20:28:04.979580"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512260128057837D54C4E74292B70AC\"}}",
+      "timestamp": "2025-12-25T20:28:05.437301"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Facebook Graph API Posting implementation in progress",
+      "timestamp": "2025-12-25T20:28:05.465386"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251226012805AD6325C42999742C0A0D\"}}",
+      "timestamp": "2025-12-25T20:28:05.994089"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Failed to host video on Dropbox (Required for Instagram API)",
+      "timestamp": "2025-12-25T20:28:11.021791"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube Upload Error: No module named 'google_apiclient'",
+      "timestamp": "2025-12-25T20:28:11.040843"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251226012811CC56296659C4272BD404\"}}",
+      "timestamp": "2025-12-25T20:28:11.461943"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Failed to host video on Dropbox (Required for Instagram API)",
+      "timestamp": "2025-12-25T20:28:16.516852"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube Upload Error: No module named 'google_apiclient'",
+      "timestamp": "2025-12-25T20:28:16.551354"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251226012817790EDAF01752AD2D0F48\"}}",
+      "timestamp": "2025-12-25T20:28:17.327186"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Failed to host video on Dropbox (Required for Instagram API)",
+      "timestamp": "2025-12-25T20:28:23.169959"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube Upload Error: No module named 'google_apiclient'",
+      "timestamp": "2025-12-25T20:28:23.197631"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Facebook Graph API Posting implementation in progress",
+      "timestamp": "2025-12-25T20:28:23.216293"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512260135366912E7BB5B0F112CDB81\"}}",
+      "timestamp": "2025-12-25T20:35:36.993905"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251226014050E920E8C571664C2C4E23\"}}",
+      "timestamp": "2025-12-25T20:40:50.340143"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512260143430E80D4636591F433271C\"},\"data\":{}}",
+      "timestamp": "2025-12-25T20:43:43.249497"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T20:44:05.151332"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "YouTube_Shorts",
+      "success": true,
+      "post_id": "Zqg5h7-0-oM",
+      "error": null,
+      "timestamp": "2025-12-25T20:44:40.984544"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T20:45:17.125978"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"2025122601451748F8F7978CEBDA2D9D13\"}}",
+      "timestamp": "2025-12-25T20:45:17.912365"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Facebook Graph API Posting implementation in progress",
+      "timestamp": "2025-12-25T20:45:17.940197"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251226014518C1217178B72DF82D0ED4\"},\"data\":{}}",
+      "timestamp": "2025-12-25T20:45:18.634753"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T20:46:09.653879"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "YouTube_Shorts",
+      "success": true,
+      "post_id": "G-p91GHB_Sg",
+      "error": null,
+      "timestamp": "2025-12-25T20:46:13.468069"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"2025122601461314BE2FAFD7098F2D0B04\"}}",
+      "timestamp": "2025-12-25T20:46:13.929618"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T20:46:49.189673"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "YouTube_Shorts",
+      "success": true,
+      "post_id": "T5V-mHbuDFw",
+      "error": null,
+      "timestamp": "2025-12-25T20:46:53.866706"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T20:47:14.587974"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"2025122601471529660BEF22B9A62D8F6E\"}}",
+      "timestamp": "2025-12-25T20:47:15.496294"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "YouTube_Shorts",
+      "success": true,
+      "post_id": "hFMF5YD8SKM",
+      "error": null,
+      "timestamp": "2025-12-25T20:47:19.917298"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"2025122601472013B101CD25327C2DC7FE\"}}",
+      "timestamp": "2025-12-25T20:47:20.341387"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T20:47:56.681495"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "YouTube_Shorts",
+      "success": true,
+      "post_id": "oST-QTzLRTw",
+      "error": null,
+      "timestamp": "2025-12-25T20:48:00.511386"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T20:49:39.236198"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251226014939DAD62D31C694082DB2CA\"}}",
+      "timestamp": "2025-12-25T20:49:39.748165"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Facebook Graph API Posting implementation in progress",
+      "timestamp": "2025-12-25T20:49:39.767115"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251226014940DC081ED30AE12231CF7D\"}}",
+      "timestamp": "2025-12-25T20:49:40.287437"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T20:50:46.978977"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "YouTube_Shorts",
+      "success": true,
+      "post_id": "V4UGBeskEr8",
+      "error": null,
+      "timestamp": "2025-12-25T20:50:51.678200"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512260150529D670B93217DE72D7E86\"},\"data\":{}}",
+      "timestamp": "2025-12-25T20:50:52.128319"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T20:51:28.672739"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "YouTube_Shorts",
+      "success": true,
+      "post_id": "1TsFXfwVMnI",
+      "error": null,
+      "timestamp": "2025-12-25T20:51:33.405069"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512260151330B8986466E91CE324B8C\"}}",
+      "timestamp": "2025-12-25T20:51:33.876217"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T20:52:10.407187"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "YouTube_Shorts",
+      "success": true,
+      "post_id": "RJaVEsqA8Ek",
+      "error": null,
+      "timestamp": "2025-12-25T20:52:15.361585"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Facebook Graph API Posting implementation in progress",
+      "timestamp": "2025-12-25T20:52:15.377532"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251226015951031EC81E21AECD2E4258\"}}",
+      "timestamp": "2025-12-25T20:59:51.113675"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T21:00:13.452802"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "YouTube_Shorts",
+      "success": true,
+      "post_id": "ZcRNANaBv8M",
+      "error": null,
+      "timestamp": "2025-12-25T21:00:49.607263"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T21:01:11.202254"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251226020111932DA210124A4729FB38\"}}",
+      "timestamp": "2025-12-25T21:01:11.701859"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Facebook Graph API Posting implementation in progress",
+      "timestamp": "2025-12-25T21:01:11.730265"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251226020112C5DFF4FB2828A82D9D19\"},\"data\":{}}",
+      "timestamp": "2025-12-25T21:01:12.196088"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T21:01:48.679780"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "YouTube_Shorts",
+      "success": true,
+      "post_id": "ttrlFyF-GwM",
+      "error": null,
+      "timestamp": "2025-12-25T21:01:52.683417"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251226020153E7AC51F2A3EA1A2EA092\"}}",
+      "timestamp": "2025-12-25T21:01:53.450209"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T21:02:30.239876"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube Upload Error: <HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "timestamp": "2025-12-25T21:02:31.100045"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T21:03:07.834522"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251226020308F264DA90B5819C2E791F\"}}",
+      "timestamp": "2025-12-25T21:03:08.311652"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube Upload Error: <HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "timestamp": "2025-12-25T21:03:09.173542"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512260203092FCB8707AE392132D9F0\"}}",
+      "timestamp": "2025-12-25T21:03:09.997621"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T21:03:47.063466"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube Upload Error: <HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "timestamp": "2025-12-25T21:03:47.896477"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T21:04:24.197529"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251226020424642C34D1431F5A2DFF14\"}}",
+      "timestamp": "2025-12-25T21:04:24.825426"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Facebook Graph API Posting implementation in progress",
+      "timestamp": "2025-12-25T21:04:24.855597"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512260204254A7D002CCD03512E27B5\"}}",
+      "timestamp": "2025-12-25T21:04:25.361018"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T21:05:46.713474"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube Upload Error: <HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "timestamp": "2025-12-25T21:05:47.433403"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512260205481B1C484A4F62342E92B9\"}}",
+      "timestamp": "2025-12-25T21:05:48.160142"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T21:06:40.519798"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube Upload Error: <HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "timestamp": "2025-12-25T21:06:41.967930"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512260206424CD9BAB7A389ED2E8A31\"}}",
+      "timestamp": "2025-12-25T21:06:42.462679"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T21:07:34.431376"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube Upload Error: <HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "timestamp": "2025-12-25T21:07:35.228258"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Facebook Graph API Posting implementation in progress",
+      "timestamp": "2025-12-25T21:07:35.251475"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251226021117C4B0AD8E47D88F2E64D4\"}}",
+      "timestamp": "2025-12-25T21:11:17.417370"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T21:12:39.627963"
+    },
+    {
+      "vibe_id": "VIBE001",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube Upload Error: <HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "timestamp": "2025-12-25T21:13:08.827128"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T21:14:00.123232"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251226021400F2A048D0E9E8132E97F9\"}}",
+      "timestamp": "2025-12-25T21:14:00.625133"
+    },
+    {
+      "vibe_id": "VIBE002",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Facebook Graph API Posting implementation in progress",
+      "timestamp": "2025-12-25T21:14:00.648602"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251226021401148F722CCF92B42F7F34\"}}",
+      "timestamp": "2025-12-25T21:14:01.460461"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T21:15:08.517067"
+    },
+    {
+      "vibe_id": "VIBE003",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube Upload Error: <HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "timestamp": "2025-12-25T21:15:09.428694"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"2025122602151044AAA2C81CEF552EB197\"}}",
+      "timestamp": "2025-12-25T21:15:10.145160"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T21:15:46.413476"
+    },
+    {
+      "vibe_id": "VIBE004",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube Upload Error: <HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "timestamp": "2025-12-25T21:15:47.178511"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T21:16:23.843777"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512260216241FA6B875C082DA2F66B1\"}}",
+      "timestamp": "2025-12-25T21:16:24.459559"
+    },
+    {
+      "vibe_id": "VIBE005",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube Upload Error: <HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "timestamp": "2025-12-25T21:16:25.436605"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251226021625AA79204CD8FB2A33BCA5\"}}",
+      "timestamp": "2025-12-25T21:16:26.076023"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T21:17:50.130515"
+    },
+    {
+      "vibe_id": "VIBE006",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube Upload Error: <HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "timestamp": "2025-12-25T21:17:51.299843"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T21:18:27.087592"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512260218274A34CC31DDD1172EB5A9\"}}",
+      "timestamp": "2025-12-25T21:18:27.906679"
+    },
+    {
+      "vibe_id": "VIBE007",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Facebook Graph API Posting implementation in progress",
+      "timestamp": "2025-12-25T21:18:27.940118"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"20251226021828B2D0964F5771D82EFAD2\"}}",
+      "timestamp": "2025-12-25T21:18:28.560688"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T21:19:03.953390"
+    },
+    {
+      "vibe_id": "VIBE008",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube Upload Error: <HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "timestamp": "2025-12-25T21:19:04.832525"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"2025122602190542DF653B69070933E4BF\"}}",
+      "timestamp": "2025-12-25T21:19:05.402975"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T21:20:27.057858"
+    },
+    {
+      "vibe_id": "VIBE009",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube Upload Error: <HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "timestamp": "2025-12-25T21:20:28.331075"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "TikTok",
+      "success": false,
+      "post_id": null,
+      "error": "TikTok API error: 401 - {\"data\":{},\"error\":{\"code\":\"access_token_invalid\",\"message\":\"The access token is invalid or not found in the request.\",\"log_id\":\"202512260220282660A7C42B0116350E6D\"}}",
+      "timestamp": "2025-12-25T21:20:28.769467"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "Instagram",
+      "success": false,
+      "post_id": null,
+      "error": "Instagram processing error: Unknown error",
+      "timestamp": "2025-12-25T21:21:04.703536"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "YouTube_Shorts",
+      "success": false,
+      "post_id": null,
+      "error": "YouTube Upload Error: <HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "timestamp": "2025-12-25T21:21:05.567305"
+    },
+    {
+      "vibe_id": "VIBE010",
+      "platform": "Facebook",
+      "success": false,
+      "post_id": null,
+      "error": "Facebook Graph API Posting implementation in progress",
+      "timestamp": "2025-12-25T21:21:05.610062"
     }
   ]
 }

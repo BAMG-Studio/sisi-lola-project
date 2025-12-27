@@ -153,6 +153,8 @@ class AutomatedPostingService:
             # Convert to direct link (?dl=1)
             return url.replace("?dl=0", "?dl=1")
         except Exception as e:
+            if "expired_access_token" in str(e):
+                print("❌ Dropbox Token Expired! Please generate a new one from App Console.")
             print(f"❌ Dropbox Upload Error: {e}")
             return None
 
@@ -303,36 +305,47 @@ class AutomatedPostingService:
                     container_id = response.json().get("id")
                     
                     # Step 2: Polling for status
-                    # Reels processing can take 30-60 seconds
-                    max_attempts = 12
+                    # Reels processing can take 30-300 seconds (5 mins for large or slow days)
+                    max_attempts = 30 
+                    print(f"   ... Waiting for Meta to digest {vibe_id} (can take a few mins)...")
                     for attempt in range(max_attempts):
-                        await asyncio.sleep(10)
+                        await asyncio.sleep(15) 
                         status_url = f"https://graph.facebook.com/v18.0/{container_id}"
+                        # Start with minimal fields to avoid "nonexisting field" errors
                         status_params = {
-                            "fields": "status_code,status_error_description",
+                            "fields": "status_code",
                             "access_token": INSTAGRAM_ACCESS_TOKEN
                         }
                         status_resp = await client.get(status_url, params=status_params)
                         if status_resp.status_code == 200:
                             status_data = status_resp.json()
                             status_code = status_data.get("status_code")
-                            error_desc = status_data.get("status_error_description", "No description")
-                            print(f"   ... Item {vibe_id} status: {status_code} ({error_desc})")
+                            print(f"   ... [{attempt+1}/{max_attempts}] Item {vibe_id} status: {status_code}")
+                            
                             if status_code == "FINISHED":
                                 break
                             elif status_code == "ERROR":
+                                # If error, try to get details separately
+                                detail_resp = await client.get(status_url, params={
+                                    "fields": "status_code,status_error_description",
+                                    "access_token": INSTAGRAM_ACCESS_TOKEN
+                                })
+                                error_msg = detail_resp.json().get("status_error_description", "Unknown processing error") if detail_resp.status_code == 200 else "Unknown error"
                                 return PostResult(
                                     platform="instagram",
                                     vibe_id=vibe_id,
                                     success=False,
-                                    error=f"Instagram processing error: {error_desc} ({status_data})"
+                                    error=f"Instagram processing error: {error_msg}"
                                 )
+                        else:
+                            print(f"   ⚠️ Status fetch error ({status_resp.status_code}): {status_resp.text}")
+
                         if attempt == max_attempts - 1:
                             return PostResult(
                                 platform="instagram",
                                 vibe_id=vibe_id,
                                 success=False,
-                                error="Instagram processing timeout (video still pending)"
+                                error="Instagram processing timeout (video still pending after 7.5 mins)"
                             )
                     
                     # Step 3: Publish
@@ -379,26 +392,67 @@ class AutomatedPostingService:
     
     async def post_to_youtube(self, vibe: Dict, video_path: Path) -> PostResult:
         """
-        Post to YouTube Shorts using YouTube Data API v3.
+        Post to YouTube Shorts using OAuth.
         """
         vibe_id = vibe["vibe_id"]
+        title = vibe.get("title", f"Sisi Lola - {vibe_id}")
+        caption = vibe.get("caption", "")
         
-        if not GOOGLE_API_KEY:
+        # Check for OAuth token
+        token_path = "youtube_token.json"
+        if not os.path.exists(token_path):
             return PostResult(
                 platform="youtube",
                 vibe_id=vibe_id,
                 success=False,
-                error="GOOGLE_API_KEY not configured"
+                error="YouTube posting requires OAuth setup. Run 'setup_youtube_oauth.py' first."
             )
             
-        # YouTube Shorts requires specific handling
-        # For now, return placeholder - full implementation requires OAuth flow
-        return PostResult(
-            platform="youtube",
-            vibe_id=vibe_id,
-            success=False,
-            error="YouTube posting requires OAuth setup - API Key only supports read operations"
-        )
+        try:
+            from google.oauth2.credentials import Credentials
+            from googleapiclient.discovery import build
+            from googleapiclient.http import MediaFileUpload
+            
+            creds = Credentials.from_authorized_user_file(token_path)
+            youtube = build("youtube", "v3", credentials=creds)
+            
+            body = {
+                "snippet": {
+                    "title": title[:100],
+                    "description": caption,
+                    "tags": vibe.get("tags", []),
+                    "categoryId": "22" # People & Blogs
+                },
+                "status": {
+                    "privacyStatus": "public",
+                    "selfDeclaredMadeForKids": False
+                }
+            }
+            
+            insert_request = youtube.videos().insert(
+                part="snippet,status",
+                body=body,
+                media_body=MediaFileUpload(str(video_path), chunksize=-1, resumable=True)
+            )
+            
+            response = insert_request.execute()
+            
+            return PostResult(
+                platform="youtube",
+                vibe_id=vibe_id,
+                success=True,
+                post_id=response.get("id"),
+                post_url=f"https://youtu.be/{response.get('id')}",
+                posted_at=datetime.now().isoformat()
+            )
+            
+        except Exception as e:
+            return PostResult(
+                platform="youtube",
+                vibe_id=vibe_id,
+                success=False,
+                error=f"YouTube Upload Error: {str(e)}"
+            )
         
     async def post_to_facebook(self, vibe: Dict, video_path: Path) -> PostResult:
         """

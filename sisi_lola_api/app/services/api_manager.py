@@ -20,6 +20,7 @@ class APIKeyManager:
     # e.g., OPENAI_API_KEYS=sk-1...;sk-2...
     
     def __init__(self):
+        # OpenAI keys can be a pool
         env_keys = os.getenv("OPENAI_API_KEYS", "")
         self.OPENAI_KEYS = [k.strip() for k in env_keys.split(";") if k.strip()]
         
@@ -31,6 +32,16 @@ class APIKeyManager:
         self.openai_key_index = 0
         self.perplexity_key = os.getenv("PERPLEXITY_API_KEY")
         self.openrouter_key = os.getenv("OPENROUTER_API_KEY")
+        
+        # New Providers from .env.example
+        self.google_ai_studio_key = os.getenv("GOOGLE_AI_STUDIO_API_KEY")
+        self.cohere_key = os.getenv("COHERE_API_KEY")
+        self.huggingface_token = os.getenv("HUGGINGFACE_TOKEN")
+        self.elevenlabs_key = os.getenv("ELEVEN_LABS_API_KEY") or os.getenv("ELEVENLABS_API_KEY")
+        self.heygen_key = os.getenv("HEYGEN_API_KEY")
+        self.kling_access_key = os.getenv("KLINGAI_ACCESS_KEY")
+        self.kling_secret_key = os.getenv("KLINGAI_SECRET_KEY")
+        self.reccloud_key = os.getenv("RECCLOUD_API_KEY")
     
     def get_next_openai_key(self) -> str:
         """Get next OpenAI key in rotation (Round Robin)"""
@@ -88,6 +99,37 @@ class APIKeyManager:
                     "HTTP-Referer": "https://sisilola.live",
                     "X-Title": "Sisi Lola AI"
                 },
+                timeout=timeout
+            )
+            
+        elif provider == "gemini":
+            if not self.google_ai_studio_key:
+                return None
+            return httpx.AsyncClient(
+                base_url="https://generativelanguage.googleapis.com/v1beta",
+                headers={"Content-Type": "application/json"},
+                params={"key": self.google_ai_studio_key},
+                timeout=timeout
+            )
+            
+        elif provider == "cohere":
+            if not self.cohere_key:
+                return None
+            return httpx.AsyncClient(
+                base_url="https://api.cohere.ai/v1",
+                headers={
+                    "Authorization": f"Bearer {self.cohere_key}",
+                    "Content-Type": "application/json"
+                },
+                timeout=timeout
+            )
+            
+        elif provider == "huggingface":
+            if not self.huggingface_token:
+                return None
+            return httpx.AsyncClient(
+                base_url="https://api-inference.huggingface.co",
+                headers={"Authorization": f"Bearer {self.huggingface_token}"},
                 timeout=timeout
             )
             

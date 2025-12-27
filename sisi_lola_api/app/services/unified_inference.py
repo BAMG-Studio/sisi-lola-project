@@ -583,54 +583,126 @@ Always maintain your warm, funny personality while being helpful and informative
         max_tokens: int = 512,
         temperature: float = 0.7,
     ) -> str:
-        """Generate response using OpenAI API (with rotation) or Perplexity"""
+        """
+        SUPER-CHARGED Brain Routing:
+        - Research/Facts -> Perplexity Sonar
+        - Complex Nigerian Culture -> N-ATLaS (if available) or Cohere
+        - Creative/Long Yarn -> Gemini Pro
+        - Fast Response/Chat -> OpenAI Fine-tuned
+        """
         
-        api_manager = get_api_manager()
+        # 1. ROUTING LOGIC
+        prompt_lower = (message + " " + system_prompt).lower()
         
-        # Check if we should use Perplexity (e.g. for research or deep questions)
-        # For now, default to OpenAI unless specified or fallback needed
-        
-        # 1. Try OpenAI with Key Rotation
+        # RESEARCH ROUTE (Real-time data/Facts)
+        research_keywords = [
+            "research", "fact", "who is", "latest news", "predict", 
+            "flight", "price", "ticket", "cheapest", "cost", 
+            "weather", "score", "where can i buy", "current"
+        ]
+        if any(w in prompt_lower for w in research_keywords):
+            print("🚀 ROUTE: Researching via Perplexity...")
+            resp = await self._generate_with_perplexity(message, system_prompt, conversation_history)
+            if resp: return resp
+
+        # NIGERIAN CULTURE ROUTE
+        if any(w in prompt_lower for w in ["nigeria", "pidgin", "yoruba", "igbo", "hausa", "tradition"]):
+            print("🚀 ROUTE: Cultural deep-dive via Cohere/N-ATLaS...")
+            # Try Cohere first as it's excellent for regional dialects
+            resp = await self._generate_with_cohere(message, system_prompt, conversation_history)
+            if resp: return resp
+
+        # CREATIVE/LONG YARN ROUTE
+        if len(message) > 200 or "story" in prompt_lower:
+            print("🚀 ROUTE: Creative generation via Gemini...")
+            resp = await self._generate_with_gemini(message, system_prompt, conversation_history)
+            if resp: return resp
+
+        # 2. DEFAULT FALLBACK CHAIN
         try:
-            from openai import OpenAI
-            
-            # Get next key from rotation
+            api_manager = get_api_manager()
             api_key = api_manager.get_next_openai_key()
+            from openai import OpenAI
             client = OpenAI(api_key=api_key)
             
-            # Use fine-tuned Sisi Lola model for MUCH faster responses (2-5s vs 60-70s)
-            model = self.OPENAI_MODEL_ADVANCED  # ft:gpt-4o-mini fine-tuned on Sisi Lola
-            
+            print(f"🚀 ROUTE: Standard chat via OpenAI ({self.OPENAI_MODEL_ADVANCED})...")
             messages = [{"role": "system", "content": system_prompt}]
-            
-            if conversation_history:
-                messages.extend(conversation_history)
-            
+            if conversation_history: messages.extend(conversation_history)
             messages.append({"role": "user", "content": message})
             
-            # Use async thread for sync OpenAI client
             response = await asyncio.to_thread(
                 lambda: client.chat.completions.create(
-                    model=model,
+                    model=self.OPENAI_MODEL_ADVANCED,
                     messages=messages,
                     temperature=temperature,
                     max_tokens=max_tokens,
                 )
             )
             return response.choices[0].message.content
-            
         except Exception as e:
-            print(f"OpenAI API error (Key: {api_key[:10]}...): {e}")
-            
-            # 2. Try Perplexity as high-quality backup/research layer
-            perplexity_response = await self._generate_with_perplexity(
-                message, system_prompt, conversation_history
-            )
-            if perplexity_response:
-                return perplexity_response
+            print(f"Fallback Chain Triggered: {e}")
+            # Final attempts
+            for provider in ["gemini", "cohere", "perplexity", "openrouter"]:
+                method = getattr(self, f"_generate_with_{provider}")
+                resp = await method(message, system_prompt, conversation_history)
+                if resp: return resp
+        
+        return await self._get_fallback_response(message, language)
 
-            # 3. Try OpenRouter as final fallback
-            return await self._generate_with_openrouter(message, system_prompt, language, conversation_history, max_tokens, temperature)
+    async def _generate_with_gemini(self, message: str, system_prompt: str, conversation_history: List[Dict] = None) -> Optional[str]:
+        """Inference via Gemini (Google AI Studio)"""
+        api_manager = get_api_manager()
+        client = api_manager.get_client("gemini")
+        if not client: return None
+        
+        try:
+            print("💎 Trying Gemini API...")
+            contents = [{"role": "user", "parts": [{"text": system_prompt + "\n\nUser: " + message}]}]
+            if conversation_history:
+                # Basic mapping for Gemini format
+                history_parts = []
+                for m in conversation_history:
+                    role = "user" if m["role"] == "user" else "model"
+                    history_parts.append({"role": role, "parts": [{"text": m["content"]}]})
+                contents = history_parts + [{"role": "user", "parts": [{"text": message}]}]
+
+            response = await client.post(
+                "/models/gemini-pro:generateContent",
+                json={"contents": contents}
+            )
+            if response.status_code == 200:
+                return response.json()["candidates"][0]["content"]["parts"][0]["text"]
+        except Exception as e:
+            print(f"Gemini failed: {e}")
+        return None
+
+    async def _generate_with_cohere(self, message: str, system_prompt: str, conversation_history: List[Dict] = None) -> Optional[str]:
+        """Inference via Cohere API"""
+        api_manager = get_api_manager()
+        client = api_manager.get_client("cohere")
+        if not client: return None
+        
+        try:
+            print("🧵 Trying Cohere API...")
+            chat_history = []
+            if conversation_history:
+                for m in conversation_history:
+                    chat_history.append({"role": "USER" if m["role"] == "user" else "CHATBOT", "message": m["content"]})
+            
+            response = await client.post(
+                "/chat",
+                json={
+                    "model": "command-r-plus",
+                    "message": message,
+                    "preamble": system_prompt,
+                    "chat_history": chat_history
+                }
+            )
+            if response.status_code == 200:
+                return response.json()["text"]
+        except Exception as e:
+            print(f"Cohere failed: {e}")
+        return None
 
     async def _generate_with_perplexity(
         self,

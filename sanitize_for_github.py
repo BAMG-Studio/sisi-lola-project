@@ -8,8 +8,7 @@ SECRET_FILES = [
     "update_dropbox_creds.py",
     "update_meta_ids.py",
     "sanitize_keys.py",
-    "force_fix_youtube.py",
-    "sisi_lola_api/app/services/api_manager.py"
+    "force_fix_youtube.py"
 ]
 
 def sanitize():

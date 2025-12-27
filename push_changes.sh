@@ -1,16 +1,16 @@
 #!/bin/bash
-# Sisi Lola Clean Push Script
+# Sisi Lola Clean Push Script (Linux/WSL)
 
-# 1. Add everything (now sanitized)
+# Add changes
 git add .
 
-# 2. Try to commit
-git commit -m "🚀 SISI LOLA: Final Production Ready (Security Sanitized)" || echo "No new changes to commit"
+# Try to commit
+git commit -m "🚀 SISI LOLA: Final Production Ready (Security Sanitized & Optimized)" || echo "No new changes to commit"
 
-# 3. Pull latest from remote to stay in sync
+# Pull latest from remote
 echo "📥 Integrating remote changes..."
 git pull --rebase origin main
 
-# 4. Push to main
+# Push to main
 echo "📤 Pushing to main..."
 git push origin main
