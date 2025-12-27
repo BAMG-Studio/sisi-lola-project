@@ -144,6 +144,10 @@ training_videos/
 # RecCloud/Modal credentials
 ml_training/configs/local_secrets.yaml
 
+# YouTube OAuth
+client_secrets.json
+youtube_token.json
+
 # Generated files
 nul
 "ecret is configured*"
