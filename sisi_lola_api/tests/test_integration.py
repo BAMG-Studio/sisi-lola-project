@@ -77,7 +77,7 @@ def test_full_workflow(client):
 
 def test_api_health(client):
     """Test API is responding"""
-    response = client.get("/")
+    response = client.get("/api/health")
     assert response.status_code == 200
     assert "system_status" in response.json()
     assert response.json()["system_status"] == "ONLINE"

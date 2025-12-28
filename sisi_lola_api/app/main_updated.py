@@ -47,6 +47,14 @@ app.include_router(nigerian_models.router)
 app.include_router(auth_router.router, prefix="/api/v2")
 app.include_router(control_center_router.router, prefix="/api/v2")
 
+@app.get("/api/health")
+async def health_check():
+    return {
+        "system_status": "ONLINE",
+        "entity": SisiLolaDNA.NAME,
+        "version": "2.1.0"
+    }
+
 
 @app.on_event("startup")
 async def startup_init():
