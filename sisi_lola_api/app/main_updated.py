@@ -25,10 +25,13 @@ app = FastAPI(
     version="2.1.0 (Supreme)"
 )
 
-# Static files for UI
+# Static files for UI (may not exist in all environments)
 static_path = Path(__file__).resolve().parent / "static"
-static_path.mkdir(exist_ok=True)
-app.mount("/static", StaticFiles(directory=str(static_path)), name="static")
+try:
+    static_path.mkdir(exist_ok=True)
+    app.mount("/static", StaticFiles(directory=str(static_path)), name="static")
+except Exception:
+    print("⚠️ Static directory not available, skipping mount.")
 
 # Include UI Router
 app.include_router(dashboard_router.router)
@@ -61,8 +64,10 @@ async def startup_init():
     auth_store.init_db()
     init_db()
 
-# CORS for frontend integration
+# CORS for frontend integration (allow Modal domain)
 allowed_origins = [origin.strip() for origin in os.getenv("CORS_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000").split(",") if origin.strip()]
+allowed_origins.append("https://bamg-studio--sisi-lola-inference-supreme-api.modal.run")
+allowed_origins.append("*")  # Allow all for development
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins,

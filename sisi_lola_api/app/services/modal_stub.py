@@ -49,7 +49,15 @@ sisi_image = (
         "youtube-transcript-api", # Multimodal: YouTube
         "beautifulsoup4",         # Multimodal: Web
         "pytesseract",            # Multimodal: OCR
-        "Pillow"                  # Image handling
+        "Pillow",                 # Image handling
+        # Dashboard & Auth Dependencies
+        "jinja2",
+        "sqlalchemy",
+        "passlib[bcrypt]",
+        "bcrypt",
+        "python-jose[cryptography]",
+        "PyJWT",
+        "schedule",
     )
     .env({
         "HUGGINGFACE_HUB_CACHE": "/cache/huggingface",
@@ -150,16 +158,24 @@ class SisiLolaEngine:
         return b"VIDEO_BYTES_WOULD_GO_HERE"
 
 
-@app.function(image=sisi_image)
-@modal.fastapi_endpoint(method="POST")
-async def chat_api(item: Dict[str, Any]):
-    return await SisiLolaEngine().generate_response.remote.aio(
-        item.get("message"), 
-        session_id=item.get("session_id", "default"),
-        scenario=item.get("scenario", "general")
-    )
-
-@app.function(image=sisi_image)
-@modal.fastapi_endpoint(method="POST")
-async def voice_api(item: Dict[str, Any]):
-    return await SisiLolaEngine().generate_voice.remote.aio(item.get("text"))
+@app.function(
+    image=sisi_image,
+    gpu="A10G",
+    timeout=600,
+    cpu=4,
+    memory=16384,
+    volumes={"/cache": model_volume},
+    secrets=[Secret.from_name("sisi-lola-secrets")],
+    allow_concurrent_inputs=10,
+)
+@modal.asgi_app()
+def supreme_api():
+    """
+    Mount the FULL Sisi Lola application (including Dashboard, Demo, and all API routes).
+    This replaces the previous individual endpoint approach.
+    """
+    import sys
+    sys.path.insert(0, "/root/sisi_lola_project")
+    
+    from sisi_lola_api.app.main_updated import app as fastapi_app
+    return fastapi_app
