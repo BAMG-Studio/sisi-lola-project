@@ -61,10 +61,18 @@ class SisiLolaDNA:
     GEMINI_3_FLASH = "gemini-3-flash-preview"
     GEMINI_3_PRO = "gemini-3-pro-preview"
     
+    # SUPREME GOOGLE AI ASSETS
+    VEO_3_1 = "veo-3.1-generate-preview"
+    LYRIA_REALTIME = "lyria-realtime-experimental"
+    IMAGEN_4 = "imagen-4.0-generate-001"
+    IMAGEN_3 = "imagen-3.0-generate-001"
+    NANO_BANANA = "gemini-2.5-flash-image" # High-speed multimodal powerhouse
+    
     CHAT_MODEL = GEMINI_3_PRO  # Sisi's supreme standard brain
-    RESEARCH_MODEL = GEMINI_3_PRO  # Use Gemini 3 with Grounding instead of Perplexity
-    IMAGE_MODEL = "imagen-3"
-    VIDEO_MODEL = "veo"
+    RESEARCH_MODEL = GEMINI_3_PRO  # Use Gemini 3 with Grounding
+    IMAGE_MODEL = IMAGEN_4
+    VIDEO_MODEL = VEO_3_1
+    MUSIC_MODEL = LYRIA_REALTIME
 
 # ============================================
 # MODAL INFERENCE SERVICE - OPTIMIZED

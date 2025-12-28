@@ -9,7 +9,7 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sisi_lola_api.app.routers import agent, images, videos, audio, auth, nigerian_models
-from sisi_lola_api.app.routers import auth_router, control_center_router
+from sisi_lola_api.app.routers import auth_router, control_center_router, vibe_router
 from sisi_lola_api.app.database import init_db
 # from sisi_lola_api.app.routers import chat
 from sisi_lola_api.app.config import SisiLolaDNA
@@ -18,10 +18,11 @@ from sisi_lola_api.app.services import auth_store
 app = FastAPI(
     title="Sisi Lola Control Center API",
     description="The Central Nervous System for the Sisi Lola Virtual Human with Role-Based Access Control.",
-    version="2.0.0"
+    version="2.1.0 (Supreme)"
 )
 
 # Include the modular routers
+app.include_router(vibe_router.router, prefix="/api/v2")
 app.include_router(agent.router, prefix="/agent", tags=["Agent Builder"])
 # app.include_router(chat.router, prefix="/chat", tags=["Chat & Persona"])
 app.include_router(images.router, prefix="/images", tags=["Image Generation"])
