@@ -34,5 +34,7 @@ google-auth-oauthlib
 dropbox
 praw
 twitchio
-# Vibe Scheduling
+# Vibe Scheduling & Scraping
 schedule
+beautifulsoup4
+jinja2
