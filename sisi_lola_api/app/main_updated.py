@@ -1,16 +1,21 @@
 # app/main.py
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 
-# Load environment variables before importing any modules that depend on them
-load_dotenv()
+# Load environment variables from the correct .env file
+# The .env is in sisi_lola_api/.env (same level as this app folder)
+env_path = Path(__file__).resolve().parent.parent / ".env"
+load_dotenv(dotenv_path=env_path)
+print(f"📂 Loading .env from: {env_path}")
 
 import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sisi_lola_api.app.routers import (
     agent, images, videos, audio, auth, nigerian_models, 
-    auth_router, control_center_router, vibe_router, dashboard_router
+    auth_router, control_center_router, vibe_router, dashboard_router,
+    social_router
 )
 from sisi_lola_api.app.database import init_db
 # from sisi_lola_api.app.routers import chat
@@ -38,6 +43,7 @@ app.include_router(dashboard_router.router)
 
 # Include the modular routers
 app.include_router(vibe_router.router, prefix="/api/v2")
+app.include_router(social_router.router, prefix="/api/v2")  # One-Click Posting
 app.include_router(agent.router, prefix="/agent", tags=["Agent Builder"])
 # app.include_router(chat.router, prefix="/chat", tags=["Chat & Persona"])
 app.include_router(images.router, prefix="/images", tags=["Image Generation"])

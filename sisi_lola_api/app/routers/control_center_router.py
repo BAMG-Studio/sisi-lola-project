@@ -289,7 +289,7 @@ async def get_dashboard_metrics(
     current_user: TokenData = Depends(require_permission("analytics:read")),
     db: Session = Depends(get_db)
 ):
-    """Get dashboard metrics"""
+    """Get dashboard metrics including conversation stats"""
     
     # Asset counts
     total_assets = db.query(Asset).count()
@@ -302,6 +302,13 @@ async def get_dashboard_metrics(
     # ML jobs
     active_jobs = db.query(TrainingJob).filter(TrainingJob.status.in_(["pending", "running"])).count()
     
+    # Conversation stats
+    try:
+        from sisi_lola_api.app.services.conversation_logger import get_conversation_stats
+        conv_stats = get_conversation_stats()
+    except Exception:
+        conv_stats = {"total_conversations": 0, "success_rate": 0}
+    
     return {
         "assets": {
             "total": total_assets,
@@ -313,5 +320,29 @@ async def get_dashboard_metrics(
         },
         "ml": {
             "active_jobs": active_jobs
-        }
+        },
+        "conversations": conv_stats
     }
+
+@router.get("/analytics/conversations")
+async def get_conversation_analytics(
+    limit: int = 100,
+    current_user: TokenData = Depends(require_permission("analytics:read"))
+):
+    """Get recent conversations for training review"""
+    from sisi_lola_api.app.services.conversation_logger import get_recent_conversations, get_conversation_stats
+    
+    return {
+        "stats": get_conversation_stats(),
+        "recent": get_recent_conversations(limit=limit)
+    }
+
+@router.post("/analytics/export-training-data")
+async def export_training_data_endpoint(
+    current_user: TokenData = Depends(require_permission("ml:execute"))
+):
+    """Export conversations as training data JSONL"""
+    from sisi_lola_api.app.services.conversation_logger import export_training_data
+    
+    output_path = export_training_data()
+    return {"message": "Training data exported", "path": output_path}

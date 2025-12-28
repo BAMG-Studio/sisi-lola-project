@@ -15,8 +15,9 @@ from modal import App, Image, Secret, Volume
 # Define the Modal App
 app = App("sisi-lola-inference")
 
-# Define shared volumes for model caching
+# Define shared volumes for model caching and data persistence
 model_volume = Volume.from_name("sisi-lola-models", create_if_missing=True)
+data_volume = Volume.from_name("sisi-lola-data", create_if_missing=True)  # For conversation logs
 
 # FULL ML IMAGE - This will take time to build the first time!
 sisi_image = (
@@ -164,7 +165,10 @@ class SisiLolaEngine:
     timeout=600,
     cpu=4,
     memory=16384,
-    volumes={"/cache": model_volume},
+    volumes={
+        "/cache": model_volume,
+        "/data": data_volume  # Persistent conversation logs
+    },
     secrets=[Secret.from_name("sisi-lola-secrets")],
     allow_concurrent_inputs=10,
 )
@@ -175,7 +179,11 @@ def supreme_api():
     This replaces the previous individual endpoint approach.
     """
     import sys
+    import os
     sys.path.insert(0, "/root/sisi_lola_project")
+    
+    # Set conversation log path to persistent volume
+    os.environ["CONVERSATION_LOG_DB"] = "/data/conversation_logs.db"
     
     from sisi_lola_api.app.main_updated import app as fastapi_app
     return fastapi_app

@@ -420,6 +420,68 @@
                     style="width: 100%; border-color: var(--secondary); color: var(--secondary)">RUN VISION
                     SCAN</button>
             </div>
+
+            <!-- SINGSTRESS (Priority 2) -->
+            <div class="studio-card glass" style="border-color: #ff1493;">
+                <div class="card-header">
+                    <span style="color: #ff1493">🎤</span>
+                    <h3>Singstress Studio</h3>
+                </div>
+                <textarea id="singstress-lyrics"
+                    placeholder="Write lyrics for Sisi to sing... (e.g., Naija no dey carry last, we go rise up!)"
+                    style="width: 100%; height: 60px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 12px; color: white; padding: 10px; outline: none; margin-bottom: 10px;"></textarea>
+                <select id="singstress-mood"
+                    style="width: 100%; background: #111; border: 1px solid var(--border); color: white; padding: 10px; border-radius: 10px; margin-bottom: 10px;">
+                    <option value="party">🎉 Party Vibe</option>
+                    <option value="romantic">💕 Romantic</option>
+                    <option value="hype">🔥 Hype/Motivational</option>
+                    <option value="chill">🌴 Chill/Laid-back</option>
+                </select>
+                <select id="singstress-style"
+                    style="width: 100%; background: #111; border: 1px solid var(--border); color: white; padding: 10px; border-radius: 10px; margin-bottom: 10px;">
+                    <option value="singing">🎶 Singing</option>
+                    <option value="rapping">🎤 Rapping</option>
+                    <option value="speaking">💬 Speaking</option>
+                </select>
+                <button class="btn-supreme" onclick="createSingstress()"
+                    style="width: 100%; background: linear-gradient(to right, #ff1493, #ff69b4); border: none;">
+                    🎵 CREATE SINGSTRESS TRACK
+                </button>
+                <div id="singstress-output" class="media-preview-box" style="margin-top: 10px;"></div>
+            </div>
+
+            <!-- SOCIAL DISPATCH (Priority 1) -->
+            <div class="studio-card glass" style="border-color: #00bfff;">
+                <div class="card-header">
+                    <span style="color: #00bfff">📤</span>
+                    <h3>One-Click Dispatch</h3>
+                </div>
+                <div class="btn-grid">
+                    <button class="btn-supreme" onclick="checkTokens()" style="border-color: #00bfff;">🔑 CHECK
+                        TOKENS</button>
+                    <button class="btn-supreme" onclick="showDispatchModal()" style="border-color: #ff4500;">📤 DISPATCH
+                        NOW</button>
+                </div>
+                <div id="token-status" style="font-size: 0.7rem; color: #aaa; margin-top: 10px;"></div>
+            </div>
+
+            <!-- LIVE ENGAGEMENT (Priority 3) -->
+            <div class="studio-card glass" style="border-color: #7fffd4;">
+                <div class="card-header">
+                    <span style="color: #7fffd4">💬</span>
+                    <h3>Live Engagement</h3>
+                </div>
+                <textarea id="comments-batch"
+                    placeholder='Paste comments JSON: [{"id": "1", "text": "Love this!", "username": "fan1"}]'
+                    style="width: 100%; height: 60px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 12px; color: white; padding: 10px; outline: none; margin-bottom: 10px; font-family: monospace; font-size: 0.7rem;"></textarea>
+                <button class="btn-supreme" onclick="processEngagement()"
+                    style="width: 100%; border-color: #7fffd4; color: #7fffd4;">
+                    🚀 GENERATE REPLIES
+                </button>
+                <div id="engagement-output"
+                    style="max-height: 150px; overflow-y: auto; font-size: 0.7rem; color: #ccc; margin-top: 10px;">
+                </div>
+            </div>
         </div>
     </div>
 
@@ -553,6 +615,140 @@
                 const d = await r.json();
                 addMsg('sisi', d.response);
             } catch (e) { addMsg('sisi', "Vision lab error!"); }
+        }
+
+        // ============== SINGSTRESS (Priority 2) ==============
+        async function createSingstress() {
+            const lyrics = document.getElementById('singstress-lyrics').value;
+            const mood = document.getElementById('singstress-mood').value;
+            const style = document.getElementById('singstress-style').value;
+
+            if (!lyrics) return alert("Write some lyrics first!");
+
+            addMsg('sisi', `🎵 Brewing a ${mood} track in ${style} mode... Stand by, Boss!`);
+            const output = document.getElementById('singstress-output');
+            output.style.display = 'none';
+
+            try {
+                const r = await fetch('/api/v2/vibe/singstress', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        lyrics: lyrics,
+                        mood: mood,
+                        vocal_style: style,
+                        genre: "Afrobeats",
+                        duration: 30
+                    })
+                });
+                const d = await r.json();
+
+                if (d.success) {
+                    output.style.display = 'block';
+                    output.innerHTML = `<audio style="width:100%;" controls autoplay src="data:audio/mpeg;base64,${d.final_track_base64}"></audio>`;
+                    addMsg('sisi', "Omo! The Singstress vibe don land! 🎤🔥 Listen to your new song!");
+                } else {
+                    addMsg('sisi', "Singstress engine error: " + (d.error || "Unknown error"));
+                }
+            } catch (e) { addMsg('sisi', "Singstress creation failed: " + e.message); }
+        }
+
+        // ============== SOCIAL DISPATCH (Priority 1) ==============
+        async function checkTokens() {
+            const status = document.getElementById('token-status');
+            status.innerHTML = '⏳ Checking tokens...';
+
+            try {
+                const r = await fetch('/api/v2/social/tokens/status');
+                const d = await r.json();
+
+                let html = '';
+                for (const [platform, info] of Object.entries(d.social_tokens)) {
+                    const icon = info.configured ? '✅' : '❌';
+                    html += `<div>${icon} ${platform.toUpperCase()}: ${info.configured ? info.token_preview : 'Not configured'}</div>`;
+                }
+                status.innerHTML = html;
+                addMsg('sisi', "Token status: " + Object.entries(d.social_tokens).map(([p, i]) => `${p}: ${i.configured ? 'Ready' : 'Missing'}`).join(', '));
+            } catch (e) { status.innerHTML = '❌ Error checking tokens'; }
+        }
+
+        function showDispatchModal() {
+            const platform = prompt("Which platform? (instagram/tiktok/youtube)");
+            if (!platform) return;
+
+            const videoUrl = prompt("Enter the video URL (Dropbox or direct link):");
+            if (!videoUrl) return;
+
+            const caption = prompt("Enter caption:");
+            dispatchContent(platform, videoUrl, caption);
+        }
+
+        async function dispatchContent(platform, videoUrl, caption) {
+            addMsg('sisi', `📤 Dispatching to ${platform}... Hold tight!`);
+
+            try {
+                const r = await fetch('/api/v2/social/dispatch', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        platform: platform,
+                        video_url: videoUrl,
+                        caption: caption,
+                        hashtags: ["SisiLola", "Naija", "Supreme"]
+                    })
+                });
+                const d = await r.json();
+
+                if (d.success) {
+                    addMsg('sisi', `🎉 POSTED! ${platform.toUpperCase()} ID: ${d.post_id}. We don blow! 💃`);
+                } else {
+                    addMsg('sisi', `❌ Dispatch failed: ${d.error}`);
+                }
+            } catch (e) { addMsg('sisi', "Dispatch error: " + e.message); }
+        }
+
+        // ============== LIVE ENGAGEMENT (Priority 3) ==============
+        async function processEngagement() {
+            const raw = document.getElementById('comments-batch').value;
+            const output = document.getElementById('engagement-output');
+
+            if (!raw) return alert("Paste comments JSON first!");
+
+            let comments;
+            try {
+                comments = JSON.parse(raw);
+            } catch (e) {
+                return alert("Invalid JSON! Format: [{\"id\": \"1\", \"text\": \"Nice!\", \"username\": \"fan1\"}]");
+            }
+
+            addMsg('sisi', `💬 Processing ${comments.length} comments... Sisi go reply them all!`);
+            output.innerHTML = '⏳ Generating replies...';
+
+            try {
+                const r = await fetch('/api/v2/vibe/engage-batch', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        comments: comments,
+                        platform: 'instagram',
+                        context: document.getElementById('supreme-prompt').value || ''
+                    })
+                });
+                const d = await r.json();
+
+                let html = `<strong>Generated ${d.processed} replies:</strong><br>`;
+                for (const reply of d.replies) {
+                    html += `<div style="margin: 5px 0; padding: 5px; background: rgba(255,255,255,0.05); border-radius: 5px;">
+                        <strong>@${reply.username}:</strong> ${reply.original}<br>
+                        <span style="color: var(--accent);">💃 ${reply.reply}</span>
+                    </div>`;
+                }
+                output.innerHTML = html;
+                addMsg('sisi', `Done! ${d.processed} replies ready. Copy them and go engage! 🚀`);
+            } catch (e) {
+                output.innerHTML = '❌ Error generating replies';
+                addMsg('sisi', "Engagement error: " + e.message);
+            }
         }
     </script>
 </body>

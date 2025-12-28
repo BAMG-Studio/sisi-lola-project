@@ -366,7 +366,7 @@
 
             try {
                 const vibe = document.getElementById('vibe-select').value;
-                const r = await fetch('/api/v2/vibe/engagement', {
+                const r = await fetch('/api/v2/vibe/demo-chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ message: msg, scenario: vibe })
