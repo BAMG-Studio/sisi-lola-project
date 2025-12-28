@@ -27,8 +27,10 @@ jobs:
 
       - name: Run tests
         run: |
-          export PYTHONPATH=$PYTHONPATH:.
-          pytest sisi_lola_api/tests/ -v --cov=sisi_lola_api/app --cov-report=xml
+          python -m pytest sisi_lola_api/tests/ -v -ra --cov=sisi_lola_api/app --cov-report=xml
+        env:
+          PYTHONPATH: .
+          DATABASE_URL: sqlite:///./test_temp.db
 
       - name: Upload coverage
         uses: codecov/codecov-action@v4

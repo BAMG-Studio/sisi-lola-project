@@ -6,8 +6,11 @@ from sisi_lola_api.app.auth import get_password_hash
 
 @pytest.fixture
 def client():
+    # Ensure clean DB
+    Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
-    yield TestClient(app)
+    with TestClient(app) as c:
+        yield c
     Base.metadata.drop_all(bind=engine)
 
 @pytest.fixture

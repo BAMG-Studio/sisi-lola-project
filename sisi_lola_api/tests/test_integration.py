@@ -5,15 +5,16 @@ from sisi_lola_api.app.database import Base, engine, SessionLocal, Role
 
 @pytest.fixture
 def client():
+    # Force clean DB for integration tests
+    from sisi_lola_api.app.database import engine
+    Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
-    # Create default roles needed for tests
-    db = SessionLocal()
-    if not db.query(Role).filter(Role.name == "SUPER_ADMIN").first():
-        role = Role(name="SUPER_ADMIN", description="Full system control", permissions=["*"])
-        db.add(role)
-        db.commit()
-    db.close()
-    yield TestClient(app)
+    
+    # Enable startup events (like init_db)
+    with TestClient(app) as c:
+        yield c
+    
+    # Cleanup
     Base.metadata.drop_all(bind=engine)
 
 def test_full_workflow(client):
