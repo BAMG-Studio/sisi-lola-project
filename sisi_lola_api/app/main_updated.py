@@ -8,18 +8,30 @@ load_dotenv()
 import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from sisi_lola_api.app.routers import agent, images, videos, audio, auth, nigerian_models
-from sisi_lola_api.app.routers import auth_router, control_center_router, vibe_router
+from sisi_lola_api.app.routers import (
+    agent, images, videos, audio, auth, nigerian_models, 
+    auth_router, control_center_router, vibe_router, dashboard_router
+)
 from sisi_lola_api.app.database import init_db
 # from sisi_lola_api.app.routers import chat
 from sisi_lola_api.app.config import SisiLolaDNA
 from sisi_lola_api.app.services import auth_store
+from fastapi.staticfiles import StaticFiles
+from pathlib import Path
 
 app = FastAPI(
     title="Sisi Lola Control Center API",
     description="The Central Nervous System for the Sisi Lola Virtual Human with Role-Based Access Control.",
     version="2.1.0 (Supreme)"
 )
+
+# Static files for UI
+static_path = Path(__file__).resolve().parent / "static"
+static_path.mkdir(exist_ok=True)
+app.mount("/static", StaticFiles(directory=str(static_path)), name="static")
+
+# Include UI Router
+app.include_router(dashboard_router.router)
 
 # Include the modular routers
 app.include_router(vibe_router.router, prefix="/api/v2")
@@ -50,17 +62,3 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-@app.get("/")
-async def root():
-    access_key = os.getenv("KLINGAI_ACCESS_KEY")
-    secret_key = os.getenv("KLINGAI_SECRET_KEY")
-    return {
-        "system_status": "ONLINE",
-        "entity": SisiLolaDNA.NAME,
-        "dna_version": "2.0 (Breathtaking/Voluptuous)",
-        "control_center": "ENABLED",
-        "rbac": "ACTIVE",
-        "klingai_credentials_loaded": bool(access_key and secret_key),
-        "openai_key_loaded": bool(os.getenv("OPENAI_API_KEY"))
-    }

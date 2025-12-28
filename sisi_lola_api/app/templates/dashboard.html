@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sisi Lola | Command Center</title>
+    <title>Sisi Lola | Supreme Command Center</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
         rel="stylesheet">
@@ -12,10 +12,13 @@
         :root {
             --primary: #FF4D00;
             --secondary: #00A651;
-            --bg: #0A0A0A;
-            --card: #151515;
+            --accent: #d4af37;
+            /* Gold */
+            --bg: #050505;
+            --card: rgba(25, 25, 25, 0.7);
             --text: #FFFFFF;
             --border: rgba(255, 255, 255, 0.1);
+            --glow: rgba(212, 175, 55, 0.3);
         }
 
         * {
@@ -32,39 +35,91 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            background-image: radial-gradient(circle at 50% 50%, #111 0%, #050505 100%);
+        }
+
+        /* Glassmorphism Classes */
+        .glass {
+            background: var(--card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
         }
 
         header {
-            height: 70px;
+            height: 80px;
             border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 30px;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
+            padding: 0 40px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(15px);
+            z-index: 100;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
         .logo {
             font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-style: italic;
-            color: var(--primary);
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .supreme-tag {
+            font-size: 0.6rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            padding: 4px 10px;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            border-radius: 4px;
+            animation: glow-pulse 2s infinite;
+        }
+
+        @keyframes glow-pulse {
+            0% {
+                box-shadow: 0 0 5px var(--glow);
+            }
+
+            50% {
+                box-shadow: 0 0 15px var(--glow);
+            }
+
+            100% {
+                box-shadow: 0 0 5px var(--glow);
+            }
         }
 
         .app-main {
             display: flex;
             flex: 1;
+            padding: 20px;
+            gap: 20px;
             overflow: hidden;
         }
 
-        /* Left Panel: Chat */
-        .chat-panel {
+        /* Left: Neural Network (Chat) */
+        .neural-panel {
             flex: 2;
             display: flex;
             flex-direction: column;
-            border-right: 1px solid var(--border);
-            background: rgba(255, 255, 255, 0.02);
+            position: relative;
+        }
+
+        .chat-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .chat-messages {
@@ -74,153 +129,189 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) transparent;
         }
 
         .message {
             max-width: 80%;
-            padding: 15px 20px;
-            border-radius: 20px;
-            line-height: 1.5;
+            padding: 18px 24px;
+            border-radius: 24px;
+            line-height: 1.6;
             font-size: 1rem;
-            white-space: pre-wrap;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .msg-user {
             align-self: flex-end;
-            background: var(--primary);
-            color: white;
-            border-bottom-right-radius: 5px;
+            background: linear-gradient(135deg, var(--primary), #FF7000);
+            border-bottom-right-radius: 4px;
         }
 
         .msg-sisi {
             align-self: flex-start;
-            background: #222;
+            background: rgba(40, 40, 40, 0.4);
             border: 1px solid var(--border);
-            border-bottom-left-radius: 5px;
+            border-bottom-left-radius: 4px;
         }
 
-        .chat-input-area {
-            padding: 30px;
-            border-top: 1px solid var(--border);
+        .input-area {
+            margin-top: auto;
+            padding: 20px;
             display: flex;
             gap: 15px;
-            align-items: center;
         }
 
         input#chat-input {
             flex: 1;
-            background: #1a1a1a;
-            border: 1px solid #333;
-            padding: 15px;
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            padding: 15px 25px;
+            border-radius: 50px;
             color: white;
             outline: none;
+            transition: 0.3s;
         }
 
         input#chat-input:focus {
             border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(255, 77, 0, 0.2);
         }
 
-        button.send-btn {
+        .send-btn {
             background: var(--primary);
-            color: white;
             border: none;
-            padding: 0 25px;
+            width: 50px;
             height: 50px;
-            border-radius: 12px;
-            font-weight: 800;
+            border-radius: 50%;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
         }
 
-        /* Right Panel: Tools */
-        .tools-panel {
-            flex: 1;
-            padding: 30px;
-            overflow-y: auto;
+        .send-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Right: Creative Studio & Radar */
+        .studio-panel {
+            flex: 1.2;
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 20px;
+            overflow-y: auto;
+            padding-right: 5px;
         }
 
-        .tool-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            padding: 20px;
-            border-radius: 16px;
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
         }
 
-        .tool-card h3 {
-            margin-bottom: 15px;
-            color: var(--primary);
-            font-size: 1rem;
+        .card-header h3 {
+            font-size: 0.9rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            color: var(--accent);
         }
 
-        .status-badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 800;
-            background: var(--secondary);
-            color: black;
-            margin-bottom: 15px;
+        .studio-card {
+            padding: 25px;
         }
 
-        select,
-        textarea {
-            width: 100%;
-            background: #000;
-            border: 1px solid #333;
+        .btn-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-supreme {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
             color: white;
             padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            outline: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .btn-supreme:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent);
+        }
+
+        .btn-gold {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            border: none;
+            grid-column: span 2;
+            height: 45px;
+            font-weight: 800;
+        }
+
+        .media-preview-box {
+            margin-top: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: #000;
+            display: none;
+        }
+
+        .media-preview-box video,
+        .media-preview-box img {
+            width: 100%;
+            display: block;
         }
 
         #voice-indicator {
             display: none;
             align-items: center;
-            gap: 8px;
-            color: var(--primary);
-            font-weight: 800;
-            font-size: 0.8rem;
+            gap: 5px;
         }
 
-        .wave {
+        .v-wave {
             width: 3px;
             height: 12px;
-            background: var(--primary);
-            animation: wave 0.5s infinite alternate;
+            background: var(--accent);
+            animation: v-wave 0.5s infinite alternate;
         }
 
-        @keyframes wave {
+        @keyframes v-wave {
             to {
                 height: 25px;
             }
         }
 
-        .btn-small {
-            background: #333;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 6px;
-            cursor: pointer;
+        /* Loader */
+        .supreme-loader {
+            display: none;
+            text-align: center;
+            padding: 20px;
             font-size: 0.8rem;
-            margin-bottom: 5px;
+            color: var(--accent);
+            font-style: italic;
         }
 
-        .btn-small:hover {
-            background: #444;
+        /* Scroller Styling */
+        ::-webkit-scrollbar {
+            width: 5px;
         }
 
-        .btn-primary-outline {
+        ::-webkit-scrollbar-track {
             background: transparent;
-            border: 1px solid var(--primary);
-            color: var(--primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -228,107 +319,106 @@
 <body>
 
     <header>
-        <div class="logo">Sisi Lola.</div>
-        <div id="voice-indicator">
-            SISI YARNING... <div class="wave"></div>
-            <div class="wave" style="animation-delay: 0.1s"></div>
+        <div class="logo-box">
+            <div class="logo">Sisi Lola.</div>
+            <div class="supreme-tag">SUPREME V2.1</div>
         </div>
-        <div>
-            <span class="status-badge" id="empire-status">EMPIRE ONLINE</span>
+        <div id="voice-indicator">
+            <span style="font-size: 0.7rem; font-weight: 800; color: var(--accent); margin-right: 10px;">NERVOUS SYSTEM
+                ACTIVE</span>
+            <div class="v-wave"></div>
+            <div class="v-wave" style="animation-delay: 0.1s"></div>
+            <div class="v-wave" style="animation-delay: 0.2s"></div>
+        </div>
+        <div class="status-box">
+            <span style="font-size: 0.7rem; color: #888;">CPU: <span
+                    style="color: var(--secondary)">OPTIMIZED</span></span>
+            <span style="margin-left: 15px; font-size: 0.7rem; color: #888;">SYNC: <span
+                    style="color: var(--secondary)">LIVE</span></span>
         </div>
     </header>
 
     <div class="app-main">
-        <!-- LEFT: THE CONVERSATION -->
-        <div class="chat-panel">
+        <!-- THE BRAIN (Chat) -->
+        <div class="neural-panel glass">
+            <div class="chat-header">
+                <span style="font-weight: 800; font-size: 0.9rem; letter-spacing: 1px;">NEURAL CONVERSATION</span>
+                <button class="btn-supreme" onclick="toggleVoice()" id="voice-btn" style="padding: 5px 15px;">🔊 AUDIO
+                    ON</button>
+            </div>
             <div class="chat-messages" id="chat-messages">
                 <div class="message msg-sisi">
-                    Omo, Peter! Welcome back to my Command Center. 💃✨ I dey here ready for gists. We go talk about
-                    Afrobeats, Lagos life, or we go find some serious wahala to solve? Wetin dey occur for your side
-                    today?
+                    Omo! Welcome to the bridge, Boss! 🥂✨
+
+                    I'm currently plugged into the **Supreme Google AI Grid**.
+                    Wetin we dey brew today? Real-time gists, cinematic vibes, or pure high-fidelity AI?
+
+                    Talk to me, make we set Lagos on fire! 🔥
                 </div>
             </div>
-            <div class="chat-input-area">
-                <input type="text" id="chat-input" placeholder="Yarn something or paste link..."
+            <div class="input-area">
+                <input type="text" id="chat-input" placeholder="Initiate neural sequence..."
                     onkeypress="if(event.key==='Enter') sendQuery()">
-                <button class="send-btn" onclick="sendQuery()">SEND</button>
+                <button class="send-btn" onclick="sendQuery()">🏹</button>
             </div>
         </div>
 
-        <!-- RIGHT: THE GEARS -->
-        <div class="tools-panel">
-            <div class="tool-card">
-                <h3>Vibe Settings</h3>
-                <label style="font-size: 0.8rem; color: #888;">Scenario (Gist Mood)</label>
-                <select id="scenario-select">
-                    <option value="general">Standard Gist</option>
-                    <option value="radio_host">Radio Show Host</option>
-                    <option value="hustle_clinic">Hustle & Relationship Clinic</option>
-                    <option value="political_analyst">Political Decoding (Sarcastic)</option>
-                    <option value="sports_fanatic">Sports Gist Queen</option>
-                    <option value="vdm_vibe">The Call-out (VDM Style)</option>
-                    <option value="market_queen">Market Woman Hustle</option>
-                    <option value="spiritual_sis">Spiritual & Gospel Vibe</option>
-                    <option value="tech_insider">Tech Bro/Sister (Yaba)</option>
-                    <option value="history_guardian">History & Heritage</option>
-                    <option value="cooking_with_sisi">Jollof & Cooking Wars</option>
-                    <option value="fashion_police">Fashion Police (BellaNaija Style)</option>
-                    <option value="japa_consultant">Japa & Diaspora Reality</option>
-                    <option value="money_talks">Money & Wealth Coaching</option>
-                    <option value="nollywood_insider">Nollywood/Yorubawood Gist</option>
-                    <option value="village_ancestor">Village Wisdom (Ancestral)</option>
-                    <option value="culture_tutor">Culture & Slang Tutor</option>
-                </select>
-                <button class="btn-small" onclick="toggleVoice()" id="voice-btn">🔊 VOICE: ON</button>
+        <!-- THE STUDIO (Tools) -->
+        <div class="studio-panel">
+            <!-- CREATIVE STUDIO -->
+            <div class="studio-card glass" style="border-color: var(--accent);">
+                <div class="card-header">
+                    <span style="color: var(--accent)">✨</span>
+                    <h3>Supreme Creative Studio</h3>
+                </div>
+                <textarea id="supreme-prompt"
+                    placeholder="Describe the vibe... (e.g. Sisi dancing in a Digital Ankara at a Lagos ball)"
+                    style="width: 100%; height: 80px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 12px; color: white; padding: 15px; outline: none; margin-bottom: 10px;"></textarea>
+
+                <div class="btn-grid">
+                    <button class="btn-supreme" onclick="generateSupreme('video')">🎬 VEO 3.1 (8S)</button>
+                    <button class="btn-supreme" onclick="generateSupreme('music')">🎵 LYRIA MUSIC</button>
+                    <button class="btn-supreme" onclick="generateSupreme('snapshot')">📸 IMAGEN 4</button>
+                    <button class="btn-supreme" onclick="generateSupreme('engagement')">🍌 NANO BANANA</button>
+                    <button class="btn-supreme btn-gold" onclick="triggerSupremeSync()">🚀 SUPREME AUTONOMOUS
+                        SYNC</button>
+                </div>
+
+                <div id="supreme-loader" class="supreme-loader">✨ Brewing Supreme Vibe... Stand by...</div>
+                <div id="media-output" class="media-preview-box"></div>
             </div>
 
-            <div class="tool-card">
-                <h3>Sisi's Cultural Satellite</h3>
-                <label style="font-size: 0.8rem; color: #888;">News/Gist Source</label>
-                <select id="radar-source">
-                    <option value="general">Pulse General</option>
-                    <option value="bellanaija">Bella Naija (Celebs)</option>
-                    <option value="vdm_vibe">Very Dark Man (Hot Gists)</option>
+            <!-- CULTURAL RADAR -->
+            <div class="studio-card glass">
+                <div class="card-header">
+                    <span style="color: var(--primary)">📡</span>
+                    <h3>Cultural Satellite</h3>
+                </div>
+                <select id="radar-source"
+                    style="width: 100%; background: #111; border: 1px solid var(--border); color: white; padding: 12px; border-radius: 10px; margin-bottom: 15px;">
+                    <option value="nigeria">Pulse Nigeria (Gist)</option>
+                    <option value="bellanaija">BellaNaija (Glamour)</option>
                     <option value="political">Political Radar</option>
-                    <option value="sports">Sports Radar</option>
-                    <option value="africa">Africa Central</option>
-                    <option value="global">Global Trends</option>
-                    <option value="in_diaspora">In-Diaspora News</option>
-                    <option value="tech">Tech & Crypto</option>
-                    <option value="nollywood">Nollywood Insider</option>
-                    <option value="religion">Religion & Gospel</option>
+                    <option value="tech">Yaba Tech Bro Vibe</option>
+                    <option value="africa">Pan-African Trends</option>
                 </select>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px;">
-                    <button class="btn-small btn-primary-outline" onclick="triggerGistHunt('nigeria')">Sync
-                        Nigeria</button>
-                    <button class="btn-small btn-primary-outline" onclick="triggerGistHunt('africa')">Sync
-                        Africa</button>
-                    <button class="btn-small btn-primary-outline" onclick="triggerGistHunt('global')">Sync
-                        Global</button>
+                <div class="btn-grid">
+                    <button class="btn-supreme" onclick="triggerGistHunt('nigeria')">SYNC NIGERIA</button>
+                    <button class="btn-supreme" onclick="triggerGistHunt('africa')">SYNC AFRICA</button>
                 </div>
             </div>
 
-            <div class="tool-card">
-                <h3>System Health</h3>
-                <div style="font-size: 0.85rem; display: flex; flex-direction: column; gap: 8px;">
-                    <div>Instagram: <span id="status-ig">...</span></div>
-                    <div>TikTok: <span id="status-tk">...</span></div>
-                    <div>Dataset: <span id="dataset-count">0</span> forged</div>
+            <!-- VISION LAB -->
+            <div class="studio-card glass">
+                <div class="card-header">
+                    <span style="color: var(--secondary)">👁️</span>
+                    <h3>Vision Analysis</h3>
                 </div>
-            </div>
-
-            <div class="tool-card">
-                <h3>Vision Lab</h3>
-                <p style="font-size: 0.8rem; color: #888; margin-bottom: 10px;">Analyze images via Gemini Vision</p>
                 <input type="file" id="file-input" onchange="handleFile(event)"
-                    style="font-size: 0.7rem; margin-bottom: 10px;">
-                <button class="btn-small" style="width: 100%; border: 1px solid var(--primary); color: var(--primary);"
-                    onclick="analyzeVision()">RUN VISION</button>
-            </div>
-
-            <div class="tool-card">
-                <h3>Daily Retrain</h3>
-                <button class="btn-small" style="width: 100%;" onclick="exportData()">EXPORT TRAINING DATA</button>
+                    style="font-size: 0.7rem; color: #888; margin-bottom: 15px; width: 100%;">
+                <button class="btn-supreme" onclick="analyzeVision()"
+                    style="width: 100%; border-color: var(--secondary); color: var(--secondary)">RUN VISION
+                    SCAN</button>
             </div>
         </div>
     </div>
@@ -336,31 +426,8 @@
     <script>
         let voiceEnabled = true;
         let currentImage = null;
-        let sessionId = localStorage.getItem('sisi_session_id');
-
-        if (!sessionId) {
-            sessionId = 'user_' + Math.random().toString(36).substr(2, 9);
-            localStorage.setItem('sisi_session_id', sessionId);
-        }
-
-        window.onload = () => {
-            refreshStatus();
-            // Default sync on load
-            triggerGistHunt('nigeria');
-        };
-
-        async function refreshStatus() {
-            try {
-                const r = await fetch('/api/dashboard/status');
-                const d = await r.json();
-                document.getElementById('status-ig').innerText = d.auth.instagram;
-                document.getElementById('status-tk').innerText = d.auth.tiktok;
-
-                const e = await fetch('/api/dashboard/export-data');
-                const ed = await e.json();
-                document.getElementById('dataset-count').innerText = ed.entry_count;
-            } catch (e) { }
-        }
+        let sessionId = localStorage.getItem('sisi_supreme_id') || 'session_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('sisi_supreme_id', sessionId);
 
         function addMsg(role, text) {
             const div = document.createElement('div');
@@ -380,41 +447,91 @@
             input.value = '';
 
             try {
-                const scenario = document.getElementById('scenario-select').value;
-                const r = await fetch('/unified/chat', {
+                const r = await fetch('/api/v2/vibe/engagement', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        message: msg,
-                        scenario: scenario,
-                        mode: voiceEnabled ? 'multimodal' : 'text',
-                        session_id: sessionId
-                    })
+                    body: JSON.stringify({ message: msg })
                 });
                 const d = await r.json();
+                addMsg('sisi', d.response);
+            } catch (e) { addMsg('sisi', "Neural link unstable! Try again."); }
+        }
 
-                if (d.error) {
-                    addMsg('sisi', "Omo, my brain don crack small! 😵 " + d.error);
-                } else {
-                    addMsg('sisi', d.text);
-                    if (d.audio_base64 && voiceEnabled) playAudio(d.audio_base64);
+        async function generateSupreme(type) {
+            const prompt = document.getElementById('supreme-prompt').value;
+            if (!prompt && type !== 'engagement') return alert("Describe the vibe first!");
+
+            const loader = document.getElementById('supreme-loader');
+            const output = document.getElementById('media-output');
+
+            loader.style.display = 'block';
+            output.style.display = 'none';
+            output.innerHTML = '';
+
+            try {
+                let endpoint = `/api/v2/vibe/${type}`;
+                let body = { prompt: prompt };
+
+                if (type === 'snapshot') { body = { scene: prompt }; }
+
+                const r = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body)
+                });
+
+                const d = await r.json();
+                loader.style.display = 'none';
+                if (!r.ok) throw new Error(d.detail || "Supreme engine error");
+
+                output.style.display = 'block';
+
+                if (type === 'video') {
+                    output.innerHTML = `<video controls autoplay loop src="data:video/mp4;base64,${d.video_base64}"></video>`;
+                    addMsg('sisi', "Omo! Check this Veo magic. 🎬✨ Digital Ankara in motion!");
+                } else if (type === 'music') {
+                    output.innerHTML = `<audio style="width:100%; margin:10px 0;" controls autoplay src="data:audio/mpeg;base64,${d.audio_base64}"></audio>`;
+                    addMsg('sisi', "Lyria don finish work! This Afrobeats vibe is supreme. 🎵💃");
+                } else if (type === 'snapshot') {
+                    output.innerHTML = `<img src="data:image/png;base64,${d.image_base64}">`;
+                    addMsg('sisi', "Look at the texture! Imagen 4 no dey play. 📸🔥");
+                } else if (type === 'engagement') {
+                    addMsg('sisi', d.response);
                 }
-                refreshStatus();
             } catch (e) {
-                addMsg('sisi', "Network wahala! Connect again, Boss. 🔌");
+                loader.style.display = 'none';
+                addMsg('sisi', "Engine Overheat: " + e.message);
             }
         }
 
-        function playAudio(base64) {
-            document.getElementById('voice-indicator').style.display = 'flex';
-            const audio = new Audio("data:audio/wav;base64," + base64);
-            audio.play();
-            audio.onended = () => { document.getElementById('voice-indicator').style.display = 'none'; };
+        async function triggerSupremeSync() {
+            const scope = document.getElementById('radar-source').value;
+            addMsg('sisi', `Initiating SUPREME SYNC... Hunting for ${scope} vibes. 💎✨`);
+            try {
+                await fetch('/api/v2/control/autonomous-sync', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ scope: scope })
+                });
+                addMsg('sisi', "Autonomous engine active! Check Content Queue shortly. 🚀");
+            } catch (e) { addMsg('sisi', "Supreme sync failed!"); }
+        }
+
+        async function triggerGistHunt(scope) {
+            addMsg('sisi', `Scanning ${scope} radar... 🛰️`);
+            try {
+                await fetch('/api/dashboard/gist-hunt', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ scope: scope })
+                });
+                addMsg('sisi', `Radar synced for ${scope}! I'm soji now!`);
+            } catch (e) { addMsg('sisi', "Radar sync error!"); }
         }
 
         function toggleVoice() {
             voiceEnabled = !voiceEnabled;
-            document.getElementById('voice-btn').innerText = voiceEnabled ? "🔊 VOICE: ON" : "🔇 VOICE: OFF";
+            document.getElementById('voice-btn').innerText = voiceEnabled ? "🔊 AUDIO ON" : "🔇 AUDIO OFF";
         }
 
         function handleFile(e) {
@@ -426,42 +543,17 @@
 
         async function analyzeVision() {
             if (!currentImage) return alert("Select a photo first!");
-            addMsg('user', "[Image Analysis Requested]");
+            addMsg('user', "[Scanning Visual Data...]");
             try {
-                const r = await fetch('/unified/chat', {
+                const r = await fetch('/api/v2/vibe/engagement', { // Use engagement for multimodal check
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        message: "Analyze this image",
-                        image_base64: currentImage,
-                        mode: 'text',
-                        session_id: sessionId
-                    })
+                    body: JSON.stringify({ message: "Analyze this image", image_base64: currentImage })
                 });
                 const d = await r.json();
-                addMsg('sisi', d.text);
-            } catch (e) { addMsg('sisi', "Vision error!"); }
+                addMsg('sisi', d.response);
+            } catch (e) { addMsg('sisi', "Vision lab error!"); }
         }
-
-        async function triggerGistHunt(scope) {
-            const target = scope || 'nigeria';
-            addMsg('sisi', `Searching ${target} news radar... 🛰️`);
-            try {
-                await fetch('/api/dashboard/gist-hunt', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ scope: target })
-                });
-                addMsg('sisi', `Radar synced for ${target}! I ready for gists.`);
-            } catch (e) {
-                addMsg('sisi', "Radar sync failed, probably bad network!");
-            }
-        }
-
-        function exportData() {
-            window.location.href = '/api/dashboard/export-data';
-        }
-
     </script>
 </body>
 

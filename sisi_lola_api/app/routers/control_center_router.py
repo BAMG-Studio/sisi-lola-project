@@ -13,8 +13,17 @@ from sisi_lola_api.app.database import (
     get_db, Asset, ContentQueue, TrainingJob, 
     PlatformAccount, AuditLog, User
 )
+from sisi_lola_api.app.services.vibe_scheduler import vibe_scheduler
 
 router = APIRouter(prefix="/control", tags=["Control Center"])
+
+@router.post("/autonomous-sync")
+async def trigger_autonomous_sync(scope: str = Body(..., embed=True), ctx=Depends(require_permission("content:write"))):
+    """Trigger the Supreme Vibe Autonomous Loop"""
+    # Run in background to avoid timeout
+    import asyncio
+    asyncio.create_task(vibe_scheduler.run_autonomous_loop(scope))
+    return {"status": "Supreme Loop Triggered", "scope": scope}
 
 # Pydantic models for request bodies
 class AssetCreate(BaseModel):
