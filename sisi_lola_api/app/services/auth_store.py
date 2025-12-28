@@ -88,6 +88,17 @@ def init_db() -> None:
             )
             """
         )
+        cur.execute(
+            """
+            CREATE TABLE IF NOT EXISTS social_tokens (
+                platform TEXT PRIMARY KEY,
+                access_token TEXT NOT NULL,
+                refresh_token TEXT,
+                expires_at INTEGER,
+                updated_at INTEGER
+            )
+            """
+        )
 
 
 def _hash_key(api_key: str) -> str:
@@ -260,3 +271,27 @@ def list_invites():
         cur.execute("SELECT * FROM invites ORDER BY created_at DESC")
         rows = cur.fetchall()
     return [dict(r) for r in rows]
+
+
+def save_social_token(platform: str, access_token: str, refresh_token: Optional[str] = None, expires_in: int = 0) -> None:
+    now = int(time.time())
+    expires_at = now + expires_in if expires_in > 0 else None
+    with get_conn() as conn:
+        cur = conn.cursor()
+        cur.execute(
+            """
+            INSERT OR REPLACE INTO social_tokens (platform, access_token, refresh_token, expires_at, updated_at)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            (platform, access_token, refresh_token, expires_at, now),
+        )
+
+
+def get_social_token(platform: str) -> Optional[dict]:
+    with get_conn() as conn:
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM social_tokens WHERE platform = ?", (platform,))
+        row = cur.fetchone()
+        if row:
+            return dict(row)
+    return None

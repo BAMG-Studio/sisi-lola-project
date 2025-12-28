@@ -2,48 +2,66 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.11'
-    
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r sisi_lola_api/requirements.txt
-        pip install -r sisi_lola_api/requirements_control_center.txt
-        pip install -r sisi_lola_api/requirements_test.txt
-    
-    - name: Run tests
-      run: |
-        PYTHONPATH=. pytest sisi_lola_api/tests/ -v --cov=sisi_lola_api/app --cov-report=xml
-    
-    - name: Upload coverage
-      uses: codecov/codecov-action@v3
-      with:
-        file: ./sisi_lola_api/coverage.xml
-        fail_ci_if_error: false
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r sisi_lola_api/requirements.txt
+          pip install -r sisi_lola_api/requirements_control_center.txt
+          pip install -r sisi_lola_api/requirements_test.txt
+
+      - name: Run tests
+        run: |
+          export PYTHONPATH=$PYTHONPATH:.
+          pytest sisi_lola_api/tests/ -v --cov=sisi_lola_api/app --cov-report=xml
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        with:
+          file: ./sisi_lola_api/coverage.xml
+          fail_ci_if_error: false
 
   deploy:
     needs: test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    
+
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Deploy to production
-      run: |
-        echo "Deploy to production server"
-        # Add deployment commands here
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install Modal
+        run: pip install modal
+
+      - name: Deploy to Modal (Cached Production)
+        env:
+          MODAL_TOKEN_ID: ${{ secrets.MODAL_TOKEN_ID }}
+          MODAL_TOKEN_SECRET: ${{ secrets.MODAL_TOKEN_SECRET }}
+        run: |
+          if [ -z "$MODAL_TOKEN_ID" ] || [ -z "$MODAL_TOKEN_SECRET" ]; then
+            echo "⚠️ Modal tokens not found. Skipping deployment."
+            exit 0
+          fi
+          modal token set --token-id $MODAL_TOKEN_ID --token-secret $MODAL_TOKEN_SECRET
+          # Modal handles caching natively. The first deployment will build the image.
+          # Subsequent pushes will be lightning fast.
+          modal deploy sisi_lola_api/app/services/modal_stub.py

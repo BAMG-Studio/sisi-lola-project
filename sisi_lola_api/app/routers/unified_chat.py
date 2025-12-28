@@ -57,10 +57,12 @@ class UnifiedChatRequest(BaseModel):
     mode: ResponseMode = Field(default=ResponseMode.MULTIMODAL, description="Response mode")
     language: Language = Field(default=Language.MIXED, description="Preferred language")
     conversation_history: Optional[List[ChatMessage]] = Field(default=None, description="Previous messages")
-    max_tokens: int = Field(default=512, ge=50, le=2048, description="Max response length")
-    temperature: float = Field(default=0.7, ge=0.0, le=1.5, description="Creativity level")
+    max_tokens: int = Field(default=1024, ge=100, le=4096, description="Max response length")
+    temperature: float = Field(default=0.85, ge=0.0, le=2.0, description="Creativity level")
     include_audio_base64: bool = Field(default=True, description="Include audio as base64")
     session_id: Optional[str] = Field(default="default", description="Conversation session identifier")
+    scenario: str = Field(default="general", description="The use-case scenario (radio_host, culture_tutor, hustle_clinic)")
+    image_base64: Optional[str] = Field(default=None, description="Base64 encoded image for vision analysis")
 
 class UnifiedChatResponse(BaseModel):
     """Response from unified chat endpoint"""
@@ -132,14 +134,26 @@ async def unified_chat(request: UnifiedChatRequest):
         from sisi_lola_api.app.services.unified_inference import ResponseMode as ServiceMode, Language as ServiceLang
         
         session_id = request.session_id or "default"
+        
+        # Merge image into message if provided
+        message = request.message
+        if request.image_base64 and not message:
+            message = "[Attached Image]"
+        
+        # Try to load history from DB if empty
+        if not history or len(history) == 0:
+            from sisi_lola_api.app.services.memory_bank import memory_bank
+            history = memory_bank.get_history(session_id, limit=6)
+        
         response = await service.generate(
-            message=request.message,
+            message=message,
             mode=ServiceMode(request.mode.value),
             language=ServiceLang(request.language.value),
             conversation_history=history,
             max_tokens=request.max_tokens,
             temperature=request.temperature,
-            session_id=session_id
+            session_id=session_id,
+            scenario=request.scenario
         )
         
         # Save to memory bank

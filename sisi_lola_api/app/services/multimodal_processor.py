@@ -22,6 +22,7 @@ from dataclasses import dataclass, asdict
 from enum import Enum
 from pathlib import Path
 import hashlib
+import base64
 
 
 class InputType(str, Enum):
@@ -179,7 +180,7 @@ class MultimodalInputProcessor:
                 return InputType.YOUTUBE_URL
         
         # Check for general URL
-        if re.match(r'https?://', input_data):
+        if re.search(r'https?://[^\s]+', input_data):
             return InputType.WEB_URL
         
         # Check for file paths
@@ -196,10 +197,12 @@ class MultimodalInputProcessor:
         
         return InputType.TEXT
     
-    async def _process_youtube(self, url: str, result: ProcessedInput) -> ProcessedInput:
-        """Process YouTube video - extract transcript"""
+    async def _process_youtube(self, input_data: str, result: ProcessedInput) -> ProcessedInput:
+        """Process YouTube video - extract transcript and deep metadata"""
+        # Extract the actual URL first if it's mixed with text
+        url_match = re.search(r'(https?://(?:www\.)?(?:youtube\.com|youtu\.be)/[^\s]+)', input_data)
+        url = url_match.group(1) if url_match else input_data
         
-        # Extract video ID
         video_id = None
         for pattern in self.YOUTUBE_PATTERNS:
             match = re.search(pattern, url)
@@ -215,27 +218,34 @@ class MultimodalInputProcessor:
         result.metadata["video_id"] = video_id
         result.metadata["video_url"] = f"https://www.youtube.com/watch?v={video_id}"
         
-        # Try to get transcript
+        # 1. Try for transcript first
         try:
             transcript = await self._get_youtube_transcript(video_id)
             if transcript:
                 result.extracted_text = transcript
                 result.metadata["source"] = "youtube_transcript"
-                return result
         except Exception as e:
             print(f"Transcript extraction failed: {e}")
         
-        # Fallback: Get video metadata
+        # 2. Deep metadata (yt-dlp)
         try:
+            import yt_dlp
+            ydl_opts = {'quiet': True, 'no_warnings': True}
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                info = ydl.extract_info(url, download=False)
+                result.metadata["title"] = info.get('title')
+                result.metadata["description"] = info.get('description')
+                result.metadata["view_count"] = info.get('view_count')
+                result.metadata["upload_date"] = info.get('upload_date')
+                
+                # Merge into text for brain
+                metadata_gist = f"TITLE: {info.get('title')}\nUPLOADER: {info.get('uploader')}\nDESCRIPTION: {info.get('description')[:500]}..."
+                result.extracted_text = f"{metadata_gist}\n\nTRANSCRIPT:\n{result.extracted_text or 'No transcript available'}"
+        except ImportError:
+            # Fallback to simple oembed
             metadata = await self._get_youtube_metadata(video_id)
             result.metadata.update(metadata)
-            result.extracted_text = f"Video Title: {metadata.get('title', 'Unknown')}\n"
-            result.extracted_text += f"Description: {metadata.get('description', 'No description')}"
-            result.metadata["source"] = "youtube_metadata"
-        except Exception as e:
-            result.extracted_text = f"[YouTube video: {video_id}] - Unable to extract content automatically."
-            result.metadata["source"] = "youtube_reference"
-            result.metadata["note"] = "Manual review required for language patterns"
+            result.extracted_text = f"TITLE: {metadata.get('title')}\nCONTENT: {result.extracted_text or 'No transcript available'}"
         
         return result
     
@@ -244,8 +254,21 @@ class MultimodalInputProcessor:
         try:
             from youtube_transcript_api import YouTubeTranscriptApi
             
-            # Try to get transcript in preferred languages
-            transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
+            # Try to get transcript
+            try:
+                # The correct method is get_transcript (static method)
+                transcript_list = YouTubeTranscriptApi.get_transcript(video_id)
+                text = " ".join([t['text'] for t in transcript_list])
+                return text
+            except Exception as e:
+                # Fallback to list_transcripts then get one
+                try:
+                    transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
+                    # Get first available
+                    transcript = transcript_list.find_transcript(['en', 'pcm', 'yo'])
+                    return " ".join([t['text'] for t in transcript.fetch()])
+                except:
+                    return f"Error getting transcript: {e}"
             
             # Prefer Nigerian/African English or Pidgin transcripts
             for lang_code in ['en', 'en-NG', 'en-GB', 'pcm']:
@@ -290,8 +313,11 @@ class MultimodalInputProcessor:
         
         return {"title": "Unknown", "author": "Unknown"}
     
-    async def _process_web_url(self, url: str, result: ProcessedInput) -> ProcessedInput:
+    async def _process_web_url(self, input_data: str, result: ProcessedInput) -> ProcessedInput:
         """Process web URL - extract main content"""
+        url_match = re.search(r'(https?://[^\s]+)', input_data)
+        url = url_match.group(1) if url_match else input_data
+        
         try:
             import httpx
             from bs4 import BeautifulSoup
@@ -349,22 +375,34 @@ class MultimodalInputProcessor:
         return result
     
     async def _process_image(self, file_path: str, result: ProcessedInput) -> ProcessedInput:
-        """Process image - extract text/description"""
+        """Process image - extract text/description and prepare for Sisi's eyes"""
         try:
-            # Try OCR with pytesseract
-            import pytesseract
             from PIL import Image
+            import io
             
+            # 1. Basic properties
             image = Image.open(file_path)
-            text = pytesseract.image_to_string(image)
-            
-            result.extracted_text = text.strip()
             result.metadata["width"] = image.width
             result.metadata["height"] = image.height
             
-        except ImportError:
-            result.extracted_text = f"[Image file: {file_path}]"
-            result.metadata["note"] = "Install pytesseract for OCR: pip install pytesseract"
+            # 2. Encode to base64 for Gemini Vision
+            with open(file_path, "rb") as image_file:
+                encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
+            
+            # 3. Add to metadata so UnifiedInference can "see" it
+            result.metadata["image_base64"] = encoded_string
+            result.metadata["mime_type"] = f"image/{os.path.splitext(file_path)[1][1:].lower()}"
+            
+            # Keep OCR as a fallback/secondary text input
+            try:
+                import pytesseract
+                text = pytesseract.image_to_string(image)
+                result.extracted_text = f"[OCR CONTENT: {text.strip()}]"
+            except:
+                result.extracted_text = "[Image attached for visual analysis]"
+                
+            result.success = True
+            
         except Exception as e:
             result.error = f"Image processing failed: {str(e)}"
             result.success = False

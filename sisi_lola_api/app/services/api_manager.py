@@ -43,6 +43,11 @@ class APIKeyManager:
         self.kling_secret_key = os.getenv("KLINGAI_SECRET_KEY")
         self.reccloud_key = os.getenv("RECCLOUD_API_KEY")
     
+    # Diagnostics
+    print(f"🔑 Keys Loaded: Gemini={'YES' if self.google_ai_studio_key else 'NO'}, OpenAI={'YES' if self.OPENAI_KEYS else 'NO'}, Cohere={'YES' if self.cohere_key else 'NO'}")
+    if self.google_ai_studio_key:
+        print(f"💎 Gemini Key Detect: ...{self.google_ai_studio_key[-4:]}")
+    
     def get_next_openai_key(self) -> str:
         """Get next OpenAI key in rotation (Round Robin)"""
         if not self.OPENAI_KEYS:

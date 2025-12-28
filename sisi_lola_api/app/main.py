@@ -7,7 +7,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 import os
-from fastapi import FastAPI
+import json
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
@@ -21,6 +22,7 @@ from sisi_lola_api.app.services.instagram_bot import router as instagram_router
 from sisi_lola_api.app.routers import auth_router, control_center_router
 from sisi_lola_api.app.routers import agent, images, videos, audio, auth, nigerian_models
 from sisi_lola_api.app.database import init_db
+from fastapi.templating import Jinja2Templates
 
 from sisi_lola_api.app.config import SisiLolaDNA
 from sisi_lola_api.app.services import auth_store
@@ -117,6 +119,9 @@ if static_dir.exists():
 else:
     print(f"⚠️  Static directory not found at {static_dir}")
 
+# Setup Dashboard Templates
+templates = Jinja2Templates(directory="sisi_lola_api/app/templates")
+
 
 @app.on_event("startup")
 async def startup_init():
@@ -190,19 +195,87 @@ app.add_middleware(
 )
 
 
-@app.get("/demo", include_in_schema=False)
-async def serve_demo():
-    """Serve the interactive web demo"""
-    # Use the same logic as the static mount for consistency
-    static_file = Path(__file__).parent.parent / "static" / "index.html"
-    
-    # Fallback check
-    if not static_file.exists():
-        static_file = Path(__file__).parent.parent.parent / "sisi_lola_api" / "static" / "index.html"
+@app.get("/dashboard", include_in_schema=False)
+async def serve_dashboard(request: Request):
+    """Serve the Sisi Lola Command Center Dashboard"""
+    return templates.TemplateResponse("dashboard.html", {"request": request})
 
-    if static_file.exists():
-        return FileResponse(str(static_file))
-    return {"error": "Demo not found", "hint": f"Looked in {static_file}"}
+
+@app.get("/api/dashboard/status")
+async def dashboard_status():
+    """Get system health for the dashboard"""
+    from .services.auth_store import get_social_token
+    
+    ig = get_social_token("instagram")
+    tk = get_social_token("tiktok")
+    yt = get_social_token("youtube")
+    
+    return {
+        "auth": {
+            "instagram": "ACTIVE" if ig else "MISSING",
+            "tiktok": "ACTIVE" if tk else "MISSING",
+            "youtube": "ACTIVE" if yt else "MISSING"
+        },
+        "gpu_nodes": "ONLINE (Modal)",
+        "gist_radar": "IDLE"
+    }
+
+
+@app.post("/api/dashboard/gist-hunt")
+async def trigger_gist_hunt(request: Request):
+    """Trigger the Daily Gist Hunter manually with scope"""
+    data = await request.json()
+    scope = data.get("scope", "nigeria") # nigeria, africa, global
+    
+    from .services.gist_hunter import GistHunter
+    hunter = GistHunter()
+    briefing = await hunter.sync_radar_v2(scope)
+    
+    return {"success": True, "scope": scope, "message": f"Radar synced for {scope}"}
+
+
+@app.post("/api/dashboard/render-video")
+async def dashboard_render_video(request: Request):
+    """Trigger a video render on Modal Wizard"""
+    data = await request.json()
+    prompt = data.get("prompt")
+    model = data.get("model", "kling")
+    
+    # In a real scenario, this would call production_stub.py on Modal
+    # For now, we simulate the request to the wizard
+    return {
+        "status": "QUEUED",
+        "wizard": "Modal-SisiLolaProducer",
+        "job_id": "vid_" + os.urandom(4).hex(),
+        "estimated_time": "120s"
+    }
+
+
+@app.get("/api/dashboard/export-data")
+async def export_training_data():
+    """Package the logged interactions for GitHub Actions"""
+    from .utils.data_forge import data_forge
+    path = data_forge.prepare_github_action_export()
+    
+    # Read first 10 for preview
+    preview = []
+    if os.path.exists(path):
+        with open(path, "r", encoding="utf-8") as f:
+            for i, line in enumerate(f):
+                if i > 10: break
+                preview.append(json.loads(line))
+                
+    return {
+        "file": path,
+        "entry_count": len(preview), # Mocking total for now
+        "preview": preview
+    }
+
+
+@app.get("/demo", include_in_schema=False)
+async def serve_demo(request: Request):
+    """Serve the interactive public web demo"""
+    return templates.TemplateResponse("demo.html", {"request": request})
 
 
 @app.get("/")

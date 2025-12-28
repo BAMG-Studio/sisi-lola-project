@@ -185,8 +185,13 @@ class AutomatedPostingService:
         # TikTok API v2 endpoint (Simplified for demo - requires Access Token)
         url = "https://open.tiktokapis.com/v2/post/publish/video/init/"
         
+        # Look for token in DB first
+        from .auth_store import get_social_token
+        token_data = get_social_token("tiktok")
+        access_token = token_data["access_token"] if token_data else TIKTOK_CLIENT_KEY # fallback to env key if not OAuth flow
+        
         headers = {
-            "Authorization": f"Bearer {TIKTOK_CLIENT_KEY}", # Note: Usually requires User Access Token
+            "Authorization": f"Bearer {access_token}",
             "Content-Type": "application/json"
         }
         
@@ -256,19 +261,27 @@ class AutomatedPostingService:
         """
         vibe_id = vibe["vibe_id"]
         
-        if not INSTAGRAM_ACCESS_TOKEN or not INSTAGRAM_BUSINESS_ACCOUNT_ID:
-            # Fallback to FACEBOOK_PAGE_ID if available
-            if not FACEBOOK_PAGE_ID:
-                return PostResult(
-                    platform="instagram",
-                    vibe_id=vibe_id,
-                    success=False,
-                    error="Instagram/Meta credentials not configured"
-                )
-            # Use FB Page ID if Instagram Business ID is missing
-            ig_id = INSTAGRAM_BUSINESS_ACCOUNT_ID or FACEBOOK_PAGE_ID
-        else:
-            ig_id = INSTAGRAM_BUSINESS_ACCOUNT_ID
+        # Look for token in DB first
+        from .auth_store import get_social_token
+        token_data = get_social_token("instagram")
+        access_token = token_data["access_token"] if token_data else (INSTAGRAM_ACCESS_TOKEN)
+        
+        if not access_token:
+            return PostResult(
+                platform="instagram",
+                vibe_id=vibe_id,
+                success=False,
+                error="Instagram/Meta credentials (access_token) not found in DB or .env"
+            )
+            
+        ig_id = INSTAGRAM_BUSINESS_ACCOUNT_ID or FACEBOOK_PAGE_ID
+        if not ig_id:
+            return PostResult(
+                platform="instagram",
+                vibe_id=vibe_id,
+                success=False,
+                error="Instagram/Meta credentials (ID) not configured"
+            )
         
         # Instagram Graph API endpoints
         base_url = f"https://graph.facebook.com/v18.0/{ig_id}"
@@ -292,7 +305,7 @@ class AutomatedPostingService:
                 # Step 1: Create media container
                 create_url = f"{base_url}/media"
                 create_params = {
-                    "access_token": INSTAGRAM_ACCESS_TOKEN,
+                    "access_token": access_token,
                     "media_type": "REELS",
                     "video_url": video_url, 
                     "caption": caption[:2200],
@@ -416,12 +429,16 @@ class AutomatedPostingService:
             creds = Credentials.from_authorized_user_file(token_path)
             youtube = build("youtube", "v3", credentials=creds)
             
+            # Auto-add #Shorts to title and description for market readiness
+            v_title = title if "#Shorts" in title else f"{title[:90]} #Shorts"
+            v_desc = f"{caption}\n\n#Shorts #SisiLola #NewAfrica"
+            
             body = {
                 "snippet": {
-                    "title": title[:100],
-                    "description": caption,
-                    "tags": vibe.get("tags", []),
-                    "categoryId": "22" # People & Blogs
+                    "title": v_title,
+                    "description": v_desc,
+                    "tags": vibe.get("tags", []) + ["Shorts", "SisiLola"],
+                    "categoryId": "22"
                 },
                 "status": {
                     "privacyStatus": "public",
@@ -429,13 +446,18 @@ class AutomatedPostingService:
                 }
             }
             
+            print(f"   📺 Uploading to YouTube Shorts: {v_title}")
             insert_request = youtube.videos().insert(
                 part="snippet,status",
                 body=body,
-                media_body=MediaFileUpload(str(video_path), chunksize=-1, resumable=True)
+                media_body=MediaFileUpload(str(video_path), chunksize=1024*1024, resumable=True)
             )
             
-            response = insert_request.execute()
+            response = None
+            while response is None:
+                status, response = insert_request.next_chunk()
+                if status:
+                    print(f"   ... Upload {int(status.progress() * 100)}% complete")
             
             return PostResult(
                 platform="youtube",

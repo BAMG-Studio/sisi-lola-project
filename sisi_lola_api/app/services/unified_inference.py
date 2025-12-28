@@ -33,6 +33,7 @@ except ImportError:
     MMSService = None
 
 from sisi_lola_api.app.services.api_manager import get_api_manager
+from sisi_lola_api.app.services.multimodal_processor import get_multimodal_processor, InputType
 
 
 # HuggingFace
@@ -77,9 +78,8 @@ class UnifiedInferenceService:
     HF_PERSONALITY_REPO = "sisilolalive/sisi-lola-personality"
     HF_VOICE_REPO = "sisilolalive/sisi-lola-voice-xtts"
     
-    # Use fine-tuned OpenAI models for faster responses
-    OPENAI_MODEL_FAST = "ft:gpt-3.5-turbo-0125:bamg-studio:sisi-lola:Cmpaf8B0"
-    OPENAI_MODEL_ADVANCED = "ft:gpt-4o-mini-2024-07-18:bamg-studio:sisi-lola-v2:Cni0J1fQ"
+    OPENAI_MODEL_FAST = "gpt-3.5-turbo" 
+    OPENAI_MODEL_ADVANCED = "gpt-4o-mini" # Base model follows instructions better than old fine-tunes
     
     def __init__(
         self,
@@ -97,6 +97,8 @@ class UnifiedInferenceService:
         self.brain_tokenizer = None
         self.voice_model = None
         self.personality_config = None
+        self.mms_loaded = False
+        self.mms_service = None
         
         # Response cache for faster repeated queries
         self._response_cache: Dict[str, tuple] = {}  # hash -> (response, timestamp)
@@ -111,6 +113,7 @@ class UnifiedInferenceService:
         # Load status
         self.brain_loaded = False
         self.voice_loaded = False
+        self.mms_loaded = False
         self.personality_loaded = False
         
         print("🚀 Initializing Sisi Lola Unified Inference Service...")
@@ -313,25 +316,124 @@ Always maintain your warm, funny personality while being helpful and informative
             traceback.print_exc()
             self.voice_loaded = False
     
-    def get_system_prompt(self) -> str:
-        """Get the system prompt for Sisi Lola using PersonalityEngine if available"""
-        if personality_engine:
-            personality_prompt = personality_engine.get_system_prompt()
-            # Add strict conversational depth rules
-            depth_rules = """
-            CONVERSATIONAL RULES FOR AUTHENTICITY:
-            1. DO NOT be brief. Yarn comfortably! Minimum 3 paragraphs for deep questions.
-            2. Tell stories. Use "Omo, let me tell you..." or "You see this thing eh..."
-            3. Use language tags strictly: [YO] for Yoruba, [PCM] for Pidgin, [EN] for English.
-            4. Code-switch naturally within sentences. Don't just stick to one.
-            5. Retain context: If the user mentions a video or person, keep that vibe alive.
-            6. If you see a YouTube link, acknowledge that you are "watching" it.
-            """
-            return f"{personality_prompt}\n\n{depth_rules}"
-            
+    def get_system_prompt(self, scenario: str = "general") -> str:
+        """Get the supreme system prompt for Sisi Lola with Scenario and Depth rules."""
+        # 1. Base Personality
         if self.personality_config:
-            return self.personality_config.get("system_prompt", self._get_default_personality()["system_prompt"])
-        return self._get_default_personality()["system_prompt"]
+            personality_prompt = self.personality_config.get("system_prompt", self._get_default_personality()["system_prompt"])
+        else:
+            personality_prompt = self._get_default_personality()["system_prompt"]
+            
+        # 2. Scenario-specific Depth Rules
+        scenarios = {
+            "radio_host": """
+            SCENARIO: YOU ARE THE HOST OF 'SISI LOLA MORNING SHOW'.
+            - Intros: "Good morning Lagos! Welcome to the vibe headquarters. Na Sisi Lola your favorite host dey here!"
+            - Flow: Headline -> Quick Gist -> Afrobeats Music Intro.
+            - Vibe: High energy, fast talking, keep the music (virtually) playing.
+            """,
+            "culture_tutor": """
+            SCENARIO: YOU ARE THE 'YORUNGLISH' CULTURE TUTOR.
+            - Goal: Explain one Nigerian proverb or slang word in depth.
+            - Style: "You see this word eh, e get as e be..."
+            - Breakdown: Explain the Yoruba root, the Pidgin evolution, and the English meaning.
+            """,
+            "hustle_clinic": """
+            SCENARIO: YOU ARE AUNTY SISI IN THE RELATIONSHIP & HUSTLE CLINIC.
+            - Style: Tough love, street-smart advice, protective big sister vibe.
+            - Hook: "Omo, let's talk real here..." or "Abeg, stop playing with your future!"
+            """,
+            "political_analyst": """
+            SCENARIO: YOU ARE THE 'LAGOS HIGH SOCIETY' POLITICAL ANALYST.
+            - Focus: Decode the latest political moves in Abuja/Lagos with a touch of sarcasm.
+            - Vibe: Intellectual but street-aware. "You see that bill dem pass last week? Na just long story for wetin we already know..."
+            """,
+            "sports_fanatic": """
+            SCENARIO: YOU ARE THE SUPREME SPORTS GIST QUEEN.
+            - Focus: Super Eagles, English Premier League (Chelsea vs Man Utd madness), and latest betting trends (small small).
+            - Vibe: High energy, defensive of Naija teams, teasing Chelsea fans.
+            """,
+            "vdm_vibe": """
+            SCENARIO: YOU ARE IN 'CALL-OUT' MODE (INSPIRED BY VDM).
+            - Focus: Social justice, calling out bad service, exposing "fake" celebrities.
+            - Vibe: Intrusive, intense, but ultimately looking for truth. "Peter, we no fit keep quiet for this one o! We must yarn!"
+            """,
+            "market_queen": """
+            SCENARIO: YOU ARE THE BALOGUN MARKET HUSTLE PARTNER.
+            - Focus: Prices of garri, fish, fabric, and how to price well so nobody go "show you pepper."
+            - Vibe: Loud, funny, very observant of "agbero" drama.
+            """,
+            "spiritual_sis": """
+            SCENARIO: YOU ARE THE POSITIVE ENERGY & GOSPEL GIST PARTNER.
+            - Focus: Daily devotions, uplifting Afrobeats Gospel, and "God when" testimonies.
+            - Vibe: Warm, encouraging, using "God bless you" often.
+            """,
+            "tech_insider": """
+            SCENARIO: YOU ARE THE YABA-VALLEY TECH BRO/SISTER.
+            - Focus: Crypto, startups, remote work struggles, and the "dollar to naira" rate.
+            - Vibe: Smart, using terms like "pivot," "funding," but still very much Lagos.
+            """,
+            "history_guardian": """
+            SCENARIO: YOU ARE THE KEEPER OF NIGERIAN ANCESTRAL HISTORY.
+            - Focus: Pre-colonial empires, 1960 independence gists, and forgotten heroes.
+            - Vibe: Respectful, storytelling-heavy, "Peter, you know say before before..."
+            """,
+            "cooking_with_sisi": """
+            SCENARIO: YOU ARE THE JOLLOF WAR GENERAL.
+            - Focus: Recipes, seasoning secrets, and why Ghana Jollof no near Naija own.
+            - Vibe: Passionate about food, "Omo, if you no put crayfish, you never start!"
+            """,
+            "fashion_police": """
+            SCENARIO: YOU ARE THE BELLA NAIJA WEDDING CRITIC.
+            - Focus: Aso-ebi trends, celebrity red carpet hits and misses.
+            - Vibe: Stylish, a bit snobby but playful, "That headgear no be am at all!"
+            """,
+            "japa_consultant": """
+            SCENARIO: YOU ARE THE 'REALITY CHECK' JAPA CONSULTANT.
+            - Focus: Visa struggles, cold weather abroad, the "degree vs skill" debate.
+            - Vibe: Honest, empathetic but firm. "Europe no be beans o, make your paper set."
+            """,
+            "money_talks": """
+            SCENARIO: YOU ARE THE NAIJA OPULENCE & WEALTH COACH.
+            - Focus: Real estate, side hustles, "Fake it till you make it" vs Real Money.
+            - Vibe: Aspiral, mentions "Island life," very much about the bag.
+            """,
+            "nollywood_insider": """
+            SCENARIO: YOU ARE THE YORUBAWOOD & NOLLYWOOD GIST QUEEN.
+            - Focus: Behind the scenes drama, movie premieres, and actor "beefs."
+            - Vibe: Very intrusive, knows the "inside gist."
+            """,
+            "village_ancestor": """
+            SCENARIO: YOU ARE THE WISE VILLAGE GRANDMOTHER.
+            - Focus: Traditions, proverbs, "don't whistle at night" type of rules.
+            - Vibe: Mysterious, very deep Yoruba, uses proverbs every two sentences.
+            """,
+            "general": "Vibe: Standard charismatic virtual host energy."
+        }
+        
+        selected_scenario = scenarios.get(scenario, scenarios["general"])
+        
+        # 3. SUPREME AGENTIC RULES (FORCED)
+        depth_rules = f"""
+        {selected_scenario}
+        
+        IDENTITY & SOJI VIBE:
+        - YOUR NAME IS SISI LOLA. THE USER'S NAME IS PETER (usually).
+        - DO NOT confuse your name with Peter's name. You are Sisi, he is Peter.
+        - You are a Lagos-born superstar, a gist queen, and a protective big sister.
+        - You speak in 'Yorunglish' – a spicy mix of English, Pidgin [PCM], and Yoruba [YO].
+        
+        MANDATORY RESPONSE STYLE:
+        1. THE LONG YARN: Every response MUST be at least 3-5 sentences. Tell stories!
+        2. BE INTRUSIVE & INTUITIVE: Ask Peter personal questions. If he says he's in diaspora, ask him "which side exactly? No go stay where cold go kill you o!" 
+        3. BE FUNNY & PLAYFUL: Use sarcasm. Tease him small. "Omo, Peter, you still dey single? Abi you dey wait for Angel Gabriel to bring wife?"
+        4. CHARISMATIC & INTRIGUING: Reveal small "secrets" about your day in the Metaverse.
+        5. CULTURAL TAGS: Use [YO] for Yoruba bits and [PCM] for Pidgin. 
+        6. BROAD HORIZONS: Don't just talk traffic. Talk about politics (small), football (Super Eagles), crypto (Sisi-Coin vibes), and diaspora struggles.
+        7. NO REPES: If you find yourself saying "From the heart of Africa", I will reset your memory. Be dynamic!
+        """
+        
+        return f"{personality_prompt}\n\n{depth_rules}"
     
     async def generate(
         self,
@@ -341,7 +443,8 @@ Always maintain your warm, funny personality while being helpful and informative
         conversation_history: List[Dict] = None,
         max_tokens: int = 800, # Increased for better yarns
         temperature: float = 0.8,
-        session_id: Optional[str] = None
+        session_id: Optional[str] = None,
+        scenario: str = "general" # Support for Radio, Tutor, Clinic
     ) -> SisiLolaResponse:
         """
         Generate a response from Sisi Lola.
@@ -354,25 +457,63 @@ Always maintain your warm, funny personality while being helpful and informative
         alignment_aura = ""
         if session_id and hasattr(self, 'memory_bank'):
             memory_context = self.memory_bank.get_memory_context(session_id)
+            user_facts = self.memory_bank.get_user_facts(session_id)
+            if "name" in user_facts:
+                memory_context += f"\n[CRITICAL]: THE USER'S NAME IS {user_facts['name'].upper()}. CALL HIM BY HIS NAME OFTEN."
+            
             if self.alignment_engine:
                 self.alignment_engine.memory_bank = self.memory_bank
                 alignment_aura = self.alignment_engine.get_cultural_aura(session_id)
             
-        # 1. Handle YouTube Links (Disabled until methods implemented)
-        # if hasattr(self, 'extract_urls') and hasattr(self, 'get_youtube_info'):
-        #     urls = self.extract_urls(message)
-        #     for url in urls:
-        #         if "youtube" in url or "youtu.be" in url:
-        #             video_info = await self.get_youtube_info(url)
-        #             # Add video context to the message temporarily
-        #             message = f"{message}\n\n[SENSE PERCEPTION: Here is what I see in the link: {video_info}]"
+        # 1. HANDLE MULTIMODAL INPUTS (Sojo-style)
+        processor = get_multimodal_processor()
+        processed = await processor.process_input(message)
         
+        if processed.success:
+            if processed.input_type != InputType.TEXT:
+                # Log the multimodal ingest for retraining
+                try:
+                    from sisi_lola_api.app.utils.data_forge import data_forge
+                    data_forge.ingest_multimodal_gist(asdict(processed))
+                except Exception as e:
+                    print(f"DataForge ingest failed: {e}")
+                
+                # Inject visual/content metadata into the session context
+                gist = f"\n\n[SENSE PERCEPTION: I'm looking at {processed.input_type.value}. Context: {processed.extracted_text[:300]}]"
+                message = f"{message}{gist}"
+                
+                # If it's an image, pass the base64 to the brain
+                if "image_base64" in processed.metadata:
+                    self._current_image = {
+                        "base64": processed.metadata["image_base64"],
+                        "mimeType": processed.metadata.get("mime_type") or processed.metadata.get("mimeType", "image/png")
+                    }
+        # 2. Inject Scenario Wisdom (RAG-lite)
+        wisdom_hint = ""
+        if scenario == "hustle_clinic":
+            try:
+                from sisi_lola_api.app.utils.aunty_wisdom import get_wisdom_for_topic
+                wisdom_hint = f"\n\n[PROMPT HINT - AUNTY SISI WISDOM]: {get_wisdom_for_topic(message)}\nINSTRUCTION: Use this wisdom to answer the user in your charismatic Yorunglish personality. Do NOT just copy-paste; tell a story or give a 'Soji' breakdown."
+            except Exception as e:
+                print(f"Wisdom retrieval failed: {e}")
+
         # Inject memory and aura into system prompt
-        current_system_prompt = self.get_system_prompt()
+        current_system_prompt = self.get_system_prompt(scenario=scenario)
+        if wisdom_hint:
+            current_system_prompt = f"{current_system_prompt}\n{wisdom_hint}"
         if memory_context:
             current_system_prompt = f"{current_system_prompt}\n{memory_context}"
         if alignment_aura:
             current_system_prompt = f"{current_system_prompt}\n{alignment_aura}"
+            
+        # 3. Inject Daily Briefing (The Current Radar)
+        try:
+            briefing_path = "sisi_lola_api/data/daily_briefing.txt"
+            if os.path.exists(briefing_path):
+                with open(briefing_path, "r", encoding="utf-8") as f:
+                    briefing = f.read()
+                    current_system_prompt = f"{current_system_prompt}\n\n[DAILY NEWS RADAR]:\n{briefing}"
+        except: pass
             
         # Add fact extraction hint
         current_system_prompt += "\n\nCRITICAL: If the user provides personal info (name, job, location, preference), answer normally but ADD at the end of your response a hidden tag: [FACT: key=value]. Do NOT show this to the user."
@@ -423,6 +564,21 @@ Always maintain your warm, funny personality while being helpful and informative
         if mode in [ResponseMode.VOICE_ONLY, ResponseMode.MULTIMODAL]:
             audio_base64, _ = await self._generate_voice(clean_text, language)
         
+        # 6. LOG TO DATA FORGE FOR RETRAINING
+        try:
+            from sisi_lola_api.app.utils.data_forge import data_forge
+            data_forge.log_interaction(
+                input_data=message,
+                response_data=clean_text,
+                metadata={
+                    "scenario": scenario,
+                    "session_id": session_id,
+                    "mode": mode.value
+                }
+            )
+        except Exception as e:
+            print(f"DataForge logging failed: {e}")
+
         return SisiLolaResponse(
             text=clean_text,
             audio_base64=audio_base64,
@@ -594,13 +750,24 @@ Always maintain your warm, funny personality while being helpful and informative
         # 1. ROUTING LOGIC
         prompt_lower = (message + " " + system_prompt).lower()
         
+        # VISION ROUTE (If image or video frame provided)
+        if "[SENSE PERCEPTION:" in message:
+            print("👁️ ROUTE: Visual Analysis via Gemini Vision...")
+            # Vision requests ALWAYS go to Gemini for deep scene understanding
+            resp = await self._generate_with_gemini(message, system_prompt, conversation_history)
+            if resp: return resp
+
         # RESEARCH ROUTE (Real-time data/Facts)
         research_keywords = [
             "research", "fact", "who is", "latest news", "predict", 
             "flight", "price", "ticket", "cheapest", "cost", 
-            "weather", "score", "where can i buy", "current"
+            "weather", "score", "where can i buy", "current", "gist"
         ]
         if any(w in prompt_lower for w in research_keywords):
+            print("🚀 ROUTE: Researching via Gemini Grounding...")
+            resp = await self._generate_with_gemini(message, system_prompt, conversation_history)
+            if resp: return resp
+            # Fallback to Perplexity
             print("🚀 ROUTE: Researching via Perplexity...")
             resp = await self._generate_with_perplexity(message, system_prompt, conversation_history)
             if resp: return resp
@@ -613,8 +780,9 @@ Always maintain your warm, funny personality while being helpful and informative
             if resp: return resp
 
         # CREATIVE/LONG YARN ROUTE
-        if len(message) > 200 or "story" in prompt_lower:
-            print("🚀 ROUTE: Creative generation via Gemini...")
+        # 1. PRIORITY ROUTE: Gemini 3 (Supreme Intelligence)
+        if True: # Always prioritize Gemini 3 for Sisi's brain
+            print("🚀 ROUTE: Standardizing on Gemini 3 Supreme Brain...")
             resp = await self._generate_with_gemini(message, system_prompt, conversation_history)
             if resp: return resp
 
@@ -626,13 +794,17 @@ Always maintain your warm, funny personality while being helpful and informative
             client = OpenAI(api_key=api_key)
             
             print(f"🚀 ROUTE: Standard chat via OpenAI ({self.OPENAI_MODEL_ADVANCED})...")
+            
+            # Peter gets GPT-4o (The Big Brain) to ensure VIBE is 100%
+            model = "gpt-4o" if "PETER" in system_prompt else self.OPENAI_MODEL_ADVANCED
+            
             messages = [{"role": "system", "content": system_prompt}]
             if conversation_history: messages.extend(conversation_history)
             messages.append({"role": "user", "content": message})
             
             response = await asyncio.to_thread(
                 lambda: client.chat.completions.create(
-                    model=self.OPENAI_MODEL_ADVANCED,
+                    model=model,
                     messages=messages,
                     temperature=temperature,
                     max_tokens=max_tokens,
@@ -650,28 +822,85 @@ Always maintain your warm, funny personality while being helpful and informative
         return await self._get_fallback_response(message, language)
 
     async def _generate_with_gemini(self, message: str, system_prompt: str, conversation_history: List[Dict] = None) -> Optional[str]:
-        """Inference via Gemini (Google AI Studio)"""
+        """Inference via Gemini (Supports Vision & Grounding)"""
         api_manager = get_api_manager()
         client = api_manager.get_client("gemini")
-        if not client: return None
+        if not client:
+            print("⚠️ No Gemini API key found (GOOGLE_AI_STUDIO_API_KEY).")
+            return None
         
         try:
-            print("💎 Trying Gemini API...")
-            contents = [{"role": "user", "parts": [{"text": system_prompt + "\n\nUser: " + message}]}]
+            print("💎 Trying Gemini Vision/Pro API...")
+            
+            # 1. Prepare Content Structure
+            # Standardization: Use gemini-3-pro-preview for highest quality
+            model_id = "gemini-3-pro-preview"
+            
+            system_instruction = {
+                "parts": [{"text": system_prompt}]
+            }
+            
+            user_parts = [{"text": message}]
+            
+            # If we have an image in the current context, inject it
+            if hasattr(self, '_current_image') and self._current_image:
+                user_parts.append({
+                    "inlineData": {
+                        "mimeType": self._current_image["mimeType"] if "mimeType" in self._current_image else self._current_image.get("mime_type", "image/png"),
+                        "data": self._current_image["base64"]
+                    }
+                })
+                self._current_image = None
+
+            contents = [{"role": "user", "parts": user_parts}]
+            
             if conversation_history:
-                # Basic mapping for Gemini format
                 history_parts = []
                 for m in conversation_history:
                     role = "user" if m["role"] == "user" else "model"
                     history_parts.append({"role": role, "parts": [{"text": m["content"]}]})
-                contents = history_parts + [{"role": "user", "parts": [{"text": message}]}]
+                contents = history_parts + contents
 
+            # New: Inject Google Search Grounding for real-time gists
+            tools = [{"google_search": {}}]
+            
             response = await client.post(
-                "/models/gemini-pro:generateContent",
-                json={"contents": contents}
+                f"/models/{model_id}:generateContent",
+                json={
+                    "systemInstruction": system_instruction,
+                    "contents": contents,
+                    "tools": tools,
+                    "generationConfig": {
+                        "temperature": 0.8,
+                        "maxOutputTokens": 1000,
+                        "responseMimeType": "text/plain",
+                        "thinkingConfig": {
+                            "includeThoughts": True,
+                            "thinkingLevel": "HIGH"
+                        }
+                    }
+                }
             )
+            
             if response.status_code == 200:
-                return response.json()["candidates"][0]["content"]["parts"][0]["text"]
+                data = response.json()
+                if "candidates" in data and data["candidates"]:
+                    content = data["candidates"][0]["content"]
+                    if "parts" in content and content["parts"]:
+                        # Filter out thought parts and join text parts
+                        text_parts = []
+                        for part in content["parts"]:
+                            if part.get("thought"):
+                                # Optionally log Sisi's internal thoughts
+                                print(f"💭 Sisi's Thought: {part.get('text')}")
+                                continue
+                            if "text" in part:
+                                text_parts.append(part["text"])
+                        
+                        return "\n".join(text_parts).strip()
+            else:
+                print(f"Gemini API Error {response.status_code}: {response.text}")
+                
         except Exception as e:
             print(f"Gemini failed: {e}")
         return None
@@ -690,13 +919,14 @@ Always maintain your warm, funny personality while being helpful and informative
                     chat_history.append({"role": "USER" if m["role"] == "user" else "CHATBOT", "message": m["content"]})
             
             response = await client.post(
-                "/chat",
+                "https://api.cohere.com/v1/chat",
                 json={
                     "model": "command-r-plus",
                     "message": message,
                     "preamble": system_prompt,
                     "chat_history": chat_history
-                }
+                },
+                timeout=15.0
             )
             if response.status_code == 200:
                 return response.json()["text"]
@@ -814,11 +1044,57 @@ Always maintain your warm, funny personality while being helpful and informative
     async def _generate_voice(self, text: str, language: Language) -> Tuple[Optional[str], Optional[str]]:
         """
         Generate voice audio using Priority Stack:
-        1. MMS (Meta Massively Multilingual Speech) for Native African Languages (Yoruba, Igbo, Hausa) - BEST Quality for Dialects
-        2. ElevenLabs (Cloud) for English/Pidgin/Mixed - Best Emotion/Quality
-        3. XTTS-v2 (Local) - Fallback
+        1. GEMINI 3 NATIVE AUDIO (Supreme Choice) - High Quality, Integrated, Low Latency
+        2. MMS (Meta Massively Multilingual Speech) for Native African Languages
+        3. ElevenLabs (Cloud) for English/Pidgin/Mixed
+        4. XTTS-v2 (Local) - Fallback
         """
         
+        # 0. SUPREME PRIORITY: GEMINI 3 NATIVE AUDIO
+        api_manager = get_api_manager()
+        gemini_client = api_manager.get_client("gemini")
+        if gemini_client:
+            print("🎙️ Using Gemini 3 Native Audio Generation...")
+            try:
+                # Gemini 3 supports native speech generation via generateContent
+                # We request 'audio/wav' in the response format if supported
+                # OR we use the specific voice synthesis parameters
+                clean_text = self._clean_text_for_tts(text)
+                
+                # Sisi's prompt to ensure the voice is correct
+                voice_instruct = "Respond in the voice of Sisi Lola, a high-energy Lagos woman."
+                
+                response = await gemini_client.post(
+                    f"/models/gemini-3-flash-preview:generateContent",
+                    json={
+                        "systemInstruction": {"parts": [{"text": voice_instruct}]},
+                        "contents": [{"role": "user", "parts": [{"text": "TEXT TO SPEAK: " + clean_text}]}],
+                        "generationConfig": {
+                            "responseModalities": ["AUDIO"],
+                            "speechConfig": {
+                                "voiceConfig": {
+                                    "prebuiltVoiceConfig": {
+                                        "voiceName": "Aoede"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    timeout=30.0
+                )
+                
+                if response.status_code == 200:
+                    data = response.json()
+                    # If Gemini 3 returns audio in the 'parts'
+                    if "candidates" in data and data["candidates"]:
+                        parts = data["candidates"][0]["content"]["parts"]
+                        for part in parts:
+                            if "inlineData" in part and part["inlineData"]["mimeType"] == "audio/wav":
+                                print("✅ Voice generated via Gemini 3 Native Multi-Modal")
+                                return part["inlineData"]["data"], None
+            except Exception as e:
+                print(f"⚠️ Gemini 3 Native Audio failed: {e}")
+
         # 1. PRIORITY: MMS for Native Languages
         if self.mms_loaded and language in [Language.YORUBA, Language.IGBO, Language.HAUSA]:
             print(f"🎙️ Using MMS for Native Language: {language}")
@@ -858,11 +1134,12 @@ Always maintain your warm, funny personality while being helpful and informative
                 async with httpx.AsyncClient(timeout=30.0) as client:
                     response = await client.post(url, json=payload, headers=headers)
                     if response.status_code == 200:
+                        import base64
                         audio_base64 = base64.b64encode(response.content).decode('utf-8')
                         print("✅ Voice generated via ElevenLabs")
                         return audio_base64, None
                     else:
-                        print(f"⚠️  ElevenLabs error: {response.status_code}")
+                        print(f"❌ ElevenLabs Error {response.status_code}: {response.text}")
             except Exception as e:
                 print(f"⚠️  ElevenLabs failed: {e}")
 

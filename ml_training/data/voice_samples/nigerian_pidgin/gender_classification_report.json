@@ -1,0 +1,1069 @@
+{
+  "timestamp": "2025-12-10T19:52:06.092609",
+  "summary": {
+    "total": 150,
+    "female_count": 106,
+    "male_count": 39,
+    "low_confidence_count": 5,
+    "unknown_count": 0,
+    "female_avg_pitch": 215.6047092944506,
+    "male_avg_pitch": 126.42074673825414
+  },
+  "female": [
+    {
+      "file": "pidgin_0001_u_spk1.wav",
+      "pitch": 245.0,
+      "spectral_centroid": 1071.1566810574714,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0002_u_spk2.wav",
+      "pitch": 180.7377049180328,
+      "spectral_centroid": 1421.6981330726494,
+      "gender": "female",
+      "confidence": 0.8
+    },
+    {
+      "file": "pidgin_0003_u_spk3.wav",
+      "pitch": 227.31958762886597,
+      "spectral_centroid": 1804.3032828570979,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0004_u_spk4.wav",
+      "pitch": 239.67391304347825,
+      "spectral_centroid": 1231.173758298616,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0006_u_spk6.wav",
+      "pitch": 179.26829268292684,
+      "spectral_centroid": 1746.5161726692775,
+      "gender": "female",
+      "confidence": 0.65
+    },
+    {
+      "file": "pidgin_0007_u_spk7.wav",
+      "pitch": 201.3740617180984,
+      "spectral_centroid": 1399.5941584080135,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0008_u_spk8.wav",
+      "pitch": 173.6328125,
+      "spectral_centroid": 2509.5786532012025,
+      "gender": "female",
+      "confidence": 0.65
+    },
+    {
+      "file": "pidgin_0011_u_spk11.wav",
+      "pitch": 259.4117647058824,
+      "spectral_centroid": 2673.707298982177,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0016_u_spk16.wav",
+      "pitch": 190.08620689655172,
+      "spectral_centroid": 1515.3143467887874,
+      "gender": "female",
+      "confidence": 0.8
+    },
+    {
+      "file": "pidgin_0018_u_spk18.wav",
+      "pitch": 227.31958762886597,
+      "spectral_centroid": 1298.5254233944465,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0020_u_spk20.wav",
+      "pitch": 209.00943396226415,
+      "spectral_centroid": 1839.113062452752,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0021_u_spk21.wav",
+      "pitch": 214.07766990291262,
+      "spectral_centroid": 1834.0718526120638,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0023_u_spk23.wav",
+      "pitch": 219.40841584158414,
+      "spectral_centroid": 2518.940058888346,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0024_u_spk24.wav",
+      "pitch": 256.3953488372093,
+      "spectral_centroid": 2982.672331835175,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0025_u_spk25.wav",
+      "pitch": 212.01923076923077,
+      "spectral_centroid": 1063.3311877441997,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0026_u_spk26.wav",
+      "pitch": 211.0096153846154,
+      "spectral_centroid": 1412.9102955385201,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0027_u_spk27.wav",
+      "pitch": 239.67391304347825,
+      "spectral_centroid": 1068.6852914122123,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0028_u_spk28.wav",
+      "pitch": 195.13274336283186,
+      "spectral_centroid": 2727.9787200048104,
+      "gender": "female",
+      "confidence": 0.8
+    },
+    {
+      "file": "pidgin_0029_u_spk29.wav",
+      "pitch": 208.0188679245283,
+      "spectral_centroid": 2171.1076367056858,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0030_u_spk30.wav",
+      "pitch": 232.10526315789474,
+      "spectral_centroid": 995.6961592708678,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0031_u_spk31.wav",
+      "pitch": 220.5,
+      "spectral_centroid": 1811.8199548698024,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0033_u_spk33.wav",
+      "pitch": 242.30769230769232,
+      "spectral_centroid": 1120.36613933104,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0034_u_spk34.wav",
+      "pitch": 191.7391304347826,
+      "spectral_centroid": 1933.2397203495254,
+      "gender": "female",
+      "confidence": 0.8
+    },
+    {
+      "file": "pidgin_0037_u_spk37.wav",
+      "pitch": 232.10526315789474,
+      "spectral_centroid": 1179.0136113607036,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0038_u_spk38.wav",
+      "pitch": 222.72727272727272,
+      "spectral_centroid": 1023.9645570427961,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0040_u_spk40.wav",
+      "pitch": 175.0,
+      "spectral_centroid": 1522.945579205437,
+      "gender": "female",
+      "confidence": 0.65
+    },
+    {
+      "file": "pidgin_0042_u_spk42.wav",
+      "pitch": 232.10526315789474,
+      "spectral_centroid": 2562.4129295890934,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0044_u_spk44.wav",
+      "pitch": 176.4,
+      "spectral_centroid": 1499.085266191996,
+      "gender": "female",
+      "confidence": 0.65
+    },
+    {
+      "file": "pidgin_0046_u_spk46.wav",
+      "pitch": 232.10526315789474,
+      "spectral_centroid": 981.6154132839999,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0048_u_spk48.wav",
+      "pitch": 225.0,
+      "spectral_centroid": 1348.6203912351532,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0050_u_spk50.wav",
+      "pitch": 186.07926221335993,
+      "spectral_centroid": 1796.005696768478,
+      "gender": "female",
+      "confidence": 0.8
+    },
+    {
+      "file": "pidgin_0051_u_spk51.wav",
+      "pitch": 206.07476635514018,
+      "spectral_centroid": 2601.785973403503,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0052_u_spk52.wav",
+      "pitch": 218.31683168316832,
+      "spectral_centroid": 1082.91017501414,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0053_u_spk53.wav",
+      "pitch": 218.31683168316832,
+      "spectral_centroid": 1569.6255830658392,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0054_u_spk54.wav",
+      "pitch": 216.1764705882353,
+      "spectral_centroid": 1655.335559385367,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0055_u_spk55.wav",
+      "pitch": 232.10526315789474,
+      "spectral_centroid": 1183.9239012668286,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0056_u_spk56.wav",
+      "pitch": 227.31958762886597,
+      "spectral_centroid": 1083.4788292084581,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0057_u_spk57.wav",
+      "pitch": 245.0,
+      "spectral_centroid": 972.7607025852382,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0058_u_spk58.wav",
+      "pitch": 217.24665113570182,
+      "spectral_centroid": 1513.6949132547743,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0060_u_spk60.wav",
+      "pitch": 212.01923076923077,
+      "spectral_centroid": 2093.593582311374,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0061_u_spk61.wav",
+      "pitch": 177.82258064516128,
+      "spectral_centroid": 2180.41462471144,
+      "gender": "female",
+      "confidence": 0.65
+    },
+    {
+      "file": "pidgin_0062_u_spk62.wav",
+      "pitch": 216.1764705882353,
+      "spectral_centroid": 2790.4602776047664,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0063_u_spk63.wav",
+      "pitch": 225.0,
+      "spectral_centroid": 2966.940191132933,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0064_u_spk64.wav",
+      "pitch": 242.30769230769232,
+      "spectral_centroid": 2686.038508552616,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0065_u_spk65.wav",
+      "pitch": 227.31958762886597,
+      "spectral_centroid": 996.7610811827145,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0066_u_spk66.wav",
+      "pitch": 218.31683168316832,
+      "spectral_centroid": 1301.6138398880291,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0067_u_spk67.wav",
+      "pitch": 225.0,
+      "spectral_centroid": 2334.5574383562034,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0070_u_spk70.wav",
+      "pitch": 232.10526315789474,
+      "spectral_centroid": 1035.744727592808,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0074_u_spk74.wav",
+      "pitch": 245.0,
+      "spectral_centroid": 2767.1596817849077,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0075_u_spk75.wav",
+      "pitch": 214.07766990291262,
+      "spectral_centroid": 2489.9056355821717,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0076_u_spk76.wav",
+      "pitch": 172.265625,
+      "spectral_centroid": 2007.450108947924,
+      "gender": "female",
+      "confidence": 0.65
+    },
+    {
+      "file": "pidgin_0077_u_spk77.wav",
+      "pitch": 214.07766990291262,
+      "spectral_centroid": 1839.6904915338487,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0078_u_spk78.wav",
+      "pitch": 223.86363636363637,
+      "spectral_centroid": 2593.5538153759035,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0080_u_spk80.wav",
+      "pitch": 216.1764705882353,
+      "spectral_centroid": 844.3900562194522,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0081_u_spk81.wav",
+      "pitch": 233.33986562150056,
+      "spectral_centroid": 2299.4965319865355,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0082_u_spk82.wav",
+      "pitch": 216.1764705882353,
+      "spectral_centroid": 1906.1079005983188,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0083_u_spk83.wav",
+      "pitch": 216.19725079304047,
+      "spectral_centroid": 2103.1913813493748,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0084_u_spk84.wav",
+      "pitch": 220.5,
+      "spectral_centroid": 2489.525837358216,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0085_u_spk85.wav",
+      "pitch": 218.31683168316832,
+      "spectral_centroid": 2678.6081321468955,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0087_u_spk87.wav",
+      "pitch": 166.4174641148325,
+      "spectral_centroid": 1510.4593891874,
+      "gender": "female",
+      "confidence": 0.65
+    },
+    {
+      "file": "pidgin_0089_u_spk89.wav",
+      "pitch": 242.30769230769232,
+      "spectral_centroid": 1150.4059797999232,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0090_u_spk90.wav",
+      "pitch": 214.07766990291262,
+      "spectral_centroid": 2142.7243142926877,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0091_u_spk91.wav",
+      "pitch": 170.27280858676207,
+      "spectral_centroid": 2994.0358846829868,
+      "gender": "female",
+      "confidence": 0.65
+    },
+    {
+      "file": "pidgin_0092_u_spk92.wav",
+      "pitch": 193.42105263157896,
+      "spectral_centroid": 2203.8521529363584,
+      "gender": "female",
+      "confidence": 0.8
+    },
+    {
+      "file": "pidgin_0093_u_spk93.wav",
+      "pitch": 227.31958762886597,
+      "spectral_centroid": 1143.3696050169663,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0094_u_spk94.wav",
+      "pitch": 237.09677419354838,
+      "spectral_centroid": 2487.2844199092415,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0095_u_spk95.wav",
+      "pitch": 234.5744680851064,
+      "spectral_centroid": 2429.7621990325683,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0096_u_spk96.wav",
+      "pitch": 168.3206106870229,
+      "spectral_centroid": 1639.0655028544554,
+      "gender": "female",
+      "confidence": 0.65
+    },
+    {
+      "file": "pidgin_0098_u_spk98.wav",
+      "pitch": 229.6875,
+      "spectral_centroid": 2721.7512126415213,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0099_u_spk99.wav",
+      "pitch": 230.89638157894737,
+      "spectral_centroid": 2684.153148451502,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0100_u_spk100.wav",
+      "pitch": 204.16666666666666,
+      "spectral_centroid": 2227.5536683546784,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0102_u_spk102.wav",
+      "pitch": 210.0,
+      "spectral_centroid": 1352.4532304110444,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0103_u_spk103.wav",
+      "pitch": 239.67391304347825,
+      "spectral_centroid": 931.8154882760141,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0105_u_spk105.wav",
+      "pitch": 232.10526315789474,
+      "spectral_centroid": 1077.3106155153735,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0106_u_spk106.wav",
+      "pitch": 234.5744680851064,
+      "spectral_centroid": 2902.6869626774524,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0107_u_spk107.wav",
+      "pitch": 245.0,
+      "spectral_centroid": 2983.7630395828332,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0109_u_spk109.wav",
+      "pitch": 222.72727272727272,
+      "spectral_centroid": 2368.6599854268648,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0110_u_spk110.wav",
+      "pitch": 225.0,
+      "spectral_centroid": 1120.5754252603906,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0112_u_spk112.wav",
+      "pitch": 202.29357798165137,
+      "spectral_centroid": 2462.0476974074572,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0113_u_spk113.wav",
+      "pitch": 170.93023255813952,
+      "spectral_centroid": 1569.6150512911076,
+      "gender": "female",
+      "confidence": 0.65
+    },
+    {
+      "file": "pidgin_0114_u_spk114.wav",
+      "pitch": 183.75,
+      "spectral_centroid": 1685.5054210798828,
+      "gender": "female",
+      "confidence": 0.8
+    },
+    {
+      "file": "pidgin_0117_u_spk117.wav",
+      "pitch": 245.0,
+      "spectral_centroid": 2866.5973518582855,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0118_u_spk118.wav",
+      "pitch": 218.31683168316832,
+      "spectral_centroid": 2149.420390660136,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0119_u_spk119.wav",
+      "pitch": 218.31683168316832,
+      "spectral_centroid": 3044.908445425255,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0120_u_spk120.wav",
+      "pitch": 235.83562113932737,
+      "spectral_centroid": 3081.0590858640776,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0121_u_spk121.wav",
+      "pitch": 222.72727272727272,
+      "spectral_centroid": 1061.2262164577212,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0122_u_spk122.wav",
+      "pitch": 237.09677419354838,
+      "spectral_centroid": 3088.6661987096522,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0123_u_spk123.wav",
+      "pitch": 229.6875,
+      "spectral_centroid": 1609.711654278129,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0124_u_spk124.wav",
+      "pitch": 168.3206106870229,
+      "spectral_centroid": 2207.2539088955778,
+      "gender": "female",
+      "confidence": 0.65
+    },
+    {
+      "file": "pidgin_0125_u_spk125.wav",
+      "pitch": 239.67391304347825,
+      "spectral_centroid": 998.7742439603028,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0127_u_spk127.wav",
+      "pitch": 218.31683168316832,
+      "spectral_centroid": 1234.8038133766943,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0129_u_spk129.wav",
+      "pitch": 170.27280858676207,
+      "spectral_centroid": 2130.1230647073453,
+      "gender": "female",
+      "confidence": 0.65
+    },
+    {
+      "file": "pidgin_0130_u_spk130.wav",
+      "pitch": 202.29357798165137,
+      "spectral_centroid": 1448.4236105074174,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0132_u_spk132.wav",
+      "pitch": 215.12707024557398,
+      "spectral_centroid": 2857.6278398709032,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0133_u_spk133.wav",
+      "pitch": 222.72727272727272,
+      "spectral_centroid": 2256.425015288125,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0135_u_spk135.wav",
+      "pitch": 204.16666666666666,
+      "spectral_centroid": 1987.899286003812,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0136_u_spk136.wav",
+      "pitch": 225.0,
+      "spectral_centroid": 980.4499151869804,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0137_u_spk137.wav",
+      "pitch": 237.09677419354838,
+      "spectral_centroid": 1118.452506322879,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0139_u_spk139.wav",
+      "pitch": 222.72727272727272,
+      "spectral_centroid": 942.7462765977476,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0140_u_spk140.wav",
+      "pitch": 218.31683168316832,
+      "spectral_centroid": 891.3483596398548,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0141_u_spk141.wav",
+      "pitch": 218.31683168316832,
+      "spectral_centroid": 2602.0702993693,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0143_u_spk143.wav",
+      "pitch": 218.31683168316832,
+      "spectral_centroid": 1277.8556526061966,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0144_u_spk144.wav",
+      "pitch": 214.07766990291262,
+      "spectral_centroid": 1606.813178623964,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0146_u_spk146.wav",
+      "pitch": 170.27280858676207,
+      "spectral_centroid": 1795.9374235559003,
+      "gender": "female",
+      "confidence": 0.65
+    },
+    {
+      "file": "pidgin_0147_u_spk147.wav",
+      "pitch": 220.5,
+      "spectral_centroid": 1344.0458665771807,
+      "gender": "female",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0148_u_spk148.wav",
+      "pitch": 173.6220472440945,
+      "spectral_centroid": 1620.5644130304313,
+      "gender": "female",
+      "confidence": 0.65
+    }
+  ],
+  "male": [
+    {
+      "file": "pidgin_0000_u_spk0.wav",
+      "pitch": 116.35964912280701,
+      "spectral_centroid": 1639.9797640595991,
+      "gender": "male",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0005_u_spk5.wav",
+      "pitch": 133.63636363636363,
+      "spectral_centroid": 2103.640294382135,
+      "gender": "male",
+      "confidence": 0.8
+    },
+    {
+      "file": "pidgin_0009_u_spk9.wav",
+      "pitch": 123.18435754189944,
+      "spectral_centroid": 1371.2612133915654,
+      "gender": "male",
+      "confidence": 0.8
+    },
+    {
+      "file": "pidgin_0010_u_spk10.wav",
+      "pitch": 110.25,
+      "spectral_centroid": 1992.396857466035,
+      "gender": "male",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0012_u_spk12.wav",
+      "pitch": 98.21875,
+      "spectral_centroid": 1748.6703688967955,
+      "gender": "male",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0013_u_spk13.wav",
+      "pitch": 128.19767441860466,
+      "spectral_centroid": 2334.8189744400215,
+      "gender": "male",
+      "confidence": 0.8
+    },
+    {
+      "file": "pidgin_0014_u_spk14.wav",
+      "pitch": 108.08823529411765,
+      "spectral_centroid": 2035.0121167548039,
+      "gender": "male",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0015_u_spk15.wav",
+      "pitch": 126.0,
+      "spectral_centroid": 2212.297328959565,
+      "gender": "male",
+      "confidence": 0.8
+    },
+    {
+      "file": "pidgin_0017_u_spk17.wav",
+      "pitch": 104.50236966824644,
+      "spectral_centroid": 1852.4608203921648,
+      "gender": "male",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0019_u_spk19.wav",
+      "pitch": 139.11810365416767,
+      "spectral_centroid": 2294.234097119242,
+      "gender": "male",
+      "confidence": 0.8
+    },
+    {
+      "file": "pidgin_0022_u_spk22.wav",
+      "pitch": 151.02739726027397,
+      "spectral_centroid": 2410.7237838392207,
+      "gender": "male",
+      "confidence": 0.7
+    },
+    {
+      "file": "pidgin_0039_u_spk39.wav",
+      "pitch": 154.7387471683246,
+      "spectral_centroid": 2226.819684737649,
+      "gender": "male",
+      "confidence": 0.7
+    },
+    {
+      "file": "pidgin_0041_u_spk41.wav",
+      "pitch": 119.1891891891892,
+      "spectral_centroid": 1249.385603742929,
+      "gender": "male",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0043_u_spk43.wav",
+      "pitch": 152.5969827586207,
+      "spectral_centroid": 2697.413659816232,
+      "gender": "male",
+      "confidence": 0.7
+    },
+    {
+      "file": "pidgin_0045_u_spk45.wav",
+      "pitch": 100.22727272727273,
+      "spectral_centroid": 1854.4619354109316,
+      "gender": "male",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0047_u_spk47.wav",
+      "pitch": 147.98657718120805,
+      "spectral_centroid": 1321.9257735322483,
+      "gender": "male",
+      "confidence": 0.7
+    },
+    {
+      "file": "pidgin_0049_u_spk49.wav",
+      "pitch": 146.02649006622516,
+      "spectral_centroid": 2375.9543558792084,
+      "gender": "male",
+      "confidence": 0.7
+    },
+    {
+      "file": "pidgin_0059_u_spk59.wav",
+      "pitch": 156.9414893617021,
+      "spectral_centroid": 2125.6713568320747,
+      "gender": "male",
+      "confidence": 0.7
+    },
+    {
+      "file": "pidgin_0068_u_spk68.wav",
+      "pitch": 119.84049623393886,
+      "spectral_centroid": 1440.7875694789461,
+      "gender": "male",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0069_u_spk69.wav",
+      "pitch": 109.16109109624293,
+      "spectral_centroid": 1629.3897534943972,
+      "gender": "male",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0071_u_spk71.wav",
+      "pitch": 143.1818181818182,
+      "spectral_centroid": 1964.5230759902684,
+      "gender": "male",
+      "confidence": 0.7
+    },
+    {
+      "file": "pidgin_0072_u_spk72.wav",
+      "pitch": 112.5,
+      "spectral_centroid": 1690.9683003970144,
+      "gender": "male",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0079_u_spk79.wav",
+      "pitch": 117.9144385026738,
+      "spectral_centroid": 1437.3749693912991,
+      "gender": "male",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0086_u_spk86.wav",
+      "pitch": 143.1818181818182,
+      "spectral_centroid": 1185.7107794130418,
+      "gender": "male",
+      "confidence": 0.7
+    },
+    {
+      "file": "pidgin_0088_u_spk88.wav",
+      "pitch": 107.03883495145631,
+      "spectral_centroid": 1733.2485035047096,
+      "gender": "male",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0097_u_spk97.wav",
+      "pitch": 106.00961538461539,
+      "spectral_centroid": 1797.1589240054784,
+      "gender": "male",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0101_u_spk101.wav",
+      "pitch": 102.55813953488372,
+      "spectral_centroid": 1519.440106819405,
+      "gender": "male",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0104_u_spk104.wav",
+      "pitch": 106.00961538461539,
+      "spectral_centroid": 1887.1009750482945,
+      "gender": "male",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0108_u_spk108.wav",
+      "pitch": 159.7826086956522,
+      "spectral_centroid": 1440.5625643172255,
+      "gender": "male",
+      "confidence": 0.7
+    },
+    {
+      "file": "pidgin_0111_u_spk111.wav",
+      "pitch": 102.55813953488372,
+      "spectral_centroid": 1652.2791130576106,
+      "gender": "male",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0115_u_spk115.wav",
+      "pitch": 112.5,
+      "spectral_centroid": 1428.4677483578348,
+      "gender": "male",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0116_u_spk116.wav",
+      "pitch": 140.44585987261146,
+      "spectral_centroid": 2183.3713651782496,
+      "gender": "male",
+      "confidence": 0.7
+    },
+    {
+      "file": "pidgin_0126_u_spk126.wav",
+      "pitch": 154.1958041958042,
+      "spectral_centroid": 1199.4657218382645,
+      "gender": "male",
+      "confidence": 0.7
+    },
+    {
+      "file": "pidgin_0128_u_spk128.wav",
+      "pitch": 153.125,
+      "spectral_centroid": 1774.832394804439,
+      "gender": "male",
+      "confidence": 0.7
+    },
+    {
+      "file": "pidgin_0134_u_spk134.wav",
+      "pitch": 106.52173913043478,
+      "spectral_centroid": 1958.8938929133335,
+      "gender": "male",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0138_u_spk138.wav",
+      "pitch": 98.4375,
+      "spectral_centroid": 1919.3247582212812,
+      "gender": "male",
+      "confidence": 0.95
+    },
+    {
+      "file": "pidgin_0142_u_spk142.wav",
+      "pitch": 146.02649006622516,
+      "spectral_centroid": 2135.3322606569695,
+      "gender": "male",
+      "confidence": 0.7
+    },
+    {
+      "file": "pidgin_0145_u_spk145.wav",
+      "pitch": 134.4512195121951,
+      "spectral_centroid": 2103.2821861541456,
+      "gender": "male",
+      "confidence": 0.8
+    },
+    {
+      "file": "pidgin_0149_u_spk149.wav",
+      "pitch": 138.67924528301887,
+      "spectral_centroid": 995.215267292436,
+      "gender": "male",
+      "confidence": 0.8
+    }
+  ],
+  "low_confidence": [
+    {
+      "file": "pidgin_0032_u_spk32.wav",
+      "pitch": 163.33333333333334,
+      "spectral_centroid": 1869.6106672546111,
+      "gender": "male",
+      "confidence": 0.55
+    },
+    {
+      "file": "pidgin_0035_u_spk35.wav",
+      "pitch": 162.13235294117646,
+      "spectral_centroid": 1569.02294009116,
+      "gender": "male",
+      "confidence": 0.55
+    },
+    {
+      "file": "pidgin_0036_u_spk36.wav",
+      "pitch": 160.94890510948906,
+      "spectral_centroid": 2519.035576573588,
+      "gender": "female",
+      "confidence": 0.55
+    },
+    {
+      "file": "pidgin_0073_u_spk73.wav",
+      "pitch": 163.33333333333334,
+      "spectral_centroid": 1496.0874805027443,
+      "gender": "male",
+      "confidence": 0.55
+    },
+    {
+      "file": "pidgin_0131_u_spk131.wav",
+      "pitch": 161.54062902533275,
+      "spectral_centroid": 2441.0480054570967,
+      "gender": "female",
+      "confidence": 0.55
+    }
+  ],
+  "unknown": []
+}

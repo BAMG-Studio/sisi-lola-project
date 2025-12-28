@@ -126,9 +126,11 @@ config.json
 
 # Large datasets
 data/
+mms_cache/
 datasets/
 *.csv
 *.parquet
+*.db
 
 # Voice samples (too large for git)
 ml_training/data/voice_samples/fleurs_*/

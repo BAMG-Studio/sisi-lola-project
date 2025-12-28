@@ -1,0 +1,41 @@
+# Modal Ignore List for Sisi Lola Project
+# This prevents massive model files and local data from being uploaded to the cloud
+# reducing deployment time from hours to seconds.
+
+# Environments & Git
+**/venv/
+**/.git/
+**/__pycache__/
+**/.env
+**/.ipynb_checkpoints/
+
+# Virtual Env artifacts
+*.egg-info/
+dist/
+build/
+
+# Heavy Machine Learning Models (They should live in Modal Volumes)
+**/ml_training/models/
+**/ml_training/checkpoints/
+**/cache/
+**/*.safetensors
+**/*.pth
+**/*.bin
+**/*.ckpt
+**/*.pt
+
+# Large Media Assets (No need to re-upload existing videos/audio)
+**/03_MEDIA_ASSETS/generated/
+**/03_MEDIA_ASSETS/produced_vibes/
+**/ml_training/data/
+**/*.mp4
+**/*.wav
+**/*.mp3
+**/*.png
+**/*.jpg
+**/*.jpeg
+
+# Logs & Temp
+**/logs/
+**/tmp/
+*.log

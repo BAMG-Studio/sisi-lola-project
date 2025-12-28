@@ -1,0 +1,148 @@
+{
+  "timestamp": "2025-12-10T18:48:21.050061",
+  "total_female_samples": 55,
+  "languages": [
+    "fleurs_yoruba"
+  ],
+  "samples_per_language": {
+    "fleurs_yoruba": 55
+  },
+  "selected_candidates": [
+    {
+      "rank": 1,
+      "file": "candidate_01_fleurs_yoruba_15.1s_q0.55.wav",
+      "language": "fleurs_yoruba",
+      "duration": 15.06,
+      "quality_score": 0.549619231596212,
+      "sample_rate": 22050,
+      "original": "C:\\Users\\POK28\\Dropbox\\Sisi_Lola\\ml_training\\data\\voice_samples\\fleurs_yoruba\\female\\fleurs_yoruba_0063_f_spk63.wav"
+    },
+    {
+      "rank": 2,
+      "file": "candidate_02_fleurs_yoruba_11.4s_q0.54.wav",
+      "language": "fleurs_yoruba",
+      "duration": 11.4,
+      "quality_score": 0.5429113789426513,
+      "sample_rate": 22050,
+      "original": "C:\\Users\\POK28\\Dropbox\\Sisi_Lola\\ml_training\\data\\voice_samples\\fleurs_yoruba\\female\\fleurs_yoruba_0001_f_spk1.wav"
+    },
+    {
+      "rank": 3,
+      "file": "candidate_03_fleurs_yoruba_18.1s_q0.52.wav",
+      "language": "fleurs_yoruba",
+      "duration": 18.12,
+      "quality_score": 0.5222268520575232,
+      "sample_rate": 22050,
+      "original": "C:\\Users\\POK28\\Dropbox\\Sisi_Lola\\ml_training\\data\\voice_samples\\fleurs_yoruba\\female\\fleurs_yoruba_0028_f_spk28.wav"
+    },
+    {
+      "rank": 4,
+      "file": "candidate_04_fleurs_yoruba_13.8s_q0.49.wav",
+      "language": "fleurs_yoruba",
+      "duration": 13.8,
+      "quality_score": 0.49134934416875503,
+      "sample_rate": 22050,
+      "original": "C:\\Users\\POK28\\Dropbox\\Sisi_Lola\\ml_training\\data\\voice_samples\\fleurs_yoruba\\female\\fleurs_yoruba_0058_f_spk58.wav"
+    },
+    {
+      "rank": 5,
+      "file": "candidate_05_fleurs_yoruba_13.4s_q0.49.wav",
+      "language": "fleurs_yoruba",
+      "duration": 13.44,
+      "quality_score": 0.48966102252144117,
+      "sample_rate": 22050,
+      "original": "C:\\Users\\POK28\\Dropbox\\Sisi_Lola\\ml_training\\data\\voice_samples\\fleurs_yoruba\\female\\fleurs_yoruba_0062_f_spk62.wav"
+    },
+    {
+      "rank": 6,
+      "file": "candidate_06_fleurs_yoruba_10.9s_q0.49.wav",
+      "language": "fleurs_yoruba",
+      "duration": 10.86,
+      "quality_score": 0.48959153966796304,
+      "sample_rate": 22050,
+      "original": "C:\\Users\\POK28\\Dropbox\\Sisi_Lola\\ml_training\\data\\voice_samples\\fleurs_yoruba\\female\\fleurs_yoruba_0004_f_spk4.wav"
+    },
+    {
+      "rank": 7,
+      "file": "candidate_07_fleurs_yoruba_15.4s_q0.49.wav",
+      "language": "fleurs_yoruba",
+      "duration": 15.36,
+      "quality_score": 0.4867217091218409,
+      "sample_rate": 22050,
+      "original": "C:\\Users\\POK28\\Dropbox\\Sisi_Lola\\ml_training\\data\\voice_samples\\fleurs_yoruba\\female\\fleurs_yoruba_0011_f_spk11.wav"
+    },
+    {
+      "rank": 8,
+      "file": "candidate_08_fleurs_yoruba_14.0s_q0.49.wav",
+      "language": "fleurs_yoruba",
+      "duration": 14.04,
+      "quality_score": 0.48651972934814264,
+      "sample_rate": 22050,
+      "original": "C:\\Users\\POK28\\Dropbox\\Sisi_Lola\\ml_training\\data\\voice_samples\\fleurs_yoruba\\female\\fleurs_yoruba_0053_f_spk53.wav"
+    },
+    {
+      "rank": 9,
+      "file": "candidate_09_fleurs_yoruba_17.0s_q0.49.wav",
+      "language": "fleurs_yoruba",
+      "duration": 16.98,
+      "quality_score": 0.485364414361909,
+      "sample_rate": 22050,
+      "original": "C:\\Users\\POK28\\Dropbox\\Sisi_Lola\\ml_training\\data\\voice_samples\\fleurs_yoruba\\female\\fleurs_yoruba_0051_f_spk51.wav"
+    },
+    {
+      "rank": 10,
+      "file": "candidate_10_fleurs_yoruba_14.0s_q0.49.wav",
+      "language": "fleurs_yoruba",
+      "duration": 14.04,
+      "quality_score": 0.4850536223511297,
+      "sample_rate": 22050,
+      "original": "C:\\Users\\POK28\\Dropbox\\Sisi_Lola\\ml_training\\data\\voice_samples\\fleurs_yoruba\\female\\fleurs_yoruba_0079_f_spk79.wav"
+    },
+    {
+      "rank": 11,
+      "file": "candidate_11_fleurs_yoruba_10.8s_q0.48.wav",
+      "language": "fleurs_yoruba",
+      "duration": 10.8,
+      "quality_score": 0.482701677281174,
+      "sample_rate": 22050,
+      "original": "C:\\Users\\POK28\\Dropbox\\Sisi_Lola\\ml_training\\data\\voice_samples\\fleurs_yoruba\\female\\fleurs_yoruba_0013_f_spk13.wav"
+    },
+    {
+      "rank": 12,
+      "file": "candidate_12_fleurs_yoruba_11.4s_q0.48.wav",
+      "language": "fleurs_yoruba",
+      "duration": 11.4,
+      "quality_score": 0.48260108142630553,
+      "sample_rate": 22050,
+      "original": "C:\\Users\\POK28\\Dropbox\\Sisi_Lola\\ml_training\\data\\voice_samples\\fleurs_yoruba\\female\\fleurs_yoruba_0006_f_spk6.wav"
+    },
+    {
+      "rank": 13,
+      "file": "candidate_13_fleurs_yoruba_18.0s_q0.48.wav",
+      "language": "fleurs_yoruba",
+      "duration": 18.0,
+      "quality_score": 0.48169481714998785,
+      "sample_rate": 22050,
+      "original": "C:\\Users\\POK28\\Dropbox\\Sisi_Lola\\ml_training\\data\\voice_samples\\fleurs_yoruba\\female\\fleurs_yoruba_0060_f_spk60.wav"
+    },
+    {
+      "rank": 14,
+      "file": "candidate_14_fleurs_yoruba_13.9s_q0.48.wav",
+      "language": "fleurs_yoruba",
+      "duration": 13.92,
+      "quality_score": 0.4803117661876001,
+      "sample_rate": 22050,
+      "original": "C:\\Users\\POK28\\Dropbox\\Sisi_Lola\\ml_training\\data\\voice_samples\\fleurs_yoruba\\female\\fleurs_yoruba_0016_f_spk16.wav"
+    },
+    {
+      "rank": 15,
+      "file": "candidate_15_fleurs_yoruba_12.5s_q0.48.wav",
+      "language": "fleurs_yoruba",
+      "duration": 12.48,
+      "quality_score": 0.47964149871344636,
+      "sample_rate": 22050,
+      "original": "C:\\Users\\POK28\\Dropbox\\Sisi_Lola\\ml_training\\data\\voice_samples\\fleurs_yoruba\\female\\fleurs_yoruba_0018_f_spk18.wav"
+    }
+  ],
+  "output_directory": "C:\\Users\\POK28\\Dropbox\\Sisi_Lola\\ml_training\\data\\voice_samples\\speaker_reference_candidates"
+}

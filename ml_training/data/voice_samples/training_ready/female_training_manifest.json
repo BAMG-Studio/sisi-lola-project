@@ -1,0 +1,907 @@
+{
+  "created_at": "2025-12-10T21:42:23.343720",
+  "target_gender": "female",
+  "total_samples": 150,
+  "samples": [
+    {
+      "file": "female_0000_fleurs_igbo_0028_f_spk28.wav",
+      "source": "female",
+      "quality_score": 0.7328252043676545,
+      "duration": 11.28
+    },
+    {
+      "file": "female_0001_fleurs_igbo_0058_f_spk58.wav",
+      "source": "female",
+      "quality_score": 0.7310075846138444,
+      "duration": 15.24
+    },
+    {
+      "file": "female_0002_igbo_0006_nagbanyegh\u1ecb_na_\u1ecd_kara_d\u1ecb_obere.wav",
+      "source": "female",
+      "quality_score": 0.7248838040791165,
+      "duration": 16.62
+    },
+    {
+      "file": "female_0003_fleurs_igbo_0040_f_spk40.wav",
+      "source": "female",
+      "quality_score": 0.7214767904629491,
+      "duration": 13.08
+    },
+    {
+      "file": "female_0004_fleurs_igbo_0095_f_spk95.wav",
+      "source": "female",
+      "quality_score": 0.7117984568532374,
+      "duration": 18.48
+    },
+    {
+      "file": "female_0005_female_pidgin_0037_u_spk37.wav",
+      "source": "female",
+      "quality_score": 0.6978417283871203,
+      "duration": 14.633469387755103
+    },
+    {
+      "file": "female_0006_fleurs_igbo_0013_f_spk13.wav",
+      "source": "female",
+      "quality_score": 0.6969104271857335,
+      "duration": 11.52
+    },
+    {
+      "file": "female_0007_candidate_6_fleurs_igbo_11.5s.wav",
+      "source": "speaker_reference_candidates",
+      "quality_score": 0.6969104271857335,
+      "duration": 11.52
+    },
+    {
+      "file": "female_0008_fleurs_igbo_0006_f_spk6.wav",
+      "source": "female",
+      "quality_score": 0.6952085521533156,
+      "duration": 16.62
+    },
+    {
+      "file": "female_0009_female_pidgin_0055_u_spk55.wav",
+      "source": "female",
+      "quality_score": 0.6910758332550155,
+      "duration": 13.862086167800454
+    },
+    {
+      "file": "female_0010_female_pidgin_0024_u_spk24.wav",
+      "source": "female",
+      "quality_score": 0.6879912240895034,
+      "duration": 5.240816326530612
+    },
+    {
+      "file": "female_0011_fleurs_yoruba_0068_f_spk68.wav",
+      "source": "female",
+      "quality_score": 0.6805671584550388,
+      "duration": 11.64
+    },
+    {
+      "file": "female_0012_candidate_5_fleurs_yoruba_11.6s.wav",
+      "source": "speaker_reference_candidates",
+      "quality_score": 0.6805671584550388,
+      "duration": 11.64
+    },
+    {
+      "file": "female_0013_fleurs_hausa_0084_f_spk84.wav",
+      "source": "female",
+      "quality_score": 0.6785513598631145,
+      "duration": 18.54
+    },
+    {
+      "file": "female_0014_female_pidgin_0107_u_spk107.wav",
+      "source": "female",
+      "quality_score": 0.6785343640274559,
+      "duration": 5.785351473922902
+    },
+    {
+      "file": "female_0015_female_pidgin_0044_u_spk44.wav",
+      "source": "female",
+      "quality_score": 0.6783208048106844,
+      "duration": 7.6230385487528345
+    },
+    {
+      "file": "female_0016_fleurs_yoruba_0062_f_spk62.wav",
+      "source": "female",
+      "quality_score": 0.6774724574455591,
+      "duration": 13.44
+    },
+    {
+      "file": "female_0017_candidate_05_fleurs_yoruba_13.4s_q0.49.wav",
+      "source": "speaker_reference_candidates",
+      "quality_score": 0.6774724574455591,
+      "duration": 13.44
+    },
+    {
+      "file": "female_0018_female_pidgin_0063_u_spk63.wav",
+      "source": "female",
+      "quality_score": 0.6750116466774312,
+      "duration": 7.668390022675737
+    },
+    {
+      "file": "female_0019_female_pidgin_0119_u_spk119.wav",
+      "source": "female",
+      "quality_score": 0.6740949305620327,
+      "duration": 5.1047165532879815
+    },
+    {
+      "file": "female_0020_female_pidgin_0016_u_spk16.wav",
+      "source": "female",
+      "quality_score": 0.6732285626648845,
+      "duration": 8.303628117913831
+    },
+    {
+      "file": "female_0021_female_pidgin_0018_u_spk18.wav",
+      "source": "female",
+      "quality_score": 0.6722411364220292,
+      "duration": 13.340272108843537
+    },
+    {
+      "file": "female_0022_female_pidgin_0144_u_spk144.wav",
+      "source": "female",
+      "quality_score": 0.671704263751972,
+      "duration": 6.397913832199547
+    },
+    {
+      "file": "female_0023_female_pidgin_0096_u_spk96.wav",
+      "source": "female",
+      "quality_score": 0.6695585704999192,
+      "duration": 10.912698412698413
+    },
+    {
+      "file": "female_0024_female_pidgin_0094_u_spk94.wav",
+      "source": "female",
+      "quality_score": 0.6685461399872583,
+      "duration": 5.3769614512471655
+    },
+    {
+      "file": "female_0025_fleurs_yoruba_0013_f_spk13.wav",
+      "source": "female",
+      "quality_score": 0.6681756453850688,
+      "duration": 10.8
+    },
+    {
+      "file": "female_0026_candidate_11_fleurs_yoruba_10.8s_q0.48.wav",
+      "source": "speaker_reference_candidates",
+      "quality_score": 0.6681756453850688,
+      "duration": 10.8
+    },
+    {
+      "file": "female_0027_female_pidgin_0122_u_spk122.wav",
+      "source": "female",
+      "quality_score": 0.6677441187635624,
+      "duration": 6.67015873015873
+    },
+    {
+      "file": "female_0028_female_pidgin_0121_u_spk121.wav",
+      "source": "female",
+      "quality_score": 0.664980511952211,
+      "duration": 11.729478458049886
+    },
+    {
+      "file": "female_0029_fleurs_igbo_0061_f_spk61.wav",
+      "source": "female",
+      "quality_score": 0.6647776574972223,
+      "duration": 17.04
+    },
+    {
+      "file": "female_0030_fleurs_igbo_0073_f_spk73.wav",
+      "source": "female",
+      "quality_score": 0.6640542429038878,
+      "duration": 7.2
+    },
+    {
+      "file": "female_0031_female_pidgin_0020_u_spk20.wav",
+      "source": "female",
+      "quality_score": 0.6623244431689177,
+      "duration": 6.0121995464852604
+    },
+    {
+      "file": "female_0032_fleurs_yoruba_0051_f_spk51.wav",
+      "source": "female",
+      "quality_score": 0.6615006902246265,
+      "duration": 16.98
+    },
+    {
+      "file": "female_0033_candidate_09_fleurs_yoruba_17.0s_q0.49.wav",
+      "source": "speaker_reference_candidates",
+      "quality_score": 0.6615006902246265,
+      "duration": 16.98
+    },
+    {
+      "file": "female_0034_female_pidgin_0065_u_spk65.wav",
+      "source": "female",
+      "quality_score": 0.6605407206508818,
+      "duration": 8.167528344671203
+    },
+    {
+      "file": "female_0035_female_pidgin_0031_u_spk31.wav",
+      "source": "female",
+      "quality_score": 0.6603882210483215,
+      "duration": 7.328072562358277
+    },
+    {
+      "file": "female_0036_female_pidgin_0123_u_spk123.wav",
+      "source": "female",
+      "quality_score": 0.6596418181418257,
+      "duration": 13.998231292517007
+    },
+    {
+      "file": "female_0037_female_pidgin_0147_u_spk147.wav",
+      "source": "female",
+      "quality_score": 0.6591821842375205,
+      "duration": 11.66140589569161
+    },
+    {
+      "file": "female_0038_fleurs_igbo_0052_f_spk52.wav",
+      "source": "female",
+      "quality_score": 0.6590134456350472,
+      "duration": 18.66
+    },
+    {
+      "file": "female_0039_female_pidgin_0064_u_spk64.wav",
+      "source": "female",
+      "quality_score": 0.658687406353312,
+      "duration": 8.643945578231293
+    },
+    {
+      "file": "female_0040_fleurs_igbo_0020_f_spk20.wav",
+      "source": "female",
+      "quality_score": 0.656307957585503,
+      "duration": 15.12
+    },
+    {
+      "file": "female_0041_female_pidgin_0078_u_spk78.wav",
+      "source": "female",
+      "quality_score": 0.65605612086208,
+      "duration": 7.509569160997732
+    },
+    {
+      "file": "female_0042_female_pidgin_0027_u_spk27.wav",
+      "source": "female",
+      "quality_score": 0.6543028471220523,
+      "duration": 13.680589569160997
+    },
+    {
+      "file": "female_0043_fleurs_igbo_0021_f_spk21.wav",
+      "source": "female",
+      "quality_score": 0.652600374183827,
+      "duration": 21.18
+    },
+    {
+      "file": "female_0044_female_pidgin_0140_u_spk140.wav",
+      "source": "female",
+      "quality_score": 0.6510741298385097,
+      "duration": 7.441541950113379
+    },
+    {
+      "file": "female_0045_fleurs_igbo_0074_f_spk74.wav",
+      "source": "female",
+      "quality_score": 0.6497920348501951,
+      "duration": 10.68
+    },
+    {
+      "file": "female_0046_fleurs_igbo_0097_f_spk97.wav",
+      "source": "female",
+      "quality_score": 0.6481956529962498,
+      "duration": 17.76
+    },
+    {
+      "file": "female_0047_fleurs_yoruba_0065_f_spk65.wav",
+      "source": "female",
+      "quality_score": 0.6476560212399392,
+      "duration": 10.86
+    },
+    {
+      "file": "female_0048_female_pidgin_0098_u_spk98.wav",
+      "source": "female",
+      "quality_score": 0.6441679338394903,
+      "duration": 8.439773242630386
+    },
+    {
+      "file": "female_0049_female_pidgin_0105_u_spk105.wav",
+      "source": "female",
+      "quality_score": 0.6439908403373049,
+      "duration": 5.490385487528345
+    },
+    {
+      "file": "female_0050_female_pidgin_0004_u_spk4.wav",
+      "source": "female",
+      "quality_score": 0.642991863104372,
+      "duration": 5.98952380952381
+    },
+    {
+      "file": "female_0051_fleurs_yoruba_0004_f_spk4.wav",
+      "source": "female",
+      "quality_score": 0.6428406375669602,
+      "duration": 10.86
+    },
+    {
+      "file": "female_0052_candidate_06_fleurs_yoruba_10.9s_q0.49.wav",
+      "source": "speaker_reference_candidates",
+      "quality_score": 0.6428406375669602,
+      "duration": 10.86
+    },
+    {
+      "file": "female_0053_igbo_0001_robert_hooke_\u1ecdka_mm\u1ee5ta_ihe_ban.wav",
+      "source": "female",
+      "quality_score": 0.6410516005342007,
+      "duration": 12.72
+    },
+    {
+      "file": "female_0054_female_pidgin_0029_u_spk29.wav",
+      "source": "female",
+      "quality_score": 0.6409942436136697,
+      "duration": 8.780090702947845
+    },
+    {
+      "file": "female_0055_female_pidgin_0100_u_spk100.wav",
+      "source": "female",
+      "quality_score": 0.6405483093503618,
+      "duration": 5.603854875283447
+    },
+    {
+      "file": "female_0056_female_pidgin_0057_u_spk57.wav",
+      "source": "female",
+      "quality_score": 0.6404875529439271,
+      "duration": 9.619501133786848
+    },
+    {
+      "file": "female_0057_fleurs_yoruba_0034_f_spk34.wav",
+      "source": "female",
+      "quality_score": 0.6404299210361308,
+      "duration": 13.38
+    },
+    {
+      "file": "female_0058_female_pidgin_0135_u_spk135.wav",
+      "source": "female",
+      "quality_score": 0.63984795129053,
+      "duration": 5.467709750566893
+    },
+    {
+      "file": "female_0059_female_pidgin_0023_u_spk23.wav",
+      "source": "female",
+      "quality_score": 0.6394449616968491,
+      "duration": 5.19546485260771
+    },
+    {
+      "file": "female_0060_female_pidgin_0076_u_spk76.wav",
+      "source": "female",
+      "quality_score": 0.6394408036402899,
+      "duration": 6.307165532879819
+    },
+    {
+      "file": "female_0061_female_pidgin_0137_u_spk137.wav",
+      "source": "female",
+      "quality_score": 0.639429947397175,
+      "duration": 5.127392290249433
+    },
+    {
+      "file": "female_0062_fleurs_hausa_0064_f_spk64.wav",
+      "source": "female",
+      "quality_score": 0.6393447342509174,
+      "duration": 12.66
+    },
+    {
+      "file": "female_0063_female_pidgin_0084_u_spk84.wav",
+      "source": "female",
+      "quality_score": 0.6392557784565054,
+      "duration": 9.256507936507937
+    },
+    {
+      "file": "female_0064_fleurs_yoruba_0070_f_spk70.wav",
+      "source": "female",
+      "quality_score": 0.6386829281583324,
+      "duration": 15.12
+    },
+    {
+      "file": "female_0065_fleurs_yoruba_0029_f_spk29.wav",
+      "source": "female",
+      "quality_score": 0.6365251316526908,
+      "duration": 13.14
+    },
+    {
+      "file": "female_0066_fleurs_yoruba_0099_f_spk99.wav",
+      "source": "female",
+      "quality_score": 0.6360950348710822,
+      "duration": 10.92
+    },
+    {
+      "file": "female_0067_female_pidgin_0077_u_spk77.wav",
+      "source": "female",
+      "quality_score": 0.6357249377648745,
+      "duration": 9.27922902494331
+    },
+    {
+      "file": "female_0068_female_pidgin_0033_u_spk33.wav",
+      "source": "female",
+      "quality_score": 0.6295099207263447,
+      "duration": 11.207664399092971
+    },
+    {
+      "file": "female_0069_fleurs_igbo_0087_f_spk87.wav",
+      "source": "female",
+      "quality_score": 0.6289679163691823,
+      "duration": 24.84
+    },
+    {
+      "file": "female_0070_female_pidgin_0008_u_spk8.wav",
+      "source": "female",
+      "quality_score": 0.6280864178378112,
+      "duration": 6.057596371882086
+    },
+    {
+      "file": "female_0071_female_pidgin_0090_u_spk90.wav",
+      "source": "female",
+      "quality_score": 0.6274332579127069,
+      "duration": 5.558458049886621
+    },
+    {
+      "file": "female_0072_female_pidgin_0132_u_spk132.wav",
+      "source": "female",
+      "quality_score": 0.6251559932452164,
+      "duration": 8.326349206349207
+    },
+    {
+      "file": "female_0073_female_pidgin_0056_u_spk56.wav",
+      "source": "female",
+      "quality_score": 0.6243283887214263,
+      "duration": 5.830702947845805
+    },
+    {
+      "file": "female_0074_fleurs_hausa_0078_f_spk78.wav",
+      "source": "female",
+      "quality_score": 0.623217794699543,
+      "duration": 16.92
+    },
+    {
+      "file": "female_0075_fleurs_yoruba_0027_f_spk27.wav",
+      "source": "female",
+      "quality_score": 0.6222740447910753,
+      "duration": 12.96
+    },
+    {
+      "file": "female_0076_fleurs_hausa_0000_f_spk0.wav",
+      "source": "female",
+      "quality_score": 0.6214818140879407,
+      "duration": 18.84
+    },
+    {
+      "file": "female_0077_female_pidgin_0102_u_spk102.wav",
+      "source": "female",
+      "quality_score": 0.6198896995690681,
+      "duration": 10.005215419501134
+    },
+    {
+      "file": "female_0078_fleurs_igbo_0099_f_spk99.wav",
+      "source": "female",
+      "quality_score": 0.6194399846259562,
+      "duration": 10.32
+    },
+    {
+      "file": "female_0079_female_pidgin_0141_u_spk141.wav",
+      "source": "female",
+      "quality_score": 0.619427104638044,
+      "duration": 5.762630385487529
+    },
+    {
+      "file": "female_0080_fleurs_yoruba_0064_f_spk64.wav",
+      "source": "female",
+      "quality_score": 0.6191324236188882,
+      "duration": 23.28
+    },
+    {
+      "file": "female_0081_fleurs_yoruba_0050_f_spk50.wav",
+      "source": "female",
+      "quality_score": 0.6182127988327607,
+      "duration": 13.02
+    },
+    {
+      "file": "female_0082_female_pidgin_0110_u_spk110.wav",
+      "source": "female",
+      "quality_score": 0.6170187402242658,
+      "duration": 5.445034013605442
+    },
+    {
+      "file": "female_0083_female_pidgin_0106_u_spk106.wav",
+      "source": "female",
+      "quality_score": 0.6165528407673782,
+      "duration": 8.031383219954648
+    },
+    {
+      "file": "female_0084_igbo_0004_nd\u1ecb_bab\u1ecbl\u1ecdn_r\u1ee5r\u1ee5_otu_nime_chi_.wav",
+      "source": "female",
+      "quality_score": 0.6157628558525675,
+      "duration": 8.52
+    },
+    {
+      "file": "female_0085_fleurs_yoruba_0060_f_spk60.wav",
+      "source": "female",
+      "quality_score": 0.6124055923627723,
+      "duration": 18.0
+    },
+    {
+      "file": "female_0086_candidate_13_fleurs_yoruba_18.0s_q0.48.wav",
+      "source": "speaker_reference_candidates",
+      "quality_score": 0.6124055923627723,
+      "duration": 18.0
+    },
+    {
+      "file": "female_0087_female_pidgin_0109_u_spk109.wav",
+      "source": "female",
+      "quality_score": 0.6121479632575526,
+      "duration": 5.354285714285714
+    },
+    {
+      "file": "female_0088_female_pidgin_0125_u_spk125.wav",
+      "source": "female",
+      "quality_score": 0.6097655310059172,
+      "duration": 9.16575963718821
+    },
+    {
+      "file": "female_0089_female_pidgin_0052_u_spk52.wav",
+      "source": "female",
+      "quality_score": 0.6086826050275991,
+      "duration": 8.439773242630386
+    },
+    {
+      "file": "female_0090_fleurs_hausa_0007_f_spk7.wav",
+      "source": "female",
+      "quality_score": 0.6082992251557636,
+      "duration": 10.56
+    },
+    {
+      "file": "female_0091_fleurs_yoruba_0077_f_spk77.wav",
+      "source": "female",
+      "quality_score": 0.6079927515657316,
+      "duration": 17.28
+    },
+    {
+      "file": "female_0092_female_pidgin_0082_u_spk82.wav",
+      "source": "female",
+      "quality_score": 0.6077809430387346,
+      "duration": 12.319319727891157
+    },
+    {
+      "file": "female_0093_fleurs_igbo_0001_f_spk1.wav",
+      "source": "female",
+      "quality_score": 0.607189022254812,
+      "duration": 12.72
+    },
+    {
+      "file": "female_0094_female_pidgin_0124_u_spk124.wav",
+      "source": "female",
+      "quality_score": 0.6071632958757011,
+      "duration": 6.057596371882086
+    },
+    {
+      "file": "female_0095_fleurs_yoruba_0067_f_spk67.wav",
+      "source": "female",
+      "quality_score": 0.6049974547636192,
+      "duration": 12.9
+    },
+    {
+      "file": "female_0096_female_pidgin_0093_u_spk93.wav",
+      "source": "female",
+      "quality_score": 0.6039911706246512,
+      "duration": 8.212879818594104
+    },
+    {
+      "file": "female_0097_fleurs_igbo_0034_f_spk34.wav",
+      "source": "female",
+      "quality_score": 0.603593138610656,
+      "duration": 11.76
+    },
+    {
+      "file": "female_0098_candidate_2_fleurs_igbo_11.8s.wav",
+      "source": "speaker_reference_candidates",
+      "quality_score": 0.603593138610656,
+      "duration": 11.76
+    },
+    {
+      "file": "female_0099_fleurs_igbo_0064_f_spk64.wav",
+      "source": "female",
+      "quality_score": 0.6034152919764859,
+      "duration": 10.98
+    },
+    {
+      "file": "female_0100_female_pidgin_0067_u_spk67.wav",
+      "source": "female",
+      "quality_score": 0.601765754315764,
+      "duration": 6.080272108843538
+    },
+    {
+      "file": "female_0101_female_pidgin_0051_u_spk51.wav",
+      "source": "female",
+      "quality_score": 0.6016401284312255,
+      "duration": 8.73469387755102
+    },
+    {
+      "file": "female_0102_female_pidgin_0007_u_spk7.wav",
+      "source": "female",
+      "quality_score": 0.6005915292195672,
+      "duration": 6.783582766439909
+    },
+    {
+      "file": "female_0103_fleurs_yoruba_0030_f_spk30.wav",
+      "source": "female",
+      "quality_score": 0.598105497779139,
+      "duration": 13.68
+    },
+    {
+      "file": "female_0104_female_pidgin_0060_u_spk60.wav",
+      "source": "female",
+      "quality_score": 0.5979467614737197,
+      "duration": 7.078503401360544
+    },
+    {
+      "file": "female_0105_female_pidgin_0091_u_spk91.wav",
+      "source": "female",
+      "quality_score": 0.5968228024264904,
+      "duration": 6.602086167800453
+    },
+    {
+      "file": "female_0106_fleurs_yoruba_0086_f_spk86.wav",
+      "source": "female",
+      "quality_score": 0.5965384481499446,
+      "duration": 16.5
+    },
+    {
+      "file": "female_0107_fleurs_igbo_0091_f_spk91.wav",
+      "source": "female",
+      "quality_score": 0.5962614239264008,
+      "duration": 11.82
+    },
+    {
+      "file": "female_0108_candidate_1_fleurs_igbo_11.8s.wav",
+      "source": "speaker_reference_candidates",
+      "quality_score": 0.5962614239264008,
+      "duration": 11.82
+    },
+    {
+      "file": "female_0109_fleurs_igbo_0090_f_spk90.wav",
+      "source": "female",
+      "quality_score": 0.5959982931076208,
+      "duration": 11.16
+    },
+    {
+      "file": "female_0110_fleurs_hausa_0020_f_spk20.wav",
+      "source": "female",
+      "quality_score": 0.5938613106270605,
+      "duration": 11.64
+    },
+    {
+      "file": "female_0111_candidate_4_fleurs_hausa_11.6s.wav",
+      "source": "speaker_reference_candidates",
+      "quality_score": 0.5938613106270605,
+      "duration": 11.64
+    },
+    {
+      "file": "female_0112_female_pidgin_0080_u_spk80.wav",
+      "source": "female",
+      "quality_score": 0.5934699613546744,
+      "duration": 8.916190476190476
+    },
+    {
+      "file": "female_0113_fleurs_yoruba_0002_f_spk2.wav",
+      "source": "female",
+      "quality_score": 0.5934418646171933,
+      "duration": 13.14
+    },
+    {
+      "file": "female_0114_fleurs_yoruba_0047_f_spk47.wav",
+      "source": "female",
+      "quality_score": 0.5917301729236332,
+      "duration": 18.12
+    },
+    {
+      "file": "female_0115_fleurs_igbo_0045_f_spk45.wav",
+      "source": "female",
+      "quality_score": 0.5914636965218161,
+      "duration": 16.08
+    },
+    {
+      "file": "female_0116_fleurs_igbo_0026_f_spk26.wav",
+      "source": "female",
+      "quality_score": 0.5909991522498308,
+      "duration": 9.96
+    },
+    {
+      "file": "female_0117_fleurs_hausa_0052_f_spk52.wav",
+      "source": "female",
+      "quality_score": 0.5896163832887231,
+      "duration": 17.64
+    },
+    {
+      "file": "female_0118_female_pidgin_0006_u_spk6.wav",
+      "source": "female",
+      "quality_score": 0.5891221023820148,
+      "duration": 6.148344671201814
+    },
+    {
+      "file": "female_0119_fleurs_igbo_0012_f_spk12.wav",
+      "source": "female",
+      "quality_score": 0.5874574010145689,
+      "duration": 18.36
+    },
+    {
+      "file": "female_0120_fleurs_igbo_0004_f_spk4.wav",
+      "source": "female",
+      "quality_score": 0.5874289789076347,
+      "duration": 8.52
+    },
+    {
+      "file": "female_0121_fleurs_igbo_0039_f_spk39.wav",
+      "source": "female",
+      "quality_score": 0.5874111505139491,
+      "duration": 9.0
+    },
+    {
+      "file": "female_0122_female_pidgin_0070_u_spk70.wav",
+      "source": "female",
+      "quality_score": 0.5873609546707403,
+      "duration": 6.307165532879819
+    },
+    {
+      "file": "female_0123_fleurs_igbo_0076_f_spk76.wav",
+      "source": "female",
+      "quality_score": 0.5866532055440574,
+      "duration": 13.32
+    },
+    {
+      "file": "female_0124_igbo_0003_mwube_ah\u1ee5_nwere_ike_\u1ecbb\u1ee5_otu_\u1ee5l.wav",
+      "source": "female",
+      "quality_score": 0.5865603243061279,
+      "duration": 17.34
+    },
+    {
+      "file": "female_0125_fleurs_igbo_0032_f_spk32.wav",
+      "source": "female",
+      "quality_score": 0.5843751340464067,
+      "duration": 7.56
+    },
+    {
+      "file": "female_0126_fleurs_igbo_0035_f_spk35.wav",
+      "source": "female",
+      "quality_score": 0.5841590926635832,
+      "duration": 13.8
+    },
+    {
+      "file": "female_0127_female_pidgin_0130_u_spk130.wav",
+      "source": "female",
+      "quality_score": 0.5819672309875537,
+      "duration": 8.530521541950113
+    },
+    {
+      "file": "female_0128_female_pidgin_0112_u_spk112.wav",
+      "source": "female",
+      "quality_score": 0.5802113483746153,
+      "duration": 7.713786848072562
+    },
+    {
+      "file": "female_0129_female_pidgin_0038_u_spk38.wav",
+      "source": "female",
+      "quality_score": 0.5778737517204627,
+      "duration": 9.596825396825396
+    },
+    {
+      "file": "female_0130_female_pidgin_0066_u_spk66.wav",
+      "source": "female",
+      "quality_score": 0.5765196895962195,
+      "duration": 7.532290249433107
+    },
+    {
+      "file": "female_0131_fleurs_yoruba_0049_f_spk49.wav",
+      "source": "female",
+      "quality_score": 0.5760306863282045,
+      "duration": 15.12
+    },
+    {
+      "file": "female_0132_fleurs_igbo_0071_f_spk71.wav",
+      "source": "female",
+      "quality_score": 0.5731193613972089,
+      "duration": 21.72
+    },
+    {
+      "file": "female_0133_fleurs_hausa_0092_f_spk92.wav",
+      "source": "female",
+      "quality_score": 0.5716904118658064,
+      "duration": 17.1
+    },
+    {
+      "file": "female_0134_fleurs_yoruba_0090_f_spk90.wav",
+      "source": "female",
+      "quality_score": 0.5706123922551052,
+      "duration": 8.28
+    },
+    {
+      "file": "female_0135_female_pidgin_0040_u_spk40.wav",
+      "source": "female",
+      "quality_score": 0.5703355097658083,
+      "duration": 8.893514739229024
+    },
+    {
+      "file": "female_0136_female_pidgin_0089_u_spk89.wav",
+      "source": "female",
+      "quality_score": 0.5694861507215406,
+      "duration": 6.4659410430839
+    },
+    {
+      "file": "female_0137_fleurs_igbo_0024_f_spk24.wav",
+      "source": "female",
+      "quality_score": 0.5656390027651585,
+      "duration": 8.64
+    },
+    {
+      "file": "female_0138_fleurs_igbo_0070_f_spk70.wav",
+      "source": "female",
+      "quality_score": 0.5630896315541798,
+      "duration": 17.88
+    },
+    {
+      "file": "female_0139_fleurs_igbo_0011_f_spk11.wav",
+      "source": "female",
+      "quality_score": 0.5616617009264182,
+      "duration": 15.42
+    },
+    {
+      "file": "female_0140_fleurs_igbo_0085_f_spk85.wav",
+      "source": "female",
+      "quality_score": 0.5603802400740384,
+      "duration": 10.08
+    },
+    {
+      "file": "female_0141_female_pidgin_0103_u_spk103.wav",
+      "source": "female",
+      "quality_score": 0.5599041729031847,
+      "duration": 8.73469387755102
+    },
+    {
+      "file": "female_0142_fleurs_igbo_0067_f_spk67.wav",
+      "source": "female",
+      "quality_score": 0.5596349371475606,
+      "duration": 10.62
+    },
+    {
+      "file": "female_0143_fleurs_yoruba_0056_f_spk56.wav",
+      "source": "female",
+      "quality_score": 0.5584118518559397,
+      "duration": 14.64
+    },
+    {
+      "file": "female_0144_fleurs_igbo_0031_f_spk31.wav",
+      "source": "female",
+      "quality_score": 0.5579773438428793,
+      "duration": 27.78
+    },
+    {
+      "file": "female_0145_fleurs_igbo_0003_f_spk3.wav",
+      "source": "female",
+      "quality_score": 0.5560526968421736,
+      "duration": 17.34
+    },
+    {
+      "file": "female_0146_fleurs_yoruba_0006_f_spk6.wav",
+      "source": "female",
+      "quality_score": 0.5551770971028062,
+      "duration": 11.4
+    },
+    {
+      "file": "female_0147_candidate_12_fleurs_yoruba_11.4s_q0.48.wav",
+      "source": "speaker_reference_candidates",
+      "quality_score": 0.5551770971028062,
+      "duration": 11.4
+    },
+    {
+      "file": "female_0148_fleurs_igbo_0033_f_spk33.wav",
+      "source": "female",
+      "quality_score": 0.5527302456346189,
+      "duration": 13.08
+    },
+    {
+      "file": "female_0149_fleurs_hausa_0031_f_spk31.wav",
+      "source": "female",
+      "quality_score": 0.5526841055257832,
+      "duration": 10.32
+    }
+  ]
+}

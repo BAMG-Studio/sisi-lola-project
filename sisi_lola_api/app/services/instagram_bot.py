@@ -281,13 +281,21 @@ class SisiLolaInstagramBot:
                 # Use full inference service
                 from sisi_lola_api.app.services.unified_inference import ResponseMode, Language
                 
+                # Detect Scenario
+                scenario = "general"
+                hustle_keywords = ["advice", "hustle", "relationship", "dating", "job", "work", "japa", "school", "money"]
+                if any(w in message.text.lower() for w in hustle_keywords):
+                    scenario = "hustle_clinic"
+                    logger.info(f"💖 ROUTE: Entering Hustle Clinic for {message.username}")
+
                 response = await self.inference_service.generate(
                     message=message.text,
-                    mode=ResponseMode.TEXT_ONLY,  # Voice via separate call if needed
+                    mode=ResponseMode.TEXT_ONLY,
                     language=Language.MIXED,
                     conversation_history=context,
-                    max_tokens=280,  # Keep concise for Instagram
-                    temperature=0.8  # More creative for social
+                    max_tokens=350,  # A bit more room for advice
+                    temperature=0.8,
+                    scenario=scenario
                 )
                 
                 self.messages_sent_today += 1

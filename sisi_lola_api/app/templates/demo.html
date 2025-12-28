@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sisi Lola | Public Demo</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF4D00;
+            --secondary: #00A651;
+            --bg: #0A0A0A;
+            --card: #151515;
+            --text: #FFFFFF;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        header {
+            height: 80px;
+            border-bottom: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(15px);
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-style: italic;
+            color: var(--primary);
+            letter-spacing: -1px;
+        }
+
+        .badge-live {
+            background: red;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.6rem;
+            font-weight: 900;
+            vertical-align: middle;
+            margin-left: 10px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .app-main {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* Left Panel: Chat */
+        .chat-panel {
+            flex: 2.5;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--border);
+            background: url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80') center center;
+            background-size: cover;
+            position: relative;
+        }
+
+        .chat-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .message {
+            max-width: 75%;
+            padding: 20px 25px;
+            border-radius: 25px;
+            line-height: 1.6;
+            font-size: 1.1rem;
+            white-space: pre-wrap;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .msg-user {
+            align-self: flex-end;
+            background: linear-gradient(135deg, var(--primary), #FF7000);
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .msg-sisi {
+            align-self: flex-start;
+            background: rgba(40, 40, 40, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom-left-radius: 5px;
+        }
+
+        .chat-input-area {
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        input#chat-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #444;
+            padding: 20px 30px;
+            border-radius: 50px;
+            color: white;
+            font-size: 1.1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input#chat-input:focus {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        button.send-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button.send-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        /* Right Panel: Tools */
+        .tools-panel {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            background: #0f0f0f;
+        }
+
+        .tool-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 25px;
+            border-radius: 24px;
+        }
+
+        .tool-card h3 {
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        select {
+            width: 100%;
+            background: #000;
+            border: 1px solid #333;
+            color: white;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        #voice-indicator {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 0.9rem;
+        }
+
+        .wave {
+            width: 4px;
+            height: 15px;
+            background: var(--primary);
+            animation: wave 0.5s infinite alternate;
+        }
+
+        @keyframes wave {
+            to {
+                height: 35px;
+            }
+        }
+
+        .btn-action {
+            background: #222;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            text-align: center;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        .btn-action:hover {
+            background: #333;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+        }
+
+        .intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            transition: 1s ease-out;
+        }
+
+        .intro-hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="intro-overlay" id="intro">
+        <h1 class="logo" style="font-size: 4rem;">Sisi Lola.</h1>
+        <p style="color: #666; font-size: 1.2rem;">Waking up the Metaverse...</p>
+        <button class="send-btn" style="width: 200px; border-radius: 50px; font-size: 1.2rem;"
+            onclick="startApp()">START YARNING</button>
+    </div>
+
+    <header>
+        <div class="logo">Sisi Lola. <span class="badge-live">LIVE V2</span></div>
+        <div id="voice-indicator">
+            SISI IS SPEAKING... <div class="wave"></div>
+            <div class="wave" style="animation-delay: 0.1s"></div>
+        </div>
+        <div>
+            <span style="color: var(--primary); font-weight: 800; font-size: 0.8rem; letter-spacing: 1px;">SUPREME
+                ENGINE ACTIVE</span>
+        </div>
+    </header>
+
+    <div class="app-main">
+        <div class="chat-panel">
+            <div class="chat-messages" id="chat-messages">
+                <div class="message msg-sisi">
+                    Omo! You don land Sisi Lola's HQ. 💃✨
+
+                    This place no be for robotic talk o. We dey talk culture, we dey talk news, we dey talk pure vibes.
+
+                    Wetin you wan yarn about today? Pick your mood for side and make we start!
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Wetin dey your mind? Talk to me..."
+                    onkeypress="if(event.key==='Enter') sendQuery()">
+                <button class="send-btn" onclick="sendQuery()">🚀</button>
+            </div>
+        </div>
+
+        <div class="tools-panel">
+            <div class="tool-card">
+                <h3>Vibe Selector</h3>
+                <select id="scenario-select">
+                    <option value="general">Standard Gist</option>
+                    <option value="radio_host">Radio Show Host</option>
+                    <option value="hustle_clinic">Hustle & Relationship Clinic</option>
+                    <option value="vdm_vibe">The Call-out (VDM Style)</option>
+                    <option value="political_analyst">Political Decoding</option>
+                    <option value="sports_fanatic">Sports Gist Queen</option>
+                    <option value="tech_insider">Tech & Crypto</option>
+                    <option value="cooking_with_sisi">Jollof & Cooking</option>
+                    <option value="nollywood_insider">Movie Gists</option>
+                    <option value="village_ancestor">Deep Wisdom</option>
+                </select>
+                <p style="font-size: 0.8rem; color: #666; margin-top: -10px; margin-bottom: 20px;">Changes Sisi's
+                    personality and tone instantly.</p>
+                <button class="btn-action" onclick="toggleVoice()" id="voice-btn">🔊 AUDIO ON</button>
+            </div>
+
+            <div class="tool-card">
+                <h3>Cultural Satellite</h3>
+                <p style="font-size: 0.9rem; margin-bottom: 10px;">Syncing latest gists from the continent...</p>
+                <button class="btn-action btn-primary" onclick="triggerGistHunt('nigeria')">SYNC NIGERIA RADAR</button>
+                <button class="btn-action" onclick="triggerGistHunt('africa')">SYNC AFRICA</button>
+                <button class="btn-action" onclick="triggerGistHunt('global')">SYNC GLOBAL</button>
+            </div>
+
+            <div class="tool-card" style="border-color: var(--primary);">
+                <h3>Sisi's Eyes</h3>
+                <p style="font-size: 0.8rem; color: #888; margin-bottom: 15px;">Upload a photo or a YouTube link and
+                    Sisi will decode the vibe.</p>
+                <input type="file" id="file-input" onchange="handleFile(event)"
+                    style="font-size: 0.8rem; margin-bottom: 15px;">
+                <button class="btn-action btn-primary" onclick="analyzeVision()">ANALYZE VISION</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let voiceEnabled = true;
+        let currentImage = null;
+        let sessionId = localStorage.getItem('sisi_demo_session_id');
+
+        if (!sessionId) {
+            sessionId = 'visitor_' + Math.random().toString(36).substr(2, 9);
+            localStorage.setItem('sisi_demo_session_id', sessionId);
+        }
+
+        function startApp() {
+            document.getElementById('intro').classList.add('intro-hidden');
+            // Auto sync on start
+            triggerGistHunt('nigeria');
+        }
+
+        function addMsg(role, text) {
+            const div = document.createElement('div');
+            div.className = `message msg-${role}`;
+            div.innerText = text;
+            const container = document.getElementById('chat-messages');
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        async function sendQuery() {
+            const input = document.getElementById('chat-input');
+            const msg = input.value.trim();
+            if (!msg) return;
+
+            addMsg('user', msg);
+            input.value = '';
+
+            try {
+                const scenario = document.getElementById('scenario-select').value;
+                const r = await fetch('/unified/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: msg,
+                        scenario: scenario,
+                        mode: voiceEnabled ? 'multimodal' : 'text',
+                        session_id: sessionId
+                    })
+                });
+                const d = await r.json();
+
+                if (d.error) {
+                    addMsg('sisi', "Omo, my brain don crack! 😵 " + d.error);
+                } else {
+                    addMsg('sisi', d.text);
+                    if (d.audio_base64 && voiceEnabled) playAudio(d.audio_base64);
+                }
+            } catch (e) {
+                addMsg('sisi', "Network wahala! Connect again. 🔌");
+            }
+        }
+
+        function playAudio(base64) {
+            document.getElementById('voice-indicator').style.display = 'flex';
+            const audio = new Audio("data:audio/wav;base64," + base64);
+            audio.play();
+            audio.onended = () => { document.getElementById('voice-indicator').style.display = 'none'; };
+        }
+
+        function toggleVoice() {
+            voiceEnabled = !voiceEnabled;
+            document.getElementById('voice-btn').innerText = voiceEnabled ? "🔊 AUDIO ON" : "🔇 AUDIO OFF";
+        }
+
+        function handleFile(e) {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = () => { currentImage = reader.result.split(',')[1]; };
+            reader.readAsDataURL(file);
+        }
+
+        async function analyzeVision() {
+            if (!currentImage) return alert("Select a photo first!");
+            addMsg('user', "[Scanning photo...]");
+            try {
+                const r = await fetch('/unified/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: "Analyze this image",
+                        image_base64: currentImage,
+                        mode: 'text',
+                        session_id: sessionId
+                    })
+                });
+                const d = await r.json();
+                addMsg('sisi', d.text);
+            } catch (e) { addMsg('sisi', "Vision error!"); }
+        }
+
+        async function triggerGistHunt(scope) {
+            const target = scope || 'nigeria';
+            console.log(`Syncing ${target} radar...`);
+            try {
+                await fetch('/api/dashboard/gist-hunt', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ scope: target })
+                });
+            } catch (e) {
+                console.error("Radar sync failed");
+            }
+        }
+    </script>
+</body>
+
+</html>

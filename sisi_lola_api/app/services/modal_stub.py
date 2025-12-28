@@ -26,7 +26,8 @@ sisi_image = (
         "ffmpeg", 
         "git", 
         "libgl1-mesa-glx", 
-        "libglib2.0-0"  # Consolidated for efficiency
+        "libglib2.0-0",
+        "tesseract-ocr"  # Added for OCR fallback
     )
     .pip_install(
         "fastapi",
@@ -43,8 +44,12 @@ sisi_image = (
         "opencv-python",
         "diffusers",
         "accelerate",
-        "cohere",           # Added from .env.example
-        "google-generativeai" # Added from .env.example (Gemini)
+        "cohere",
+        "google-generativeai",
+        "youtube-transcript-api", # Multimodal: YouTube
+        "beautifulsoup4",         # Multimodal: Web
+        "pytesseract",            # Multimodal: OCR
+        "Pillow"                  # Image handling
     )
     .env({
         "HUGGINGFACE_HUB_CACHE": "/cache/huggingface",
@@ -90,10 +95,10 @@ class SisiLolaEngine:
         self.service = UnifiedInferenceService()
         
     @modal.method()
-    async def generate_response(self, message: str, session_id: str = "default"):
+    async def generate_response(self, message: str, session_id: str = "default", scenario: str = "general"):
         """Fast response generation"""
         from sisi_lola_api.app.services.unified_inference import ResponseMode
-        resp = await self.service.generate(message, mode=ResponseMode.TEXT_ONLY, session_id=session_id)
+        resp = await self.service.generate(message, mode=ResponseMode.TEXT_ONLY, session_id=session_id, scenario=scenario)
         return resp.text
 
     @modal.method()
@@ -148,7 +153,11 @@ class SisiLolaEngine:
 @app.function(image=sisi_image)
 @modal.fastapi_endpoint(method="POST")
 async def chat_api(item: Dict[str, Any]):
-    return await SisiLolaEngine().generate_response.remote.aio(item.get("message"))
+    return await SisiLolaEngine().generate_response.remote.aio(
+        item.get("message"), 
+        session_id=item.get("session_id", "default"),
+        scenario=item.get("scenario", "general")
+    )
 
 @app.function(image=sisi_image)
 @modal.fastapi_endpoint(method="POST")
