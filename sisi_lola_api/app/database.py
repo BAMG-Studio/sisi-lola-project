@@ -135,18 +135,23 @@ def init_db():
     db = SessionLocal()
     from sisi_lola_api.app.auth import ROLES
     
-    for role_name, role_data in ROLES.items():
-        existing = db.query(Role).filter(Role.name == role_name).first()
-        if not existing:
-            role = Role(
-                name=role_name,
-                description=role_data["description"],
-                permissions=role_data["permissions"]
-            )
-            db.add(role)
-    
-    db.commit()
-    db.close()
+    try:
+        for role_name, role_data in ROLES.items():
+            # Check if role exists
+            existing = db.query(Role).filter(Role.name == role_name).first()
+            if not existing:
+                try:
+                    role = Role(
+                        name=role_name,
+                        description=role_data["description"],
+                        permissions=role_data["permissions"]
+                    )
+                    db.add(role)
+                    db.commit()
+                except Exception:
+                    db.rollback()
+    finally:
+        db.close()
 
 def get_db():
     db = SessionLocal()

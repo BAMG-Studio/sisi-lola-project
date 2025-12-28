@@ -18,16 +18,23 @@ def test_user(client):
     from sisi_lola_api.app.database import User, Role
     db = SessionLocal()
     
-    role = Role(name="VIEWER", description="Test", permissions=["content:read"])
-    db.add(role)
-    db.commit()
+    # Use existing role created by init_db
+    role = db.query(Role).filter(Role.name == "VIEWER").first()
+    if not role:
+        role = Role(name="VIEWER", description="Test", permissions=["content:read"])
+        db.add(role)
+        db.commit()
     
-    user = User(email="test@test.com", password_hash=get_password_hash("test123"))
-    db.add(user)
-    db.commit()
-    db.refresh(user)
-    user.roles.append(role)
-    db.commit()
+    # Check if user already exists
+    user = db.query(User).filter(User.email == "test@test.com").first()
+    if not user:
+        user = User(email="test@test.com", password_hash=get_password_hash("test123"))
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+        user.roles.append(role)
+        db.commit()
+    
     db.close()
     return {"email": "test@test.com", "password": "test123"}
 

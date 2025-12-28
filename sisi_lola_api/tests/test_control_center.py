@@ -19,16 +19,22 @@ def admin_token():
     from sisi_lola_api.app.database import User, Role
     db = SessionLocal()
     
-    role = Role(name="SUPER_ADMIN", description="Admin", permissions=["*"])
-    db.add(role)
-    db.commit()
+    # Use existing role created by init_db
+    role = db.query(Role).filter(Role.name == "SUPER_ADMIN").first()
+    if not role:
+        role = Role(name="SUPER_ADMIN", description="Admin", permissions=["*"])
+        db.add(role)
+        db.commit()
     
-    user = User(email="admin@test.com", password_hash=get_password_hash("admin123"))
-    db.add(user)
-    db.commit()
-    db.refresh(user)
-    user.roles.append(role)
-    db.commit()
+    # Check if user already exists
+    user = db.query(User).filter(User.email == "admin@test.com").first()
+    if not user:
+        user = User(email="admin@test.com", password_hash=get_password_hash("admin123"))
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+        user.roles.append(role)
+        db.commit()
     
     token = create_access_token({"sub": "admin@test.com", "roles": ["SUPER_ADMIN"]})
     db.close()

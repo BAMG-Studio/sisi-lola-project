@@ -31,6 +31,7 @@ jobs:
         env:
           PYTHONPATH: .
           DATABASE_URL: sqlite:///./test_temp.db
+          AUTH_DB_PATH: ./test_auth.db
 
       - name: Upload coverage
         uses: codecov/codecov-action@v4
