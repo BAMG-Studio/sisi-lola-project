@@ -70,13 +70,26 @@ sisi_image = (
         remote_path="/root/sisi_lola_project",
         ignore=[
             "**/venv", 
+            "**/venv_wsl",
             "**/.git", 
             "**/__pycache__", 
             "**/*.pyc", 
             "**/.env", 
             "**/*.mp3", 
-            "**/*.wav", 
-            "**/models"
+            "**/*.wav",
+            "**/*.mp4",
+            "**/*.png",
+            "**/*.jpg",
+            "**/*.jpeg",
+            "**/models",
+            "**/03_MEDIA_ASSETS",
+            "**/.dropbox*",
+            "**/*.sh",
+            "**/*.md",
+            "**/test_*.py",
+            "**/test_*.json",
+            "**/_deprecated",
+            "**/.agent",
         ]
     )
 )
@@ -170,8 +183,8 @@ class SisiLolaEngine:
         "/data": data_volume  # Persistent conversation logs
     },
     secrets=[Secret.from_name("sisi-lola-secrets")],
-    allow_concurrent_inputs=10,
 )
+@modal.concurrent(max_inputs=10)
 @modal.asgi_app()
 def supreme_api():
     """
