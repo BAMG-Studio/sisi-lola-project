@@ -185,5 +185,6 @@ def supreme_api():
     # Set conversation log path to persistent volume
     os.environ["CONVERSATION_LOG_DB"] = "/data/conversation_logs.db"
     
-    from sisi_lola_api.app.main_updated import app as fastapi_app
+    # FIXED: Use main.py (the clean consolidated entry point)
+    from sisi_lola_api.app.main import app as fastapi_app
     return fastapi_app

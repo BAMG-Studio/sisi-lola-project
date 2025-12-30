@@ -1,0 +1,9 @@
+# =============================================================================
+# DEPRECATED: main_updated.py
+# =============================================================================
+# This file has been deprecated and consolidated into main.py
+# Archived: 2025-12-29
+# Reason: Multiple main entry points caused confusion. main.py is now the 
+#         single source of truth.
+# =============================================================================
+# Original file was 85 lines - see main.py for the consolidated version

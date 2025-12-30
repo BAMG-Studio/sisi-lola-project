@@ -1,0 +1,8 @@
+# =============================================================================
+# DEPRECATED: dashboard.py
+# =============================================================================
+# This file has been deprecated - it was a standalone FastAPI app on port 8080
+# Archived: 2025-12-29
+# Reason: Dashboard functionality moved to dashboard_router.py
+# =============================================================================
+# Original file was 42 lines - see routers/dashboard_router.py for current implementation

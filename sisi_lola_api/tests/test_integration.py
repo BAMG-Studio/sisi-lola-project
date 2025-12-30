@@ -1,6 +1,6 @@
 import pytest
 from fastapi.testclient import TestClient
-from sisi_lola_api.app.main_updated import app
+from sisi_lola_api.app.main import app
 from sisi_lola_api.app.database import Base, engine, SessionLocal, Role
 
 @pytest.fixture

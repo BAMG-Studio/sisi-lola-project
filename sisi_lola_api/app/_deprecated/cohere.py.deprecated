@@ -1,7 +1,8 @@
 # =============================================================================
-# DEPRECATED FILE - MOVED TO _deprecated/
+# DEPRECATED: routers/cohere.py
 # =============================================================================
-# Cohere integration is not used in production.
-# Primary AI: Gemini 3 Pro (via vibe_router.py)
+# This file has been deprecated
+# Archived: 2025-12-29
+# Reason: Cohere integration not used in production - Gemini 3 Pro is primary
 # =============================================================================
-raise RuntimeError("This file is deprecated. Cohere is not used in production.")
+# Original file was 48 lines

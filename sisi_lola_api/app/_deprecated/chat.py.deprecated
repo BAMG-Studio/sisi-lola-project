@@ -1,0 +1,8 @@
+# =============================================================================
+# DEPRECATED: routers/chat.py
+# =============================================================================
+# This file has been deprecated
+# Archived: 2025-12-29
+# Reason: Replaced by vibe_router.py (demo-chat) and enhanced_chat.py (Modal inference)
+# =============================================================================
+# Original file was 104 lines - see vibe_router.py for current implementation
