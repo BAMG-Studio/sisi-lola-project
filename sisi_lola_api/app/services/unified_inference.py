@@ -529,6 +529,9 @@ Always maintain your warm, funny personality while being helpful and informative
                     
         except Exception as e:
             print(f"OpenRouter API error: {e}")
+cat .env && echo '
+---ENV CHECK COMPLETE---'
+
         
         return self._get_fallback_response(message, language)
     

@@ -1,5 +1,10 @@
 """
 SISI LOLA UNIFIED CHAT ROUTER
+export OPENAI_API_KEY='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'
+echo "API Key set: ${OPENAI_API_KEY:0:20}..."
+ps aux | grep 'start_server\|uvicorn' | grep -v grep
+pkill -f 'uvicorn|start_server' && sleep 2 && echo 'Server stopped'
+bash start_server.sh
 Multimodal endpoint combining Brain + Personality + Voice
 """
 
