@@ -1,0 +1,14 @@
+# Configuration for Replicate (Sisi Lola Supreme Producer)
+build:
+  gpu: false  # We are calling other APIs, so we don't need a heavy GPU ourselves!
+  python_version: "3.11"
+  system_packages:
+    - "ffmpeg"    # For video processing if needed
+  python_packages:
+    - "httpx"
+    - "python-dotenv"
+    - "Pillow"
+    - "requests"
+    - "numpy"
+
+predict: "sisi_lola_api/predict.py:Predictor"
