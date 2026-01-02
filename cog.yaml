@@ -11,4 +11,4 @@ build:
     - "requests"
     - "numpy"
 
-predict: "sisi_lola_api/predict.py:Predictor"
+predict: "replicate/predict.py:Predictor"
