@@ -24,3 +24,4 @@ jobs:
           REPLICATE_API_TOKEN: ${{ secrets.REPLICATE_API_TOKEN }}
         run: |
           cog push r8.im/bamg-studio/sisi-lola-producer
+          cog login --token $REPLICATE_API_TOKEN
