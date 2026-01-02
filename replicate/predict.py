@@ -4,6 +4,7 @@ import os
 import time
 import base64
 import requests
+import replicate
 from typing import Optional
 
 class Predictor(BasePredictor):
@@ -33,7 +34,8 @@ class Predictor(BasePredictor):
         script: str = Input(description="Script text for Sisi Lola to speak"),
         vibe_id: str = Input(description="Optional Vibe ID for metadata", default="CUSTOM"),
         elevenlabs_key: str = Input(description="ElevenLabs API Key", default=None),
-        replicate_key: str = Input(description="Replicate API Token", default=None)
+        replicate_key: str = Input(description="Replicate API Token", default=None),
+        avatar_image: str = Input(description="URL to Sisi Lola avatar image", default="https://replicate.delivery/pbxt/your-avatar-image.jpg")
     ) -> Path:
         """Run the Sisi Lola Pipeline: Voice + Video"""
         
@@ -74,24 +76,48 @@ class Predictor(BasePredictor):
             f.write(voice_response.content)
         print("✅ Voice generated!")
             
-        # 2. Generate Video (Replicate Wav2Lip)
+        # 2. Generate Video with LivePortrait (Better than Wav2Lip)
         print("🎥 Generating Video (Wav2Lip)...")
         
         with open(audio_path, "rb") as f:
             audio_b64 = "data:audio/wav;base64," + base64.b64encode(f.read()).decode('utf-8')
         
         # Use a simple placeholder image (or you can host DNA image somewhere)
-        # For now, return audio only - video can be added later
         
-        headers = {
-            "Authorization": f"Token {rep_key}",
-            "Content-Type": "application/json"
-        }
+        print("🎥 Generating Video (LivePortrait)...")
         
-        # Return the audio file for now (video generation can be added)
-        final_path = Path("/tmp/output.wav")
-        with open(final_path, "wb") as f:
-            f.write(voice_response.content)
-        
-        print(f"✅ Production complete: {final_path}")
-        return final_path
+        avatar_image_url = avatar_image  # Use the provided avatar image        
+        try:
+            # Use LivePortrait (modern alternative to Wav2Lip)
+            import replicate
+            output = replicate.run(
+                "fofr/live-portrait",
+                input={
+                    "source_image": avatar_image_url,
+                    "driving_audio": audio_path,
+                    "live_portrait_style": "natural",
+                    "expression_scale": 1.0
+                }
+            )
+            
+            # Download the video
+            video_url = output
+            video_response = requests.get(video_url)
+            
+            if video_response.status_code == 200:
+                final_path = Path("/tmp/output.mp4")
+                with open(final_path, "wb") as f:
+                    f.write(video_response.content)
+                print(f"✅ Production complete: Video generated!")
+                return final_path
+            else:
+                raise RuntimeError(f"Failed to download video: {video_response.status_code}")
+                
+        except Exception as e:
+            print(f"⚠️ Video generation failed: {e}")
+            print("📦 Returning audio only as fallback")
+            # Fallback: return audio if video fails
+            final_path = Path("/tmp/output.wav")
+            with open(final_path, "wb") as f:
+                f.write(voice_response.content)
+            return final_path
