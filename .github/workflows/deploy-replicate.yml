@@ -23,5 +23,4 @@ jobs:
         env:
           REPLICATE_API_TOKEN: ${{ secrets.REPLICATE_API_TOKEN }}
         run: |
-            echo $REPLICATE_API_TOKEN | cog login --token-stdin
-                      cog push r8.im/bamg-studio/sisi-lola-producer
+          cog push r8.im/bamg-studio/sisi-lola-producer
