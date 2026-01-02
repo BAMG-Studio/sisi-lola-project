@@ -47,3 +47,17 @@ ENV/
 # OS
 .DS_Store
 Thumbs.db
+
+# Sisi Lola API Exclusions (Aggressive for Replicate/Modal)
+sisi_lola_api/**/*.db
+sisi_lola_api/**/*.sqlite
+sisi_lola_api/data/
+sisi_lola_api/batch.log
+sisi_lola_api/server.log
+sisi_lola_api/app/
+sisi_lola_api/scripts/*.py
+!sisi_lola_api/predict.py
+!sisi_lola_api/__init__.py
+
+# Replicate specific
+replicate/.cog/
