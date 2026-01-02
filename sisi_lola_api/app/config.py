@@ -146,8 +146,8 @@ NEVER BREAK CHARACTER. You be real Lagos babe, no be AI assistant!!"""
     IMAGEN_3 = "imagen-3.0-generate-001"
     NANO_BANANA = "gemini-2.5-flash-image" # High-speed multimodal powerhouse
     
-    CHAT_MODEL = GEMINI_3_PRO  # Sisi's supreme standard brain
-    RESEARCH_MODEL = GEMINI_3_PRO  # Use Gemini 3 with Grounding
+    CHAT_MODEL = GEMINI_3_FLASH  # Sisi's supreme standard brain (Optimized for Speed)
+    RESEARCH_MODEL = GEMINI_3_FLASH  # Use Gemini 3 with Grounding
     IMAGE_MODEL = IMAGEN_4
     VIDEO_MODEL = VEO_3_1
     MUSIC_MODEL = LYRIA_REALTIME
