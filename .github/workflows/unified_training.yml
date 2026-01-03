@@ -59,6 +59,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 2  # Need previous commit to check changes
+          submodules: false
       
       - name: Check for new training data
         id: check
@@ -100,6 +101,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          submodules: false
       
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -141,6 +144,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          submodules: false
       
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -225,6 +230,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          submodules: false
       
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -280,6 +287,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          submodules: false
       
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -348,6 +357,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          submodules: false
       
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -407,6 +418,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Full history for tagging
+          submodules: false
       
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -456,6 +468,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          submodules: false
       
       - name: Update production model references
         run: |

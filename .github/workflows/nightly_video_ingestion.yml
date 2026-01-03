@@ -73,6 +73,7 @@ jobs:
         with:
           lfs: true
           fetch-depth: 0  # Full history for DVC
+          submodules: false
       
       - name: 🐍 Setup Python
         uses: actions/setup-python@v5
@@ -181,6 +182,8 @@ jobs:
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
+        with:
+          submodules: false
       
       - name: 🐍 Setup Python
         uses: actions/setup-python@v5
