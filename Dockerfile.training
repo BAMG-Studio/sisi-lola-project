@@ -1,0 +1,149 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# SISI LOLA - UNIFIED TRAINING DOCKERFILE
+# ═══════════════════════════════════════════════════════════════════════════════
+# Multi-stage Docker build for training and inference
+# Compatible with: Modal, Replicate (Cog), Local GPU
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# Stage 1: Base with CUDA and Python
+FROM nvidia/cuda:12.1.1-cudnn8-runtime-ubuntu22.04 AS base
+
+# Prevent interactive prompts
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3.11 \
+    python3.11-venv \
+    python3.11-dev \
+    python3-pip \
+    git \
+    git-lfs \
+    curl \
+    wget \
+    ffmpeg \
+    libsndfile1 \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    tesseract-ocr \
+    && rm -rf /var/lib/apt/lists/* \
+    && git lfs install
+
+# Set Python 3.11 as default
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.11 1 \
+    && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1
+
+# Upgrade pip
+RUN python -m pip install --upgrade pip setuptools wheel
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# Stage 2: Training dependencies
+# ═══════════════════════════════════════════════════════════════════════════════
+FROM base AS training
+
+WORKDIR /app
+
+# Install PyTorch with CUDA support
+RUN pip install --no-cache-dir \
+    torch==2.1.0 \
+    torchaudio==2.1.0 \
+    --index-url https://download.pytorch.org/whl/cu121
+
+# Install core ML dependencies
+COPY ml_training/requirements.txt /tmp/ml_requirements.txt
+COPY ml_training/requirements_nigerian.txt /tmp/ml_requirements_nigerian.txt
+
+RUN pip install --no-cache-dir -r /tmp/ml_requirements.txt || true
+RUN pip install --no-cache-dir -r /tmp/ml_requirements_nigerian.txt || true
+
+# Install training-specific packages
+RUN pip install --no-cache-dir \
+    transformers>=4.36.0 \
+    datasets>=2.16.0 \
+    accelerate>=0.25.0 \
+    peft>=0.7.0 \
+    bitsandbytes>=0.41.0 \
+    safetensors>=0.4.0 \
+    sentencepiece \
+    protobuf \
+    wandb \
+    mlflow \
+    optuna \
+    TTS>=0.22.0 \
+    huggingface_hub>=0.20.0 \
+    dvc[s3]>=3.30.0 \
+    modal>=0.56.0
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# Stage 3: Inference/Production
+# ═══════════════════════════════════════════════════════════════════════════════
+FROM base AS inference
+
+WORKDIR /app
+
+# Install PyTorch
+RUN pip install --no-cache-dir \
+    torch==2.1.0 \
+    torchaudio==2.1.0 \
+    --index-url https://download.pytorch.org/whl/cu121
+
+# Install inference dependencies
+RUN pip install --no-cache-dir \
+    fastapi>=0.104.0 \
+    uvicorn>=0.24.0 \
+    httpx>=0.25.0 \
+    transformers>=4.36.0 \
+    accelerate>=0.25.0 \
+    TTS>=0.22.0 \
+    google-generativeai>=0.3.0 \
+    cohere>=4.40.0 \
+    elevenlabs>=0.2.0 \
+    openai>=1.6.0 \
+    python-dotenv>=1.0.0 \
+    jinja2>=3.1.0 \
+    sqlalchemy>=2.0.0 \
+    passlib[bcrypt]>=1.7.0 \
+    python-jose[cryptography]>=3.3.0 \
+    dropbox>=11.36.0 \
+    Pillow>=10.1.0 \
+    diffusers>=0.24.0
+
+# Copy application code
+COPY sisi_lola_api /app/sisi_lola_api
+COPY ml_training /app/ml_training
+
+# Set environment
+ENV PYTHONPATH=/app
+ENV HF_HOME=/cache/huggingface
+ENV TTS_HOME=/cache/tts
+
+# Create cache directories
+RUN mkdir -p /cache/huggingface /cache/tts /data
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD curl -f http://localhost:8000/health || exit 1
+
+# Default command
+CMD ["uvicorn", "sisi_lola_api.app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# Stage 4: Full (Training + Inference)
+# ═══════════════════════════════════════════════════════════════════════════════
+FROM training AS full
+
+# Copy all application code
+COPY . /app
+
+# Set environment
+ENV PYTHONPATH=/app
+ENV HF_HOME=/cache/huggingface
+ENV TTS_HOME=/cache/tts
+
+# Create directories
+RUN mkdir -p /cache/huggingface /cache/tts /data /checkpoints
+
+# Default to training mode
+CMD ["python", "ml_training/scripts/train_unified.py"]

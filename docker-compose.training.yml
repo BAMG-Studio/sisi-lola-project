@@ -1,0 +1,127 @@
+# Docker Compose for Sisi Lola Training Infrastructure
+# Usage: docker-compose -f docker-compose.training.yml up
+
+version: '3.8'
+
+services:
+  # ═══════════════════════════════════════════════════════════════════════════
+  # TRAINING SERVICE (GPU Required)
+  # ═══════════════════════════════════════════════════════════════════════════
+  training:
+    build:
+      context: .
+      dockerfile: Dockerfile.training
+      target: training
+    image: sisilola/training:latest
+    container_name: sisi-lola-training
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - CUDA_VISIBLE_DEVICES=0
+      - HF_TOKEN=${HF_TOKEN}
+      - WANDB_API_KEY=${WANDB_API_KEY}
+      - MODAL_TOKEN_ID=${MODAL_TOKEN_ID}
+      - MODAL_TOKEN_SECRET=${MODAL_TOKEN_SECRET}
+    volumes:
+      - ./ml_training:/app/ml_training
+      - ./checkpoints:/checkpoints
+      - ./data:/data
+      - huggingface_cache:/cache/huggingface
+      - tts_cache:/cache/tts
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    command: ["python", "ml_training/scripts/train_unified.py", "--config", "ml_training/configs/training_config.yaml"]
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # INGESTION SERVICE (Runs Nightly)
+  # ═══════════════════════════════════════════════════════════════════════════
+  ingestion:
+    build:
+      context: .
+      dockerfile: Dockerfile.training
+      target: base
+    image: sisilola/ingestion:latest
+    container_name: sisi-lola-ingestion
+    environment:
+      - YOUTUBE_API_KEY=${YOUTUBE_API_KEY}
+      - TWITTER_BEARER_TOKEN=${TWITTER_BEARER_TOKEN}
+      - HF_TOKEN=${HF_TOKEN}
+    volumes:
+      - ./ml_training:/app/ml_training
+      - ./data:/data
+      - ingestion_data:/app/ml_training/data
+    command: ["python", "ml_training/scripts/nightly_ingestion.py", "--sources", "all", "--max-items", "100"]
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # METRICS DASHBOARD
+  # ═══════════════════════════════════════════════════════════════════════════
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile.training
+      target: inference
+    image: sisilola/dashboard:latest
+    container_name: sisi-lola-dashboard
+    ports:
+      - "8501:8501"
+    environment:
+      - DATABASE_URL=sqlite:///data/metrics.db
+    volumes:
+      - ./data:/data
+      - ./ml_training:/app/ml_training
+    command: ["streamlit", "run", "ml_training/scripts/metrics_dashboard.py", "--server.port", "8501"]
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # DVC REMOTE STORAGE (MinIO - S3 Compatible)
+  # ═══════════════════════════════════════════════════════════════════════════
+  minio:
+    image: minio/minio:latest
+    container_name: sisi-lola-minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER:-sisilola}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD:-sisilola123}
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # MLFLOW TRACKING SERVER
+  # ═══════════════════════════════════════════════════════════════════════════
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.9.0
+    container_name: sisi-lola-mlflow
+    ports:
+      - "5000:5000"
+    environment:
+      - MLFLOW_S3_ENDPOINT_URL=http://minio:9000
+      - AWS_ACCESS_KEY_ID=${MINIO_ROOT_USER:-sisilola}
+      - AWS_SECRET_ACCESS_KEY=${MINIO_ROOT_PASSWORD:-sisilola123}
+    volumes:
+      - mlflow_data:/mlflow
+    command: >
+      mlflow server
+      --backend-store-uri sqlite:///mlflow/mlflow.db
+      --default-artifact-root s3://mlflow-artifacts/
+      --host 0.0.0.0
+      --port 5000
+    depends_on:
+      - minio
+
+volumes:
+  huggingface_cache:
+  tts_cache:
+  ingestion_data:
+  minio_data:
+  mlflow_data:
+
+networks:
+  default:
+    name: sisi-lola-network
