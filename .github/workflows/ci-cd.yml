@@ -6,17 +6,21 @@ on:
   pull_request:
     branches: [main]
 
+env:
+  PYTHON_VERSION: "3.11"
+
 jobs:
   test:
     runs-on: ubuntu-latest
-
+    
     steps:
       - uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
 
       - name: Install dependencies
         run: |
@@ -24,6 +28,12 @@ jobs:
           pip install -r sisi_lola_api/requirements.txt
           pip install -r sisi_lola_api/requirements_control_center.txt
           pip install -r sisi_lola_api/requirements_test.txt
+
+      - name: Validate new services
+        run: |
+          python -c "from sisi_lola_api.app.services import *; print('✅ All services imported successfully')"
+        env:
+          PYTHONPATH: .
 
       - name: Run tests
         run: |
@@ -39,10 +49,11 @@ jobs:
           file: ./sisi_lola_api/coverage.xml
           fail_ci_if_error: false
 
-  deploy:
+  deploy-modal:
     needs: test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
+    continue-on-error: true  # Don't fail pipeline if Modal deploy fails
 
     steps:
       - uses: actions/checkout@v4
@@ -50,21 +61,75 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
 
       - name: Install Modal
         run: pip install modal
 
-      - name: Deploy to Modal (Cached Production)
+      - name: Deploy to Modal (Backup Brain)
         env:
           MODAL_TOKEN_ID: ${{ secrets.MODAL_TOKEN_ID }}
           MODAL_TOKEN_SECRET: ${{ secrets.MODAL_TOKEN_SECRET }}
         run: |
           if [ -z "$MODAL_TOKEN_ID" ] || [ -z "$MODAL_TOKEN_SECRET" ]; then
-            echo "⚠️ Modal tokens not found. Skipping deployment."
+            echo "⚠️ Modal tokens not configured. Skipping deployment."
             exit 0
           fi
           modal token set --token-id $MODAL_TOKEN_ID --token-secret $MODAL_TOKEN_SECRET
-          # Modal handles caching natively. The first deployment will build the image.
-          # Subsequent pushes will be lightning fast.
           modal deploy sisi_lola_api/app/services/modal_stub.py
+          echo "✅ Modal deployment successful"
+
+  deploy-replicate:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Disk Cleanup (Prevent space issues)
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/share/boost
+          df -h
+
+      - name: Install Cog
+        run: |
+          sudo curl -o /usr/local/bin/cog -L https://github.com/replicate/cog/releases/latest/download/cog_$(uname -s)_$(uname -m)
+          sudo chmod +x /usr/local/bin/cog
+          cog --version
+
+      - name: Deploy to Replicate (Supreme Producer)
+        env:
+          REPLICATE_API_TOKEN: ${{ secrets.REPLICATE_API_TOKEN }}
+        run: |
+          if [ -z "$REPLICATE_API_TOKEN" ]; then
+            echo "❌ REPLICATE_API_TOKEN not configured!"
+            echo "Please add REPLICATE_API_TOKEN to repository secrets"
+            exit 1
+          fi
+          cd replicate
+          cog login --token $REPLICATE_API_TOKEN
+          echo "🚀 Pushing to r8.im/bamg-studio/sisi-lola-producer..."
+          cog push r8.im/bamg-studio/sisi-lola-producer
+          echo "✅ Replicate deployment successful!"
+
+  notify:
+    needs: [deploy-modal, deploy-replicate]
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+      - name: Deployment Summary
+        run: |
+          echo "🎭 SISI LOLA DEPLOYMENT SUMMARY"
+          echo "================================"
+          echo "Replicate (Main): ${{ needs.deploy-replicate.result }}"
+          echo "Modal (Backup): ${{ needs.deploy-modal.result }}"
+          echo ""
+          if [ "${{ needs.deploy-replicate.result }}" == "success" ]; then
+            echo "🎉 Supreme Producer is live!"
+            echo "📺 API: https://replicate.com/bamg-studio/sisi-lola-producer"
+          fi

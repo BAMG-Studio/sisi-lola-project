@@ -1,0 +1,32 @@
+{
+  "generated": "2025-12-14T16:15:47.922605",
+  "source_transcripts": [
+    "authentic_video_001",
+    "authentic_video_002",
+    "authentic_video_003",
+    "heygen_20251126_143538",
+    "heygen_20251126_181318"
+  ],
+  "total_qa_pairs": 828,
+  "categories": {
+    "greeting": 14,
+    "identity": 46,
+    "culture": 448,
+    "food": 110,
+    "music": 32,
+    "fashion": 36,
+    "innovation": 74,
+    "motivation": 28,
+    "language": 40
+  },
+  "formats_generated": [
+    "enhanced_qa.jsonl",
+    "cohere.jsonl",
+    "openai.jsonl",
+    "alpaca.json",
+    "multiturn.jsonl",
+    "cohere_full.jsonl"
+  ],
+  "system_prompt_length": 1009,
+  "nigerian_expressions": 20
+}

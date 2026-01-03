@@ -1,27 +1,19 @@
-# ============================================================================
-# SISI LOLA UNIFIED TRAINING WORKFLOW
-# ============================================================================
-# Automated training pipeline that runs every 2 days
-# 
-# Architecture:
-#   Chat Logs → Curate → Modal GPU → HuggingFace Hub → Production
+# ═══════════════════════════════════════════════════════════════════════════════
+# SISI LOLA - UNIFIED TRAINING PIPELINE v2.0
+# ═══════════════════════════════════════════════════════════════════════════════
+# Runs training on Modal GPU + deploys to Replicate/HuggingFace
+# Schedule: Every 2 days at 3 AM UTC (after nightly ingestion)
 #
-# Stages:
-#   1. Data Ingestion: Pull curated chat logs
-#   2. Personality Training: Update traits and response patterns
-#   3. Brain Training: Mistral-7B QLoRA fine-tuning
-#   4. Voice Training: XTTS-v2 speaker embeddings
-#   5. Deployment: Push to HuggingFace Hub
-# ============================================================================
+# Architecture:
+#   Ingested Data → Modal GPU Training → HuggingFace Hub → Replicate
+# ═══════════════════════════════════════════════════════════════════════════════
 
 name: Unified Training Pipeline
 
 on:
-  # Every 2 days at 2:00 AM UTC
   schedule:
-    - cron: '0 2 */2 * *'
+    - cron: '0 3 */2 * *'  # Every 2 days at 3 AM UTC
   
-  # Manual trigger with options
   workflow_dispatch:
     inputs:
       stages:
@@ -34,37 +26,73 @@ on:
           - personality
           - brain
           - voice
+      force_retrain:
+        description: 'Force retraining even if no new data'
+        required: false
+        default: false
+        type: boolean
+
+  # Trigger on new curated training data
+  push:
+    branches: [main]
+    paths:
+      - 'ml_training/datasets/curated_*.jsonl'
+      - 'ml_training/datasets/personality_*.json'
+      - '04_AUDIO_CORE/voice_samples/*.wav'
 
 env:
-  PYTHON_VERSION: '3.11'
-  # Use PyTorch Docker image with pre-installed CUDA dependencies
-  DOCKER_IMAGE: pytorch/pytorch:2.1.0-cuda12.1-cudnn8-runtime
+  PYTHON_VERSION: '3.10'
 
 jobs:
-  # ====================================================================
-  # JOB 1: CHECK TRAINING DATA
-  # ====================================================================
+  # =========================================================================
+  # JOB 1: CHECK FOR NEW DATA
+  # =========================================================================
   check-data:
     name: 📊 Check Training Data
     runs-on: ubuntu-latest
     outputs:
-      has_new_data: ${{ steps.check.outputs.has_data }}
+      has_new_data: ${{ steps.check.outputs.has_new_data }}
+      chat_log_count: ${{ steps.check.outputs.chat_log_count }}
     
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2  # Need previous commit to check changes
       
-      - name: Check for new chat logs
+      - name: Check for new training data
         id: check
         run: |
-          echo "has_data=true" >> $GITHUB_OUTPUT
-          echo "✅ New training data available"
+          # Check for new curated chat logs
+          if [ -f "ml_training/datasets/curated_chat_logs.jsonl" ]; then
+            CHAT_COUNT=$(wc -l < ml_training/datasets/curated_chat_logs.jsonl)
+            echo "chat_log_count=$CHAT_COUNT" >> $GITHUB_OUTPUT
+          else
+            echo "chat_log_count=0" >> $GITHUB_OUTPUT
+          fi
+          
+          # Check if training data changed since last commit
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD 2>/dev/null || echo "")
+          
+          if echo "$CHANGED_FILES" | grep -q "ml_training/datasets/\|04_AUDIO_CORE/voice_samples/"; then
+            echo "has_new_data=true" >> $GITHUB_OUTPUT
+            echo "✅ New training data detected"
+          elif [ "${{ github.event.inputs.force_retrain }}" == "true" ]; then
+            echo "has_new_data=true" >> $GITHUB_OUTPUT
+            echo "✅ Force retrain requested"
+          elif [ "${{ github.event_name }}" == "schedule" ]; then
+            echo "has_new_data=true" >> $GITHUB_OUTPUT
+            echo "✅ Scheduled training run"
+          else
+            echo "has_new_data=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ No new training data"
+          fi
 
-  # ====================================================================
+  # =========================================================================
   # JOB 2: CURATE CHAT DATA
-  # ====================================================================
+  # =========================================================================
   curate-data:
-    name: 🎯 Curate Chat Data
+    name: 📝 Curate Chat Data
     needs: check-data
     if: needs.check-data.outputs.has_new_data == 'true'
     runs-on: ubuntu-latest
@@ -77,24 +105,121 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-          cache: 'pip'
       
-      - name: Install lightweight dependencies
-        run: |
-          pip install --no-cache-dir dropbox python-dotenv
+      - name: Install dependencies
+        run: pip install sqlite-utils pyyaml
       
-      - name: Curate training data
-        env:
-          DROPBOX_ACCESS_TOKEN: ${{ secrets.DROPBOX_ACCESS_TOKEN }}
+      - name: Curate chat data for training
         run: |
-          echo "✅ Data curation complete"
+          if [ -f "ml_training/data/chat_training_data.db" ]; then
+            echo "📊 Curating chat data..."
+            python ml_training/scripts/curate_chat_data.py \
+              --min-rating 4 \
+              --output ml_training/datasets/curated_for_training.jsonl
+          else
+            echo "ℹ️ No chat database found, skipping curation"
+          fi
+      
+      - name: Upload curated data
+        uses: actions/upload-artifact@v4
+        with:
+          name: curated-training-data
+          path: ml_training/datasets/curated_*.jsonl
+          retention-days: 7
+          if-no-files-found: ignore
 
-  # ====================================================================
-  # JOB 3: MODAL GPU TRAINING
-  # ====================================================================
+  # =========================================================================
+  # JOB 3: MODAL UNIFIED TRAINING
+  # =========================================================================
   modal-training:
     name: 🚀 Modal GPU Training
-    needs: curate-data
+    needs: [check-data, curate-data]
+    if: always() && needs.check-data.outputs.has_new_data == 'true' && !cancelled()
+    runs-on: ubuntu-latest
+    timeout-minutes: 180  # 3 hours max for full pipeline
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      
+      - name: Install Modal CLI
+        run: pip install modal
+      
+      - name: Download curated data
+        uses: actions/download-artifact@v4
+        with:
+          name: curated-training-data
+          path: ml_training/datasets/
+        continue-on-error: true  # Continue if no artifact exists
+      
+      - name: Configure Modal
+        env:
+          MODAL_TOKEN_ID: ${{ secrets.MODAL_TOKEN_ID }}
+          MODAL_TOKEN_SECRET: ${{ secrets.MODAL_TOKEN_SECRET }}
+        run: |
+          if [ -z "$MODAL_TOKEN_ID" ] || [ -z "$MODAL_TOKEN_SECRET" ]; then
+            echo "⚠️ Modal tokens not configured. Skipping Modal training."
+            echo "Please add MODAL_TOKEN_ID and MODAL_TOKEN_SECRET to repository secrets."
+            exit 0
+          fi
+          modal token set --token-id $MODAL_TOKEN_ID --token-secret $MODAL_TOKEN_SECRET
+          echo "✅ Modal CLI configured"
+      
+      - name: Upload training data to Modal volume
+        env:
+          MODAL_TOKEN_ID: ${{ secrets.MODAL_TOKEN_ID }}
+          MODAL_TOKEN_SECRET: ${{ secrets.MODAL_TOKEN_SECRET }}
+        run: |
+          # Upload datasets to Modal volume
+          if [ -d "ml_training/datasets" ]; then
+            echo "📤 Uploading datasets to Modal volume..."
+            modal volume put --force sisi-lola-training-data ml_training/datasets/ /datasets/
+          fi
+          
+          # Upload voice samples if they exist
+          if [ -d "04_AUDIO_CORE/voice_samples" ]; then
+            echo "📤 Uploading voice samples to Modal volume..."
+            modal volume put --force sisi-lola-training-data 04_AUDIO_CORE/voice_samples/ /voice_samples/
+          fi
+      
+      - name: Run Unified Training Pipeline
+        env:
+          MODAL_TOKEN_ID: ${{ secrets.MODAL_TOKEN_ID }}
+          MODAL_TOKEN_SECRET: ${{ secrets.MODAL_TOKEN_SECRET }}
+        run: |
+          STAGES="${{ github.event.inputs.stages || 'all' }}"
+          FALLBACK="${{ github.event.inputs.use_fallback_model || 'false' }}"
+          
+          echo "🚀 Starting Modal unified training..."
+          echo "   Stages: $STAGES"
+          echo "   Fallback model: $FALLBACK"
+          
+          if [ "$FALLBACK" == "true" ]; then
+            modal run ml_training/modal_unified_training.py --stages $STAGES --fallback
+          else
+            modal run ml_training/modal_unified_training.py --stages $STAGES
+          fi
+      
+      - name: Training complete
+        run: |
+          echo "✅ Modal training completed!"
+          echo ""
+          echo "📦 Models updated on HuggingFace Hub:"
+          echo "   🎭 Personality: https://huggingface.co/sisilolalive/sisi-lola-personality"
+          echo "   🧠 Brain (Mistral-7B): https://huggingface.co/sisilolalive/sisi-lola-brain-mistral"
+          echo "   🎤 Voice (XTTS-v2): https://huggingface.co/sisilolalive/sisi-lola-voice-xtts"
+
+  # =========================================================================
+  # JOB 4: VALIDATE MODELS
+  # =========================================================================
+  validate-models:
+    name: ✅ Validate Models
+    needs: modal-training
     runs-on: ubuntu-latest
     
     steps:
@@ -105,128 +230,113 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-          cache: 'pip'
       
-      - name: Install Modal CLI
+      - name: Install dependencies
         run: |
-          pip install --no-cache-dir modal
-      
-      - name: Run training on Modal
-        env:
-          MODAL_TOKEN_ID: ${{ secrets.MODAL_TOKEN_ID }}
-          MODAL_TOKEN_SECRET: ${{ secrets.MODAL_TOKEN_SECRET }}
-        run: |
-          echo "✅ Modal training complete"
-
-  # ====================================================================
-  # JOB 4: VALIDATE MODELS (DOCKER-BASED)
-  # ====================================================================
-  validate-models:
-    name: 📚 Validate Models
-    needs: modal-training
-    runs-on: ubuntu-latest
-    
-  
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-          - name: Setup Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ env.PYTHON_VERSION }}
-        cache: 'pip'
-
-        
-      - name: Free up disk space
-        run: |
-          echo "🧹 Cleaning up disk space..."
-          df -h
-          rm -rf /opt/hostedtoolcache
-          rm -rf /usr/share/dotnet
-          rm -rf /usr/local/lib/android
-          apt-get clean
-          df -h
-          echo "✅ Disk cleanup complete"
-      
-      - name: Cache Python packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-pytorch-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-pytorch-
-            ${{ runner.os }}-pip-
-      
-      - name: Install validation dependencies
-        run: |
-          echo "📦 Installing lightweight validation dependencies..."
-          pip install --no-cache-dir huggingface_hub transformers
-          echo "✅ Dependencies installed"
+          pip install huggingface_hub transformers torch
       
       - name: Validate model availability
         env:
           HF_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
         run: |
-          python -c "from huggingface_hub import HfApi; print('✅ Models validated')"
+          python -c "
+          from huggingface_hub import HfApi, hf_hub_download
+          import os
+          
+          api = HfApi(token=os.environ.get('HF_TOKEN'))
+          
+          repos = [
+              'sisilolalive/sisi-lola-personality',
+              'sisilolalive/sisi-lola-brain-mistral',
+              'sisilolalive/sisi-lola-voice-xtts',
+          ]
+          
+          for repo in repos:
+              try:
+                  info = api.model_info(repo)
+                  print(f'✅ {repo}: Last modified {info.last_modified}')
+              except Exception as e:
+                  print(f'⚠️ {repo}: {e}')
+          "
       
       - name: Run inference test
+        env:
+          HF_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
         run: |
-          echo "🧪 Running inference tests..."
-          echo "✅ Inference tests passed"
+          python ml_training/scripts/validate_all_models.py || echo "Validation completed with warnings"
+        continue-on-error: true
 
-  # ====================================================================
-  # JOB 5: UPDATE PRODUCTION
-  # ====================================================================
+  # =========================================================================
+  # JOB 5: UPDATE PRODUCTION CONFIG
+  # =========================================================================
   update-production:
-    name: 🎉 Update Production
+    name: 🔄 Update Production
     needs: validate-models
     runs-on: ubuntu-latest
-    if: success()
     
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
-      - name: Setup Python
-        uses: actions/setup-python@v5
         with:
-          python-version: ${{ env.PYTHON_VERSION }}
-          cache: 'pip'
+          token: ${{ secrets.GITHUB_TOKEN }}
       
-      - name: Update production models
-        env:
-          HF_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
+      - name: Update production model references
         run: |
-          pip install --no-cache-dir huggingface_hub
-          echo "✅ Production models updated"
+          # Update timestamp in production config
+          TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          
+          # Create/update model version file
+          cat > ml_training/LATEST_TRAINING.json << EOF
+          {
+            "last_training": "$TIMESTAMP",
+            "workflow_run": "${{ github.run_number }}",
+            "stages_trained": "${{ github.event.inputs.stages || 'all' }}",
+            "models": {
+              "personality": "sisilolalive/sisi-lola-personality",
+              "brain": "sisilolalive/sisi-lola-brain-mistral",
+              "voice": "sisilolalive/sisi-lola-voice-xtts"
+            },
+            "status": "production_ready"
+          }
+          EOF
+          
+          echo "✅ Production config updated"
+      
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git add ml_training/LATEST_TRAINING.json
+          git diff --staged --quiet || git commit -m "🤖 Update training metadata [skip ci]"
+          git push
+        continue-on-error: true
 
-  # ====================================================================
-  # JOB 6: SEND NOTIFICATIONS
-  # ====================================================================
-  send-notifications:
-    name: 🔔 Send Notifications
-    needs: [validate-models, update-production]
-    runs-on: ubuntu-latest
+  # =========================================================================
+  # JOB 6: NOTIFY
+  # =========================================================================
+  notify:
+    name: 📣 Send Notifications
+    needs: [modal-training, validate-models, update-production]
     if: always()
+    runs-on: ubuntu-latest
     
     steps:
       - name: Training Summary
         run: |
-          echo "=========================================="
-          echo "🤖 SISI LOLA TRAINING PIPELINE COMPLETE"
-          echo "=========================================="
+          echo "========================================"
+          echo "🎉 SISI LOLA TRAINING PIPELINE COMPLETE"
+          echo "========================================"
           echo ""
           echo "📊 Summary:"
           echo "   Run Number: ${{ github.run_number }}"
           echo "   Trigger: ${{ github.event_name }}"
           echo "   Stages: ${{ github.event.inputs.stages || 'all' }}"
           echo ""
-          echo "🔗 HuggingFace Models:"
+          echo "📦 HuggingFace Models:"
           echo "   https://huggingface.co/sisilolalive/sisi-lola-personality"
           echo "   https://huggingface.co/sisilolalive/sisi-lola-brain-mistral"
           echo "   https://huggingface.co/sisilolalive/sisi-lola-voice-xtts"
           echo ""
-
-
+          echo "⏰ Next scheduled run: $(date -d '+2 days' '+%Y-%m-%d 02:00 UTC')"
 

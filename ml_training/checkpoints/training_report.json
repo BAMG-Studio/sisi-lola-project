@@ -1,0 +1,15 @@
+{
+  "timestamp": "2025-12-10 03:37:07",
+  "results": {
+    "brain": {
+      "status": "success",
+      "path": "ml_training\\checkpoints\\natlas_lora",
+      "model": "gpt2"
+    },
+    "voice": {
+      "status": "success",
+      "path": "ml_training\\checkpoints\\nigerian_voice"
+    }
+  },
+  "output_dir": "ml_training\\checkpoints"
+}

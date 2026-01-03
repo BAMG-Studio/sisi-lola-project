@@ -1,0 +1,21 @@
+{
+  "created_at": "2025-12-14T15:52:41.794021",
+  "total_transcripts": 5,
+  "total_words": 3115,
+  "total_sentences": 342,
+  "total_qa_pairs": 64,
+  "sources": [
+    "authentic_video_001",
+    "authentic_video_002",
+    "authentic_video_003",
+    "heygen_20251126_143538",
+    "heygen_20251126_181318"
+  ],
+  "files_generated": [
+    "sisi_lola_combined.txt",
+    "sisi_lola_sentences.jsonl",
+    "sisi_lola_qa_pairs.jsonl",
+    "sisi_lola_conversations.jsonl",
+    "nigerian_expressions.txt"
+  ]
+}

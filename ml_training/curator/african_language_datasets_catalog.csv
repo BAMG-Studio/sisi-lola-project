@@ -1,0 +1,15 @@
+Dataset_Name,Languages,Duration_Hours,Speakers,Format,Sample_Rate,License,Download_URL,Size_GB,Quality_Tier,Commercial_Ready
+BibleTTS,Hausa;Yoruba;Ewe;Twi;Lingala,365.3,40+,FLAC,48000,CC-BY-SA-4.0,http://www.openslr.org/129/,91,Studio,Yes
+NaijaVoices,Igbo;Hausa;Yoruba,1800,5000+,Audio,Various,Research,https://huggingface.co/datasets/naijavoices/naijavoices-dataset,84,Crowdsourced,Check
+Mozilla_Common_Voice_Pidgin,Nigerian_Pidgin,15,57,MP3,Various,CC0-1.0,https://datacollective.mozillafoundation.org,0.3,Crowdsourced,Yes
+Nigerian_Pidgin_ASR,Nigerian_Pidgin,4.8,10,WAV,16000,Research,https://huggingface.co/datasets/asr-nigerian-pidgin/nigerian-pidgin-1.0,0.96,Crowdsourced,No
+OpenSLR_32,Xhosa;Zulu;Afrikaans;Setswana;Sesotho,20+,Multiple,WAV,16000,CC-BY-SA-4.0,http://www.openslr.org/32/,Varies,Studio,Yes
+OpenSLR_86_Yoruba,Yoruba,12,Multiple,WAV,Various,CC-BY-SA-4.0,http://www.openslr.org/86/,0.9,Crowdsourced,Yes
+Luganda_Swahili_TTS,Luganda;Swahili,34,12,WAV,16000,CC-BY-4.0,https://data.mendeley.com/datasets/nb8b25h9nj/3,Varies,Filtered,Yes
+AfriSpeech_200,African_English_120_accents,200,1200+,WAV,16000,Apache-2.0,https://huggingface.co/datasets/intronhealth/afrispeech-200,Varies,Research,Yes
+FLEURS,Yoruba;Swahili;Zulu;Xhosa;+16_more,20+,Multiple,Audio,16000,CC-BY-4.0,https://huggingface.co/datasets/google/fleurs,Varies,Research,Yes
+Yoruba_LJSpeech,Yoruba,100+,1,FLAC,22050,CC-BY-SA-4.0,https://huggingface.co/datasets/Abdullah804/yoruba-ljspeech,10,Studio,Yes
+Rexe_Nigerian_Pidgin,Nigerian_Pidgin,5,10,WAV,22050,MIT,https://huggingface.co/datasets/Rexe/nigerian-pidgin-speech,0.5,Crowdsourced,Yes
+YoruLect,Yoruba,50+,Multiple,WAV,22050,CC-BY-4.0,https://huggingface.co/datasets/yorulect,5,Filtered,Yes
+IroyinSpeech,Yoruba,30,10,WAV,22050,CC-BY-4.0,https://huggingface.co/datasets/iroyinspeech,3,Studio,Yes
+Hausa_Speech_Corpus,Hausa,20,15,WAV,16000,CC-BY-SA-4.0,http://www.openslr.org/hausa,2,Crowdsourced,Yes

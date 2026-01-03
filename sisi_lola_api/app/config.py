@@ -151,10 +151,96 @@ NEVER BREAK CHARACTER. You be real Lagos babe, no be AI assistant!!"""
     IMAGE_MODEL = IMAGEN_4
     VIDEO_MODEL = VEO_3_1
     MUSIC_MODEL = LYRIA_REALTIME
-    MUSIC_MODEL = LYRIA_REALTIME
+
+    # ============================================
+    # REPLICATE MULTI-MODEL STRATEGY
+    # ============================================
+    
+    # Character Consistency - SEED 45822 Enforcement
+    CHARACTER_SEED = 45822
+    DNA_REFERENCE_MODEL = "bamg-studio/sisi-lola-dna-reference"
+    
+    # Content Production Models (Use Case 1)
+    REPLICATE_MODELS = {
+        # Primary Production Pipeline
+        "supreme_producer": "r8.im/bamg-studio/sisi-lola-producer",
+        
+        # Multi-Vibe Content Categories
+        "tech_review": "r8.im/bamg-studio/sisi-lola-tech-review",
+        "cultural": "r8.im/bamg-studio/sisi-lola-cultural",
+        "entertainment": "r8.im/bamg-studio/sisi-lola-entertainment",
+        
+        # Lip-Sync Models
+        "wav2lip": "devxpy/cog-wav2lip:8d65e3f4f4298520e079198b493c25adfc43c058ffec924f2aefc8010ed25eef",
+        "omnihuman": "tencentarc/omnihuman",  # Premium alternative
+        
+        # Voice Models (Nigerian Accent TTS)
+        "xtts_v2": "lucataco/xtts-v2:684bc3855b37866c0c65add2ff39c78f3dea3f4ff103a436465326e0f438d55e",
+        "yoruba_tts": "r8.im/bamg-studio/yoruba-tts-v1",  # Custom trained
+        
+        # Background/Environment Generation
+        "stability_sdxl": "stability-ai/sdxl:7762fd07cf82c948538e41f63f77d685e02b063e37e496e96eefd46c929f9bdc",
+        "flux_pro": "black-forest-labs/flux-1.1-pro",
+        
+        # Image Enhancement
+        "real_esrgan": "nightmareai/real-esrgan:f121d640bd286e1fdc67f9799164c1d5be36ff74576ee11c803ae5b665dd46aa",
+    }
+    
+    # Life OS Models (Use Case 2: Immigration + Family)
+    LIFE_OS_MODELS = {
+        # Immigration Super-Lawyer
+        "doc_analyzer": "r8.im/bamg-studio/immigration-doc-analyzer",
+        "case_predictor": "r8.im/bamg-studio/immigration-outcome-predictor",
+        "uscis_monitor": "r8.im/bamg-studio/uscis-monitor",
+        "policy_tracker": "r8.im/bamg-studio/policy-tracker",
+        
+        # Multilingual Services
+        "naija_translator": "r8.im/bamg-studio/naija-translator",
+        "pidgin_stt": "r8.im/bamg-studio/pidgin-stt",
+        "yoruba_translator": "r8.im/bamg-studio/yoruba-translator",
+        
+        # Spiritual & Cultural
+        "prayer_generator": "r8.im/bamg-studio/prayer-generator",
+        "dream_interpreter": "r8.im/bamg-studio/dream-interpreter",
+        "quran_coach": "r8.im/bamg-studio/quran-hifz-coach",
+        
+        # Content Creator Toolkit
+        "content_generator": "r8.im/bamg-studio/content-generator",
+        "trend_localizer": "r8.im/bamg-studio/trend-localizer",
+        "content_planner": "r8.im/bamg-studio/content-planner",
+    }
+    
+    # Virtual Environments (Background Libraries)
+    VIRTUAL_ENVIRONMENTS = {
+        "lounge_lagos": "Floating luxury pod with futuristic Lagos skyline",
+        "the_void": "Infinite black space for product focus",
+        "cyber_market": "Lagos street scenes with holographic overlays",
+        "beach_resort": "Relaxed Nigerian beach setting",
+        "afro_corporate": "Modern office with African art and tech aesthetic",
+        "nsppd_temple": "Spiritual warfare atmosphere with divine lighting",
+    }
+    
+    # Accent & Voice Modes
+    VOICE_MODES = {
+        "formal_international": "BBC Standard English",
+        "nigerian_pidgin": "Yorunglish variants (Pidgin + Yoruba mix)",
+        "yoruba_native": "Full Yoruba language",
+        "code_switching": "Dynamic accent adaptation based on context",
+    }
+    
+    # Cost Optimization Settings
+    REPLICATE_CONFIG = {
+        "cache_dna_images": True,
+        "cache_backgrounds": True,
+        "cache_common_phrases": True,
+        "batch_processing": True,
+        "max_batch_size": 100,
+        "webhook_enabled": True,
+        "regional_routing": "auto",  # Use cheaper regions for non-urgent tasks
+    }
 
 # ============================================
-# MODAL INFERENCE SERVICE - OPTIMIZED
+# MODAL INFERENCE SERVICE - OPTIMIZED (BACKUP)
 # ============================================
 
 # NEW SUPREME API - Full FastAPI app on Modal
@@ -165,3 +251,12 @@ MODAL_HEALTH_URL = f"{MODAL_SUPREME_API_URL}/api/health"
 # Modal inference configuration
 MODAL_TIMEOUT = 30  # seconds
 MODAL_MAX_RETRIES = 3
+
+# ============================================
+# REPLICATE INFERENCE SERVICE - PRIMARY
+# ============================================
+
+REPLICATE_SUPREME_API_URL = "https://api.replicate.com/v1"
+REPLICATE_MODEL_URL = "r8.im/bamg-studio/sisi-lola-producer"
+REPLICATE_TIMEOUT = 120  # Video generation takes longer
+REPLICATE_MAX_RETRIES = 2

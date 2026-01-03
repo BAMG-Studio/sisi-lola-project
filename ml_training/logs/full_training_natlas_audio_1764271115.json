@@ -1,0 +1,94 @@
+{
+    "changed": true,
+    "failed": true,
+    "msg": "One or more items failed",
+    "results": [
+        {
+            "ansible_loop_var": "item",
+            "changed": true,
+            "cmd": [
+                "python",
+                "/mnt/c/Users/POK28/Dropbox/Sisi_Lola/ansible/playbooks/../..//ml_training/scripts/validate_model.py",
+                "--model",
+                "natlas_audio",
+                "--checkpoint",
+                "/mnt/c/Users/POK28/Dropbox/Sisi_Lola/ansible/playbooks/../..//ml_training/checkpoints/natlas_audio/production"
+            ],
+            "delta": "0:00:00.094666",
+            "end": "2025-11-27 13:20:12.027500",
+            "failed": true,
+            "invocation": {
+                "module_args": {
+                    "_raw_params": "python /mnt/c/Users/POK28/Dropbox/Sisi_Lola/ansible/playbooks/../..//ml_training/scripts/validate_model.py --model natlas_audio --checkpoint /mnt/c/Users/POK28/Dropbox/Sisi_Lola/ansible/playbooks/../..//ml_training/checkpoints/natlas_audio/production\n",
+                    "_uses_shell": false,
+                    "argv": null,
+                    "chdir": null,
+                    "creates": null,
+                    "executable": null,
+                    "expand_argument_vars": true,
+                    "removes": null,
+                    "stdin": null,
+                    "stdin_add_newline": true,
+                    "strip_empty_ends": true
+                }
+            },
+            "item": {
+                "key": "natlas_audio",
+                "value": {
+                    "dataset_path": "04_AUDIO_CORE/01_Voice_Samples",
+                    "model_id": "NCAIR1/N-ATLaS",
+                    "name": "N-ATLaS Audio Generation",
+                    "retrain_triggers": [
+                        {
+                            "cron": "0 2 * * 0",
+                            "type": "schedule"
+                        },
+                        {
+                            "new_samples": 100,
+                            "type": "data_threshold"
+                        },
+                        {
+                            "metric": "accuracy",
+                            "threshold": 0.85,
+                            "type": "performance_drop"
+                        }
+                    ],
+                    "training_phases": [
+                        {
+                            "epochs": 10,
+                            "phase": "foundation",
+                            "priority": 1,
+                            "samples_required": 100
+                        },
+                        {
+                            "epochs": 20,
+                            "phase": "refinement",
+                            "priority": 2,
+                            "samples_required": 500
+                        },
+                        {
+                            "epochs": 50,
+                            "phase": "production",
+                            "priority": 3,
+                            "samples_required": 1000
+                        }
+                    ],
+                    "type": "audio"
+                }
+            },
+            "msg": "non-zero return code",
+            "rc": 1,
+            "start": "2025-11-27 13:20:11.932834",
+            "stderr": "",
+            "stderr_lines": [],
+            "stdout": "============================================================\nVALIDATING: natlas_audio\n============================================================\nError: Checkpoint not found: /mnt/c/Users/POK28/Dropbox/Sisi_Lola/ansible/playbooks/../..//ml_training/checkpoints/natlas_audio/production",
+            "stdout_lines": [
+                "============================================================",
+                "VALIDATING: natlas_audio",
+                "============================================================",
+                "Error: Checkpoint not found: /mnt/c/Users/POK28/Dropbox/Sisi_Lola/ansible/playbooks/../..//ml_training/checkpoints/natlas_audio/production"
+            ]
+        }
+    ],
+    "skipped": false
+}

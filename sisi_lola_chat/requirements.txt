@@ -1,12 +1,13 @@
 # Sisi Lola Enhanced Chat Requirements
 # For interactive chat with multiple voice and model options
 
-# Core
-openai>=1.0.0
+# Core Framework
+streamlit>=1.28.0       # Main dashboard framework
 python-dotenv>=1.0.0
 requests>=2.28.0
 
-# Multiple LLM Backends
+# LLM Backends
+openai>=1.0.0
 cohere>=5.0.0           # For Cohere Aya
 anthropic>=0.18.0       # For Claude (optional)
 
@@ -21,6 +22,9 @@ torch>=2.0.0
 torchaudio>=2.0.0
 transformers>=4.30.0
 soundfile>=0.12.0
+
+# Data management
+pyyaml>=6.0.0           # YAML config files
 
 # Audio playback (optional)
 # playsound>=1.3.0  # Cross-platform audio playback

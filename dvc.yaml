@@ -1,0 +1,68 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# 🇳🇬 SISI LOLA DVC PIPELINE CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════════
+# Data Version Control pipeline for tracking datasets and model artifacts
+
+stages:
+  # =============================================================================
+  # DATA INGESTION STAGE
+  # =============================================================================
+  ingest_youtube:
+    cmd: python 01_DATA_INGESTION/youtube_smart_scraper.py
+    deps:
+      - 01_DATA_INGESTION/youtube_smart_scraper.py
+    params:
+      - params.yaml:ingestion.youtube
+    outs:
+      - data/raw/youtube/:
+          cache: true
+          persist: true
+
+  # =============================================================================
+  # AUDIO PROCESSING STAGE
+  # =============================================================================
+  process_audio:
+    cmd: python 02_ADVANCED_AUDIO_PROCESSOR/audio_pipeline.py
+    deps:
+      - 02_ADVANCED_AUDIO_PROCESSOR/audio_pipeline.py
+      - data/raw/youtube/
+    params:
+      - params.yaml:audio
+    outs:
+      - data/processed/audio/:
+          cache: true
+
+  # =============================================================================
+  # VOICE TRAINING STAGE
+  # =============================================================================
+  train_voice:
+    cmd: python 04_SPEECH_TO_SPEECH_TRAINER/voice_training_pipeline.py
+    deps:
+      - 04_SPEECH_TO_SPEECH_TRAINER/voice_training_pipeline.py
+      - data/processed/audio/
+    params:
+      - params.yaml:training.voice
+    outs:
+      - models/voice/:
+          cache: true
+          persist: true
+
+  # =============================================================================
+  # BRAIN TRAINING STAGE
+  # =============================================================================
+  train_brain:
+    cmd: python ml_training/train_brain.py
+    deps:
+      - ml_training/train_brain.py
+      - data/processed/transcripts/
+    params:
+      - params.yaml:training.brain
+    outs:
+      - models/brain/:
+          cache: true
+          persist: true
+
+# =============================================================================
+# PIPELINE PARAMETERS
+# =============================================================================
+# Define in params.yaml for easy configuration

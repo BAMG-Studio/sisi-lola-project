@@ -1,0 +1,67 @@
+nohup: ignoring input
+🚀 Starting batch run (17 jobs)
+
+[1] Skipping AVT-REF-0001 (image) - Already exists at /mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/AVT-REF-0001_image.png
+
+[2] Skipping AVT-REF-0002 (image) - Already exists at /mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/AVT-REF-0002_image.png
+
+[3] Skipping AVT-REF-0003 (image) - Already exists at /mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/AVT-REF-0003_image.png
+
+[4] Skipping AVT-REF-0004 (image) - Already exists at /mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/AVT-REF-0004_image.png
+
+[5] Skipping AVT-REF-0005 (image) - Already exists at /mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/AVT-REF-0005_image.png
+
+[6] Skipping ENV-STUD-0061 (image) - Already exists at /mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/ENV-STUD-0061_image.png
+
+[7] Generating ENV-STUD-0062 (image)
+   Saved media to /mnt/c/Users/POK28/Dropbox/Sisi_Lola/00_PROJECT_CORE/Scripts/batch_runs/20251123_035101/ENV-STUD-0062_image.png
+   Copied to library /mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/ENV-STUD-0062_image.png
+   HTTP 200 -> saved /mnt/c/Users/POK28/Dropbox/Sisi_Lola/00_PROJECT_CORE/Scripts/batch_runs/20251123_035101/ENV-STUD-0062_image.json
+
+[8] Generating ENV-STUD-0063 (image)
+   Saved media to /mnt/c/Users/POK28/Dropbox/Sisi_Lola/00_PROJECT_CORE/Scripts/batch_runs/20251123_035101/ENV-STUD-0063_image.png
+   Copied to library /mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/ENV-STUD-0063_image.png
+   HTTP 200 -> saved /mnt/c/Users/POK28/Dropbox/Sisi_Lola/00_PROJECT_CORE/Scripts/batch_runs/20251123_035101/ENV-STUD-0063_image.json
+
+[9] Generating ENV-STUD-0064 (image)
+   Saved media to /mnt/c/Users/POK28/Dropbox/Sisi_Lola/00_PROJECT_CORE/Scripts/batch_runs/20251123_035101/ENV-STUD-0064_image.png
+   Copied to library /mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/ENV-STUD-0064_image.png
+   HTTP 200 -> saved /mnt/c/Users/POK28/Dropbox/Sisi_Lola/00_PROJECT_CORE/Scripts/batch_runs/20251123_035101/ENV-STUD-0064_image.json
+
+[10] Generating ENV-STUD-0065 (image)
+   Saved media to /mnt/c/Users/POK28/Dropbox/Sisi_Lola/00_PROJECT_CORE/Scripts/batch_runs/20251123_035101/ENV-STUD-0065_image.png
+   Copied to library /mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/ENV-STUD-0065_image.png
+   HTTP 200 -> saved /mnt/c/Users/POK28/Dropbox/Sisi_Lola/00_PROJECT_CORE/Scripts/batch_runs/20251123_035101/ENV-STUD-0065_image.json
+
+[11] Generating BRD-LOGO2D-0202 (image)
+   Saved media to /mnt/c/Users/POK28/Dropbox/Sisi_Lola/00_PROJECT_CORE/Scripts/batch_runs/20251123_035101/BRD-LOGO2D-0202_image.png
+   Copied to library /mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/BRD-LOGO2D-0202_image.png
+   HTTP 200 -> saved /mnt/c/Users/POK28/Dropbox/Sisi_Lola/00_PROJECT_CORE/Scripts/batch_runs/20251123_035101/BRD-LOGO2D-0202_image.json
+
+[12] Generating BRD-LOGO2D-0203 (image)
+   Saved media to /mnt/c/Users/POK28/Dropbox/Sisi_Lola/00_PROJECT_CORE/Scripts/batch_runs/20251123_035101/BRD-LOGO2D-0203_image.png
+   Copied to library /mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/BRD-LOGO2D-0203_image.png
+   HTTP 200 -> saved /mnt/c/Users/POK28/Dropbox/Sisi_Lola/00_PROJECT_CORE/Scripts/batch_runs/20251123_035101/BRD-LOGO2D-0203_image.json
+
+[13] Generating AVT-OUT-0026 (image)
+   Saved media to /mnt/c/Users/POK28/Dropbox/Sisi_Lola/00_PROJECT_CORE/Scripts/batch_runs/20251123_035101/AVT-OUT-0026_image.png
+   Copied to library /mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/AVT-OUT-0026_image.png
+   HTTP 200 -> saved /mnt/c/Users/POK28/Dropbox/Sisi_Lola/00_PROJECT_CORE/Scripts/batch_runs/20251123_035101/AVT-OUT-0026_image.json
+
+[14] Generating MED-COM-0121 (video)
+   HTTP 502 -> saved /mnt/c/Users/POK28/Dropbox/Sisi_Lola/00_PROJECT_CORE/Scripts/batch_runs/20251123_035101/MED-COM-0121_video.json
+
+[15] Generating MED-IGSHT-0146 (video)
+   HTTP 502 -> saved /mnt/c/Users/POK28/Dropbox/Sisi_Lola/00_PROJECT_CORE/Scripts/batch_runs/20251123_035101/MED-IGSHT-0146_video.json
+
+[16] Generating AUD-VOICE-0171 (audio)
+   Saved audio to /mnt/c/Users/POK28/Dropbox/Sisi_Lola/00_PROJECT_CORE/Scripts/batch_runs/20251123_035101/AUD-VOICE-0171_audio.mp3
+   Copied to library /mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/AUD-VOICE-0171_audio.mp3
+   HTTP 200 -> saved /mnt/c/Users/POK28/Dropbox/Sisi_Lola/00_PROJECT_CORE/Scripts/batch_runs/20251123_035101/AUD-VOICE-0171_audio.json
+
+[17] Generating AUD-VOICE-0172 (audio)
+   Saved audio to /mnt/c/Users/POK28/Dropbox/Sisi_Lola/00_PROJECT_CORE/Scripts/batch_runs/20251123_035101/AUD-VOICE-0172_audio.mp3
+   Copied to library /mnt/c/Users/POK28/Dropbox/Sisi_Lola/assets/generated/AUD-VOICE-0172_audio.mp3
+   HTTP 200 -> saved /mnt/c/Users/POK28/Dropbox/Sisi_Lola/00_PROJECT_CORE/Scripts/batch_runs/20251123_035101/AUD-VOICE-0172_audio.json
+
+Batch complete. Summary stored under /mnt/c/Users/POK28/Dropbox/Sisi_Lola/00_PROJECT_CORE/Scripts/batch_runs/20251123_035101

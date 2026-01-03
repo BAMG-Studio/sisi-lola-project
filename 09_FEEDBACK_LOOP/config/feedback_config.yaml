@@ -1,0 +1,301 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# FEEDBACK LOOP CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════════
+# Master configuration for Sisi Lola Replicate → Modal Feedback Loop
+#
+# This controls:
+# - Webhook processing
+# - Quality filtering
+# - Retraining triggers
+# - Nigerian content prioritization
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# General settings
+general:
+  project_name: "sisi-lola"
+  environment: "production"
+  log_level: "INFO"
+  
+  # Database paths
+  databases:
+    feedback: "feedback_data.db"
+    triggers: "trigger_history.db"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# REPLICATE SETTINGS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+replicate:
+  # Webhook configuration
+  webhook:
+    enabled: true
+    secret_env: "REPLICATE_WEBHOOK_SECRET"
+    endpoint: "/webhooks/replicate"
+    verify_signature: true
+    
+  # Model registry (state-of-the-art - NO wav2lip!)
+  models:
+    video:
+      primary: "bytedance/omni-human"
+      fallback: "stability-ai/stable-video-diffusion"
+      # NOT using wav2lip - it's outdated!
+      
+    voice:
+      primary: "minimax/speech-02-hd"
+      cloning: "lucataco/xtts-v2"
+      recognition: "openai/whisper"
+      
+    image:
+      primary: "bytedance/seedream-3"
+      fast: "black-forest-labs/flux-schnell"
+      professional: "black-forest-labs/flux-1.1-pro"
+      
+  # Caching
+  cache:
+    enabled: true
+    directory: "cache/replicate"
+    max_size_gb: 10
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY FILTERING
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quality_filter:
+  # Global thresholds
+  min_quality_score: 0.6
+  training_quality_threshold: 0.75
+  
+  # Rating weights
+  weights:
+    explicit_rating: 0.4
+    engagement: 0.3
+    quality_signals: 0.3
+  
+  # Nigerian content bonus
+  nigerian:
+    enabled: true
+    bonus_score: 0.15
+    markers:
+      pidgin:
+        - "how far"
+        - "no wahala"
+        - "wetin"
+        - "abeg"
+        - "oya"
+        - "japa"
+        - "wahala"
+        - "gbedu"
+        - "sabi"
+        - "dey"
+        - "na so"
+        - "ehen"
+      yoruba:
+        - "e kaaro"
+        - "bawo ni"
+        - "o dabiran"
+      hausa:
+        - "sannu"
+        - "yaya"
+        - "da godiya"
+      igbo:
+        - "kedu"
+        - "nno"
+        - "daalu"
+  
+  # Category-specific thresholds
+  category_thresholds:
+    voice: 0.70
+    video: 0.75
+    image: 0.65
+    text: 0.60
+    multimodal: 0.70
+  
+  # PII filtering
+  pii:
+    enabled: true
+    redact: true  # Redact instead of reject
+    patterns:
+      - email
+      - phone_intl
+      - phone_ng  # Nigerian phone format
+      - credit_card
+      - nin  # Nigerian NIN
+      - bvn  # Bank Verification Number
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# RETRAINING TRIGGERS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+retraining:
+  # Volume thresholds
+  thresholds:
+    min_feedback_items: 100
+    min_training_ready_items: 50
+    
+  # Quality requirements
+  quality:
+    min_avg_quality: 0.7
+    improvement_threshold: 0.05  # 5% improvement
+    
+  # Time constraints
+  timing:
+    min_hours_between_training: 24
+    max_days_since_last_training: 7
+    
+  # Nigerian content priority
+  nigerian_priority:
+    weight: 1.5
+    bonus_threshold: 30  # Items with Nigerian markers
+    
+  # Cost management
+  cost:
+    max_daily_usd: 50.0
+    estimated_cost_per_hour:
+      voice: 3.0   # A100 cost
+      video: 4.0
+      image: 3.0
+      
+  # Category-specific settings
+  categories:
+    voice:
+      min_items: 50
+      max_training_hours: 2
+      priority: 1
+      base_model: "coqui/XTTS-v2"
+      use_lora: true
+      lora_rank: 32
+      
+    video:
+      min_items: 30
+      max_training_hours: 4
+      priority: 2
+      base_model: "stabilityai/stable-video-diffusion"
+      use_lora: true
+      lora_rank: 16
+      
+    image:
+      min_items: 100
+      max_training_hours: 2
+      priority: 3
+      base_model: "stabilityai/sdxl"
+      use_lora: true
+      lora_rank: 64
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# MODAL INTEGRATION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+modal:
+  # App configuration
+  app_name: "sisi-lola-training"
+  
+  # Volumes
+  volumes:
+    training_data: "sisi-lola-training-data"
+    checkpoints: "sisi-lola-checkpoints"
+    models: "sisi-lola-models"
+    
+  # GPU configuration
+  gpu:
+    default: "A100"
+    fallback: "A10G"
+    count: 1
+    
+  # Training defaults
+  training:
+    batch_size: 8
+    gradient_accumulation: 4
+    learning_rate: 0.0001
+    warmup_steps: 100
+    max_steps: 1000
+    eval_steps: 100
+    save_steps: 200
+    fp16: true
+    
+  # Nigerian-specific
+  nigerian:
+    culture_weight: 1.5
+    language_mix_ratio: 0.3  # English/Pidgin mixing
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# GITHUB ACTIONS INTEGRATION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+github:
+  # Repository info
+  repository_env: "GITHUB_REPOSITORY"
+  token_env: "GITHUB_TOKEN"
+  
+  # Workflow triggers
+  workflows:
+    unified_training: "unified_training.yml"
+    
+  # Event types
+  events:
+    training_trigger: "training_triggered"
+    
+  # Dispatch payload
+  dispatch:
+    include_stats: true
+    include_quality_metrics: true
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SISI LOLA CHARACTER
+# ═══════════════════════════════════════════════════════════════════════════════
+
+character:
+  # Visual consistency
+  seed: 45822
+  
+  # Voice settings
+  voice:
+    default_id: "e3EHR2GS90EO276k1OCA"
+    language: "en-ng"  # Nigerian English
+    
+  # Personality
+  personality:
+    name: "Sisi Lola"
+    traits:
+      - warm
+      - friendly
+      - professional
+      - culturally-aware
+    languages:
+      - english
+      - pidgin
+      - yoruba
+      - hausa
+      - igbo
+      
+  # DNA prompt for image generation
+  dna_prompt: >
+    Beautiful Nigerian woman, Sisi Lola character,
+    professional appearance, warm expression, African elegance,
+    Lagos luxury aesthetic, character seed 45822
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# MONITORING
+# ═══════════════════════════════════════════════════════════════════════════════
+
+monitoring:
+  # Metrics
+  metrics:
+    enabled: true
+    export_interval_seconds: 60
+    
+  # Alerts
+  alerts:
+    enabled: true
+    channels:
+      - slack
+      - email
+    thresholds:
+      error_rate: 0.05  # 5%
+      latency_p99_ms: 5000
+      daily_cost_warning: 40.0  # USD
+      
+  # Logging
+  logging:
+    format: "json"
+    include_request_body: false
+    include_response_body: false

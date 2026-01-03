@@ -21,6 +21,14 @@ from dataclasses import dataclass, field, asdict
 from typing import Optional, Dict, List, Any, Tuple
 from enum import Enum
 
+# New Gemini SDK
+try:
+    from google import genai
+    from google.genai import types
+except ImportError:
+    genai = None
+    types = None
+
 # Alignment Engine
 try:
     from sisi_lola_api.app.services.alignment_engine import alignment_engine
@@ -28,9 +36,9 @@ except ImportError:
     alignment_engine = None
 
 try:
-    from sisi_lola_api.app.services.mms_service import MMSService
+    from sisi_lola_api.app.services.mms_service import mms_service
 except ImportError:
-    MMSService = None
+    mms_service = None
 
 from sisi_lola_api.app.services.api_manager import get_api_manager
 from sisi_lola_api.app.services.multimodal_processor import get_multimodal_processor, InputType
@@ -124,6 +132,12 @@ class UnifiedInferenceService:
             self._load_brain()
         if load_voice:
             self._load_voice()
+        
+        # Initialize MMS
+        if mms_service:
+            self.mms_service = mms_service
+            self.mms_loaded = True
+            print("✅ MMS Native Voice Service connected")
     
     def _load_personality(self):
         """Load personality configuration from HuggingFace or local"""
@@ -675,18 +689,69 @@ Always maintain your warm, funny personality while being helpful and informative
         max_tokens: int = 512,
         temperature: float = 0.7,
     ) -> str:
-        """Generate text response using brain model or fallback API"""
+        """Generate text response using Modal (preferred), local brain, or fallback API"""
         
-        """Generate text response using brain model or fallback API"""
-        
+        # 1. Try Modal Inference (Fastest)
+        use_modal = os.getenv("USE_MODAL", "true").lower() == "true"
+        if use_modal:
+            # Build full prompt for Modal to preserve context/instructions
+            full_prompt = f"{system_prompt}\n\n"
+            if conversation_history:
+                history_text = "\n".join([f"{m['role'].capitalize()}: {m['content']}" for m in conversation_history])
+                full_prompt += f"{history_text}\n"
+            full_prompt += f"User: {message}\nSisi Lola:"
+            
+            modal_response = await self._generate_with_modal(full_prompt, max_tokens, temperature)
+            if modal_response:
+                return modal_response
+
+        # 2. Local brain (slow)
         if self.brain_loaded and self.brain_model is not None:
             return await self._generate_with_local_brain(
                 message, system_prompt, language, conversation_history, max_tokens, temperature
             )
-        else:
-            return await self._generate_with_api(
-                message, system_prompt, language, conversation_history, max_tokens, temperature
-            )
+        
+        # 3. Fallback API
+        return await self._generate_with_api(
+            message, system_prompt, language, conversation_history, max_tokens, temperature
+        )
+
+    async def _generate_with_modal(self, prompt: str, max_tokens: int, temperature: float) -> Optional[str]:
+        """Call optimized Modal endpoint"""
+        import httpx
+        from sisi_lola_api.app.config import MODAL_INFERENCE_URL
+        
+        modal_url = os.getenv("MODAL_ENDPOINT_URL", MODAL_INFERENCE_URL)
+        
+        print(f"[⚡ MODAL] Calling unified inference: {modal_url[:50]}...")
+        from datetime import datetime
+        start_time = datetime.now()
+        
+        try:
+            async with httpx.AsyncClient(timeout=30.0) as client:
+                response = await client.post(
+                    modal_url,
+                    json={
+                        "message": prompt,
+                        "max_tokens": max_tokens,
+                        "temperature": temperature
+                    }
+                )
+                
+                latency = (datetime.now() - start_time).total_seconds()
+                
+                if response.status_code == 200:
+                    data = response.json()
+                    response_text = data.get("text") or data.get("response")
+                    if response_text:
+                        print(f"[✅ MODAL] Success in {latency:.2f}s")
+                        return response_text
+                
+                print(f"[❌ MODAL] Error {response.status_code}: {response.text}")
+        except Exception as e:
+            print(f"[❌ MODAL] Request failed: {e}")
+            
+        return None
     
     async def _generate_with_local_brain(
         self,
@@ -821,89 +886,86 @@ Always maintain your warm, funny personality while being helpful and informative
         
         return await self._get_fallback_response(message, language)
 
-    async def _generate_with_gemini(self, message: str, system_prompt: str, conversation_history: List[Dict] = None) -> Optional[str]:
-        """Inference via Gemini (Supports Vision & Grounding)"""
-        api_manager = get_api_manager()
-        client = api_manager.get_client("gemini")
-        if not client:
-            print("⚠️ No Gemini API key found (GOOGLE_AI_STUDIO_API_KEY).")
+    async def _generate_with_gemini(self, message: str, system_prompt: str, conversation_history: List[Dict] = None, image_b64: Optional[str] = None) -> Optional[str]:
+        """Inference via Gemini 3 Pro Preview using new google-genai SDK"""
+        if not genai:
+            print("⚠️ google-genai SDK not found. Please install with: pip install google-genai")
             return None
-        
+            
+        api_key = os.getenv("GOOGLE_AI_STUDIO_API_KEY") or os.getenv("GEMINI_API_KEY")
+        if not api_key:
+            print("⚠️ No Gemini API key found (GOOGLE_AI_STUDIO_API_KEY or GEMINI_API_KEY).")
+            return None
+            
         try:
-            print("💎 Trying Gemini Vision/Pro API...")
+            print("💎 Gemini 3 Pro Supreme Brain (GenAI SDK)...")
+            client = genai.Client(api_key=api_key)
             
-            # 1. Prepare Content Structure
-            # Standardization: Use gemini-3-pro-preview for highest quality
-            model_id = "gemini-3-pro-preview"
+            # Tools as requested by user (matching the snippet's camelCase/structure)
+            tools = [
+                types.Tool(url_context=types.UrlContext()),
+                types.Tool(google_search=types.GoogleSearch()), # Note: SDK often normalizes this, but we'll follow snippet
+            ]
             
-            system_instruction = {
-                "parts": [{"text": system_prompt}]
-            }
+            # Safety settings to prevent "finish_reason: 2" (Safety Filter)
+            safety_settings = [
+                types.SafetySetting(category="HARM_CATEGORY_HARASSMENT", threshold="BLOCK_NONE"),
+                types.SafetySetting(category="HARM_CATEGORY_HATE_SPEECH", threshold="BLOCK_NONE"),
+                types.SafetySetting(category="HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold="BLOCK_NONE"),
+                types.SafetySetting(category="HARM_CATEGORY_DANGEROUS_CONTENT", threshold="BLOCK_NONE"),
+            ]
             
-            user_parts = [{"text": message}]
-            
-            # If we have an image in the current context, inject it
-            if hasattr(self, '_current_image') and self._current_image:
-                user_parts.append({
-                    "inlineData": {
-                        "mimeType": self._current_image["mimeType"] if "mimeType" in self._current_image else self._current_image.get("mime_type", "image/png"),
-                        "data": self._current_image["base64"]
-                    }
-                })
-                self._current_image = None
-
-            contents = [{"role": "user", "parts": user_parts}]
-            
-            if conversation_history:
-                history_parts = []
-                for m in conversation_history:
-                    role = "user" if m["role"] == "user" else "model"
-                    history_parts.append({"role": role, "parts": [{"text": m["content"]}]})
-                contents = history_parts + contents
-
-            # New: Inject Google Search Grounding for real-time gists
-            tools = [{"google_search": {}}]
-            
-            response = await client.post(
-                f"/models/{model_id}:generateContent",
-                json={
-                    "systemInstruction": system_instruction,
-                    "contents": contents,
-                    "tools": tools,
-                    "generationConfig": {
-                        "temperature": 0.8,
-                        "maxOutputTokens": 1000,
-                        "responseMimeType": "text/plain",
-                        "thinkingConfig": {
-                            "includeThoughts": True,
-                            "thinkingLevel": "HIGH"
-                        }
-                    }
-                }
+            # Generate config with thinking level and search
+            generate_content_config = types.GenerateContentConfig(
+                thinking_config=types.ThinkingConfig(
+                    thinking_level="LOW",
+                ),
+                tools=tools,
+                safety_settings=safety_settings,
+                system_instruction=[
+                    types.Part.from_text(text=system_prompt)
+                ]
             )
             
-            if response.status_code == 200:
-                data = response.json()
-                if "candidates" in data and data["candidates"]:
-                    content = data["candidates"][0]["content"]
-                    if "parts" in content and content["parts"]:
-                        # Filter out thought parts and join text parts
-                        text_parts = []
-                        for part in content["parts"]:
-                            if part.get("thought"):
-                                # Optionally log Sisi's internal thoughts
-                                print(f"💭 Sisi's Thought: {part.get('text')}")
-                                continue
-                            if "text" in part:
-                                text_parts.append(part["text"])
-                        
-                        return "\n".join(text_parts).strip()
-            else:
-                print(f"Gemini API Error {response.status_code}: {response.text}")
+            # Prepare contents
+            contents = []
+            if conversation_history:
+                for m in conversation_history:
+                    role = "user" if m["role"] == "user" else "model"
+                    contents.append(types.Content(role=role, parts=[types.Part.from_text(text=m["content"])]))
+            
+            # User part with optional image
+            user_parts = [types.Part.from_text(text=message)]
+            if image_b64:
+                try:
+                    user_parts.append(types.Part.from_bytes(data=base64.b64decode(image_b64), mime_type="image/png"))
+                except Exception as e:
+                    print(f"⚠️ Image decode failed: {e}")
+                    
+            contents.append(types.Content(role="user", parts=user_parts))
+            
+            # Use asyncio.to_thread as the new SDK is synchronous by default
+            response = await asyncio.to_thread(
+                client.models.generate_content,
+                model="gemini-3-pro-preview",
+                contents=contents,
+                config=generate_content_config
+            )
+            
+            if response and response.text:
+                return response.text.strip()
+            
+            # Handle blocked or empty response
+            if response and response.candidates:
+                finish_reason = response.candidates[0].finish_reason
+                print(f"⚠️ Gemini Finish Reason: {finish_reason}")
+
+            return "Omo, my brain dey skip. Saftey filters or something don block me. Try yarn another thing."
                 
         except Exception as e:
-            print(f"Gemini failed: {e}")
+            print(f"Gemini GenAI SDK failed: {e}")
         return None
+
 
     async def _generate_with_cohere(self, message: str, system_prompt: str, conversation_history: List[Dict] = None) -> Optional[str]:
         """Inference via Cohere API"""

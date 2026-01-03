@@ -348,12 +348,11 @@
             </div>
             <div class="chat-messages" id="chat-messages">
                 <div class="message msg-sisi">
-                    Omo! Welcome to the bridge, Boss! 🥂✨
-
-                    I'm currently plugged into the **Supreme Google AI Grid**.
-                    Wetin we dey brew today? Real-time gists, cinematic vibes, or pure high-fidelity AI?
-
-                    Talk to me, make we set Lagos on fire! 🔥
+                    Omo! How far na, Boss! 🥂✨<br><br>
+                    You don land the SUPREME COMMAND CENTER. I don plug into Google AI Grid, so we no dey play
+                    here!<br><br>
+                    Wetin we dey cook today? Real-time gists? Cinematic vibes? Or make we just yarn?<br><br>
+                    Talk to me, make we set Lagos on fire! 🔥 E choke!
                 </div>
             </div>
             <div class="input-area">
@@ -494,11 +493,18 @@
         function addMsg(role, text) {
             const div = document.createElement('div');
             div.className = `message msg-${role}`;
-            div.innerText = text;
+            // Convert line breaks to <br> and preserve presentation formatting
+            div.innerHTML = text
+                .replace(/\n\n/g, '<br><br>')  // Double line breaks
+                .replace(/\n/g, '<br>')         // Single line breaks
+                .replace(/═+/g, '<span style="color: var(--accent); display: block;">═══════════════════════</span>')
+                .replace(/─+/g, '<span style="color: #666; display: block;">───────────────</span>')
+                .replace(/✦/g, '<span style="color: var(--accent);">✦</span>');
             const container = document.getElementById('chat-messages');
             container.appendChild(div);
             container.scrollTop = container.scrollHeight;
         }
+
 
         async function sendQuery() {
             const input = document.getElementById('chat-input');
@@ -509,10 +515,12 @@
             input.value = '';
 
             try {
-                const r = await fetch('/api/v2/vibe/engagement', {
+                const r = await fetch('/api/v2/vibe/demo-chat', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: msg })
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ message: msg, session_id: sessionId })
                 });
                 const d = await r.json();
                 addMsg('sisi', d.response);
@@ -535,6 +543,7 @@
                 let body = { prompt: prompt };
 
                 if (type === 'snapshot') { body = { scene: prompt }; }
+                if (type === 'engagement' && currentImage) { body.image_reference = currentImage; }
 
                 const r = await fetch(endpoint, {
                     method: 'POST',
@@ -582,7 +591,7 @@
         async function triggerGistHunt(scope) {
             addMsg('sisi', `Scanning ${scope} radar... 🛰️`);
             try {
-                await fetch('/api/dashboard/gist-hunt', {
+                await fetch('/api/v2/control/gist-hunt', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ scope: scope })
@@ -607,10 +616,14 @@
             if (!currentImage) return alert("Select a photo first!");
             addMsg('user', "[Scanning Visual Data...]");
             try {
-                const r = await fetch('/api/v2/vibe/engagement', { // Use engagement for multimodal check
+                const r = await fetch('/api/v2/vibe/demo-chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: "Analyze this image", image_base64: currentImage })
+                    body: JSON.stringify({
+                        message: "Analyze this image",
+                        session_id: sessionId,
+                        image_base64: currentImage
+                    })
                 });
                 const d = await r.json();
                 addMsg('sisi', d.response);

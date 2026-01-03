@@ -1,0 +1,13 @@
+video_id,title,creator,tier,phase,status,cost,expected_examples,date_acquired,date_processed,persona_pillars,reccloud_job_id,notes
+EXT_TED_001,The Danger of a Single Story,Chimamanda Ngozi Adichie,1,1,downloaded,0.00,120,2025-12-14,,cultural_ambassador|diaspora_guide|african_mother,,Nigerian perspective on storytelling and identity - 131MB downloaded
+EXT_TED_002,We Should All Be Feminists,Chimamanda Ngozi Adichie,1,1,downloading,0.00,100,2025-12-14,,cultural_ambassador|african_mother,,Gender equality - Nigerian English speech patterns - download in progress
+EXT_TED_003,African Storytelling Traditions,Speaker Name,1,1,pending,0.00,80,,,cultural_ambassador|african_mother,,Traditional wisdom
+EXT_BBC_001,Nigerian English Accents,BBC Learning,1,1,pending,0.00,100,,,cultural_ambassador|code_switcher,,Accent and pronunciation training
+EXT_BBC_002,Business English for Africans,BBC Learning,1,1,pending,0.00,80,,,lagos_hustler|tech_visionary,,Business communication
+EXT_BBC_003,West African Pronunciation Guide,BBC Learning,1,1,pending,0.00,70,,,code_switcher,,Phonetics training
+EXT_EDU_001,Pre-Colonial African Empires,Khan Academy,1,1,pending,0.00,90,,,cultural_ambassador,,Historical authority
+EXT_EDU_002,West African Trade Routes,Crash Course,1,1,pending,0.00,60,,,cultural_ambassador|lagos_hustler,,Historical commerce context
+EXT_YT_001,Pidgin English Explained,Naija Talk,2,2,pending_permission,0.00,150,,,code_switcher,,Email sent 2025-12-14
+EXT_YT_002,Yoruba Greetings Tutorial,Creator Name,2,2,pending_permission,0.00,120,,,cultural_ambassador|african_mother,,Email sent 2025-12-14
+EXT_POD_001,The Japa Chronicles Episode 1,Diaspora Stories,2,2,pending_permission,0.00,200,,,diaspora_guide,,Email sent 2025-12-14
+EXT_POD_002,Nigerian Perspective S3E12,Host Name,2,2,pending_permission,0.00,180,,,diaspora_guide|lagos_hustler,,Email sent 2025-12-14

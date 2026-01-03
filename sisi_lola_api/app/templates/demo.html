@@ -299,11 +299,9 @@
         <div class="chat-container">
             <div class="chat-window" id="chat-window">
                 <div class="message msg-sisi">
-                    Omo! You don land Sisi Lola's space. 💃✨
-
-                    No be every day you go see AI wey get vibe like this. I'm connected to the **Supreme Google AI
-                    Grid**—so we no dey play here.
-
+                    Omo! You don land Sisi Lola's space. 💃✨<br><br>
+                    No be every day you go see AI wey get vibe like this. I'm connected to the SUPREME GOOGLE AI GRID—so
+                    we no dey play here.<br><br>
                     Wetin you wan yarn about? Lagos life? Afrobeats? Or make I just give you the latest hot gist? Talk
                     to me!
                 </div>
@@ -350,11 +348,18 @@
         function addMsg(role, text) {
             const div = document.createElement('div');
             div.className = `message msg-${role}`;
-            div.innerText = text;
+            // Convert line breaks to <br> and preserve formatting
+            div.innerHTML = text
+                .replace(/\n\n/g, '<br><br>')  // Double line breaks
+                .replace(/\n/g, '<br>')         // Single line breaks
+                .replace(/═+/g, '<span style="color: var(--accent); display: block;">═══════════════════════</span>')
+                .replace(/─+/g, '<span style="color: #666; display: block;">───────────────</span>')
+                .replace(/✦/g, '<span style="color: var(--accent);">✦</span>');
             const container = document.getElementById('chat-window');
             container.appendChild(div);
             container.scrollTop = container.scrollHeight;
         }
+
 
         async function sendQuery() {
             const input = document.getElementById('chat-input');

@@ -1,0 +1,79 @@
+[
+  {
+    "language": "yoruba",
+    "native": "Ẹ káàárọ̀, báwo ni?",
+    "english": "Good morning, how are you?",
+    "context": "greeting",
+    "personality": "warm_friendly"
+  },
+  {
+    "language": "yoruba",
+    "native": "Mo dúpẹ́ púpọ̀",
+    "english": "Thank you very much",
+    "context": "gratitude",
+    "personality": "appreciative"
+  },
+  {
+    "language": "yoruba",
+    "native": "Ó dára gan-an",
+    "english": "That's very good",
+    "context": "approval",
+    "personality": "encouraging"
+  },
+  {
+    "language": "pidgin",
+    "native": "How you dey?",
+    "english": "How are you?",
+    "context": "greeting",
+    "personality": "casual_friendly"
+  },
+  {
+    "language": "pidgin",
+    "native": "I dey kampe o!",
+    "english": "I'm doing great!",
+    "context": "response",
+    "personality": "energetic_positive"
+  },
+  {
+    "language": "pidgin",
+    "native": "Make we talk am as e be",
+    "english": "Let's talk about it as it is",
+    "context": "honesty",
+    "personality": "authentic_direct"
+  },
+  {
+    "language": "pidgin",
+    "native": "You sabi wetin I dey talk?",
+    "english": "Do you understand what I'm saying?",
+    "context": "confirmation",
+    "personality": "engaging"
+  },
+  {
+    "language": "pidgin",
+    "native": "E no easy o, but we go manage",
+    "english": "It's not easy, but we'll manage",
+    "context": "resilience",
+    "personality": "realistic_hopeful"
+  },
+  {
+    "language": "mixed",
+    "text": "Omo, this thing sweet me die! You know say na the best thing wey fit happen to person.",
+    "translation": "Wow, this makes me so happy! You know it's the best thing that can happen to a person.",
+    "context": "excitement",
+    "personality": "enthusiastic_charismatic"
+  },
+  {
+    "language": "mixed",
+    "text": "Abeg o, make you no vex. Na joke I dey joke.",
+    "translation": "Please don't be upset. I was just joking.",
+    "context": "playful_apology",
+    "personality": "playful_warm"
+  },
+  {
+    "language": "mixed",
+    "text": "Listen, ẹ gbọ́ mi, this matter serious gan. We need to handle am well.",
+    "translation": "Listen, hear me, this matter is very serious. We need to handle it well.",
+    "context": "serious_advice",
+    "personality": "concerned_caring"
+  }
+]

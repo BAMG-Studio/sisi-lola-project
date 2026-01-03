@@ -54,6 +54,11 @@ from .training_reinforcement import (
     TrainingFocus
 )
 
+try:
+    from .mms_service import mms_service
+except ImportError:
+    mms_service = None
+
 
 class ResponseMode(str, Enum):
     TEXT_ONLY = "text"
@@ -495,12 +500,72 @@ class EnhancedInferenceService:
         temperature: float,
         mode: PromptMode,
     ) -> str:
-        """Generate text using local model or API"""
+        """Generate text using Modal (preferred), local model, or API"""
         
+        # 1. Try Modal Inference (Fastest)
+        use_modal = os.getenv("USE_MODAL", "true").lower() == "true"
+        if use_modal:
+            # Build full prompt for Modal to preserve context/instructions
+            system_prompt = messages[0]["content"] if messages[0]["role"] == "system" else ""
+            conversation = []
+            for msg in messages[1:]:
+                role = "User" if msg["role"] == "user" else "Sisi Lola"
+                conversation.append(f"{role}: {msg['content']}")
+            
+            full_prompt = f"{system_prompt}\n\n" + "\n".join(conversation)
+            
+            modal_response = await self._generate_with_modal(full_prompt, max_tokens, temperature)
+            if modal_response:
+                return modal_response
+
+        # 2. Fallback to local brain
         if self.brain_loaded:
             return await self._generate_with_local_brain(messages, max_tokens, temperature)
-        else:
-            return await self._generate_with_api(messages, max_tokens, temperature)
+        
+        # 3. Fallback to direct API
+        return await self._generate_with_api(messages, max_tokens, temperature)
+
+    async def _generate_with_modal(self, prompt: str, max_tokens: int, temperature: float) -> Optional[str]:
+        """Call optimized Modal endpoint"""
+        import httpx
+        from sisi_lola_api.app.config import MODAL_INFERENCE_URL
+        
+        # Ensure we use the best URL (prioritize ModelInference endpoint if config or env says so)
+        modal_url = os.getenv("MODAL_ENDPOINT_URL", MODAL_INFERENCE_URL)
+        
+        # Check if we need to append method name (if we are calling ModelInference directly)
+        if "modelinference-generate-text" not in modal_url and "-generate" not in modal_url:
+             # If it's the base app URL, we might need a suffix, but usually MODAL_INFERENCE_URL is complete
+             pass
+
+        print(f"[⚡ MODAL] Calling inference: {modal_url[:50]}...")
+        start_time = datetime.now()
+        
+        try:
+            async with httpx.AsyncClient(timeout=30.0) as client:
+                response = await client.post(
+                    modal_url,
+                    json={
+                        "message": prompt,
+                        "max_tokens": max_tokens,
+                        "temperature": temperature
+                    }
+                )
+                
+                latency = (datetime.now() - start_time).total_seconds()
+                
+                if response.status_code == 200:
+                    data = response.json()
+                    response_text = data.get("text") or data.get("response")
+                    if response_text:
+                        print(f"[✅ MODAL] Success in {latency:.2f}s")
+                        return response_text
+                
+                print(f"[❌ MODAL] Error {response.status_code}: {response.text}")
+        except Exception as e:
+            print(f"[❌ MODAL] Request failed: {e}")
+            
+        return None
     
     async def _generate_with_local_brain(
         self,
@@ -630,7 +695,23 @@ class EnhancedInferenceService:
 [YO] E má worry, we go connect back soon! [/YO] ✨"""
     
     async def _generate_voice(self, text: str, language: Language) -> tuple:
-        """Generate voice audio"""
+        """Generate voice audio using MMS (native) or XTTS (legacy)"""
+        # 1. Try MMS Native Voice (Fast and Authentic for YO/HA/IG)
+        if mms_service:
+            # Check if language is supported by MMS
+            mms_lang_map = {
+                Language.YORUBA: "yo",
+                Language.HAUSA: "ha",
+                Language.IGBO: "ig"
+            }
+            mms_code = mms_lang_map.get(language)
+            if mms_code:
+                print(f"[🔊 MMS] Generating native {language.name} audio...")
+                audio_base64, _ = await mms_service.generate_speech(text, mms_code)
+                if audio_base64:
+                    return audio_base64, None
+
+        # 2. Fallback to legacy XTTS voice
         if not self.voice_loaded:
             return None, None
         

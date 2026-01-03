@@ -1,68 +1,78 @@
 # ═══════════════════════════════════════════════════════════════════════════════
-# SISI LOLA - NIGHTLY VIDEO INGESTION WORKFLOW
+# SISI LOLA - NIGHTLY DATA INGESTION WORKFLOW v3.0
 # ═══════════════════════════════════════════════════════════════════════════════
-# Automatically processes new training videos every night at 2 AM
-# Triggers: schedule, manual dispatch, new video push
+# Comprehensive data ingestion from 50+ Nigerian sources
+# Sources: YouTube channels, Voice datasets, RSS feeds, HuggingFace datasets
+# Features: Quality scoring, DVC versioning, HuggingFace sync
+# Triggers: schedule (2 AM UTC), manual dispatch, config changes
 # ═══════════════════════════════════════════════════════════════════════════════
 
-name: Nightly Video Ingestion
+name: Nightly Data Ingestion
 
 on:
-  # Run every night at 2 AM UTC
   schedule:
-    - cron: '0 2 * * *'
+    - cron: '0 2 * * *'  # Every night at 2 AM UTC
   
-  # Manual trigger with options
   workflow_dispatch:
     inputs:
-      video_count:
-        description: 'Number of videos to process (0 = all)'
-        required: false
-        default: '0'
-      force_reprocess:
-        description: 'Force reprocess existing videos'
-        required: false
-        type: boolean
-        default: false
-      backend:
-        description: 'Transcription backend'
+      sources:
+        description: 'Data sources to ingest'
         required: false
         type: choice
         options:
-          - reccloud
-          - modal
-        default: reccloud
+          - all
+          - youtube
+          - rss
+          - huggingface
+          - voice
+          - video
+        default: all
+      max_items:
+        description: 'Max items per source (0 = unlimited)'
+        required: false
+        default: '100'
+      min_quality:
+        description: 'Minimum quality score (0-100)'
+        required: false
+        default: '60'
+      enable_dvc:
+        description: 'Enable DVC versioning'
+        required: false
+        type: boolean
+        default: true
 
-  # Trigger on new videos (if using Git LFS or similar)
   push:
     paths:
       - 'training_videos/**'
+      - 'ml_training/configs/nigerian_data_sources.yaml'
 
 env:
   PYTHON_VERSION: '3.11'
-  RECCLOUD_API_KEY: ${{ secrets.RECCLOUD_API_KEY }}
-  MODAL_TOKEN_ID: ${{ secrets.MODAL_TOKEN_ID }}
-  MODAL_TOKEN_SECRET: ${{ secrets.MODAL_TOKEN_SECRET }}
   HF_TOKEN: ${{ secrets.HF_TOKEN }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
 jobs:
   # ═══════════════════════════════════════════════════════════════════════════
-  # JOB 1: Video Ingestion
+  # JOB 1: Multi-Source Data Ingestion
   # ═══════════════════════════════════════════════════════════════════════════
-  ingest-videos:
-    name: 📹 Ingest Training Videos
+  ingest-data:
+    name: 📹 Ingest Training Data
     runs-on: ubuntu-latest
-    timeout-minutes: 120  # 2 hour timeout for large batches
+    timeout-minutes: 180  # 3 hour timeout for comprehensive ingestion
     
     outputs:
-      examples_generated: ${{ steps.ingest.outputs.examples }}
-      videos_processed: ${{ steps.ingest.outputs.processed }}
+      total_ingested: ${{ steps.ingest.outputs.total }}
+      youtube_count: ${{ steps.ingest.outputs.youtube }}
+      voice_count: ${{ steps.ingest.outputs.voice }}
+      average_quality: ${{ steps.ingest.outputs.quality }}
     
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
         with:
-          lfs: true  # Pull large video files if using Git LFS
+          lfs: true
+          fetch-depth: 0  # Full history for DVC
       
       - name: 🐍 Setup Python
         uses: actions/setup-python@v5
@@ -70,94 +80,103 @@ jobs:
           python-version: ${{ env.PYTHON_VERSION }}
           cache: 'pip'
       
-      - name: 📦 Install FFmpeg
+      - name: 🧹 Free Disk Space
+        run: |
+          echo "🧹 Cleaning up disk space..."
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          docker system prune -af --volumes || true
+          df -h
+      
+      - name: 📦 Install System Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y ffmpeg
+          sudo apt-get install -y ffmpeg tesseract-ocr git-lfs
       
-      - name: 📦 Install Dependencies
+      - name: 📦 Install Python Dependencies
         run: |
           pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install -r requirements_reccloud.txt
+          pip install pyyaml yt-dlp feedparser requests aiohttp aiofiles
+          pip install datasets huggingface_hub transformers
+          pip install dvc dvc-s3 python-dotenv
       
-      - name: 🔐 Configure API Keys
+      - name: 🔐 Configure DVC
+        if: ${{ github.event.inputs.enable_dvc != 'false' }}
         run: |
-          if [ -z "${{ secrets.RECCLOUD_API_KEY }}" ]; then
-            echo "⚠️ RECCLOUD_API_KEY not configured."
-            echo "Please add RECCLOUD_API_KEY to repository secrets for video ingestion."
-            echo "Workflow will continue but transcription may fail."
+          if [ ! -d ".dvc" ]; then
+            dvc init
           fi
-          echo "RECCLOUD_API_KEY=${{ secrets.RECCLOUD_API_KEY }}" >> $GITHUB_ENV
-          echo "TRANSCRIPTION_BACKEND=${{ github.event.inputs.backend || 'reccloud' }}" >> $GITHUB_ENV
+          if [ -n "$AWS_ACCESS_KEY_ID" ]; then
+            dvc remote add -d s3_remote s3://sisi-lola-datasets/ingestion || true
+          fi
       
-      - name: 📹 Download Training Videos (if from cloud)
-        if: ${{ env.VIDEO_STORAGE_URL != '' }}
-        run: |
-          # Optional: Download videos from cloud storage
-          # aws s3 sync s3://bucket/videos ./training_videos
-          # rclone sync remote:videos ./training_videos
-          echo "Videos ready for processing"
-      
-      - name: 🎙️ Run Video Ingestion
+      - name: 🎙️ Run Comprehensive Ingestion
         id: ingest
-        continue-on-error: true
         run: |
           cd ml_training/scripts
           
-          # Check if training videos exist
-          if [ ! -d "../../training_videos" ] && [ ! -d "$PROJECT_ROOT/training_videos" ]; then
-            echo "ℹ️ No training_videos directory found"
-            echo "processed=0" >> $GITHUB_OUTPUT
-            echo "examples=0" >> $GITHUB_OUTPUT
-            echo "### 📊 Ingestion Results" >> $GITHUB_STEP_SUMMARY
-            echo "No training videos found. Add videos to training_videos/ directory." >> $GITHUB_STEP_SUMMARY
-            exit 0
-          fi
+          SOURCES="${{ github.event.inputs.sources || 'all' }}"
+          MAX_ITEMS="${{ github.event.inputs.max_items || '100' }}"
+          MIN_QUALITY="${{ github.event.inputs.min_quality || '60' }}"
           
-          # Determine processing mode
-          if [ "${{ github.event.inputs.force_reprocess }}" == "true" ]; then
-            export SKIP_EXISTING=false
-          fi
+          echo "🚀 Starting ingestion from 50+ Nigerian sources..."
+          echo "   Sources: $SOURCES | Max items: $MAX_ITEMS | Min quality: $MIN_QUALITY"
           
-          # Run ingestion
-          python reccloud_ingest_runner.py batch 2>&1 | tee ingestion_output.log
+          # Run comprehensive ingestion script
+          python nightly_ingestion.py \
+            --sources "$SOURCES" \
+            --max-items "$MAX_ITEMS" \
+            --min-quality "$MIN_QUALITY" \
+            --stats 2>&1 | tee ingestion_output.log
           
-          # Parse output for GitHub Actions
-          PROCESSED=$(grep -oP 'Videos processed: \K\d+' ingestion_output.log || echo "0")
-          EXAMPLES=$(grep -oP 'Total examples:\s+\K\d+' ingestion_output.log || echo "0")
+          # Parse results
+          TOTAL=$(grep -oP 'Total items ingested: \K\d+' ingestion_output.log || echo "0")
+          YOUTUBE=$(grep -oP 'YouTube: \K\d+' ingestion_output.log || echo "0")
+          VOICE=$(grep -oP 'Voice datasets: \K\d+' ingestion_output.log || echo "0")
+          QUALITY=$(grep -oP 'Average quality: \K[\d.]+' ingestion_output.log || echo "0")
           
-          echo "processed=$PROCESSED" >> $GITHUB_OUTPUT
-          echo "examples=$EXAMPLES" >> $GITHUB_OUTPUT
+          echo "total=$TOTAL" >> $GITHUB_OUTPUT
+          echo "youtube=$YOUTUBE" >> $GITHUB_OUTPUT
+          echo "voice=$VOICE" >> $GITHUB_OUTPUT
+          echo "quality=$QUALITY" >> $GITHUB_OUTPUT
           
           echo "### 📊 Ingestion Results" >> $GITHUB_STEP_SUMMARY
-          echo "| Metric | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "| Source | Items |" >> $GITHUB_STEP_SUMMARY
           echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
-          echo "| Videos Processed | $PROCESSED |" >> $GITHUB_STEP_SUMMARY
-          echo "| Total Examples | $EXAMPLES |" >> $GITHUB_STEP_SUMMARY
+          echo "| YouTube | $YOUTUBE |" >> $GITHUB_STEP_SUMMARY
+          echo "| Voice Datasets | $VOICE |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Total** | **$TOTAL** |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Avg Quality** | **$QUALITY/100** |" >> $GITHUB_STEP_SUMMARY
       
-      - name: 📤 Upload Ingestion Manifest
+      - name: 📦 Version with DVC
+        if: ${{ github.event.inputs.enable_dvc != 'false' && steps.ingest.outputs.total > 0 }}
+        run: |
+          if [ -d "ml_training/datasets/ingested" ]; then
+            dvc add ml_training/datasets/ingested
+            git add ml_training/datasets/ingested.dvc .gitignore || true
+          fi
+          if [ -n "$AWS_ACCESS_KEY_ID" ]; then
+            dvc push || echo "DVC push skipped"
+          fi
+      
+      - name: 📤 Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ingestion-manifest
-          path: ml_training/datasets/video_training_data/ingestion_manifest.json
-          retention-days: 30
-      
-      - name: 📤 Upload Training Data
-        uses: actions/upload-artifact@v4
-        with:
-          name: video-training-data
-          path: ml_training/datasets/video_training_data/*.jsonl
+          name: ingestion-data-${{ github.run_number }}
+          path: |
+            ml_training/datasets/ingested/**/*.json
+            ml_training/datasets/ingested/**/*.jsonl
+            ml_training/scripts/ingestion.db
           retention-days: 30
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # JOB 2: Generate Combined Dataset
+  # JOB 2: Quality Analysis & HuggingFace Sync
   # ═══════════════════════════════════════════════════════════════════════════
-  generate-dataset:
-    name: 📝 Generate Training Dataset
+  analyze-and-sync:
+    name: 📊 Quality Analysis & Sync
     runs-on: ubuntu-latest
-    needs: ingest-videos
-    if: needs.ingest-videos.outputs.videos_processed > 0
+    needs: ingest-data
+    if: needs.ingest-data.outputs.total_ingested > 0
     
     steps:
       - name: 📥 Checkout Repository
@@ -170,90 +189,83 @@ jobs:
           cache: 'pip'
       
       - name: 📦 Install Dependencies
-        run: |
-          pip install --upgrade pip
-          pip install -r requirements.txt
+        run: pip install pandas huggingface_hub
       
-      - name: 📥 Download Video Training Data
+      - name: 📥 Download Artifacts
         uses: actions/download-artifact@v4
         with:
-          name: video-training-data
-          path: ml_training/datasets/video_training_data
+          name: ingestion-data-${{ github.run_number }}
+          path: ml_training/datasets/ingested
       
-      - name: 📝 Generate Brain Dataset
+      - name: 📊 Generate Quality Report
         run: |
-          cd ml_training/scripts
-          python generate_brain_dataset.py --output combined_brain_dataset.jsonl
+          python -c "
+          import json
+          from pathlib import Path
           
-          # Count examples
-          TOTAL=$(wc -l < ../datasets/combined_brain_dataset.jsonl)
+          ingested = Path('ml_training/datasets/ingested')
+          tiers = {'gold': 0, 'silver': 0, 'bronze': 0}
           
-          echo "### 🧠 Dataset Generation" >> $GITHUB_STEP_SUMMARY
-          echo "Total training examples: $TOTAL" >> $GITHUB_STEP_SUMMARY
+          for f in ingested.rglob('*.json'):
+              try:
+                  data = json.load(open(f))
+                  tier = data.get('quality_tier', 'bronze')
+                  tiers[tier] = tiers.get(tier, 0) + 1
+              except: pass
+          
+          print(f'Quality Distribution: {tiers}')
+          
+          with open('quality_report.md', 'w') as f:
+              f.write('# Quality Report\n\n')
+              for tier, count in tiers.items():
+                  f.write(f'- **{tier.capitalize()}**: {count}\n')
+          "
       
-      - name: 📤 Upload Combined Dataset
-        uses: actions/upload-artifact@v4
-        with:
-          name: combined-brain-dataset
-          path: ml_training/datasets/combined_brain_dataset.jsonl
-          retention-days: 30
-      
-      - name: 🚀 Push to Hugging Face (Optional)
+      - name: 🚀 Push to HuggingFace
         if: ${{ env.HF_TOKEN != '' }}
         run: |
-          pip install huggingface_hub
-          
           python -c "
           from huggingface_hub import HfApi
           import os
+          from pathlib import Path
+          from datetime import datetime
           
-          api = HfApi(token=os.environ['HF_TOKEN'])
+          api = HfApi(token=os.environ.get('HF_TOKEN'))
+          ingested = Path('ml_training/datasets/ingested')
           
-          try:
-              api.upload_file(
-                  path_or_fileobj='ml_training/datasets/combined_brain_dataset.jsonl',
-                  path_in_repo='brain_dataset/combined_brain_dataset.jsonl',
-                  repo_id='SisiLolaAI/training-data',
-                  repo_type='dataset'
-              )
-              print('✓ Uploaded to Hugging Face')
-          except Exception as e:
-              print(f'Failed to upload: {e}')
+          if ingested.exists():
+              for f in list(ingested.rglob('*.jsonl'))[:10]:
+                  try:
+                      api.upload_file(
+                          path_or_fileobj=str(f),
+                          path_in_repo=f'ingested/{datetime.now().strftime(\"%Y%m%d\")}/{f.name}',
+                          repo_id='SisiLolaAI/training-data',
+                          repo_type='dataset'
+                      )
+                      print(f'✓ Uploaded {f.name}')
+                  except Exception as e:
+                      print(f'Skip {f.name}: {e}')
           "
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # JOB 3: Notify on Completion
+  # JOB 3: Notifications
   # ═══════════════════════════════════════════════════════════════════════════
   notify:
     name: 📢 Send Notifications
     runs-on: ubuntu-latest
-    needs: [ingest-videos, generate-dataset]
+    needs: [ingest-data, analyze-and-sync]
     if: always()
     
     steps:
-      - name: 📢 Slack Notification (Optional)
-        if: ${{ env.SLACK_WEBHOOK_URL != '' }}
-        uses: slackapi/slack-github-action@v1.24.0
-        with:
-          payload: |
-            {
-              "text": "🎬 Sisi Lola Video Ingestion Complete",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "*Nightly Video Ingestion Results*\n• Videos processed: ${{ needs.ingest-videos.outputs.videos_processed }}\n• Training examples: ${{ needs.ingest-videos.outputs.examples_generated }}"
-                  }
-                }
-              ]
-            }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      
       - name: 📧 Summary
         run: |
-          echo "### ✅ Nightly Ingestion Complete" >> $GITHUB_STEP_SUMMARY
+          echo "### ✅ Nightly Data Ingestion Complete" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Videos Processed:** ${{ needs.ingest-videos.outputs.videos_processed }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Training Examples:** ${{ needs.ingest-videos.outputs.examples_generated }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Run:** #${{ github.run_number }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Date:** $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Results:**" >> $GITHUB_STEP_SUMMARY
+          echo "- Total Ingested: ${{ needs.ingest-data.outputs.total_ingested }}" >> $GITHUB_STEP_SUMMARY
+          echo "- YouTube: ${{ needs.ingest-data.outputs.youtube_count }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Voice Datasets: ${{ needs.ingest-data.outputs.voice_count }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Avg Quality: ${{ needs.ingest-data.outputs.average_quality }}/100" >> $GITHUB_STEP_SUMMARY

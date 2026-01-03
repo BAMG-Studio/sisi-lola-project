@@ -31,9 +31,12 @@ load_dotenv(dotenv_path=env_path)
 
 # Paths
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-DNA_FOLDER = PROJECT_ROOT / "03_MEDIA_ASSETS" / "dna"
+DNA_FOLDER = PROJECT_ROOT / "sisi_lola_api" / "assets" / "dna"  # Has 70+ Sisi Lola images!
 OUTPUT_FOLDER = PROJECT_ROOT / "03_MEDIA_ASSETS" / "produced_vibes"
 CONTENT_QUEUE_PATH = PROJECT_ROOT / "03_MEDIA_ASSETS" / "content_queue" / "vibes_batch_december_2025.json"
+
+# Preferred DNA image for video generation
+SISI_LOLA_DNA_IMAGE = DNA_FOLDER / "Sisi Lola Live Show Hostess.png"
 
 # Ensure output folder exists
 OUTPUT_FOLDER.mkdir(parents=True, exist_ok=True)
@@ -41,8 +44,10 @@ OUTPUT_FOLDER.mkdir(parents=True, exist_ok=True)
 # API Keys
 ELEVENLABS_API_KEY = os.getenv("ELEVENLABS_API_KEY")
 HEYGEN_API_KEY = os.getenv("HEYGEN_API_KEY")
-HEYGEN_AVATAR_ID = os.getenv("HEYGEN_AVATAR_ID", "046a63da7b20403c8c6bb51dbda12f65")
-DID_API_KEY = os.getenv("DID_API_KEY")
+# HARDCODED NEW AVATAR ID - updated 2025-12-30 (bypasses .env override issue)
+HEYGEN_AVATAR_ID = "759b59a7be944f65be2566000769a351"
+# HARDCODED NEW D-ID API KEY - updated 2025-12-30
+DID_API_KEY = "c2lzaWxvbGFsaXZlQGdtYWlsLmNvbQ:uCrB0b0ZvMsLNvd7zdgty"
 INSTAGRAM_TOKEN = os.getenv("INSTAGRAM_ACCESS_TOKEN")
 YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
 
@@ -212,24 +217,34 @@ class SisiLolaProducer:
             print("  ❌ DID_API_KEY not found!")
             return None
         
-        # Get DNA image
-        dna_image_path = DNA_FOLDER / "sisi_lola_official_dna_v1.png"
-        
-        # If no local DNA image, use a placeholder URL
+        # Use D-ID default presenter (base64 DNA image was 1.8MB - too large, causing 500 error)
+        # Will use Sisi Lola custom image once uploaded to a public URL
         source_url = "https://create-images-results.d-id.com/DefaultPresenters/Noelle_f/image.jpeg"
+        print(f"  📸 Using D-ID default presenter (Noelle)")
+        
+        # Create Basic Auth header (D-ID uses email:password format encoded in base64)
+        if ":" in DID_API_KEY:
+            auth_string = DID_API_KEY
+        else:
+            auth_string = f"{DID_API_KEY}:"
+        
+        auth_bytes = base64.b64encode(auth_string.encode()).decode()
         
         try:
             async with httpx.AsyncClient(timeout=300) as client:
                 response = await client.post(
                     "https://api.d-id.com/talks",
-                    auth=(DID_API_KEY.split(":")[0], DID_API_KEY.split(":")[1] if ":" in DID_API_KEY else ""),
+                    headers={
+                        "Authorization": f"Basic {auth_bytes}",
+                        "Content-Type": "application/json"
+                    },
                     json={
                         "script": {
                             "type": "text",
-                            "input": script,
+                            "input": script[:500],  # D-ID has character limits
                             "provider": {
                                 "type": "microsoft",
-                                "voice_id": "en-NG-EzinneNeural"
+                                "voice_id": "en-NG-EzinneNeural"  # Nigerian English
                             }
                         },
                         "source_url": source_url,
@@ -246,7 +261,7 @@ class SisiLolaProducer:
                     print(f"  ⏳ D-ID video started: {talk_id}")
                     
                     # Poll for completion
-                    video_url = await self._poll_did_status(client, talk_id)
+                    video_url = await self._poll_did_status(client, talk_id, auth_bytes)
                     if video_url:
                         print(f"  ✅ Video ready: {video_url}")
                         return video_url
@@ -258,7 +273,7 @@ class SisiLolaProducer:
             print(f"  ❌ D-ID generation failed: {str(e)}")
             return None
     
-    async def _poll_did_status(self, client: httpx.AsyncClient, talk_id: str, max_wait: int = 120) -> Optional[str]:
+    async def _poll_did_status(self, client: httpx.AsyncClient, talk_id: str, auth_bytes: str, max_wait: int = 120) -> Optional[str]:
         """Poll D-ID for video completion"""
         start_time = time.time()
         
@@ -266,7 +281,7 @@ class SisiLolaProducer:
             try:
                 response = await client.get(
                     f"https://api.d-id.com/talks/{talk_id}",
-                    auth=(DID_API_KEY.split(":")[0], DID_API_KEY.split(":")[1] if ":" in DID_API_KEY else "")
+                    headers={"Authorization": f"Basic {auth_bytes}"}
                 )
                 
                 if response.status_code == 200:

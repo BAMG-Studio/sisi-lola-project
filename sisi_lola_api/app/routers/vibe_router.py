@@ -45,6 +45,7 @@ class DemoRequest(BaseModel):
     message: str
     scenario: Optional[str] = "general"
     session_id: Optional[str] = None
+    image_base64: Optional[str] = None
 
 @router.post("/demo-chat")
 async def demo_chat(request: DemoRequest):
@@ -60,7 +61,10 @@ async def demo_chat(request: DemoRequest):
     error_msg = None
     
     try:
-        response_text = await google_creative.generate_nano_engagement(text=request.message)
+        response_text = await google_creative.generate_nano_engagement(
+            text=request.message,
+            image_b64=request.image_base64
+        )
         return {"response": response_text, "scenario": request.scenario}
     except Exception as e:
         error_msg = str(e)[:200]
@@ -145,16 +149,23 @@ async def generate_vibe_snapshot(scene: str = Body(..., embed=True), ctx=Depends
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/engagement")
-async def nano_banana_engagement(message: str = Body(..., embed=True), ctx=Depends(require_api_key)):
-    """Rapid multimodal engagement using Gemini 2.5 Flash (Nano Banana)"""
+async def nano_banana_engagement(
+    prompt: str = Body(..., embed=True), 
+    image_reference: Optional[str] = Body(None, embed=True),
+    ctx=Depends(require_api_key)
+):
+    """Rapid multimodal engagement using Gemini 1.5 Flash (Nano Banana)"""
     start_time = time.time()
     try:
         auth_store.enforce_rate_limit(ctx, "/vibe/engagement")
         
-        response_text = await google_creative.generate_nano_engagement(text=message)
+        response_text = await google_creative.generate_nano_engagement(
+            text=prompt,
+            image_b64=image_reference
+        )
         
         auth_store.log_usage(ctx, "/vibe/engagement", "success", duration_ms=int((time.time() - start_time)*1000))
-        return {"response": response_text, "model": "Gemini 2.5 Flash (Nano Banana)"}
+        return {"response": response_text, "model": "Gemini 1.5 Flash (Nano Banana)"}
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

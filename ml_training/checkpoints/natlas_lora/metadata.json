@@ -1,0 +1,11 @@
+{
+  "model": "N-ATLaS-8B",
+  "adapter": "LoRA",
+  "trained_on": "2025-12-10T03:37:03.157975",
+  "languages": [
+    "yoruba",
+    "pidgin",
+    "nigerian_english"
+  ],
+  "personality": "Sisi Lola - Lagos virtual host"
+}

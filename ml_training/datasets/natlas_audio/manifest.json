@@ -1,0 +1,20 @@
+{
+  "model": "natlas_audio",
+  "dataset_path": "/mnt/c/Users/POK28/Dropbox/Sisi_Lola/ansible/playbooks/../../04_AUDIO_CORE/01_Voice_Samples",
+  "total_files": 10,
+  "prepared_at": "2025-11-27T13:23:36.766548",
+  "incremental": false,
+  "phase": null,
+  "files": [
+    "SCRIPT_call_to_action.txt",
+    "SCRIPT_casual_conversational.txt",
+    "SCRIPT_empathetic_support.txt",
+    "SCRIPT_excited_announcement.txt",
+    "SCRIPT_humorous_anecdote.txt",
+    "SCRIPT_meditation_asmr.txt",
+    "SCRIPT_nigerian_pidgin_authentic.txt",
+    "SCRIPT_professional_introduction.txt",
+    "SCRIPT_tech_review_intro.txt",
+    "SCRIPT_thoughtful_analysis.txt"
+  ]
+}

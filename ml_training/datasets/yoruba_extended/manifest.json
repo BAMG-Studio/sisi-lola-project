@@ -1,0 +1,18 @@
+{
+  "datasets": [
+    {
+      "name": "yoruba-ljspeech",
+      "path": "ml_training\\datasets\\yoruba_extended\\yoruba_ljspeech",
+      "type": "speech",
+      "language": "yoruba"
+    },
+    {
+      "name": "yoruba_audio_translated",
+      "path": "ml_training\\datasets\\yoruba_extended\\yoruba_audio_translated",
+      "type": "bilingual_speech",
+      "language": "yoruba-english"
+    }
+  ],
+  "total_samples": "TBD",
+  "use_case": "XTTS voice training enhancement"
+}

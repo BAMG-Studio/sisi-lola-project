@@ -70,6 +70,7 @@
             font-weight: 700;
             background: linear-gradient(135deg, var(--primary-light), var(--accent));
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -1190,15 +1191,15 @@
                     ? `${API_BASE}/unified/conversation/${sessionId}/message`
                     : `${API_BASE}/unified/chat`;
 
-                const response = await fetch(`${API_BASE}/unified/chat`, {
+                const response = await fetch(`${API_BASE}/api/v2/enhanced-chat/chat`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         message: message,
+                        session_id: sessionId,
                         mode: selectedMode,
                         language: selectedLanguage,
-                        include_audio_base64: selectedMode !== 'text',
-                        model_info: { session_id: sessionId }
+                        include_audio_base64: selectedMode !== 'text'
                     })
                 });
 

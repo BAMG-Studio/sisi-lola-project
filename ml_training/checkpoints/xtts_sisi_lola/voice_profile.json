@@ -1,0 +1,54 @@
+{
+  "name": "Sisi Lola Nigerian Voice",
+  "version": "1.0",
+  "created": "2025-12-10T03:37:07.438098",
+  "engines": {
+    "primary": "xtts",
+    "fallback": "edge_tts"
+  },
+  "xtts": {
+    "model": "tts_models/multilingual/multi-dataset/xtts_v2",
+    "language": "en",
+    "speaker": "sisi_lola",
+    "reference_audio": "04_AUDIO_CORE/voice_samples/sisi_lola_reference.wav"
+  },
+  "edge_tts": {
+    "voices": {
+      "female": "en-NG-EzinneNeural",
+      "male": "en-NG-AbeoNeural"
+    },
+    "default": "en-NG-EzinneNeural",
+    "rate": "+0%",
+    "pitch": "+0Hz"
+  },
+  "prosody": {
+    "accent": "lagos_nigerian",
+    "energy": "high",
+    "warmth": "warm",
+    "particles": [
+      "o!",
+      "sha",
+      "sef",
+      "abi",
+      "wahala",
+      "omo",
+      "chai"
+    ],
+    "expressions": {
+      "greeting": "How you dey?",
+      "agreement": "Na so!",
+      "surprise": "Chai!",
+      "emphasis": "I tell you!",
+      "conclusion": "Na real talk be that o!"
+    }
+  },
+  "audio_format": {
+    "sample_rate": 22050,
+    "channels": 1,
+    "format": "wav",
+    "export_formats": [
+      "wav",
+      "mp3"
+    ]
+  }
+}

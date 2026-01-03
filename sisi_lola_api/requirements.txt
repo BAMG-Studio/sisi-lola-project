@@ -1,40 +1,95 @@
-fastapi
-uvicorn
-openai
-python-dotenv
-httpx
-pillow
-requests
-PyJWT
-imageio
-imageio-ffmpeg
+# ═══════════════════════════════════════════════════════════════════════════════
+# SISI LOLA API - COMPREHENSIVE DEPENDENCIES
+# ═══════════════════════════════════════════════════════════════════════════════
+# Last Updated: 2025-12-29
+# Install with: pip install -r sisi_lola_api/requirements.txt
+# ═══════════════════════════════════════════════════════════════════════════════
 
-# Voice Engine Dependencies (Optional - for XTTS v2)
-# Uncomment when ready to use Coqui TTS:
-# TTS==0.22.0
-# torch>=2.0.0
-# torchaudio>=2.0.0
-# librosa>=0.10.0
-# soundfile>=0.12.0
-# numpy>=1.24.0
+# ────────────────────────────────────────
+# CORE FRAMEWORK
+# ────────────────────────────────────────
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+pydantic>=2.5.0
+python-dotenv>=1.0.0
+python-multipart>=0.0.7
 
-# Added during V2 Stabilization
-huggingface_hub
-numpy
-imageio
-imageio-ffmpeg
-sqlalchemy
-passlib[bcrypt]
-bcrypt
-python-jose[cryptography]
-# Social Media SDKs
-facebook-sdk
-google-api-python-client
-google-auth-oauthlib
-dropbox
-praw
-twitchio
-# Vibe Scheduling & Scraping
-schedule
-beautifulsoup4
-jinja2
+# ────────────────────────────────────────
+# HTTP & ASYNC
+# ────────────────────────────────────────
+httpx>=0.26.0
+aiohttp>=3.9.0
+requests>=2.31.0
+
+# ────────────────────────────────────────
+# DATABASE & AUTH
+# ────────────────────────────────────────
+sqlalchemy>=2.0.36
+passlib[bcrypt]>=1.7.4
+bcrypt<5.0
+python-jose[cryptography]>=3.3.0
+
+# ────────────────────────────────────────
+# AI/ML - OPENAI & GEMINI
+# ────────────────────────────────────────
+openai>=1.10.0
+google-genai>=1.0.0
+cohere>=5.0.0
+
+# ────────────────────────────────────────
+# HUGGINGFACE & TRANSFORMERS
+# ────────────────────────────────────────
+huggingface_hub>=0.20.0
+transformers>=4.36.0
+torch>=2.1.0
+
+# ────────────────────────────────────────
+# IMAGE & VIDEO PROCESSING
+# ────────────────────────────────────────
+pillow>=10.0.0
+imageio>=2.33.0
+imageio-ffmpeg>=0.4.9
+numpy>=1.24.0
+scipy>=1.11.0
+
+# ────────────────────────────────────────
+# SOCIAL MEDIA SDK'S
+# ────────────────────────────────────────
+dropbox>=12.0.0
+# facebook-sdk>=3.1.0  # Commented: May need manual install due to conflicts
+# praw>=7.7.0          # Reddit (uncomment if using Reddit integration)
+# twitchio>=2.8.0      # Twitch (uncomment if using Twitch integration)
+
+# Google/YouTube APIs
+google-api-python-client>=2.111.0
+google-auth-oauthlib>=1.2.0
+google-auth>=2.25.0
+
+# ────────────────────────────────────────
+# SCHEDULING & SCRAPING
+# ────────────────────────────────────────
+schedule>=1.2.0
+beautifulsoup4>=4.12.0
+
+# ────────────────────────────────────────
+# TEMPLATING
+# ────────────────────────────────────────
+jinja2>=3.1.0
+
+# ────────────────────────────────────────
+# MODAL (SERVERLESS GPU)
+# ────────────────────────────────────────
+modal>=0.56.0
+
+# ────────────────────────────────────────
+# DEV & TESTING (Optional)
+# ────────────────────────────────────────
+pytest>=7.4.0
+pytest-asyncio>=0.23.0
+
+# ────────────────────────────────────────
+# NOTES:
+# ────────────────────────────────────────
+# - For XTTS voice (optional): pip install TTS
+# - For full torch GPU: pip install torch --index-url https://download.pytorch.org/whl/cu121
+# - facebook-sdk may conflict with other packages; install separately if needed

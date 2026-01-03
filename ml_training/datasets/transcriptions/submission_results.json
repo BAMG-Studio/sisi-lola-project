@@ -1,0 +1,75 @@
+{
+  "submitted_at": "2025-12-14T14:46:42.348422",
+  "results": [
+    {
+      "name": "authentic_video_002",
+      "category": "authentic",
+      "task_id": null,
+      "status": "failed",
+      "error": "No shared link"
+    },
+    {
+      "name": "authentic_video_003",
+      "category": "authentic",
+      "task_id": null,
+      "status": "failed",
+      "error": "No shared link"
+    },
+    {
+      "name": "authentic_video_004",
+      "category": "authentic",
+      "task_id": null,
+      "status": "failed",
+      "error": "No shared link"
+    },
+    {
+      "name": "authentic_video_005",
+      "category": "authentic",
+      "task_id": null,
+      "status": "failed",
+      "error": "No shared link"
+    },
+    {
+      "name": "authentic_video_006",
+      "category": "authentic",
+      "task_id": null,
+      "status": "failed",
+      "error": "No shared link"
+    },
+    {
+      "name": "authentic_video_007",
+      "category": "authentic",
+      "task_id": null,
+      "status": "failed",
+      "error": "No shared link"
+    },
+    {
+      "name": "authentic_video_008",
+      "category": "authentic",
+      "task_id": null,
+      "status": "failed",
+      "error": "No shared link"
+    },
+    {
+      "name": "heygen_20251126_143538",
+      "category": "heygen",
+      "task_id": null,
+      "status": "failed",
+      "error": "No shared link"
+    },
+    {
+      "name": "heygen_20251126_181318",
+      "category": "heygen",
+      "task_id": null,
+      "status": "failed",
+      "error": "No shared link"
+    },
+    {
+      "name": "The danger of a single story",
+      "category": "ted",
+      "task_id": null,
+      "status": "failed",
+      "error": "No shared link"
+    }
+  ]
+}

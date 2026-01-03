@@ -1,0 +1,8 @@
+# Sisi Lola Producer - Replicate Configuration
+build:
+  gpu: false
+  python_version: "3.11"
+  python_requirements: requirements.txt
+
+image: "r8.im/bamg-studio/sisi-lola-producer"
+predict: "predict.py:Predictor"

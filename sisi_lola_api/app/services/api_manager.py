@@ -111,7 +111,7 @@ class APIKeyManager:
             if not self.google_ai_studio_key:
                 return None
             return httpx.AsyncClient(
-                base_url="https://generativelanguage.googleapis.com/v1beta",
+                base_url="https://generativelanguage.googleapis.com/v1beta/",
                 headers={"Content-Type": "application/json"},
                 params={"key": self.google_ai_studio_key},
                 timeout=timeout

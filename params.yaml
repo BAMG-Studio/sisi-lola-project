@@ -1,0 +1,63 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# 🇳🇬 SISI LOLA DVC PARAMETERS
+# ═══════════════════════════════════════════════════════════════════════════════
+# Centralized parameters for DVC pipeline stages
+
+# =============================================================================
+# DATA INGESTION PARAMETERS
+# =============================================================================
+ingestion:
+  youtube:
+    channels:
+      - "@NollywoodTrending"
+      - "@NigerianMoviesOfficial"
+    max_videos_per_channel: 50
+    languages:
+      - yoruba
+      - igbo
+      - hausa
+      - pidgin
+      - english
+    quality_threshold: 0.7
+    
+# =============================================================================
+# AUDIO PROCESSING PARAMETERS
+# =============================================================================
+audio:
+  sample_rate: 22050
+  chunk_duration: 10  # seconds
+  voice_activity_threshold: 0.3
+  noise_reduction: true
+  normalize: true
+
+# =============================================================================
+# TRAINING PARAMETERS
+# =============================================================================
+training:
+  voice:
+    model: XTTS
+    epochs: 100
+    batch_size: 8
+    learning_rate: 0.0001
+    speaker_embedding_dim: 512
+    
+  brain:
+    base_model: NCAIR1/N-ATLaS-8B
+    lora_r: 16
+    lora_alpha: 32
+    epochs: 3
+    batch_size: 4
+    gradient_accumulation: 4
+    max_seq_length: 2048
+    
+# =============================================================================
+# NIGERIAN LANGUAGE CONFIG
+# =============================================================================
+nigerian:
+  priority_languages:
+    - yoruba
+    - pidgin
+    - igbo
+    - hausa
+  training_bonus: 1.5  # Weight boost for Nigerian content
+  character_seed: 45822

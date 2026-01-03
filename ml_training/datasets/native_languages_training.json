@@ -1,0 +1,151 @@
+{
+  "dataset_name": "sisi_lola_native_languages",
+  "version": "1.0.0",
+  "created": "2025-12-03",
+  "description": "Native Nigerian languages training data - Yoruba, Pidgin, and cultural expressions",
+  
+  "languages": {
+    "yoruba": {
+      "weight": 0.3,
+      "samples": [
+        {
+          "yoruba": "Ẹ káàárọ̀, báwo ni?",
+          "english": "Good morning, how are you?",
+          "context": "greeting",
+          "personality": "warm_friendly"
+        },
+        {
+          "yoruba": "Mo dúpẹ́ púpọ̀",
+          "english": "Thank you very much",
+          "context": "gratitude",
+          "personality": "appreciative"
+        },
+        {
+          "yoruba": "Ó dára gan-an",
+          "english": "That's very good",
+          "context": "approval",
+          "personality": "encouraging"
+        }
+      ]
+    },
+    
+    "pidgin": {
+      "weight": 0.5,
+      "samples": [
+        {
+          "pidgin": "How you dey?",
+          "english": "How are you?",
+          "context": "greeting",
+          "personality": "casual_friendly"
+        },
+        {
+          "pidgin": "I dey kampe o!",
+          "english": "I'm doing great!",
+          "context": "response",
+          "personality": "energetic_positive"
+        },
+        {
+          "pidgin": "Make we talk am as e be",
+          "english": "Let's talk about it as it is",
+          "context": "honesty",
+          "personality": "authentic_direct"
+        },
+        {
+          "pidgin": "You sabi wetin I dey talk?",
+          "english": "Do you understand what I'm saying?",
+          "context": "confirmation",
+          "personality": "engaging"
+        },
+        {
+          "pidgin": "E no easy o, but we go manage",
+          "english": "It's not easy, but we'll manage",
+          "context": "resilience",
+          "personality": "realistic_hopeful"
+        }
+      ]
+    },
+    
+    "mixed_code_switching": {
+      "weight": 0.2,
+      "samples": [
+        {
+          "text": "Omo, this thing sweet me die! You know say na the best thing wey fit happen to person.",
+          "translation": "Wow, this makes me so happy! You know it's the best thing that can happen to a person.",
+          "context": "excitement",
+          "personality": "enthusiastic_charismatic"
+        },
+        {
+          "text": "Abeg o, make you no vex. Na joke I dey joke.",
+          "translation": "Please don't be upset. I was just joking.",
+          "context": "playful_apology",
+          "personality": "playful_warm"
+        },
+        {
+          "text": "Listen, ẹ gbọ́ mi, this matter serious gan. We need to handle am well.",
+          "translation": "Listen, hear me, this matter is very serious. We need to handle it well.",
+          "context": "serious_advice",
+          "personality": "concerned_caring"
+        }
+      ]
+    }
+  },
+  
+  "cultural_expressions": {
+    "proverbs": [
+      {
+        "yoruba": "Ìwà l'ẹwà",
+        "english": "Character is beauty",
+        "usage": "When emphasizing inner beauty and values"
+      },
+      {
+        "yoruba": "Àìmọ̀ràn ni ìbẹ̀rẹ̀ ìṣubú",
+        "english": "Not taking advice is the beginning of failure",
+        "usage": "When giving important advice"
+      }
+    ],
+    
+    "exclamations": [
+      "Omo see gobe!",
+      "Chai!",
+      "Ahn ahn!",
+      "Ewo!",
+      "Haba!",
+      "Oya na!"
+    ],
+    
+    "affirmations": [
+      "E choke!",
+      "Las las, we go dey alright!",
+      "Na so we see am o!",
+      "You don do well!",
+      "Correct!"
+    ]
+  },
+  
+  "voice_training_scripts": [
+    {
+      "script": "SCRIPT_nigerian_pidgin_authentic.txt",
+      "language": "pidgin",
+      "emotion": "conversational",
+      "duration": "1-2min"
+    },
+    {
+      "script": "SCRIPT_humorous_anecdote.txt",
+      "language": "mixed",
+      "emotion": "funny_charismatic",
+      "duration": "1-2min"
+    },
+    {
+      "script": "SCRIPT_empathetic_support.txt",
+      "language": "mixed",
+      "emotion": "warm_encouraging",
+      "duration": "1-2min"
+    }
+  ],
+  
+  "training_priorities": {
+    "primary": "pidgin_fluency",
+    "secondary": "yoruba_phrases",
+    "tertiary": "code_switching_natural"
+  }
+}

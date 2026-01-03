@@ -1,0 +1,69 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual Environments (CRITICAL - Don't upload these!)
+venv/
+venv_*/
+.venv*/
+env/
+ENV/
+
+# Media Assets (Don't need for Replicate build)
+03_MEDIA_ASSETS/
+*.mp4
+*.wav
+*.mp3
+*.avi
+*.mov
+
+# Training Data
+ml_training/datasets/
+ml_training/checkpoints/
+ml_training/logs/
+data/mms_cache/
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+batch.log
+server.log
+training_new.log
+
+# Database files
+*.db
+*.sqlite
+
+# Credentials
+*.json
+!cog.yaml
+.env
+
+# Temp files
+*.tmp
+*.cache
+
+# Documentation (Don't need for runtime)
+*.md
+!README.md
+
+# Other project files
+00_PROJECT_CORE/
+.agent/
+youtube_token.json
+client_secrets.json
+test_*.py

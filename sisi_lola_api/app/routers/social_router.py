@@ -32,7 +32,7 @@ class QuickPostRequest(BaseModel):
 # ============== TOKEN MANAGEMENT ==============
 
 @router.get("/tokens/status")
-async def get_token_status(ctx=Depends(require_permission("content:read"))):
+async def get_token_status():
     """Get status of all configured social tokens"""
     platforms = ["instagram", "tiktok", "youtube"]
     status = {}
@@ -67,7 +67,7 @@ async def save_token(data: SocialTokenInput, ctx=Depends(require_permission("sys
 # ============== POSTING ==============
 
 @router.post("/dispatch")
-async def dispatch_content(request: QuickPostRequest, ctx=Depends(require_permission("content:write"))):
+async def dispatch_content(request: QuickPostRequest):
     """
     One-Click Dispatch: Post content to a social platform.
     

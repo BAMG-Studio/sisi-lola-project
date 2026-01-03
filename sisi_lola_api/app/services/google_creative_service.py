@@ -155,7 +155,7 @@ class GoogleCreativeService:
         except Exception as e:
             return {"success": False, "error": str(e)}
 
-    async def generate_nano_engagement(self, text: str) -> str:
+    async def generate_nano_engagement(self, text: str, image_b64: Optional[str] = None) -> str:
         """
         Fast 'Nano Banana' multimodal engagement.
         """
@@ -163,8 +163,13 @@ class GoogleCreativeService:
         from sisi_lola_api.app.services.unified_inference import get_inference_service
         service = get_inference_service()
         
-        # Route to Gemini 2.5 Flash
-        return await service._generate_with_gemini(text, system_prompt=self.dna.SYSTEM_PERSONA)
+        # Route to Gemini 3 Pro (Supreme Performance)
+        return await service._generate_with_gemini(
+            message=text, 
+            system_prompt=self.dna.SYSTEM_PERSONA, 
+            conversation_history=None, 
+            image_b64=image_b64
+        )
 
 # Singleton Instance
 google_creative_service = GoogleCreativeService()

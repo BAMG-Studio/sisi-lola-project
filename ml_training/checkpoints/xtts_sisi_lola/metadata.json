@@ -1,0 +1,15 @@
+{
+  "model": "Voice Profile (EdgeTTS + XTTS ready)",
+  "speaker": "Sisi Lola",
+  "trained_on": "2025-12-10T03:37:07.439784",
+  "languages": [
+    "nigerian_english",
+    "pidgin",
+    "yoruba_phrases"
+  ],
+  "accent": "Lagos Nigerian",
+  "engines_available": [
+    "edge_tts"
+  ],
+  "xtts_ready": false
+}

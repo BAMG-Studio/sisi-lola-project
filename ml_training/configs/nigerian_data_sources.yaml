@@ -2,11 +2,11 @@
 # SISI LOLA - NIGERIAN DATA SOURCES REGISTRY
 # ═══════════════════════════════════════════════════════════════════════════════
 # 50+ curated sources for voice, cultural context, and video training
-# Last Updated: 2025-01-03
+# Last Updated: 2026-01-03
 # ═══════════════════════════════════════════════════════════════════════════════
 
 version: "2.0"
-last_updated: "2025-01-03"
+last_updated: "2026-01-03"
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # VOICE & SPEECH DATASETS (TTS/STT Training)
@@ -457,7 +457,7 @@ auto_ingestion:
 
   # YouTube API Queries
   youtube_queries:
-    - query: "Nigerian tech review 2025"
+    - query: "Nigerian tech review 2026"
       frequency: daily
       max_results: 10
       

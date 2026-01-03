@@ -61,3 +61,90 @@ sisi_lola_api/scripts/*.py
 
 # Replicate specific
 replicate/.cog/
+
+# Replicate specific
+replicate/.cog/
+
+.DS_Store
+Thumbs.db
+
+# =============================================================================
+# SECURITY - NEVER COMMIT THESE FILES
+# =============================================================================
+
+# Environment files with secrets
+.env
+*.env
+!.env.example
+sisi_lola_api/.env
+
+# OAuth credentials and tokens
+client_secrets.json
+**/client_secrets.json
+youtube_token.json
+**/youtube_token.json
+**/token*.json
+**/credentials.json
+**/oauth*.json
+data/youtube_credentials.json
+tools/curator/credentials.json
+
+# API keys and secrets
+**/secrets.json
+**/api_keys.json
+**/*_secrets.py
+**/*_credentials.py
+
+# Modal secrets
+.modal/
+
+# DVC cache and local files
+.dvc/cache/
+.dvc/tmp/
+.dvc/*.lock
+*.dvc.lock
+
+# Large data files tracked by DVC
+data/raw/
+data/processed/
+models/
+checkpoints/
+
+# =============================================================================
+# LARGE FILES - EXCEED GITHUB 100MB LIMIT
+# =============================================================================
+
+# Model caches (Facebook MMS models are 138MB+)
+data/mms_cache/
+**/mms_cache/
+
+# Node modules (Next.js SWC binaries are 120-140MB)
+node_modules/
+**/node_modules/
+control_center_frontend/node_modules/
+
+# Virtual environments (all of them)
+.venv/
+.venv_*/
+venv_*/
+**/bin/python
+**/bin/python3
+**/bin/python3.*
+
+# Large binary files
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+*.pb
+*.h5
+*.hdf5
+
+# Cache directories
+.cache/
+**/.cache/
+**/cache/
+__pycache__/
+*.pyc

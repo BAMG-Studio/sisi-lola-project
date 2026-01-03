@@ -1,0 +1,74 @@
+{
+  "created": "2025-12-14T14:38:25.360378",
+  "jobs": [
+    {
+      "video": "authentic_video_001",
+      "category": "sisi_lola_authentic",
+      "path": "/mnt/c/Users/POK28/Dropbox/Sisi_Lola/06_RENDER_OUTPUT/authentic_video_001.mp4",
+      "dropbox_url": "https://www.dropbox.com/scl/fi/eqz0pgg3a4luhikb7o6qu/authentic_video_001.mp4?rlkey=pzp27dsztoiqhp845qgaavsi0&dl=1",
+      "task_id": "8ef57367-6d0a-4179-afac-eef2b1b2dc73",
+      "status": "submitted",
+      "submitted_at": "2025-12-14T14:37:13.487341"
+    },
+    {
+      "video": "authentic_video_002",
+      "category": "sisi_lola_authentic",
+      "status": "failed",
+      "error": "RecCloud task creation failed"
+    },
+    {
+      "video": "authentic_video_003",
+      "category": "sisi_lola_authentic",
+      "status": "failed",
+      "error": "RecCloud task creation failed"
+    },
+    {
+      "video": "authentic_video_004",
+      "category": "sisi_lola_authentic",
+      "status": "failed",
+      "error": "RecCloud task creation failed"
+    },
+    {
+      "video": "authentic_video_005",
+      "category": "sisi_lola_authentic",
+      "status": "failed",
+      "error": "RecCloud task creation failed"
+    },
+    {
+      "video": "authentic_video_006",
+      "category": "sisi_lola_authentic",
+      "status": "failed",
+      "error": "RecCloud task creation failed"
+    },
+    {
+      "video": "authentic_video_007",
+      "category": "sisi_lola_authentic",
+      "status": "failed",
+      "error": "RecCloud task creation failed"
+    },
+    {
+      "video": "authentic_video_008",
+      "category": "sisi_lola_authentic",
+      "status": "failed",
+      "error": "RecCloud task creation failed"
+    },
+    {
+      "video": "heygen_20251126_143538",
+      "category": "sisi_lola_youtube",
+      "status": "failed",
+      "error": "RecCloud task creation failed"
+    },
+    {
+      "video": "heygen_20251126_181318",
+      "category": "sisi_lola_youtube",
+      "status": "failed",
+      "error": "RecCloud task creation failed"
+    },
+    {
+      "video": "The danger of a single story",
+      "category": "external_ted",
+      "status": "failed",
+      "error": "RecCloud task creation failed"
+    }
+  ]
+}

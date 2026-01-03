@@ -1,0 +1,5 @@
+# Sisi Lola DVC Storage
+# This directory is used for local DVC caching
+# It syncs via Dropbox automatically
+
+# This file ensures the directory is tracked by git

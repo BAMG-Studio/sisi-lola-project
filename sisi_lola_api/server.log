@@ -1,0 +1,27 @@
+nohup: ignoring input
+🚀 Starting Sisi Lola API on 0.0.0.0:8000 (reload=0)
+    Using environment from /mnt/c/Users/POK28/Dropbox/Sisi_Lola/sisi_lola_api/.env
+INFO:     Started server process [1237732]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:48550 - "POST /images/generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53878 - "POST /images/generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34122 - "POST /images/generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34314 - "POST /images/generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59322 - "POST /images/generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57428 - "POST /images/generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52368 - "POST /images/generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56942 - "POST /images/generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48814 - "POST /videos/generate HTTP/1.1" 502 Bad Gateway
+INFO:     127.0.0.1:45016 - "POST /videos/generate HTTP/1.1" 502 Bad Gateway
+INFO:     127.0.0.1:57120 - "POST /audio/speak HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57132 - "POST /audio/speak HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34690 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34700 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47384 - "POST /images/generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60386 - "POST /audio/speak HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [1237732]

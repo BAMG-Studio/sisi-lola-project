@@ -1,0 +1,26 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# 🇳🇬 SISI LOLA STREAMLIT CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+[server]
+headless = true
+port = 8501
+enableCORS = false
+enableXsrfProtection = true
+
+[browser]
+gatherUsageStats = false
+
+[theme]
+primaryColor = "#008751"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#f0f8ff"
+textColor = "#1a1a1a"
+font = "sans serif"
+
+[client]
+showErrorDetails = true
+toolbarMode = "developer"
+
+[runner]
+fastReruns = true

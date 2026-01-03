@@ -1,0 +1,20 @@
+[core]
+    remote = local
+    autostage = true
+
+# Local storage (for Windows development)
+[remote "local"]
+    url = ../dvc-storage
+
+# Dropbox as primary remote (uses your existing Dropbox sync)
+[remote "dropbox"]
+    url = ../dvc-storage
+
+# AWS S3 (optional - configure when ready)
+# [remote "s3"]
+#     url = s3://sisi-lola-datasets
+#     endpointurl = https://s3.amazonaws.com
+
+# HuggingFace Hub as model remote
+# [remote "huggingface"]
+#     url = hf://SisiLolaAI/training-data

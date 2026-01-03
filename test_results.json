@@ -1,0 +1,63 @@
+{
+  "timestamp": "2025-12-30T15:05:31.731902",
+  "tests": [
+    {
+      "name": "API Health Check",
+      "passed": true,
+      "details": "Status: ONLINE",
+      "response_time_ms": 23.761
+    },
+    {
+      "name": "UI Page: /",
+      "passed": true,
+      "details": "HTML loaded",
+      "response_time_ms": 14.956999999999999
+    },
+    {
+      "name": "UI Page: /demo",
+      "passed": true,
+      "details": "HTML loaded",
+      "response_time_ms": 50.426
+    },
+    {
+      "name": "UI Page: /dashboard",
+      "passed": true,
+      "details": "HTML loaded",
+      "response_time_ms": 52.040000000000006
+    },
+    {
+      "name": "Gemini 3 Pro Brain",
+      "passed": true,
+      "details": "Ah ah! How far my person! \ud83d\ude4c\ud83c\udffe You dey Italy dey chill while we dey here dey hustle, abi? Chai! E don ",
+      "response_time_ms": 14667.658
+    },
+    {
+      "name": "Modal Fast Inference",
+      "passed": true,
+      "details": "Source: gemini-direct",
+      "response_time_ms": 6875.295999999999
+    },
+    {
+      "name": "Social Token Status",
+      "passed": true,
+      "details": "3/3 platforms configured",
+      "response_time_ms": 67.819
+    },
+    {
+      "name": "Vibes Content Queue",
+      "passed": true,
+      "details": "10 vibes loaded",
+      "response_time_ms": 142.643
+    },
+    {
+      "name": "Batch Engagement",
+      "passed": false,
+      "details": "HTTP 500",
+      "response_time_ms": 17.653
+    }
+  ],
+  "summary": {
+    "passed": 8,
+    "failed": 1
+  }
+}
