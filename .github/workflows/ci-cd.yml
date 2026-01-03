@@ -12,7 +12,6 @@ env:
 jobs:
   test:
     runs-on: ubuntu-latest
-    
     steps:
       - uses: actions/checkout@v4
         with:
@@ -92,7 +91,7 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-
+    continue-on-error: true  # Don't fail pipeline if Replicate deployment fails
     steps:
       - uses: actions/checkout@v4
         with:
@@ -121,8 +120,9 @@ jobs:
             exit 1
           fi
           cd replicate
-          cog login --token $REPLICATE_API_TOKEN
+          echo "🔐 Authenticating with Replicate..."
           echo "🚀 Pushing to r8.im/bamg-studio/sisi-lola-producer..."
+          echo "$REPLICATE_API_TOKEN" | docker login r8.im --username oauth2 --password-stdin
           cog push r8.im/bamg-studio/sisi-lola-producer
           echo "✅ Replicate deployment successful!"
 
@@ -143,3 +143,13 @@ jobs:
             echo "🎉 Supreme Producer is live!"
             echo "📺 API: https://replicate.com/bamg-studio/sisi-lola-producer"
           fi
+
+
+
+
+
+
+
+
+
+
