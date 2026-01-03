@@ -1,0 +1,531 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# SISI LOLA - NIGERIAN DATA SOURCES REGISTRY
+# ═══════════════════════════════════════════════════════════════════════════════
+# 50+ curated sources for voice, cultural context, and video training
+# Last Updated: 2025-01-03
+# ═══════════════════════════════════════════════════════════════════════════════
+
+version: "2.0"
+last_updated: "2025-01-03"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# VOICE & SPEECH DATASETS (TTS/STT Training)
+# ═══════════════════════════════════════════════════════════════════════════════
+voice_datasets:
+  # ─────────────────────────────────────────────────────────────────────────────
+  # TIER 1: PRIMARY - High Quality, Ready to Use
+  # ─────────────────────────────────────────────────────────────────────────────
+  primary:
+    - id: mms-tts-yor
+      name: "MMS TTS Yoruba"
+      source: facebook/mms-tts-yor
+      platform: huggingface
+      language: yoruba
+      type: tts
+      quality: high
+      samples: 10000+
+      use_for: [voice_synthesis, pronunciation]
+      
+    - id: mms-tts-hau
+      name: "MMS TTS Hausa"
+      source: facebook/mms-tts-hau
+      platform: huggingface
+      language: hausa
+      type: tts
+      quality: high
+      samples: 10000+
+      use_for: [voice_synthesis, pronunciation]
+      
+    - id: mms-tts-ibo
+      name: "MMS TTS Igbo"
+      source: facebook/mms-tts-ibo
+      platform: huggingface
+      language: igbo
+      type: tts
+      quality: high
+      samples: 10000+
+      use_for: [voice_synthesis, pronunciation]
+      
+    - id: mms-tts-pcm
+      name: "MMS TTS Nigerian Pidgin"
+      source: facebook/mms-tts-pcm
+      platform: huggingface
+      language: pidgin
+      type: tts
+      quality: high
+      samples: 5000+
+      use_for: [voice_synthesis, pidgin_pronunciation]
+      
+    - id: fleurs-yo
+      name: "Google FLEURS Yoruba"
+      source: google/fleurs
+      platform: huggingface
+      language: yoruba
+      type: asr
+      quality: high
+      samples: 2000+
+      use_for: [speech_recognition, transcription]
+      
+    - id: fleurs-ha
+      name: "Google FLEURS Hausa"
+      source: google/fleurs
+      platform: huggingface
+      language: hausa
+      type: asr
+      quality: high
+      samples: 2000+
+      use_for: [speech_recognition, transcription]
+      
+    - id: fleurs-ig
+      name: "Google FLEURS Igbo"
+      source: google/fleurs
+      platform: huggingface
+      language: igbo
+      type: asr
+      quality: high
+      samples: 2000+
+      use_for: [speech_recognition, transcription]
+      
+    - id: common-voice-yo
+      name: "Mozilla Common Voice Yoruba"
+      source: mozilla-foundation/common_voice_16_1
+      platform: huggingface
+      language: yoruba
+      type: asr
+      quality: medium-high
+      samples: 500+
+      use_for: [speech_recognition, accent_training]
+      
+    - id: common-voice-ha
+      name: "Mozilla Common Voice Hausa"
+      source: mozilla-foundation/common_voice_16_1
+      platform: huggingface
+      language: hausa
+      type: asr
+      quality: medium-high
+      samples: 1000+
+      use_for: [speech_recognition, accent_training]
+      
+    - id: common-voice-ig
+      name: "Mozilla Common Voice Igbo"
+      source: mozilla-foundation/common_voice_16_1
+      platform: huggingface
+      language: igbo
+      type: asr
+      quality: medium
+      samples: 200+
+      use_for: [speech_recognition, accent_training]
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # TIER 2: SECONDARY - Research/Academic Sources
+  # ─────────────────────────────────────────────────────────────────────────────
+  secondary:
+    - id: afrivoices-ng
+      name: "AfriVoices Nigeria"
+      source: afrivoices/nigerian-accents
+      platform: huggingface
+      language: multi-nigerian
+      type: asr
+      quality: high
+      samples: 5000+
+      use_for: [accent_modeling, regional_variation]
+      
+    - id: yoruba-speech-corpus
+      name: "Yoruba Speech Corpus"
+      source: masakhane/yoruba-asr
+      platform: huggingface
+      language: yoruba
+      type: asr
+      quality: high
+      samples: 3000+
+      use_for: [asr_training, dialect_variation]
+      
+    - id: hausa-voa
+      name: "VOA Hausa News Corpus"
+      source: web_scrape
+      platform: voa
+      url: https://www.voahausa.com
+      language: hausa
+      type: news_audio
+      quality: high
+      samples: unlimited
+      use_for: [news_style, formal_speech]
+      
+    - id: bbc-hausa
+      name: "BBC Hausa Audio"
+      source: web_scrape
+      platform: bbc
+      url: https://www.bbc.com/hausa
+      language: hausa
+      type: news_audio
+      quality: high
+      samples: unlimited
+      use_for: [news_style, formal_speech]
+      
+    - id: bbc-pidgin
+      name: "BBC Pidgin Audio"
+      source: web_scrape
+      platform: bbc
+      url: https://www.bbc.com/pidgin
+      language: pidgin
+      type: news_audio
+      quality: high
+      samples: unlimited
+      use_for: [pidgin_fluency, news_pidgin]
+      
+    - id: naija-tts
+      name: "Naija TTS Dataset"
+      source: chrisjay/naijatts
+      platform: huggingface
+      language: pidgin
+      type: tts
+      quality: medium
+      samples: 1000+
+      use_for: [pidgin_synthesis, colloquial]
+      
+    - id: yoruba-embeddings
+      name: "Yoruba Word Embeddings"
+      source: Davlan/xlm-roberta-base-finetuned-yoruba
+      platform: huggingface
+      language: yoruba
+      type: embeddings
+      quality: high
+      use_for: [semantic_understanding, text_processing]
+      
+    - id: hausa-ner
+      name: "Hausa Named Entity Recognition"
+      source: masakhane/hausa-ner
+      platform: huggingface
+      language: hausa
+      type: ner
+      quality: high
+      use_for: [entity_extraction, context_understanding]
+      
+    - id: igbo-ner
+      name: "Igbo Named Entity Recognition"
+      source: masakhane/igbo-ner
+      platform: huggingface
+      language: igbo
+      type: ner
+      quality: high
+      use_for: [entity_extraction, context_understanding]
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # TIER 3: SPECIALIZED - Domain-Specific Sources
+  # ─────────────────────────────────────────────────────────────────────────────
+  specialized:
+    - id: nollywood-subtitles
+      name: "Nollywood Movie Subtitles"
+      source: web_scrape
+      platform: opensubtitles
+      url: https://www.opensubtitles.org
+      language: multi-nigerian
+      type: subtitles
+      quality: variable
+      samples: 10000+ movies
+      use_for: [cultural_context, dialogue_patterns, slang]
+      
+    - id: nairaland-corpus
+      name: "Nairaland Forum Corpus"
+      source: web_scrape
+      platform: nairaland
+      url: https://www.nairaland.com
+      language: pidgin-english-mix
+      type: text
+      quality: medium
+      samples: millions
+      use_for: [colloquial_language, trending_topics, slang]
+      
+    - id: wazobia-fm
+      name: "Wazobia FM Audio Clips"
+      source: web_scrape
+      platform: radio
+      url: https://wazobia.fm
+      language: pidgin
+      type: radio_audio
+      quality: high
+      samples: streaming
+      use_for: [broadcast_pidgin, entertainment_style]
+      
+    - id: afrobeats-lyrics
+      name: "Afrobeats Lyrics Database"
+      source: genius_api
+      platform: genius
+      language: multi-nigerian
+      type: lyrics
+      quality: high
+      samples: 50000+
+      use_for: [cultural_expressions, slang, vibes]
+      
+    - id: nigerian-twitter
+      name: "Nigerian Twitter Corpus"
+      source: twitter_api
+      platform: twitter
+      language: pidgin-english-mix
+      type: social_media
+      quality: variable
+      samples: millions
+      use_for: [trending_language, youth_slang, reactions]
+      
+    - id: tiktok-naija
+      name: "Nigerian TikTok Transcripts"
+      source: tiktok_scrape
+      platform: tiktok
+      language: pidgin-english-mix
+      type: video_transcript
+      quality: variable
+      samples: 100000+
+      use_for: [viral_expressions, youth_culture, trends]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# VIDEO TRAINING SOURCES (For Lip-Sync, Expression, Cultural Context)
+# ═══════════════════════════════════════════════════════════════════════════════
+video_datasets:
+  # YouTube Channels for Nigerian Content
+  youtube_channels:
+    - id: tunde-ednut
+      name: "Tunde Ednut"
+      url: https://youtube.com/@TundeEdnut
+      content_type: entertainment
+      language: pidgin-english
+      use_for: [entertainment_style, reactions, trending]
+      
+    - id: mark-angel
+      name: "Mark Angel Comedy"
+      url: https://youtube.com/@MarkAngelComedy
+      content_type: comedy
+      language: pidgin-english
+      use_for: [comedy_timing, expressions, dialogue]
+      
+    - id: broda-shaggi
+      name: "Broda Shaggi"
+      url: https://youtube.com/@BrodaShaggi
+      content_type: comedy
+      language: pidgin
+      use_for: [pidgin_fluency, expressions, comedy]
+      
+    - id: taaooma
+      name: "Taaooma"
+      url: https://youtube.com/@Taaooma
+      content_type: comedy
+      language: pidgin-english-yoruba
+      use_for: [multi_character, family_dynamics, expressions]
+      
+    - id: channels-tv
+      name: "Channels TV"
+      url: https://youtube.com/@channelstv
+      content_type: news
+      language: english-nigerian
+      use_for: [formal_speech, news_style, current_events]
+      
+    - id: arise-news
+      name: "Arise News"
+      url: https://youtube.com/@AriseNews
+      content_type: news
+      language: english-nigerian
+      use_for: [formal_speech, analysis, current_events]
+      
+    - id: pulse-nigeria
+      name: "Pulse Nigeria"
+      url: https://youtube.com/@PulseNigeria
+      content_type: entertainment_news
+      language: pidgin-english
+      use_for: [pop_culture, celebrity_news, trends]
+      
+    - id: tech-next
+      name: "Technext Nigeria"
+      url: https://youtube.com/@TechnextNigeria
+      content_type: tech
+      language: english-nigerian
+      use_for: [tech_reviews, gadgets, african_tech]
+      
+    - id: sisi-yemmie
+      name: "Sisi Yemmie"
+      url: https://youtube.com/@SisiYemmie
+      content_type: lifestyle
+      language: english-yoruba
+      use_for: [lifestyle, cooking, vlogs]
+      
+    - id: dimma-umeh
+      name: "Dimma Umeh"
+      url: https://youtube.com/@DimmaUmeh
+      content_type: beauty_tech
+      language: english-nigerian
+      use_for: [beauty, tech, lifestyle]
+
+  # TikTok Accounts for Trend Analysis
+  tiktok_accounts:
+    - id: don-jazzy
+      name: "@doloradoforlando (Don Jazzy)"
+      content_type: music_entertainment
+      followers: 5M+
+      use_for: [music_trends, viral_content]
+      
+    - id: mr-macaroni
+      name: "@mrmacaroni1"
+      content_type: comedy
+      followers: 3M+
+      use_for: [comedy_skits, expressions]
+      
+    - id: aproko-doctor
+      name: "@aprikiodcotor"
+      content_type: health_education
+      followers: 2M+
+      use_for: [educational_content, health_info]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# CULTURAL CONTEXT SOURCES (Personality & Knowledge)
+# ═══════════════════════════════════════════════════════════════════════════════
+cultural_datasets:
+  # Text Corpora for Cultural Understanding
+  text_corpora:
+    - id: nigerian-proverbs
+      name: "Nigerian Proverbs Database"
+      source: custom_collection
+      languages: [yoruba, hausa, igbo, pidgin]
+      samples: 5000+
+      use_for: [wisdom, cultural_expression, personality]
+      
+    - id: nigerian-history
+      name: "Nigerian History Corpus"
+      source: wikipedia
+      languages: [english]
+      samples: 10000+ articles
+      use_for: [historical_context, knowledge_base]
+      
+    - id: nigerian-food
+      name: "Nigerian Cuisine Database"
+      source: custom_collection
+      languages: [english, yoruba, hausa, igbo]
+      samples: 1000+ recipes
+      use_for: [cultural_knowledge, food_recommendations]
+      
+    - id: nigerian-music-db
+      name: "Afrobeats/Naija Music Database"
+      source: spotify_api
+      samples: 100000+ tracks
+      use_for: [music_recommendations, artist_knowledge]
+      
+    - id: japa-chronicles
+      name: "Japa/Diaspora Stories"
+      source: web_scrape
+      platforms: [nairaland, twitter, reddit]
+      samples: 50000+ posts
+      use_for: [diaspora_experience, immigration_context]
+
+  # Religious/Spiritual Context
+  spiritual_corpora:
+    - id: nigerian-prayers
+      name: "Nigerian Prayer Patterns"
+      source: custom_collection
+      languages: [english, yoruba, hausa, igbo]
+      samples: 2000+
+      use_for: [spiritual_guidance, prayer_generation]
+      
+    - id: yoruba-oriki
+      name: "Yoruba Oriki (Praise Poetry)"
+      source: academic_corpus
+      language: yoruba
+      samples: 500+
+      use_for: [cultural_heritage, poetic_expression]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# INTERNET INGESTION SOURCES (Nightly Auto-Fetch)
+# ═══════════════════════════════════════════════════════════════════════════════
+auto_ingestion:
+  # RSS Feeds for Daily Content
+  rss_feeds:
+    - url: https://www.bbc.com/pidgin/topics/c404v061z85t/rss.xml
+      name: "BBC Pidgin RSS"
+      language: pidgin
+      frequency: hourly
+      
+    - url: https://www.voahausa.com/api/zyrtyequty
+      name: "VOA Hausa RSS"
+      language: hausa
+      frequency: hourly
+      
+    - url: https://punchng.com/feed/
+      name: "Punch Nigeria RSS"
+      language: english-nigerian
+      frequency: hourly
+      
+    - url: https://www.premiumtimesng.com/feed
+      name: "Premium Times RSS"
+      language: english-nigerian
+      frequency: hourly
+
+  # YouTube API Queries
+  youtube_queries:
+    - query: "Nigerian tech review 2025"
+      frequency: daily
+      max_results: 10
+      
+    - query: "Afrobeats new music"
+      frequency: daily
+      max_results: 20
+      
+    - query: "Lagos vlog"
+      frequency: daily
+      max_results: 10
+      
+    - query: "Nigerian comedy skit"
+      frequency: daily
+      max_results: 15
+      
+    - query: "Japa experience"
+      frequency: weekly
+      max_results: 20
+
+  # Twitter/X Searches
+  twitter_searches:
+    - query: "Nigeria tech"
+      frequency: hourly
+      max_results: 100
+      
+    - query: "#NaijaTech"
+      frequency: hourly
+      max_results: 50
+      
+    - query: "lang:pcm"  # Pidgin
+      frequency: daily
+      max_results: 500
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY SCORING CRITERIA
+# ═══════════════════════════════════════════════════════════════════════════════
+quality_scoring:
+  voice:
+    excellent: # 90-100
+      - "Clear pronunciation"
+      - "Minimal background noise"
+      - "Consistent volume"
+      - "Natural intonation"
+    good: # 70-89
+      - "Understandable pronunciation"
+      - "Low background noise"
+      - "Acceptable volume variation"
+    acceptable: # 50-69
+      - "Decipherable speech"
+      - "Moderate noise"
+      
+  video:
+    excellent: # 90-100
+      - "1080p+ resolution"
+      - "Clear face visibility"
+      - "Good lighting"
+      - "Stable camera"
+    good: # 70-89
+      - "720p+ resolution"
+      - "Face mostly visible"
+      - "Acceptable lighting"
+    acceptable: # 50-69
+      - "480p+ resolution"
+      - "Face sometimes visible"
+
+  cultural:
+    relevance_factors:
+      - "Nigerian context"
+      - "Language authenticity"
+      - "Cultural accuracy"
+      - "Trend relevance"
