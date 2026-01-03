@@ -126,14 +126,16 @@ jobs:
     needs: modal-training
     runs-on: ubuntu-latest
     
-    # Use Docker container with pre-installed ML dependencies
-    container:
-      image: pytorch/pytorch:2.1.0-cuda12.1-cudnn8-runtime
-      options: --gpus all
-    
+  
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+            - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        cache: 'pip'
       
       - name: Free up disk space
         run: |
@@ -143,7 +145,6 @@ jobs:
           rm -rf /usr/share/dotnet
           rm -rf /usr/local/lib/android
           apt-get clean
-          docker system prune -af --volumes || true
           df -h
           echo "✅ Disk cleanup complete"
       
@@ -225,3 +226,4 @@ jobs:
           echo "   https://huggingface.co/sisilolalive/sisi-lola-brain-mistral"
           echo "   https://huggingface.co/sisilolalive/sisi-lola-voice-xtts"
           echo ""
+
