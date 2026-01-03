@@ -131,7 +131,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-            - name: Setup Python
+          - name: Setup Python
       uses: actions/setup-python@v5
       with:
         python-version: ${{ env.PYTHON_VERSION }}
@@ -227,5 +227,6 @@ jobs:
           echo "   https://huggingface.co/sisilolalive/sisi-lola-brain-mistral"
           echo "   https://huggingface.co/sisilolalive/sisi-lola-voice-xtts"
           echo ""
+
 
 
