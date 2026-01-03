@@ -51,6 +51,7 @@ sisi_image = (
         "beautifulsoup4",         # Multimodal: Web
         "pytesseract",            # Multimodal: OCR
         "Pillow",                 # Image handling
+        "dropbox",                # Dropbox integration
         # Dashboard & Auth Dependencies
         "jinja2",
         "sqlalchemy",
