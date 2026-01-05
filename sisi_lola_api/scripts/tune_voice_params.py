@@ -21,8 +21,14 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 OUTPUT_FOLDER = PROJECT_ROOT / "03_MEDIA_ASSETS" / "voice_models" / "tuning_tests"
 OUTPUT_FOLDER.mkdir(parents=True, exist_ok=True)
 
-# Voice ID from previous step
-VOICE_ID = "e3EHR2GS90EO276k1OCA" 
+# Voice ID from previous step - Attempt to load from saved file
+def get_voice_id():
+    id_file = PROJECT_ROOT / "03_MEDIA_ASSETS" / "voice_models" / "elevenlabs_voice_id.txt"
+    if id_file.exists():
+        return id_file.read_text().strip()
+    return "e3EHR2GS90EO276k1OCA" # Fallback
+
+VOICE_ID = get_voice_id()
 API_KEY = os.getenv("ELEVENLABS_API_KEY")
 
 TEST_PHRASE = "Ah! How far my people? Una do well o. Lagos traffic today make me tire, but we move!"

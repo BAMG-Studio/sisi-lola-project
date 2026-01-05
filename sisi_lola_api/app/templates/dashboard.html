@@ -523,8 +523,15 @@
                     body: JSON.stringify({ message: msg, session_id: sessionId })
                 });
                 const d = await r.json();
-                addMsg('sisi', d.response);
-            } catch (e) { addMsg('sisi', "Neural link unstable! Try again."); }
+                if (d && d.response) {
+                    addMsg('sisi', d.response);
+                } else {
+                    addMsg('sisi', "Omo! The neural link dey shake. Abeg try again.");
+                }
+            } catch (e) { 
+                console.error(e);
+                addMsg('sisi', "Neural link unstable! Try again."); 
+            }
         }
 
         async function generateSupreme(type) {

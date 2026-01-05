@@ -8,7 +8,7 @@ if sys.platform == 'win32':
     import codecs
     sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer, 'strict')
 
-os.environ['HUGGINGFACE_TOKEN'] = os.getenv('HUGGINGFACE_TOKEN', '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')
+os.environ['HUGGINGFACE_TOKEN'] = os.getenv('HUGGINGFACE_TOKEN')
 
 print("Quick Test - Nigerian Models\n")
 

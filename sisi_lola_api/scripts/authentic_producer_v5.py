@@ -43,7 +43,7 @@ REFERENCE_AUDIO_PATH = VOICE_MODELS_FOLDER / "sisi_lola_training_audio.wav"
 OUTPUT_FOLDER.mkdir(parents=True, exist_ok=True)
 
 # API Keys
-REPLICATE_API_TOKEN = "r8_V7hyzBNwBGzhQax9O43wpb3CqInl5g22WaIhE"
+REPLICATE_API_TOKEN = os.getenv("REPLICATE_API_TOKEN")
 
 # Preferred DNA images
 PREFERRED_DNA_IMAGES = [

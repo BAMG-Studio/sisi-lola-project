@@ -40,8 +40,8 @@ def clone_voice():
 
     print(f"📁 Found {len(sample_files)} sample files.")
     
-    # Limit to top 5 samples to avoid payload issues (ElevenLabs allows up to 25, but 5-10 is often optimal)
-    selected_samples = sample_files[:10]
+    # Limit to top 25 samples for high-quality Instant Voice Cloning
+    selected_samples = sample_files[:25]
     
     files = {}
     for i, sample_path in enumerate(selected_samples):

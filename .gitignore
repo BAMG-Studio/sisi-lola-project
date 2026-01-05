@@ -37,8 +37,11 @@ ENV/
 *.jpg
 *.jpeg
 
-# Keep specific necessary assets (DNA images) if needed, but generally ignore heavy media
+# Keep specific necessary assets (DNA images and voice metadata)
 !sisi_lola_api/assets/dna/*.png
+!03_MEDIA_ASSETS/voice_samples/line_index.tsv
+!03_MEDIA_ASSETS/voice_samples/selected_best/speaker_info.txt
+!03_MEDIA_ASSETS/voice_models/*.txt
 
 # IDEs
 .vscode/
@@ -54,8 +57,6 @@ sisi_lola_api/**/*.sqlite
 sisi_lola_api/data/
 sisi_lola_api/batch.log
 sisi_lola_api/server.log
-sisi_lola_api/app/
-sisi_lola_api/scripts/*.py
 !sisi_lola_api/predict.py
 !sisi_lola_api/__init__.py
 
@@ -148,3 +149,7 @@ venv_*/
 **/cache/
 __pycache__/
 *.pyc
+
+# Local Production Outputs
+content_output/
+pipeline_outputs/

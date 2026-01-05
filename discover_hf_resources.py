@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Quick HuggingFace discovery for Sisi Lola"""
 import os
-os.environ['HUGGINGFACE_TOKEN'] = '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'
+os.environ['HUGGINGFACE_TOKEN'] = os.getenv('HUGGINGFACE_TOKEN', '')
 
 from huggingface_hub import HfApi, login
 import json

@@ -3,8 +3,7 @@ title: Sisi Lola AI
 emoji: "👩🏾"
 colorFrom: green
 colorTo: gray
-sdk: gradio
-sdk_version: 4.44.0
+sdk: docker
 app_file: app.py
 pinned: true
 license: mit

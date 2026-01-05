@@ -159,17 +159,19 @@ class GoogleCreativeService:
         """
         Fast 'Nano Banana' multimodal engagement.
         """
-        # Nano Banana (Flash 2.5) is excellent for rapid chat + small image creation
-        from sisi_lola_api.app.services.unified_inference import get_inference_service
+        from sisi_lola_api.app.services.unified_inference import get_inference_service, ResponseMode
         service = get_inference_service()
         
-        # Route to Gemini 3 Pro (Supreme Performance)
-        return await service._generate_with_gemini(
-            message=text, 
-            system_prompt=self.dna.SYSTEM_PERSONA, 
-            conversation_history=None, 
-            image_b64=image_b64
+        # We use the higher-level generate method to ensure fallbacks (OpenAI/Cohere) 
+        # work if Gemini/GenAI SDK is missing.
+        response = await service.generate(
+            message=text,
+            mode=ResponseMode.TEXT_ONLY,
+            session_id="nano_banana_demo", # Track as demo session
+            scenario="general"
         )
+        
+        return response.text
 
 # Singleton Instance
 google_creative_service = GoogleCreativeService()

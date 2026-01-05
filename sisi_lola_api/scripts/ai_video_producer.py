@@ -47,7 +47,7 @@ OUTPUT_FOLDER.mkdir(parents=True, exist_ok=True)
 
 # API Keys
 # HARDCODED to bypass .env loading issues
-REPLICATE_API_TOKEN = "r8_V7hyzBNwBGzhQax9O43wpb3CqInl5g22WaIhE"
+REPLICATE_API_TOKEN = os.getenv("REPLICATE_API_TOKEN")
 ELEVENLABS_API_KEY = os.getenv("ELEVENLABS_API_KEY")
 INSTAGRAM_TOKEN = os.getenv("INSTAGRAM_ACCESS_TOKEN")
 

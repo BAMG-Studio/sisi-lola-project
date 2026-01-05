@@ -28,7 +28,7 @@ SELECTED_FOLDER = VOICE_SAMPLES_ROOT / "selected_best"
 OUTPUT_FOLDER = PROJECT_ROOT / "03_MEDIA_ASSETS" / "voice_models"
 
 # Replicate API
-REPLICATE_API_TOKEN = "r8_V7hyzBNwBGzhQax9O43wpb3CqInl5g22WaIhE"
+REPLICATE_API_TOKEN = os.getenv("REPLICATE_API_TOKEN")
 
 # Create output folder
 OUTPUT_FOLDER.mkdir(parents=True, exist_ok=True)

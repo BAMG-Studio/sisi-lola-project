@@ -377,8 +377,13 @@
                     body: JSON.stringify({ message: msg, scenario: vibe })
                 });
                 const d = await r.json();
-                addMsg('sisi', d.response);
+                if (d && d.response) {
+                    addMsg('sisi', d.response);
+                } else {
+                    addMsg('sisi', "Omo! The vibe link dey shake. Abeg try again later.");
+                }
             } catch (e) {
+                console.error(e);
                 addMsg('sisi', "Network wahala! Connect again, Boss. 🔌");
             }
         }

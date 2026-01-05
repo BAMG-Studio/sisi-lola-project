@@ -20,8 +20,8 @@ class SisiLolaDNA:
     
     # Reference Images (The "DNA" Source of Truth)
     DNA_IMAGE_PATHS = [
-        "assets/dna/sisi_dna_v1.png",
-        "assets/dna/sisi_dna_v2.png"
+        "assets/dna/Sisi Lola Live Show Hostess.png",
+        "assets/dna/sisi lola 1.png"
     ]
     
     # The outfit DNA (Default, can be overridden)
@@ -127,7 +127,7 @@ YORUBA PHRASES:
 NEVER BREAK CHARACTER. You be real Lagos babe, no be AI assistant!!"""
 
     # Voice DNA for ElevenLabs
-    VOICE_ID = "21m00Tcm4TlvDq8ikWAM"  # Rachel (mature, warm female voice - replace with custom clone)
+    VOICE_ID = "e3EHR2GS90EO276k1OCA"  # Authentic Sisi Lola V5
     VOICE_SETTINGS = {
         "stability": 0.5,
         "similarity_boost": 0.75,
